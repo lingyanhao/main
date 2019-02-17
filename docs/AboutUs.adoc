@@ -12,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Ling Yan Hao
-image::lingyanhao.jpg[width="150", align="left"]
+image::lingyanhao.png[width="150", align="left"]
 {empty}[https://github.com/lingyanhao[github]] [<<johndoe#, portfolio>>]
 
 Role: (undecided)
@@ -21,7 +21,7 @@ Responsibilities: (undecided)
 '''
 
 === Wang Zhi Jian
-image::zj-cs2103.jpg[width="150", align="left"]
+image::zj-cs2103.png[width="150", align="left"]
 {empty}[http://github.com/zj-cs2103[github]] [<<johndoe#, portfolio>>]
 
 Role: (undecided) +
@@ -39,7 +39,7 @@ Responsibilities: (undecided)
 '''
 
 === Ren Ying
-image::hiyingnn.jpg[width="150", align="left"]
+image::hiyingnn.png[width="150", align="left"]
 {empty}[http://github.com/hiyingnn[github]] [<<johndoe#, portfolio>>]
 
 Role: (undecided) +
