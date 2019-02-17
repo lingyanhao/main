@@ -331,6 +331,7 @@ Deplete ingredient from inventory based on specified `INDEX` via `listIngredient
 Format: `depleteIngredient i/INGREDIENT_INDEX a/AMOUNT`
 
 Example:
+
 * `listIngredients` (returns chicken as 3rd index)
 +
 `depleteIngredient i/3 a/10`
@@ -346,6 +347,7 @@ Format: `delete i/INGREDIENT_INDEX`
 The index refers to the index number shown in the most recent listing.
 
 Example:
+
 * `listIngredients` (returns chicken as 3rd index)
 +
 `delete i/3`
@@ -410,6 +412,7 @@ Format: `cancelBooking INDEX`
 Cancles the booking at the specified `INDEX`. The index refers to the index number shown in the most recent listing.
 
 Example:
+
 * `viewBooking`
 +
 `cancelBooking 3`
@@ -463,6 +466,7 @@ Sets the shift of a staff with the specified `STAFF_ID`. If the staff already ha
 Format: `setShift s/STAFF_ID ts/TIME_START te/TIME_END`
 
 Example:
+
 * setShift `1 1200 1530`
 
 === Overall
@@ -526,7 +530,7 @@ e.g. `listMembers l/>10 se/true`
 e.g. `deleteMember 2`
 
 * *notifyEmail* `notifyEmail [l/LOYALTY_POINTS_MINIMUM] [se/TRUE_FALSE]` +
-e.g. * `notifyEmail l/100 se/true`
+e.g. `notifyEmail l/100 se/true`
 
 * *notifySMS* `notifySMS [l/LOYALTY_POINTS_MINIMUM] [ss/TRUE_FALSE]` + 
 e.g. `notifySMS l/100 ss/true`
