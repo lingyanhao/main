@@ -142,15 +142,5 @@ public class AddressBookParserTest {
         thrown.expectMessage(MESSAGE_UNKNOWN_COMMAND);
         parser.parseCommand("unknownCommand");
     }
-
-    @Test
-    public void parseUpperCaseCommand() throws Exception {
-        Person person = new PersonBuilder().build();
-        Command command = parser.parseCommand("aDd" + " "
-                + PersonUtil.getPersonDetails(person));
-        assertEquals(new AddCommand(person), command);
-
-        command = parser.parseCommand("DELETE 1");
-        assertEquals(new DeleteCommand(Index.fromOneBased(1)), command);
-    }
+    
 }
