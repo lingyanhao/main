@@ -47,7 +47,7 @@ public class AddressBookParserTest {
         Person person = new PersonBuilder().build();
         AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
         assertEquals(new AddCommand(person), command);
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommandAlias(person));
+        command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommandAlias(person));
         assertEquals(new AddCommand(person), command);
     }
 
@@ -64,7 +64,7 @@ public class AddressBookParserTest {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
                 DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
-        DeleteCommand command = (DeleteCommand) parser.parseCommand(
+        command = (DeleteCommand) parser.parseCommand(
                 DeleteCommand.COMMAND_ALIAS + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
     }
