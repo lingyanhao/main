@@ -121,4 +121,25 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    /**
+     * Parses a {@code String ingredient} into an {@code String}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     */
+    public static String parseIngredient(String ingredient) {
+        requireNonNull(ingredient);
+        String trimmedIngredient = ingredient.trim();
+        return trimmedIngredient;
+    }
+
+    /**
+     * Parses a {@code int ingredientUnit} into an {@code int}.
+     *
+     */
+
+    public static int parseIngredientUnit(int ingredientUnit) {
+        requireNonNull(ingredientUnit);
+        return ingredientUnit;
+    }
 }
