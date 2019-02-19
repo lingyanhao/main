@@ -29,7 +29,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
-    private Label index;
+    private Label id;
     @FXML
     private Label phone;
     @FXML
@@ -37,19 +37,19 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
-    private Label id;
+    private Label person_id;
     @FXML
     private FlowPane tags;
 
     public PersonCard(Person person, int displayedIndex) {
         super(FXML);
         this.person = person;
-        index.setText(displayedIndex + ". ");
+        id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
-        id.setText(person.getId().value);
+        person_id.setText(person.getId().value);
         person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
@@ -67,7 +67,7 @@ public class PersonCard extends UiPart<Region> {
 
         // state check
         PersonCard card = (PersonCard) other;
-        return index.getText().equals(card.index.getText())
+        return id.getText().equals(card.id.getText())
                 && person.equals(card.person);
     }
 }
