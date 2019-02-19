@@ -16,6 +16,8 @@ import seedu.address.model.tag.Tag;
 public class Person {
 
     // Identity fields
+    // TODO id
+    private final Id id;
     private final Name name;
     private final Phone phone;
     private final Email email;
@@ -34,6 +36,7 @@ public class Person {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.id = new Id("123"); // TODO this is hardcoded
     }
 
     public Name getName() {
@@ -50,6 +53,10 @@ public class Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    public Id getId() {
+        return id;
     }
 
     /**
@@ -105,7 +112,9 @@ public class Person {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
+        builder.append(" Id: ")
+                .append(getId())
+                .append(getName())
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Email: ")
