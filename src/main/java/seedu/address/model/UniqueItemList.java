@@ -111,7 +111,7 @@ public abstract class UniqueItemList implements Iterable<Object> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.address.model.person.UniquePersonList // instanceof handles nulls
+                || (other instanceof UniqueItemList // instanceof handles nulls
                 && internalList.equals(((UniqueItemList) other).internalList));
     }
 
