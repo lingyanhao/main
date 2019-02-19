@@ -227,7 +227,7 @@ Adds new recipe chicken rice with all existing ingredients.
 +
 `addRecipe r/chicken rice n/3 1/chicken&0.25 2/rice&0.1`
 
-Adds new recipe chicken rice with non-existing ingredients. 
+Adds new recipe chicken rice with non-existing ingredients.
 Each dish of chicken rice requires 1/4 a full chicken and 1/10 a sack of rice
 
 ==== Delete Recipe: `deleteRecipe`
@@ -256,7 +256,7 @@ If recipe name is not specified, all recipes will be listed.
 Example:
 
 * `calculateRecipe`
-   
+
 Shows number of dishes that can be prepared for every recipe
 
 * `listRecipes`
