@@ -14,8 +14,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
@@ -139,5 +141,16 @@ public class AddressBookParserTest {
         thrown.expect(ParseException.class);
         thrown.expectMessage(MESSAGE_UNKNOWN_COMMAND);
         parser.parseCommand("unknownCommand");
+    }
+
+    @Test
+    public void parseUpperCaseCommand() throws Exception {
+        Person person = new PersonBuilder().build();
+        Command command = parser.parseCommand("aDd" + " "
+                + PersonUtil.getPersonDetails(person));
+        assertEquals(new AddCommand(person), command);
+
+        command = parser.parseCommand("DELETE 1");
+        assertEquals(new DeleteCommand(Index.fromOneBased(1)), command);
     }
 }
