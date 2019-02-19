@@ -17,6 +17,7 @@ import seedu.address.model.ingredient.Ingredient;
  */
 public class AddIngredientCommand extends Command {
     public static final String COMMAND_WORD = "addIngredient";
+    public static final String COMMAND_ALIAS = "ia";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an ingredient to the book. "
             + "Parameters: "
