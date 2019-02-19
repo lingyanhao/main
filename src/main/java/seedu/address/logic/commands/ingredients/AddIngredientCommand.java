@@ -12,6 +12,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ingredient.Ingredient;
 
+/**
+ * Adds an ingredient to book.
+ */
 public class AddIngredientCommand extends Command {
     public static final String COMMAND_WORD = "addIngredient";
 

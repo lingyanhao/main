@@ -1,7 +1,11 @@
 package seedu.address.model.ingredient;
 
-
 import java.util.Objects;
+
+/**
+ * Represents an ingredient in the book.
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 
 public class Ingredient {
     // Identity fields
@@ -32,8 +36,7 @@ public class Ingredient {
     public boolean isSameIngredient(Ingredient otherIngredient) {
         if (otherIngredient.equals(this)) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
