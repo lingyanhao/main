@@ -121,4 +121,15 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    public static String parseIngredient(String ingredient) {
+        requireNonNull(ingredient);
+        String trimmedIngredient = ingredient.trim();
+        return trimmedIngredient;
+    }
+
+    public static int parseIngredientUnit(int ingredientUnit) {
+        requireNonNull(ingredientUnit);
+        return ingredientUnit;
+    }
 }
