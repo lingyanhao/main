@@ -18,7 +18,7 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-REM is for small/medium size restaurant owners who *prefer to use a desktop app for managing their restaurant*. More importantly, REM is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, REM can get your restaurant management tasks done faster than traditional GUI apps. 
+REM is for small/medium size restaurant owners who *prefer to use a desktop app for managing their restaurant*. More importantly, REM is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, REM can get your restaurant management tasks done faster than traditional GUI apps.
 
 As REM is targeted at _restaurant owners_, it aims to facilitate the management of a restaurant, in these 5 different areas:
 
@@ -66,7 +66,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Words in UPPER_CASE are the parameters to be supplied by the user.
 * Items in square brackets are optional.
     ** e.g. `notifySMS [l/LOYALTY_POINTS_MINIMUM]`
-* Items with `...` after them can be used multiple times including zero times 
+* Items with `...` after them can be used multiple times including zero times
     ** e.g. `addRecipe r/RECIPE_NAME n/NUMBER_OF_INGREDIENTS 1/INGREDIENT_1&AMOUNT_IN_UNITS 2/INGREDIENT_2&AMOUNT_IN_UNITS ...`
 * Parameters can be in any order
 
@@ -94,14 +94,14 @@ Format: `addMember n/CUSTOMER_NAME e/EMAIL p/PHONE_NUMBER [l/LOYALTY_POINTS] [se
 
 If loyalty points is not specified, it will be taken to be 0. If subscription settings is not specified, it will be assumed that the user is by default subscribed to the system.
 
-Email of all members must be unique. 
+Email of all members must be unique.
 
 Example:
 
 * `addMember n/John Doe e/johnd@gmail.com p/81234567`
 
 ==== List Members: `listMembers`
-Lists all members who matches all the equations given. 
+Lists all members who matches all the equations given.
 
 Format: `listMembers [n/NAME_REGEX] [e/EMAIL_REGEX] [l/LOYALTY_POINTS_EQUATION] [se/TRUE_FALSE] [ss/TRUE_FALSE]`
 
@@ -143,9 +143,9 @@ Notifies all members with at least a minimum amount of loyalty points and with t
 
 Format: `notifyEmail [l/LOYALTY_POINTS_MINIMUM] [se/TRUE_FALSE]`
 
-If `l` not specified, it will be taken to be 0. 
+If `l` not specified, it will be taken to be 0.
 
-If `se` is not specified, the email will be sent regardless of email subscription settings. 
+If `se` is not specified, the email will be sent regardless of email subscription settings.
 
 After entering this command, an email window will appear, where the text body can be keyed in.
 
@@ -192,9 +192,9 @@ Adds 5 points to the 1st person in the results of the listMember command.
 
 ==== List Recipes: `listRecipes`
 
-View recipes of dishes served at the restaurant. 
+View recipes of dishes served at the restaurant.
 
-Format: `listRecipes` 
+Format: `listRecipes`
 
 For each recipe, the list of ingredients and its corresponding amount in units required for the standard serving will be displayed.
 Each recipe will be indexed.
@@ -205,8 +205,7 @@ Add recipe of dish served at the restaurant.
 
 Format: `addRecipe r/RECIPE_NAME n/NUMBER_OF_INGREDIENTS 1/INGREDIENT_1&AMOUNT_IN_UNITS 2/INGREDIENT_2&AMOUNT_IN_UNITS ...`
 
-For all ingredient inputs, if ingredient is new, message appears as a prompt for user to 
-addIngredient first, before adding recipe.
+For all ingredient inputs, if ingredient is new, message appears as a prompt for user to `addIngredient` first, before adding recipe.
 
 Each ingredient input should have the format `1/INGREDIENT_1&AMOUNT_IN_UNITS` where ingredient and amount in standardised units are separated by `&`.
 
@@ -230,10 +229,10 @@ Adds new recipe chicken rice with all existing ingredients.
 
 Adds new recipe chicken rice with non-existing ingredients. 
 Each dish of chicken rice requires 1/4 a full chicken and 1/10 a sack of rice
- 
+
 ==== Delete Recipe: `deleteRecipe`
 
-Delete recipe of dish served at the restaurant, based on specified INDEX via listRecipes. 
+Delete recipe of dish served at the restaurant, based on specified INDEX via listRecipes.
 
 Format: `delete i/RECIPE_INDEX`
 
@@ -246,9 +245,9 @@ Example:
 `delete i/3`
 
 Delete recipe at index 3.
- 
+
 ==== Calculate Recipe: `calculateRecipe`
-Calculates number of dishes that can be prepared based on current inventory, based on specified `INDEX` via listRecipes. 
+Calculates number of dishes that can be prepared based on current inventory, based on specified `INDEX` via listRecipes.
 
 Format: `calculateRecipe [i/RECIPE_INDEX]`
 
@@ -257,7 +256,7 @@ If recipe name is not specified, all recipes will be listed.
 Example:
 
 * `calculateRecipe`
-    
+   
 Shows number of dishes that can be prepared for every recipe
 
 * `listRecipes`
@@ -290,10 +289,10 @@ Add new ingredient into inventory. Previously not existing in inventory before.
 
 Format: `addIngredient in/INGREDIENT_NAME u/INGREDIENT_UNIT [a/AMOUNT] [w/INGREDIENT_WARNING_AMOUNT]`
 
-If amount is not specified, amount is set to 0. 
+If amount is not specified, amount is set to 0.
 Units are chosen based on the units that the stock was bought. Amount of ingredients for each dish should be converted by the user himself before `addRecipe` is called.
 
-`w/INGREDIENT_WARNING_AMOUNT` User inputs warning amount that indicates a need for restock. Calling `listIngredients w/TRUE` will display all ingredients that fall below the minimum value. 
+`w/INGREDIENT_WARNING_AMOUNT` User inputs warning amount that indicates a need for restock. Calling `listIngredients w/TRUE` will display all ingredients that fall below the minimum value.
 
 Example:
 
@@ -311,7 +310,7 @@ Adds 10 full chickens into inventory when amount falls below 2, listIngredients 
 
 ==== Restock Ingredient: `restockIngredient`
 
-Restock ingredient from inventory based on specified `INDEX` via `listIngredients`. 
+Restock ingredient from inventory based on specified `INDEX` via `listIngredients`.
 Previously existing in inventory before.
 
 Format: `restockIngredient i/INGREDIENT_INDEX a/AMOUNT`
@@ -322,11 +321,11 @@ Example:
 +
 `restock i/3 a/10`
 
-Adds 10 full chickens into inventory  
+Adds 10 full chickens into inventory
 
 ==== Deplete Ingredient: `depleteIngredient`
 
-Deplete ingredient from inventory based on specified `INDEX` via `listIngredients`. 
+Deplete ingredient from inventory based on specified `INDEX` via `listIngredients`.
 
 Format: `depleteIngredient i/INGREDIENT_INDEX a/AMOUNT`
 
@@ -336,7 +335,7 @@ Example:
 +
 `depleteIngredient i/3 a/10`
 
-Depletes 10 full chickens from inventory  
+Depletes 10 full chickens from inventory
 
 ==== Delete Ingredient: `deleteIngredient`
 
@@ -354,8 +353,8 @@ Example:
 
 Delete chicken from ingredient inventory
 
-=== Booking Management 
- 
+=== Booking Management
+
 ==== View Booking: `viewBooking`
 
 View the current lists of bookings within a certain time frame
@@ -381,7 +380,7 @@ Example:
 * `updateCapacity 50`
 
 This updates the restaurants to cater for a capacity for 50 customers
- 
+
 ==== Create New Booking: `addBooking`
 
 Creates a new booking.
@@ -403,7 +402,7 @@ Adds a booking for customer id 1 on 25 Feb, at 1300 hrs
 * `addBooking 2 1530`
 
 Adds a booking for customer id 2, at 1300 hrs today
- 
+
 ==== Cancel Booking: `cancelBooking`
 Cancels a booking permanently.
 
@@ -425,14 +424,14 @@ Displays the overall statistics of bookings done so far. The statistics will ref
 
 Format: `bookingSummary`
 
-=== Staff Management 
- 
+=== Staff Management
+
 ==== View Staff: `viewStaff`
 
 View the list of all staff and their details
 
 Format: `viewStaff`
- 
+
 ==== Add Staff: `addStaff`
 
 Add a new staff member to the list of all staff.
@@ -442,7 +441,7 @@ Format: `addStaff n/STAFF_NAME c/CONTACT_NUMBER a/APPOINTMENT`
 Example:
 
 * `addStaff n/John Doe c/91234567 a/Waiter`
- 
+
 ==== Delete Staff: `deleteStaff`
 
 Deletes the staff member with the specified id.
@@ -452,16 +451,16 @@ Format: `deleteStaff STAFF_ID`
 Example
 
 * `deleteStaff 3`
- 
+
 ==== View Shift Staff: `shiftStaff`
 
 Lists all staff members working at the current time.
 
 Format: `shiftStaff`
- 
+
 ==== Set Shift Staff: `setShift`
 
-Sets the shift of a staff with the specified `STAFF_ID`. If the staff already has a shift, then it will be overwritten. 
+Sets the shift of a staff with the specified `STAFF_ID`. If the staff already has a shift, then it will be overwritten.
 
 Format: `setShift s/STAFF_ID ts/TIME_START te/TIME_END`
 
@@ -470,13 +469,13 @@ Example:
 * setShift `1 1200 1530`
 
 === Overall
- 
+
 ==== View Feedback: `viewFeedback`
 
 Lists all feedback submitted by customers.
 
 Format: `viewFeedback`
- 
+
 ==== Add Feedback: `addFeedback`
 
 Adds a feedback submitted by a customer.
@@ -486,19 +485,19 @@ Format: `addFeedback FEEDBACK`
 Example
 
 * `addFeedback Good service and food!`
- 
+
 ==== Add Rating: `addRating`
 
 Adds a rating submitted by a customer. Ratings are on a 5 point scale.
 
 Format: `addRating RATING`
 
-`RATING` is an integer from 1 to 5, inclusive. 
+`RATING` is an integer from 1 to 5, inclusive.
 
 Example
 
 * `addRating 5`
- 
+
 ==== View Graph Rating: `graphRating`
 
 Displays a graph of average rating per month against months.
@@ -532,7 +531,7 @@ e.g. `deleteMember 2`
 * *notifyEmail* `notifyEmail [l/LOYALTY_POINTS_MINIMUM] [se/TRUE_FALSE]` +
 e.g. `notifyEmail l/100 se/true`
 
-* *notifySMS* `notifySMS [l/LOYALTY_POINTS_MINIMUM] [ss/TRUE_FALSE]` + 
+* *notifySMS* `notifySMS [l/LOYALTY_POINTS_MINIMUM] [ss/TRUE_FALSE]` +
 e.g. `notifySMS l/100 ss/true`
 
 * *addPoints* `addPoints i/INDEX l/LOYALTY_POINTS`
@@ -542,7 +541,7 @@ e.g. `addPoints i/2 l/10`
 
 * *listRecipes* `listRecipes`
 
-* *addRecipe*  `addRecipe r/RECIPE_NAME n/NUMBER_OF_INGREDIENTS 1/INGREDIENT_1&AMOUNT_IN_UNITS 2/INGREDIENT_2&AMOUNT_IN_UNITS ...` + 
+* *addRecipe*  `addRecipe r/RECIPE_NAME n/NUMBER_OF_INGREDIENTS 1/INGREDIENT_1&AMOUNT_IN_UNITS 2/INGREDIENT_2&AMOUNT_IN_UNITS ...` +
 e.g. `addRecipe r/Chicken Rice n/3 1/Chicken&0.25 2/Rice&0.1`
 
 * *deleteRecipe* `delete i/RECIPE_INDEX` +
@@ -563,13 +562,13 @@ e.g. `restock i/3 a/10`
 * *depleteIngredient* `depleteIngredient i/INGREDIENT_INDEX a/AMOUNT` +
 e.g. `depleteIngredient i/3 a/10`
 
-* *deleteIngredient* `delete i/INGREDIENT_INDEX` + 
+* *deleteIngredient* `delete i/INGREDIENT_INDEX` +
 e.g. `delete i/3`
 
 === Booking Management
 * *viewBooking* `viewBooking [ts/TIME_START] [te/TIME_END]` +
 e.g. `viewBooking ts/1200 te/1530`
-* *updateCapacity* `updateCapacity NUMBER` + 
+* *updateCapacity* `updateCapacity NUMBER` +
 e.g. `updateCapacity 50`
 
 * *addBooking* `addBooking [c/CUSTOMER_ID] n/NUMBER OF PERSONS t/TIME [d/DATE]` +
@@ -586,22 +585,22 @@ e.g. `cancelBooking 3`
 
 * *addStaff* `addStaff n/STAFF_NAME c/CONTACT_NUMBER a/APPOINTMENT` +
 e.g. `addStaff n/John Doe c/91234567 a/Waiter`
- 
+
 * *deleteStaff* `deleteStaff STAFF_ID` +
 e.g. `deleteStaff 3`
- 
+
 * *shiftStaff* `shiftStaff`
- 
+
 * *setShift* `setShift s/STAFF_ID ts/TIME_START te/TIME_END` +
 e.g. setShift `1 1200 1530`
 
 === Overall Management
 
 * *viewFeedback* `viewFeedback`
- 
+
 * *addFeedback* `addFeedback FEEDBACK` +
 e.g. `addFeedback Good service and food!`
- 
+
 * *addRating* `addRating RATING` +
 e.g. `addRating 5`
 
