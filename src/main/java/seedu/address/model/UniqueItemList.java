@@ -21,10 +21,10 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
  * Supports a minimal set of list operations.
  *
  */
-public abstract class UniqueItemList implements Iterable<Object> {
+public abstract class UniqueItemList<T> implements Iterable<T> {
 
-    private final ObservableList<Object> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Object> internalUnmodifiableList =
+    private final ObservableList<T> internalList = FXCollections.observableArrayList();
+    private final ObservableList<T> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
@@ -39,7 +39,7 @@ public abstract class UniqueItemList implements Iterable<Object> {
      * Adds a person to the list.
      * The person must not already exist in the list.
      */
-    public void add(Object toAdd) {
+    public void add(T toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicatePersonException();
@@ -52,7 +52,7 @@ public abstract class UniqueItemList implements Iterable<Object> {
      * {@code target} must exist in the list.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
      */
-    public void setItem(Object target, Object editedItem) {
+    public void setItem(T target, T editedItem) {
         requireAllNonNull(target, editedItem);
 
         int index = internalList.indexOf(target);
@@ -78,7 +78,7 @@ public abstract class UniqueItemList implements Iterable<Object> {
         }
     }
 
-    public void setItems(UniqueItemList replacement) {
+    public void setItems(UniqueItemList<T> replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -87,7 +87,7 @@ public abstract class UniqueItemList implements Iterable<Object> {
      * Replaces the contents of this list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setItems(List<Object> items) {
+    public void setItems(List<T> items) {
         requireAllNonNull(items);
         if (!itemsAreUnique(items)) {
             throw new DuplicatePersonException();
@@ -99,19 +99,19 @@ public abstract class UniqueItemList implements Iterable<Object> {
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<Object> asUnmodifiableObservableList() {
+    public ObservableList<T> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
 
     @Override
-    public Iterator<Object> iterator() {
+    public Iterator<T> iterator() {
         return internalList.iterator();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.address.model.person.UniquePersonList // instanceof handles nulls
+                || (other instanceof UniqueItemList // instanceof handles nulls
                 && internalList.equals(((UniqueItemList) other).internalList));
     }
 
@@ -120,7 +120,7 @@ public abstract class UniqueItemList implements Iterable<Object> {
         return internalList.hashCode();
     }
 
-    abstract boolean itemsAreUnique(List<Object> items);
+    abstract boolean itemsAreUnique(List<T> items);
 
     /**
      * Returns true if {@code persons} contains only unique persons.
