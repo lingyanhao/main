@@ -120,6 +120,9 @@ public class UniqueItemList<T extends Item> implements Iterable<T> {
         return internalList.hashCode();
     }
 
+    /**
+     * Returns true if {@code items} contains only unique items.
+     */
     private boolean itemsAreUnique(List<T> items) {
         for (int i = 0; i < items.size() - 1; i++) {
             for (int j = i + 1; j < items.size(); j++) {
