@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.UniqueItemList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -22,7 +23,7 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
  *
  * @see Person#isSamePerson(Person)
  */
-public class UniquePersonList implements Iterable<Person> {
+public class UniquePersonList extends UniqueItemList<Person> {
 
     private final ObservableList<Person> internalList = FXCollections.observableArrayList();
     private final ObservableList<Person> internalUnmodifiableList =
@@ -90,7 +91,7 @@ public class UniquePersonList implements Iterable<Person> {
      */
     public void setPersons(List<Person> persons) {
         requireAllNonNull(persons);
-        if (!personsAreUnique(persons)) {
+        if (!itemsAreUnique(persons)) {
             throw new DuplicatePersonException();
         }
 
@@ -124,7 +125,7 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Returns true if {@code persons} contains only unique persons.
      */
-    private boolean personsAreUnique(List<Person> persons) {
+    boolean itemsAreUnique(List<Person> persons) {
         for (int i = 0; i < persons.size() - 1; i++) {
             for (int j = i + 1; j < persons.size(); j++) {
                 if (persons.get(i).isSamePerson(persons.get(j))) {
