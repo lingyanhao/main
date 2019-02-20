@@ -1,5 +1,8 @@
 package seedu.address.model;
 
+/**
+ * Represents an Item in the address book.
+ */
 public interface Item {
     /**
      * Returns true if items have he same name.
