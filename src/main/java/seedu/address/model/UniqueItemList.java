@@ -21,7 +21,7 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
  * Supports a minimal set of list operations.
  *
  */
-public abstract class UniqueItemList<T> implements Iterable<T> {
+public class UniqueItemList<T> implements Iterable<T> {
 
     private final ObservableList<T> internalList = FXCollections.observableArrayList();
     private final ObservableList<T> internalUnmodifiableList =
@@ -120,13 +120,7 @@ public abstract class UniqueItemList<T> implements Iterable<T> {
         return internalList.hashCode();
     }
 
-    abstract boolean itemsAreUnique(List<T> items);
-
-    /**
-     * Returns true if {@code persons} contains only unique persons.
-     */
-    /*
-    private boolean itemsAreUnique(List<Object> items) {
+    private boolean itemsAreUnique(List<T> items) {
         for (int i = 0; i < items.size() - 1; i++) {
             for (int j = i + 1; j < items.size(); j++) {
                 if (items.get(i).equals(items.get(j))) {
@@ -136,5 +130,4 @@ public abstract class UniqueItemList<T> implements Iterable<T> {
         }
         return true;
     }
-    */
 }
