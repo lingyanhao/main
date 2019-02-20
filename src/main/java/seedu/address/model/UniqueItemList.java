@@ -21,7 +21,7 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
  * Supports a minimal set of list operations.
  *
  */
-public class UniqueItemList<T> implements Iterable<T> {
+public class UniqueItemList<T extends Item> implements Iterable<T> {
 
     private final ObservableList<T> internalList = FXCollections.observableArrayList();
     private final ObservableList<T> internalUnmodifiableList =
@@ -32,7 +32,7 @@ public class UniqueItemList<T> implements Iterable<T> {
      */
     public boolean contains(Object toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::equals);
+        return internalList.stream().anyMatch(x -> x.isSameItem(toCheck));
     }
 
     /**
@@ -60,7 +60,7 @@ public class UniqueItemList<T> implements Iterable<T> {
             throw new PersonNotFoundException();
         }
 
-        if (!target.equals(editedItem) && contains(editedItem)) {
+        if (!target.isSameItem(editedItem) && contains(editedItem)) {
             throw new DuplicatePersonException();
         }
 
@@ -123,7 +123,7 @@ public class UniqueItemList<T> implements Iterable<T> {
     private boolean itemsAreUnique(List<T> items) {
         for (int i = 0; i < items.size() - 1; i++) {
             for (int j = i + 1; j < items.size(); j++) {
-                if (items.get(i).equals(items.get(j))) {
+                if (items.get(i).isSameItem(items.get(j))) {
                     return false;
                 }
             }

@@ -7,13 +7,14 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.Item;
 import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Person in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Person {
+public class Person implements Item {
 
     // Identity fields
     // TODO id
@@ -81,6 +82,9 @@ public class Person {
                 && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
     }
 
+    public boolean isSameItem(Object otherItem) {
+        return otherItem instanceof Person && isSamePerson((Person) otherItem);
+    }
     /**
      * Returns true if both persons have the same identity and data fields.
      * This defines a stronger notion of equality between two persons.
