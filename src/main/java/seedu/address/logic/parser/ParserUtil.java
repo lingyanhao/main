@@ -2,7 +2,12 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -141,5 +146,20 @@ public class ParserUtil {
     public static int parseIngredientUnit(int ingredientUnit) {
         requireNonNull(ingredientUnit);
         return ingredientUnit;
+    }
+
+    /**
+     * Creates a new Date object that parses the time. Follows the ISO_LOCAL_DATE_TIME format.
+     * For example, 2011-12-03T10:15:30
+     * @param time
+     * @return
+     */
+    public static Date parseTime(String time) throws ParseException {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat();
+            return sdf.parse(time);
+        } catch (java.text.ParseException e) {
+            throw new ParseException("Please enter a valid date and time.");
+        }
     }
 }
