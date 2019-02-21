@@ -7,6 +7,7 @@ import java.util.List;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
+import seedu.address.model.booking.Booking;
 import seedu.address.model.person.Person;
 
 /**
@@ -16,6 +17,7 @@ import seedu.address.model.person.Person;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueItemList<Person> persons;
+    private final UniqueItemList<Booking> bookings;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -27,6 +29,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniqueItemList<>();
+        bookings = new UniqueItemList<>();
     }
 
     public AddressBook() {}
@@ -50,6 +53,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         indicateModified();
     }
 
+    public void setBooking(List<Booking> bookings) {
+        this.bookings.setItems(bookings);
+        indicateModified();
+    }
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -57,6 +65,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setBooking(newData.getBookingList());
     }
 
     //// person-level operations
@@ -64,17 +73,23 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
+    public boolean hasItem(Item item) { // temporary fix
+        requireNonNull(item);
+        return persons.contains(item) || bookings.contains(item);
     }
 
     /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */
-    public void addPerson(Person p) {
-        persons.add(p);
+    public void addItem(Item i) {
+        if (i instanceof Person) {
+            persons.add((Person) i);
+        } else if (i instanceof Booking) {
+            bookings.add((Booking) i);
+        } else {
+            assert(false);
+        }
         indicateModified();
     }
 
@@ -83,10 +98,13 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
-    public void setPerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
-
-        persons.setItem(target, editedPerson);
+    public void setItem(Item target, Item editedItem) {
+        requireNonNull(editedItem);
+        if (target instanceof Person && editedItem instanceof Person) {
+            persons.setItem((Person) target, (Person) editedItem);
+        } else if (target instanceof Booking && editedItem instanceof Booking) {
+            bookings.setItem((Booking) target, (Booking) editedItem);
+        }
         indicateModified();
     }
 
@@ -94,8 +112,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Person key) {
-        persons.remove(key);
+    public void removeItem(Item key) {
+        if (key instanceof Person) {
+            persons.remove(key);
+        } else if (key instanceof Booking) {
+            bookings.remove(key); // temporary fix
+        } else {
+            assert(false);
+        }
         indicateModified();
     }
 
@@ -120,7 +144,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return persons.asUnmodifiableObservableList().size() + " persons ";
         // TODO: refine later
     }
 
@@ -130,7 +154,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public boolean equals(Object other) {
+    public ObservableList<Booking> getBookingList() {
+        return bookings.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public boolean equals(Object other) { // temporary fix
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
                 && persons.equals(((AddressBook) other).persons));

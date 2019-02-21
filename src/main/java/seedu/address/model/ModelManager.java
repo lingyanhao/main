@@ -115,6 +115,7 @@ public class ModelManager implements Model {
 
     @Override
     public void addItem(Item item) {
+        requireNonNull(item);
         versionedAddressBook.addItem(item);
         if (item instanceof Person) {
             updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);

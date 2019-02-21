@@ -20,9 +20,11 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
+import seedu.address.model.Item;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.booking.Booking;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -123,7 +125,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addItem(Person person) {
+        public void addItem(Item person) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -138,17 +140,17 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasItem(Person person) {
+        public boolean hasItem(Item person) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deleteItem(Person target) {
+        public void deleteItem(Item target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setItem(Person target, Person editedPerson) {
+        public void setItem(Item target, Item editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -158,7 +160,17 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Booking> getFilteredBookingList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredBookingList(Predicate<Booking> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -193,12 +205,27 @@ public class AddCommandTest {
         }
 
         @Override
+        public ReadOnlyProperty<Booking> selectedBookingProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Person getSelectedPerson() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+        public Booking getSelectedBooking() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setSelectedPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedBooking(Booking booking) {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -215,9 +242,9 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasItem(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public boolean hasItem(Item item) {
+            requireNonNull(item);
+            return this.person.isSameItem(item);
         }
     }
 
@@ -228,15 +255,15 @@ public class AddCommandTest {
         final ArrayList<Person> personsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasItem(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public boolean hasItem(Item item) {
+            requireNonNull(item);
+            return personsAdded.stream().anyMatch(item::isSameItem);
         }
 
         @Override
-        public void addItem(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addItem(Item item) {
+            requireNonNull(item);
+            personsAdded.add((Person) item); // temporary fix
         }
 
         @Override
