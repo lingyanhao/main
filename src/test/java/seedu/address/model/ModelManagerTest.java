@@ -88,44 +88,44 @@ public class ModelManagerTest {
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        modelManager.hasPerson(null);
+        modelManager.hasItem(null);
     }
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasPerson(ALICE));
+        assertFalse(modelManager.hasItem(ALICE));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        modelManager.addPerson(ALICE);
-        assertTrue(modelManager.hasPerson(ALICE));
+        modelManager.addItem(ALICE);
+        assertTrue(modelManager.hasItem(ALICE));
     }
 
     @Test
     public void deletePerson_personIsSelectedAndFirstPersonInFilteredPersonList_selectionCleared() {
-        modelManager.addPerson(ALICE);
+        modelManager.addItem(ALICE);
         modelManager.setSelectedPerson(ALICE);
-        modelManager.deletePerson(ALICE);
+        modelManager.deleteItem(ALICE);
         assertEquals(null, modelManager.getSelectedPerson());
     }
 
     @Test
     public void deletePerson_personIsSelectedAndSecondPersonInFilteredPersonList_firstPersonSelected() {
-        modelManager.addPerson(ALICE);
-        modelManager.addPerson(BOB);
+        modelManager.addItem(ALICE);
+        modelManager.addItem(BOB);
         assertEquals(Arrays.asList(ALICE, BOB), modelManager.getFilteredPersonList());
         modelManager.setSelectedPerson(BOB);
-        modelManager.deletePerson(BOB);
+        modelManager.deleteItem(BOB);
         assertEquals(ALICE, modelManager.getSelectedPerson());
     }
 
     @Test
     public void setPerson_personIsSelected_selectedPersonUpdated() {
-        modelManager.addPerson(ALICE);
+        modelManager.addItem(ALICE);
         modelManager.setSelectedPerson(ALICE);
         Person updatedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
-        modelManager.setPerson(ALICE, updatedAlice);
+        modelManager.setItem(ALICE, updatedAlice);
         assertEquals(updatedAlice, modelManager.getSelectedPerson());
     }
 
@@ -143,7 +143,7 @@ public class ModelManagerTest {
 
     @Test
     public void setSelectedPerson_personInFilteredPersonList_setsSelectedPerson() {
-        modelManager.addPerson(ALICE);
+        modelManager.addItem(ALICE);
         assertEquals(Collections.singletonList(ALICE), modelManager.getFilteredPersonList());
         modelManager.setSelectedPerson(ALICE);
         assertEquals(ALICE, modelManager.getSelectedPerson());

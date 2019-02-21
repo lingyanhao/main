@@ -123,7 +123,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addPerson(Person person) {
+        public void addItem(Person person) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -138,17 +138,17 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Person person) {
+        public boolean hasItem(Person person) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Person target) {
+        public void deleteItem(Person target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(Person target, Person editedPerson) {
+        public void setItem(Person target, Person editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -215,7 +215,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Person person) {
+        public boolean hasItem(Person person) {
             requireNonNull(person);
             return this.person.isSamePerson(person);
         }
@@ -228,13 +228,13 @@ public class AddCommandTest {
         final ArrayList<Person> personsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
+        public boolean hasItem(Person person) {
             requireNonNull(person);
             return personsAdded.stream().anyMatch(person::isSamePerson);
         }
 
         @Override
-        public void addPerson(Person person) {
+        public void addItem(Person person) {
             requireNonNull(person);
             personsAdded.add(person);
         }
