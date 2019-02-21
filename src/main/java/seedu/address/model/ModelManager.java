@@ -15,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.booking.Booking;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -29,6 +30,9 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
 
+    private final FilteredList<Booking> filteredBookings;
+    private final SimpleObjectProperty<Booking> selectedBooking = new SimpleObjectProperty<>();
+
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -42,6 +46,9 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
+
+        filteredBookings = new FilteredList<>(versionedAddressBook.getBookingList());
+        //filteredBookings.addListener(this::ensureSelectedPersonIsValid);
     }
 
     public ModelManager() {
@@ -96,27 +103,33 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return versionedAddressBook.hasPerson(person);
+    public boolean hasItem(Item item) {
+        requireNonNull(item);
+        return versionedAddressBook.hasItem(item);
     }
 
     @Override
-    public void deletePerson(Person target) {
-        versionedAddressBook.removePerson(target);
+    public void deleteItem(Item target) {
+        versionedAddressBook.removeItem(target);
     }
 
     @Override
-    public void addPerson(Person person) {
-        versionedAddressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void addItem(Item item) {
+        versionedAddressBook.addItem(item);
+        if (item instanceof Person) {
+            updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        } else if (item instanceof Booking) {
+            updateFilteredBookingList(x -> true);
+        } else {
+            assert(false); // temporary fix
+        }
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void setItem(Item target, Item editedItem) {
+        requireAllNonNull(target, editedItem);
 
-        versionedAddressBook.setPerson(target, editedPerson);
+        versionedAddressBook.setItem(target, editedItem);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -134,6 +147,21 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Booking} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Booking> getFilteredBookingList() {
+        return filteredBookings;
+    }
+
+    @Override
+    public void updateFilteredBookingList(Predicate<Booking> predicate) {
+        requireNonNull(predicate);
+        filteredBookings.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -208,6 +236,55 @@ public class ModelManager implements Model {
                 // Select the person that came before it in the list,
                 // or clear the selection if there is no such person.
                 selectedPerson.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            }
+        }
+    }
+
+    //=========== Selected booking ===========================================================================
+
+    @Override
+    public ReadOnlyProperty<Booking> selectedBookingProperty() {
+        return selectedBooking;
+    }
+
+    @Override
+    public Booking getSelectedBooking() {
+        return selectedBooking.getValue();
+    }
+
+    @Override
+    public void setSelectedBooking(Booking booking) {
+        if (booking != null && !filteredBookings.contains(booking)) {
+            throw new PersonNotFoundException();
+        }
+        selectedBooking.setValue(booking);
+    }
+
+    /**
+     * Ensures {@code selectedBooking} is a valid booking in {@code filteredBookings}.
+     */
+    private void ensureSelectedBookingIsValid(ListChangeListener.Change<? extends Booking> change) {
+        while (change.next()) {
+            if (selectedBooking.getValue() == null) {
+                // null is always a valid selected booking, so we do not need to check that it is valid anymore.
+                return;
+            }
+
+            boolean wasSelectedBookingReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                    && change.getRemoved().contains(selectedBooking.getValue());
+            if (wasSelectedBookingReplaced) {
+                // Update selectedBooking to its new value.
+                int index = change.getRemoved().indexOf(selectedBooking.getValue());
+                selectedBooking.setValue(change.getAddedSubList().get(index));
+                continue;
+            }
+
+            boolean wasSelectedBookingRemoved = change.getRemoved().stream()
+                    .anyMatch(removedBooking -> selectedBooking.getValue().isSameItem(removedBooking));
+            if (wasSelectedBookingRemoved) {
+                // Select the booking that came before it in the list,
+                // or clear the selection if there is no such booking.
+                selectedBooking.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
     }
