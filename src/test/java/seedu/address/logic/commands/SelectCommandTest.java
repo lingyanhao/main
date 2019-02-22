@@ -93,7 +93,7 @@ public class SelectCommandTest {
     private void assertExecutionSuccess(Index index) {
         SelectCommand selectCommand = new SelectCommand(index);
         String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, index.getOneBased());
-        expectedModel.setSelectedPerson(model.getFilteredItemList(Person.class).get(index.getZeroBased()));
+        expectedModel.setSelectedItem(model.getFilteredItemList(Person.class).get(index.getZeroBased()), Person.class);
 
         assertCommandSuccess(selectCommand, model, commandHistory, expectedMessage, expectedModel);
     }

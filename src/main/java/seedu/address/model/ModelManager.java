@@ -110,6 +110,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteItem(Item target) {
+        requireNonNull(target);
         versionedAddressBook.removeItem(target);
     }
 
@@ -206,11 +207,15 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setSelectedPerson(Person person) {
-        if (person != null && !filteredPersons.contains(person)) {
-            throw new PersonNotFoundException();
+    public <T extends Item> void setSelectedItem(T item, Class<T> clazz) {
+        if (clazz == Person.class) {
+            if (item != null && !filteredPersons.contains(item)) {
+                throw new PersonNotFoundException();
+            }
+            selectedPerson.setValue((Person) item);
+        } else {
+            throw new RuntimeException();
         }
-        selectedPerson.setValue(person);
     }
 
     /**
@@ -243,19 +248,6 @@ public class ModelManager implements Model {
     }
 
     //=========== Selected booking ===========================================================================
-
-    @Override
-    public Booking getSelectedBooking() {
-        return selectedBooking.getValue();
-    }
-
-    @Override
-    public void setSelectedBooking(Booking booking) {
-        if (booking != null && !filteredBookings.contains(booking)) {
-            throw new PersonNotFoundException();
-        }
-        selectedBooking.setValue(booking);
-    }
 
     /**
      * Ensures {@code selectedBooking} is a valid booking in {@code filteredBookings}.
@@ -303,7 +295,9 @@ public class ModelManager implements Model {
         return versionedAddressBook.equals(other.versionedAddressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
-                && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
+                && Objects.equals(selectedPerson.get(), other.selectedPerson.get())
+                && filteredBookings.equals(other.filteredBookings)
+                && Objects.equals(selectedBooking.get(), other.selectedBooking.get());
     }
 
 }

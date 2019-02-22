@@ -200,19 +200,10 @@ public class AddCommandTest {
         }
 
         @Override
-        public Booking getSelectedBooking() {
+        public <T extends Item> void setSelectedItem(T item, Class<T> clazz) {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public void setSelectedPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setSelectedBooking(Booking booking) {
-            throw new AssertionError("This method should not be called.");
-        }
     }
 
     /**

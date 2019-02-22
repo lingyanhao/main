@@ -125,18 +125,7 @@ public interface Model {
     <T extends Item> T getSelectedItem(Class<T> clazz);
 
     /**
-     * Returns the selected person in the filtered person list.
-     * null if no person is selected.
-     */
-    Booking getSelectedBooking();
-
-    /**
      * Sets the selected person in the filtered person list.
      */
-    void setSelectedPerson(Person person);
-
-    /**
-     * Sets the selected person in the filtered person list.
-     */
-    void setSelectedBooking(Booking booking);
+    <T extends Item> void setSelectedItem(T item, Class<T> clazz);
 }

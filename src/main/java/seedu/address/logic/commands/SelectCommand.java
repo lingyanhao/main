@@ -42,7 +42,7 @@ public class SelectCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        model.setSelectedPerson(filteredPersonList.get(targetIndex.getZeroBased()));
+        model.setSelectedItem(filteredPersonList.get(targetIndex.getZeroBased()), Person.class);
         return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()));
 
     }

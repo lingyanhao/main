@@ -105,7 +105,7 @@ public class ModelManagerTest {
     @Test
     public void deletePerson_personIsSelectedAndFirstPersonInFilteredPersonList_selectionCleared() {
         modelManager.addItem(ALICE);
-        modelManager.setSelectedPerson(ALICE);
+        modelManager.setSelectedItem(ALICE, Person.class);
         modelManager.deleteItem(ALICE);
         assertEquals(null, modelManager.getSelectedItem(Person.class));
     }
@@ -115,7 +115,7 @@ public class ModelManagerTest {
         modelManager.addItem(ALICE);
         modelManager.addItem(BOB);
         assertEquals(Arrays.asList(ALICE, BOB), modelManager.getFilteredItemList(Person.class));
-        modelManager.setSelectedPerson(BOB);
+        modelManager.setSelectedItem(BOB, Person.class);
         modelManager.deleteItem(BOB);
         assertEquals(ALICE, modelManager.getSelectedItem(Person.class));
     }
@@ -123,7 +123,7 @@ public class ModelManagerTest {
     @Test
     public void setPerson_personIsSelected_selectedPersonUpdated() {
         modelManager.addItem(ALICE);
-        modelManager.setSelectedPerson(ALICE);
+        modelManager.setSelectedItem(ALICE, Person.class);
         Person updatedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
         modelManager.setItem(ALICE, updatedAlice);
         assertEquals(updatedAlice, modelManager.getSelectedItem(Person.class));
@@ -138,14 +138,14 @@ public class ModelManagerTest {
     @Test
     public void setSelectedPerson_personNotInFilteredPersonList_throwsPersonNotFoundException() {
         thrown.expect(PersonNotFoundException.class);
-        modelManager.setSelectedPerson(ALICE);
+        modelManager.setSelectedItem(ALICE, Person.class);
     }
 
     @Test
     public void setSelectedPerson_personInFilteredPersonList_setsSelectedPerson() {
         modelManager.addItem(ALICE);
         assertEquals(Collections.singletonList(ALICE), modelManager.getFilteredItemList(Person.class));
-        modelManager.setSelectedPerson(ALICE);
+        modelManager.setSelectedItem(ALICE, Person.class);
         assertEquals(ALICE, modelManager.getSelectedItem(Person.class));
     }
 
