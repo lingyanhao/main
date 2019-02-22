@@ -36,7 +36,7 @@ public class ModelManagerTest {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
-        assertEquals(null, modelManager.getSelectedPerson());
+        assertEquals(null, modelManager.getSelectedItem(Person.class));
     }
 
     @Test
@@ -107,7 +107,7 @@ public class ModelManagerTest {
         modelManager.addItem(ALICE);
         modelManager.setSelectedPerson(ALICE);
         modelManager.deleteItem(ALICE);
-        assertEquals(null, modelManager.getSelectedPerson());
+        assertEquals(null, modelManager.getSelectedItem(Person.class));
     }
 
     @Test
@@ -117,7 +117,7 @@ public class ModelManagerTest {
         assertEquals(Arrays.asList(ALICE, BOB), modelManager.getFilteredItemList(Person.class));
         modelManager.setSelectedPerson(BOB);
         modelManager.deleteItem(BOB);
-        assertEquals(ALICE, modelManager.getSelectedPerson());
+        assertEquals(ALICE, modelManager.getSelectedItem(Person.class));
     }
 
     @Test
@@ -126,7 +126,7 @@ public class ModelManagerTest {
         modelManager.setSelectedPerson(ALICE);
         Person updatedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
         modelManager.setItem(ALICE, updatedAlice);
-        assertEquals(updatedAlice, modelManager.getSelectedPerson());
+        assertEquals(updatedAlice, modelManager.getSelectedItem(Person.class));
     }
 
     @Test
@@ -146,7 +146,7 @@ public class ModelManagerTest {
         modelManager.addItem(ALICE);
         assertEquals(Collections.singletonList(ALICE), modelManager.getFilteredItemList(Person.class));
         modelManager.setSelectedPerson(ALICE);
-        assertEquals(ALICE, modelManager.getSelectedPerson());
+        assertEquals(ALICE, modelManager.getSelectedItem(Person.class));
     }
 
     @Test

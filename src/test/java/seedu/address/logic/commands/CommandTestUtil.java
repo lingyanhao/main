@@ -111,7 +111,7 @@ public class CommandTestUtil {
         // only do so by copying its components.
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
         List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredItemList(Person.class));
-        Person expectedSelectedPerson = actualModel.getSelectedPerson();
+        Person expectedSelectedPerson = actualModel.getSelectedItem(Person.class);
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -122,7 +122,7 @@ public class CommandTestUtil {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedAddressBook, actualModel.getAddressBook());
             assertEquals(expectedFilteredList, actualModel.getFilteredItemList(Person.class));
-            assertEquals(expectedSelectedPerson, actualModel.getSelectedPerson());
+            assertEquals(expectedSelectedPerson, actualModel.getSelectedItem(Person.class));
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }

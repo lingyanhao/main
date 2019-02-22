@@ -195,12 +195,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyProperty<Booking> selectedBookingProperty() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Person getSelectedPerson() {
+        public <T extends Item> T getSelectedItem(Class<T> clazz) {
             throw new AssertionError("This method should not be called.");
         }
 

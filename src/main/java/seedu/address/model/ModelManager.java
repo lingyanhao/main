@@ -197,8 +197,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Person getSelectedPerson() {
-        return selectedPerson.getValue();
+    public <T extends Item> T getSelectedItem(Class<T> clazz) {
+        if (clazz == Person.class) {
+            return (T) selectedPerson.getValue();
+        } else {
+            throw new RuntimeException();
+        }
     }
 
     @Override
@@ -239,11 +243,6 @@ public class ModelManager implements Model {
     }
 
     //=========== Selected booking ===========================================================================
-
-    @Override
-    public ReadOnlyProperty<Booking> selectedBookingProperty() {
-        return selectedBooking;
-    }
 
     @Override
     public Booking getSelectedBooking() {

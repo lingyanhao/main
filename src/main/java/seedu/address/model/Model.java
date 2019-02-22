@@ -119,16 +119,10 @@ public interface Model {
     <T extends Item> ReadOnlyProperty<T> selectedItemProperty(Class<T> clazz);
 
     /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
-     */
-    ReadOnlyProperty<Booking> selectedBookingProperty();
-
-    /**
      * Returns the selected person in the filtered person list.
      * null if no person is selected.
      */
-    Person getSelectedPerson();
+    <T extends Item> T getSelectedItem(Class<T> clazz);
 
     /**
      * Returns the selected person in the filtered person list.
