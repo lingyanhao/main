@@ -81,6 +81,11 @@ public class AddCommandParser implements Parser<AddCommand> {
         return new AddIngredientCommand(ingredient);
     }
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the AddBookingCommand
+     * and returns an AddBookingCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     public AddBookingCommand parseBooking(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_START_TIME);

@@ -141,7 +141,7 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public <T extends Item> ObservableList<T> getFilteredItemList(Class<T> clazz){
+    public <T extends Item> ObservableList<T> getFilteredItemList(Class<T> clazz) {
         if (clazz.equals(Person.class)) {
             return (ObservableList<T>) filteredPersons;
         } else {
@@ -153,7 +153,7 @@ public class ModelManager implements Model {
     public <T extends Item> void updateFilteredItemList(Predicate<T> predicate, Class<T> clazz) {
         requireNonNull(predicate);
         if (clazz == Person.class) {
-            filteredPersons.setPredicate((Predicate<Person>)predicate);
+            filteredPersons.setPredicate((Predicate<Person>) predicate);
         } else {
             throw new RuntimeException(); // this should not happen
         }
@@ -259,7 +259,8 @@ public class ModelManager implements Model {
                 return;
             }
 
-            boolean wasSelectedBookingReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+            boolean wasSelectedBookingReplaced =
+                    change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
                     && change.getRemoved().contains(selectedBooking.getValue());
             if (wasSelectedBookingReplaced) {
                 // Update selectedBooking to its new value.
