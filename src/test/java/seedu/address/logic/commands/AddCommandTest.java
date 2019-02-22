@@ -24,7 +24,6 @@ import seedu.address.model.Item;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.booking.Booking;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 

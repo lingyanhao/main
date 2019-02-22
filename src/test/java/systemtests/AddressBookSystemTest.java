@@ -139,7 +139,8 @@ public abstract class AddressBookSystemTest {
      */
     protected void showAllPersons() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getAddressBook().getPersonList().size(), getModel().getFilteredItemList(Person.class).size());
+        assertEquals(getModel().getAddressBook().getPersonList().size(),
+                getModel().getFilteredItemList(Person.class).size());
     }
 
     /**
@@ -147,7 +148,8 @@ public abstract class AddressBookSystemTest {
      */
     protected void showPersonsWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredItemList(Person.class).size() < getModel().getAddressBook().getPersonList().size());
+        assertTrue(getModel().getFilteredItemList(Person.class).size()
+                < getModel().getAddressBook().getPersonList().size());
     }
 
     /**
@@ -212,7 +214,8 @@ public abstract class AddressBookSystemTest {
         String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
         URL expectedUrl;
         try {
-            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
+            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL
+                    + selectedCardName.replaceAll(" ", "%20"));
         } catch (MalformedURLException mue) {
             throw new AssertionError("URL expected to be valid.", mue);
         }
