@@ -140,8 +140,12 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public <T extends Item> ObservableList<T> getFilteredItemList(Class<T> clazz){
+        if (clazz.equals(Person.class)) {
+            return (ObservableList<T>) filteredPersons;
+        } else {
+            throw new RuntimeException(); // this should not happen
+        }
     }
 
     @Override

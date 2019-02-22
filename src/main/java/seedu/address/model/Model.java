@@ -55,12 +55,12 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if an item with the same identity as {@code person} exists in the address book.
      */
     boolean hasItem(Item item);
 
     /**
-     * Deletes the given person.
+     * Deletes the given item.
      * The person must exist in the address book.
      */
     void deleteItem(Item target);
@@ -76,10 +76,10 @@ public interface Model {
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
-    void setItem(Item target, Item editedPerson);
+    <T extends Item> void setItem(T target, T editedPerson);
 
     /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    <T extends Item> ObservableList<T> getFilteredItemList(Class<T> clazz);
 
     /** Returns an unmodifiable view of the filtered booking list*/
     ObservableList<Booking> getFilteredBookingList();
