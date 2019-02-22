@@ -123,7 +123,7 @@ public class ModelManager implements Model {
         } else if (item instanceof Booking) {
             updateFilteredItemList(x -> true, Booking.class);
         } else {
-            assert(false); // temporary fix
+            assert(false); // TODO: make this more complete
         }
     }
 

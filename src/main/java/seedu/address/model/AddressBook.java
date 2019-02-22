@@ -73,7 +73,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
-    public boolean hasItem(Item item) { // temporary fix
+    public boolean hasItem(Item item) { // TODO: replace with real method
         requireNonNull(item);
         return persons.contains(item) || bookings.contains(item);
     }
@@ -116,9 +116,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         if (key instanceof Person) {
             persons.remove(key);
         } else if (key instanceof Booking) {
-            bookings.remove(key); // temporary fix
+            bookings.remove(key);
         } else {
-            assert(false);
+            assert(false); // TODO: replace with real method
         }
         indicateModified();
     }
@@ -148,7 +148,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         // TODO: refine later
     }
 
-    @Override
+    @Override // TODO: merge these methods using generics
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
     }
@@ -159,7 +159,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public boolean equals(Object other) { // temporary fix
+    public boolean equals(Object other) { // TODO: reflect the entire inventory when comparing equality
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
                 && persons.equals(((AddressBook) other).persons));
