@@ -6,6 +6,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.person.Person;
 
 /**
  * Reverts the {@code model}'s address book to its previous state.
@@ -26,7 +27,7 @@ public class UndoCommand extends Command {
         }
 
         model.undoAddressBook();
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredItemList(PREDICATE_SHOW_ALL_PERSONS, Person.class);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

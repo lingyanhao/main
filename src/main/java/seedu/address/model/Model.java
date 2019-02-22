@@ -76,25 +76,16 @@ public interface Model {
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
-    <T extends Item> void setItem(T target, T editedPerson);
+    <T extends Item> void setItem(T target, T editedItem);
 
-    /** Returns an unmodifiable view of the filtered person list */
+    /** Returns an unmodifiable view of the filtered item list */
     <T extends Item> ObservableList<T> getFilteredItemList(Class<T> clazz);
-
-    /** Returns an unmodifiable view of the filtered booking list*/
-    ObservableList<Booking> getFilteredBookingList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
-
-    /**
-     * Updates the filter of the filtered booking list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredBookingList(Predicate<Booking> predicate);
+    <T extends Item> void updateFilteredItemList(Predicate<T> predicate, Class<T> clazz);
 
     /**
      * Returns true if the model has previous address book states to restore.
@@ -125,7 +116,7 @@ public interface Model {
      * Selected person in the filtered person list.
      * null if no person is selected.
      */
-    ReadOnlyProperty<Person> selectedPersonProperty();
+    <T extends Item> ReadOnlyProperty<T> selectedItemProperty(Class<T> clazz);
 
     /**
      * Selected person in the filtered person list.

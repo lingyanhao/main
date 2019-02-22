@@ -118,9 +118,9 @@ public class ModelManager implements Model {
         requireNonNull(item);
         versionedAddressBook.addItem(item);
         if (item instanceof Person) {
-            updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+            updateFilteredItemList(PREDICATE_SHOW_ALL_PERSONS, Person.class);
         } else if (item instanceof Booking) {
-            updateFilteredBookingList(x -> true);
+            updateFilteredItemList(x -> true, Booking.class);
         } else {
             assert(false); // temporary fix
         }
@@ -149,24 +149,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public <T extends Item> void updateFilteredItemList(Predicate<T> predicate, Class<T> clazz) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
-    }
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Booking} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-    @Override
-    public ObservableList<Booking> getFilteredBookingList() {
-        return filteredBookings;
-    }
-
-    @Override
-    public void updateFilteredBookingList(Predicate<Booking> predicate) {
-        requireNonNull(predicate);
-        filteredBookings.setPredicate(predicate);
+        if (clazz == Person.class) {
+            filteredPersons.setPredicate((Predicate<Person>)predicate);
+        } else {
+            throw new RuntimeException(); // this should not happen
+        }
     }
 
     //=========== Undo/Redo =================================================================================
@@ -199,8 +188,12 @@ public class ModelManager implements Model {
     //=========== Selected person ===========================================================================
 
     @Override
-    public ReadOnlyProperty<Person> selectedPersonProperty() {
-        return selectedPerson;
+    public <T extends Item> ReadOnlyProperty<T> selectedItemProperty(Class<T> clazz) {
+        if (clazz == Person.class) {
+            return (ReadOnlyProperty<T>) selectedPerson;
+        } else {
+            throw new RuntimeException();
+        }
     }
 
     @Override

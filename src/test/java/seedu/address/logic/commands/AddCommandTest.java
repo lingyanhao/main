@@ -160,17 +160,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableList<Booking> getFilteredBookingList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredBookingList(Predicate<Booking> predicate) {
+        public <T extends Item> void updateFilteredItemList(Predicate<T> predicate, Class<T> clazz) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -200,7 +190,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyProperty<Person> selectedPersonProperty() {
+        public <T extends Item> ReadOnlyProperty<T> selectedItemProperty(Class<T> clazz) {
             throw new AssertionError("This method should not be called.");
         }
 

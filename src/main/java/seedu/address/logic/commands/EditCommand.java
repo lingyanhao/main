@@ -84,7 +84,7 @@ public class EditCommand extends Command {
         }
 
         model.setItem(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredItemList(PREDICATE_SHOW_ALL_PERSONS, Person.class);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
