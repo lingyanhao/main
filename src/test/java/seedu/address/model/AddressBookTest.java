@@ -35,7 +35,7 @@ public class AddressBookTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getPersonList());
+        assertEquals(Collections.emptyList(), addressBook.getItemList(Person.class));
     }
 
     @Test
@@ -91,7 +91,7 @@ public class AddressBookTest {
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        addressBook.getPersonList().remove(0);
+        addressBook.getItemList(Person.class).remove(0);
     }
 
     @Test
@@ -125,13 +125,15 @@ public class AddressBookTest {
         }
 
         @Override
-        public ObservableList<Person> getPersonList() {
-            return persons;
-        }
+        public <T extends Item> ObservableList<T> getItemList(Class<T> clazz) {
 
-        @Override
-        public ObservableList<Booking> getBookingList() {
-            return bookings;
+            if (clazz == Person.class) {
+                return (ObservableList<T>) persons;
+            } else if (clazz == Booking.class) {
+                return (ObservableList<T>) bookings;
+            } else {
+                throw new AssertionError("This should not happen.");
+            }
         }
 
         @Override

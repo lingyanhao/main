@@ -44,11 +44,11 @@ public class ModelManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredPersons = new FilteredList<>(versionedAddressBook.getItemList(Person.class));
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
 
-        filteredBookings = new FilteredList<>(versionedAddressBook.getBookingList());
-        //filteredBookings.addListener(this::ensureSelectedPersonIsValid);
+        filteredBookings = new FilteredList<>(versionedAddressBook.getItemList(Booking.class));
+        //filteredBookings.addListener(this::ensureSelectedPersonIsValid); TODO: get this to work
     }
 
     public ModelManager() {

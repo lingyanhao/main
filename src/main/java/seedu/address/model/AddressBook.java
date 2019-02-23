@@ -64,8 +64,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
-        setBooking(newData.getBookingList());
+        setPersons(newData.getItemList(Person.class));
+        setBooking(newData.getItemList(Booking.class));
     }
 
     //// person-level operations
@@ -156,14 +156,15 @@ public class AddressBook implements ReadOnlyAddressBook {
         // TODO: refine later
     }
 
-    @Override // TODO: merge these methods using generics
-    public ObservableList<Person> getPersonList() {
-        return persons.asUnmodifiableObservableList();
-    }
-
     @Override
-    public ObservableList<Booking> getBookingList() {
-        return bookings.asUnmodifiableObservableList();
+    public <T extends Item> ObservableList<T> getItemList(Class<T> clazz) {
+        if (clazz == Person.class) {
+            return (ObservableList<T>) persons.asUnmodifiableObservableList();
+        } else if (clazz == Booking.class) {
+            return (ObservableList<T>) bookings.asUnmodifiableObservableList();
+        } else {
+            throw new RuntimeException();
+        }
     }
 
     @Override

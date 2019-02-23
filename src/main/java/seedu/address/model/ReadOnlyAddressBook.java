@@ -2,8 +2,6 @@ package seedu.address.model;
 
 import javafx.beans.Observable;
 import javafx.collections.ObservableList;
-import seedu.address.model.booking.Booking;
-import seedu.address.model.person.Person;
 
 /**
  * Unmodifiable view of an address book
@@ -11,16 +9,9 @@ import seedu.address.model.person.Person;
 public interface ReadOnlyAddressBook extends Observable {
 
     /**
-     * Returns an unmodifiable view of the persons list.
-     * This list will not contain any duplicate persons.
+     * Returns an unmodifiable view of the item list.
+     * This list will not contain any duplicate items.
      */
-    ObservableList<Person> getPersonList(); // TODO: merge these two methods
-
-    /**
-     * Returns an unmodifiable view of the persons list.
-     * This list will not contain any duplicate persons.
-     */
-    ObservableList<Booking> getBookingList();
-
+    <T extends Item> ObservableList<T> getItemList(Class<T> clazz); // TODO: merge these two methods
 
 }
