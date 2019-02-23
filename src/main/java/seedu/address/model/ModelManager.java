@@ -149,6 +149,8 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         if (clazz == Person.class) {
             filteredPersons.setPredicate((Predicate<Person>) predicate);
+        } else if (clazz == Booking.class) {
+            filteredBookings.setPredicate((Predicate<Booking>) predicate);
         } else {
             throw new RuntimeException(); // this should not happen
         }

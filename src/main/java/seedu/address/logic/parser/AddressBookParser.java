@@ -19,7 +19,6 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
-import seedu.address.logic.commands.ingredients.AddIngredientCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -51,11 +50,15 @@ public class AddressBookParser {
 
         case AddCommand.COMMAND_WORD_PERSON:
         case AddCommand.COMMAND_ALIAS_PERSON:
-            return new AddCommandParser().parse(arguments);
+            return new AddPersonCommandParser().parse(arguments);
 
-        case AddIngredientCommand.COMMAND_WORD:
+        case AddCommand.COMMAND_WORD_BOOKING:
+        case AddCommand.COMMAND_ALIAS_BOOKING:
+            return new AddBookingCommandParser().parse(arguments);
+
+        /*case AddIngredientCommand.COMMAND_WORD:
         case AddIngredientCommand.COMMAND_ALIAS:
-            return new AddCommandParser().parseIngredient(arguments);
+            return new AddPersonCommandParser().parseIngredient(arguments);*/
 
         case EditCommand.COMMAND_WORD:
         case EditCommand.COMMAND_ALIAS:
