@@ -118,21 +118,16 @@ public class ModelManager implements Model {
     public void addItem(Item item) {
         requireNonNull(item);
         versionedAddressBook.addItem(item);
-        if (item instanceof Person) {
-            updateFilteredItemList(PREDICATE_SHOW_ALL_PERSONS, Person.class);
-        } else if (item instanceof Booking) {
-            updateFilteredItemList(x -> true, Booking.class);
-        } else {
-            assert(false); // TODO: make this more complete
-        }
+        updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS, item.getClass());
     }
 
     @Override
-    public void setItem(Item target, Item editedItem) {
+    public <T extends Item> void setItem(T target, T editedItem) {
         requireAllNonNull(target, editedItem);
 
         versionedAddressBook.setItem(target, editedItem);
     }
+
 
     //=========== Filtered Person List Accessors =============================================================
 
@@ -150,7 +145,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public <T extends Item> void updateFilteredItemList(Predicate<T> predicate, Class<T> clazz) {
+    public <T extends Item> void updateFilteredItemList(Predicate<? super T> predicate, Class<T> clazz) {
         requireNonNull(predicate);
         if (clazz == Person.class) {
             filteredPersons.setPredicate((Predicate<Person>) predicate);

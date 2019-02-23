@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ITEMS;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -27,7 +27,7 @@ public class RedoCommand extends Command {
         }
 
         model.redoAddressBook();
-        model.updateFilteredItemList(PREDICATE_SHOW_ALL_PERSONS, Person.class);
+        model.updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS, Person.class);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

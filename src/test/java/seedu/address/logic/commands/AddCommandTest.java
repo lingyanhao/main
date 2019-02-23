@@ -159,7 +159,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public <T extends Item> void updateFilteredItemList(Predicate<T> predicate, Class<T> clazz) {
+        public <T extends Item> void updateFilteredItemList(Predicate<? super T> predicate, Class<T> clazz) {
             throw new AssertionError("This method should not be called.");
         }
 

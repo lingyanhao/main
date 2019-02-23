@@ -6,14 +6,13 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Person;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Item> PREDICATE_SHOW_ALL_ITEMS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -84,7 +83,7 @@ public interface Model {
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    <T extends Item> void updateFilteredItemList(Predicate<T> predicate, Class<T> clazz);
+    <T extends Item> void updateFilteredItemList(Predicate<? super T> predicate, Class<T> clazz);
 
     /**
      * Returns true if the model has previous address book states to restore.

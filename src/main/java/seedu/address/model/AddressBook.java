@@ -48,7 +48,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the contents of the person list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setPersons(List<Person> persons) {
+    public void setPersons(List<Person> persons) { // TODO: decide to keep this method as it is?
         this.persons.setItems(persons);
         indicateModified();
     }
@@ -73,9 +73,15 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
-    public boolean hasItem(Item item) { // TODO: replace with real method
+    public boolean hasItem(Item item) {
         requireNonNull(item);
-        return persons.contains(item) || bookings.contains(item);
+        if (item instanceof Person) {
+            return persons.contains(item);
+        } else if (item instanceof Booking) {
+            return bookings.contains(item);
+        } else {
+            return false; // TODO: other classes not recognised, add in your own
+        }
     }
 
     /**
@@ -88,7 +94,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         } else if (i instanceof Booking) {
             bookings.add((Booking) i);
         } else {
-            assert(false);
+            throw new RuntimeException(); // TODO: add your own
         }
         indicateModified();
     }
@@ -98,12 +104,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
-    public void setItem(Item target, Item editedItem) {
+    public <T extends Item> void setItem(T target, T editedItem) {
         requireNonNull(editedItem);
         if (target instanceof Person && editedItem instanceof Person) {
             persons.setItem((Person) target, (Person) editedItem);
         } else if (target instanceof Booking && editedItem instanceof Booking) {
             bookings.setItem((Booking) target, (Booking) editedItem);
+        } else {
+            throw new RuntimeException(); // TODO: add your own
         }
         indicateModified();
     }
@@ -118,7 +126,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         } else if (key instanceof Booking) {
             bookings.remove(key);
         } else {
-            assert(false); // TODO: replace with real method
+            throw new RuntimeException(); // TODO: add your own
         }
         indicateModified();
     }
@@ -162,7 +170,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean equals(Object other) { // TODO: reflect the entire inventory when comparing equality
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                && persons.equals(((AddressBook) other).persons))
+                && bookings.equals((((AddressBook) other).bookings));
     }
 
     @Override
