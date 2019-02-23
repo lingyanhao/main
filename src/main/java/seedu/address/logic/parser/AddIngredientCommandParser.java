@@ -8,6 +8,9 @@ import seedu.address.logic.commands.ingredients.AddIngredientCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ingredient.Ingredient;
 
+/**
+ * Parses input arguments and creates a new AddCommand object.
+ */
 public class AddIngredientCommandParser {
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand

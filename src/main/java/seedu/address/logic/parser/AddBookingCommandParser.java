@@ -9,6 +9,9 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.booking.Booking;
 
+/**
+ * Parses input arguments and creates a new AddCommand object.
+ */
 public class AddBookingCommandParser {
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
