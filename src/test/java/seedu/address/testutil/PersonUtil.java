@@ -22,14 +22,14 @@ public class PersonUtil {
      * Returns an add command string for adding the {@code person}.
      */
     public static String getAddCommand(Person person) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(person);
+        return AddCommand.COMMAND_WORD_PERSON + " " + getPersonDetails(person);
     }
 
     /**
      * Returns an add command string for adding the {@code person}, using the command alias.
      */
     public static String getAddCommandAlias(Person person) {
-        return AddCommand.COMMAND_ALIAS + " " + getPersonDetails(person);
+        return AddCommand.COMMAND_ALIAS_PERSON + " " + getPersonDetails(person);
     }
 
     /**

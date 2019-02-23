@@ -174,7 +174,7 @@ public class AddressBookParserTest {
     @Test
     public void parseUpperCaseCommand() throws Exception {
         Person person = new PersonBuilder().build();
-        Command command = parser.parseCommand("aDd" + " "
+        Command command = parser.parseCommand("aDdpERsoN" + " "
                 + PersonUtil.getPersonDetails(person));
         assertEquals(new AddCommand(person), command);
 

@@ -17,7 +17,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.booking.Booking;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.person.exceptions.ItemNotFoundException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -205,7 +205,7 @@ public class ModelManager implements Model {
     public <T extends Item> void setSelectedItem(T item, Class<T> clazz) {
         if (clazz == Person.class) {
             if (item != null && !filteredPersons.contains(item)) {
-                throw new PersonNotFoundException();
+                throw new ItemNotFoundException();
             }
             selectedPerson.setValue((Person) item);
         } else {

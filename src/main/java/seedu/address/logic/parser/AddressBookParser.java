@@ -49,8 +49,8 @@ public class AddressBookParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD:
-        case AddCommand.COMMAND_ALIAS:
+        case AddCommand.COMMAND_WORD_PERSON:
+        case AddCommand.COMMAND_ALIAS_PERSON:
             return new AddCommandParser().parse(arguments);
 
         case AddIngredientCommand.COMMAND_WORD:

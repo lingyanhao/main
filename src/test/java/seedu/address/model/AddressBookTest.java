@@ -23,7 +23,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.booking.Booking;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.person.exceptions.DuplicateItemException;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddressBookTest {
@@ -59,7 +59,7 @@ public class AddressBookTest {
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newPersons);
 
-        thrown.expect(DuplicatePersonException.class);
+        thrown.expect(DuplicateItemException.class);
         addressBook.resetData(newData);
     }
 

@@ -8,8 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.person.exceptions.DuplicateItemException;
+import seedu.address.model.person.exceptions.ItemNotFoundException;
 
 /**
  * A list of items that enforces uniqueness between its elements and does not allow nulls.
@@ -42,7 +42,7 @@ public class UniqueItemList<T extends Item> implements Iterable<T> {
     public void add(T toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateItemException();
         }
         internalList.add(toAdd);
     }
@@ -57,11 +57,11 @@ public class UniqueItemList<T extends Item> implements Iterable<T> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new PersonNotFoundException();
+            throw new ItemNotFoundException();
         }
 
         if (!target.isSameItem(editedItem) && contains(editedItem)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateItemException();
         }
 
         internalList.set(index, editedItem);
@@ -74,7 +74,7 @@ public class UniqueItemList<T extends Item> implements Iterable<T> {
     public void remove(Object toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new PersonNotFoundException();
+            throw new ItemNotFoundException();
         }
     }
 
@@ -90,7 +90,7 @@ public class UniqueItemList<T extends Item> implements Iterable<T> {
     public void setItems(List<T> items) {
         requireAllNonNull(items);
         if (!itemsAreUnique(items)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateItemException();
         }
 
         internalList.setAll(items);
