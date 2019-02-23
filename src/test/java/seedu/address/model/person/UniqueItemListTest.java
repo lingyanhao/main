@@ -17,8 +17,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.model.UniqueItemList;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.person.exceptions.DuplicateItemException;
+import seedu.address.model.person.exceptions.ItemNotFoundException;
 import seedu.address.testutil.PersonBuilder;
 
 public class UniqueItemListTest {
@@ -61,7 +61,7 @@ public class UniqueItemListTest {
     @Test
     public void add_duplicatePerson_throwsDuplicatePersonException() {
         uniqueItemList.add(ALICE);
-        thrown.expect(DuplicatePersonException.class);
+        thrown.expect(DuplicateItemException.class);
         uniqueItemList.add(ALICE);
     }
 
@@ -79,7 +79,7 @@ public class UniqueItemListTest {
 
     @Test
     public void setPerson_targetPersonNotInList_throwsPersonNotFoundException() {
-        thrown.expect(PersonNotFoundException.class);
+        thrown.expect(ItemNotFoundException.class);
         uniqueItemList.setItem(ALICE, ALICE);
     }
 
@@ -116,7 +116,7 @@ public class UniqueItemListTest {
     public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
         uniqueItemList.add(ALICE);
         uniqueItemList.add(BOB);
-        thrown.expect(DuplicatePersonException.class);
+        thrown.expect(DuplicateItemException.class);
         uniqueItemList.setItem(ALICE, BOB);
     }
 
@@ -128,7 +128,7 @@ public class UniqueItemListTest {
 
     @Test
     public void remove_personDoesNotExist_throwsPersonNotFoundException() {
-        thrown.expect(PersonNotFoundException.class);
+        thrown.expect(ItemNotFoundException.class);
         uniqueItemList.remove(ALICE);
     }
 
@@ -174,7 +174,7 @@ public class UniqueItemListTest {
     @Test
     public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
         List<Person> listWithDuplicatePersons = Arrays.asList(ALICE, ALICE);
-        thrown.expect(DuplicatePersonException.class);
+        thrown.expect(DuplicateItemException.class);
         uniqueItemList.setItems(listWithDuplicatePersons);
     }
 

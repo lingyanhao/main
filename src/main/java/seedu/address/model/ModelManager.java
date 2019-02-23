@@ -15,8 +15,9 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.booking.Booking;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.person.exceptions.ItemNotFoundException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -29,6 +30,9 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
 
+    private final FilteredList<Booking> filteredBookings;
+    private final SimpleObjectProperty<Booking> selectedBooking = new SimpleObjectProperty<>();
+
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -40,8 +44,11 @@ public class ModelManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredPersons = new FilteredList<>(versionedAddressBook.getItemList(Person.class));
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
+
+        filteredBookings = new FilteredList<>(versionedAddressBook.getItemList(Booking.class));
+        //filteredBookings.addListener(this::ensureSelectedPersonIsValid); TODO: get this to work
     }
 
     public ModelManager() {
@@ -96,28 +103,31 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return versionedAddressBook.hasPerson(person);
+    public boolean hasItem(Item item) {
+        requireNonNull(item);
+        return versionedAddressBook.hasItem(item);
     }
 
     @Override
-    public void deletePerson(Person target) {
-        versionedAddressBook.removePerson(target);
+    public void deleteItem(Item target) {
+        requireNonNull(target);
+        versionedAddressBook.removeItem(target);
     }
 
     @Override
-    public void addPerson(Person person) {
-        versionedAddressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void addItem(Item item) {
+        requireNonNull(item);
+        versionedAddressBook.addItem(item);
+        updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS, item.getClass());
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public <T extends Item> void setItem(T target, T editedItem) {
+        requireAllNonNull(target, editedItem);
 
-        versionedAddressBook.setPerson(target, editedPerson);
+        versionedAddressBook.setItem(target, editedItem);
     }
+
 
     //=========== Filtered Person List Accessors =============================================================
 
@@ -126,14 +136,24 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public <T extends Item> ObservableList<T> getFilteredItemList(Class<T> clazz) {
+        if (clazz.equals(Person.class)) {
+            return (ObservableList<T>) filteredPersons;
+        } else {
+            throw new RuntimeException(); // this should not happen
+        }
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public <T extends Item> void updateFilteredItemList(Predicate<? super T> predicate, Class<T> clazz) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        if (clazz == Person.class) {
+            filteredPersons.setPredicate((Predicate<Person>) predicate);
+        } else if (clazz == Booking.class) {
+            filteredBookings.setPredicate((Predicate<Booking>) predicate);
+        } else {
+            throw new RuntimeException(); // this should not happen
+        }
     }
 
     //=========== Undo/Redo =================================================================================
@@ -166,21 +186,33 @@ public class ModelManager implements Model {
     //=========== Selected person ===========================================================================
 
     @Override
-    public ReadOnlyProperty<Person> selectedPersonProperty() {
-        return selectedPerson;
-    }
-
-    @Override
-    public Person getSelectedPerson() {
-        return selectedPerson.getValue();
-    }
-
-    @Override
-    public void setSelectedPerson(Person person) {
-        if (person != null && !filteredPersons.contains(person)) {
-            throw new PersonNotFoundException();
+    public <T extends Item> ReadOnlyProperty<T> selectedItemProperty(Class<T> clazz) {
+        if (clazz == Person.class) {
+            return (ReadOnlyProperty<T>) selectedPerson;
+        } else {
+            throw new RuntimeException();
         }
-        selectedPerson.setValue(person);
+    }
+
+    @Override
+    public <T extends Item> T getSelectedItem(Class<T> clazz) {
+        if (clazz == Person.class) {
+            return (T) selectedPerson.getValue();
+        } else {
+            throw new RuntimeException();
+        }
+    }
+
+    @Override
+    public <T extends Item> void setSelectedItem(T item, Class<T> clazz) {
+        if (clazz == Person.class) {
+            if (item != null && !filteredPersons.contains(item)) {
+                throw new ItemNotFoundException();
+            }
+            selectedPerson.setValue((Person) item);
+        } else {
+            throw new RuntimeException();
+        }
     }
 
     /**
@@ -212,6 +244,38 @@ public class ModelManager implements Model {
         }
     }
 
+    //=========== Selected booking ===========================================================================
+
+    /**
+     * Ensures {@code selectedBooking} is a valid booking in {@code filteredBookings}.
+     */
+    private void ensureSelectedBookingIsValid(ListChangeListener.Change<? extends Booking> change) {
+        while (change.next()) {
+            if (selectedBooking.getValue() == null) {
+                // null is always a valid selected booking, so we do not need to check that it is valid anymore.
+                return;
+            }
+
+            boolean wasSelectedBookingReplaced =
+                    change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                    && change.getRemoved().contains(selectedBooking.getValue());
+            if (wasSelectedBookingReplaced) {
+                // Update selectedBooking to its new value.
+                int index = change.getRemoved().indexOf(selectedBooking.getValue());
+                selectedBooking.setValue(change.getAddedSubList().get(index));
+                continue;
+            }
+
+            boolean wasSelectedBookingRemoved = change.getRemoved().stream()
+                    .anyMatch(removedBooking -> selectedBooking.getValue().isSameItem(removedBooking));
+            if (wasSelectedBookingRemoved) {
+                // Select the booking that came before it in the list,
+                // or clear the selection if there is no such booking.
+                selectedBooking.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            }
+        }
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -229,7 +293,9 @@ public class ModelManager implements Model {
         return versionedAddressBook.equals(other.versionedAddressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
-                && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
+                && Objects.equals(selectedPerson.get(), other.selectedPerson.get())
+                && filteredBookings.equals(other.filteredBookings)
+                && Objects.equals(selectedBooking.get(), other.selectedBooking.get());
     }
 
 }
