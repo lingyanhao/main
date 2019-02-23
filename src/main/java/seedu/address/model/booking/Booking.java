@@ -16,7 +16,15 @@ public class Booking implements Item {
 
     @Override
     public boolean isSameItem(Object other) {
-        return false;
+        if (other instanceof Booking) {
+            return startTime.equals(((Booking) other).startTime);
+        } else {
+            return false;
+        }
     }
 
+    @Override
+    public String toString() {
+        return startTime.toString();
+    }
 }
