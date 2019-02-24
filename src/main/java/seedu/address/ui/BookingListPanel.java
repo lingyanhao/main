@@ -4,7 +4,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListCell;
 import seedu.address.model.booking.Booking;
-import seedu.address.model.person.Person;
 
 import java.util.function.Consumer;
 
