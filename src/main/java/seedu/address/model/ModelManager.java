@@ -16,6 +16,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.booking.Booking;
+import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.ItemNotFoundException;
 
@@ -33,6 +34,8 @@ public class ModelManager implements Model {
     private final FilteredList<Booking> filteredBookings;
     private final SimpleObjectProperty<Booking> selectedBooking = new SimpleObjectProperty<>();
 
+    private final FilteredList<Ingredient> filteredIngredients;
+
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -49,6 +52,8 @@ public class ModelManager implements Model {
 
         filteredBookings = new FilteredList<>(versionedAddressBook.getItemList(Booking.class));
         //filteredBookings.addListener(this::ensureSelectedPersonIsValid); TODO: get this to work
+
+        filteredIngredients = new FilteredList<>(versionedAddressBook.getItemList(Ingredient.class));
     }
 
     public ModelManager() {
@@ -153,6 +158,8 @@ public class ModelManager implements Model {
             filteredPersons.setPredicate((Predicate<Person>) predicate);
         } else if (clazz == Booking.class) {
             filteredBookings.setPredicate((Predicate<Booking>) predicate);
+        } else if (clazz == Ingredient.class) {
+            filteredIngredients.setPredicate((Predicate<Ingredient>) predicate);
         } else {
             throw new RuntimeException(); // this should not happen
         }

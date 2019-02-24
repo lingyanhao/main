@@ -4,7 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_UNIT;
 
-import seedu.address.logic.commands.ingredients.AddIngredientCommand;
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ingredient.Ingredient;
 
@@ -18,13 +18,14 @@ public class AddIngredientCommandParser {
      * @throws ParseException if the user input does not conform the expected format
      */
 
-    public AddIngredientCommand parse(String args) throws ParseException {
+    public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_INGREDIENT, PREFIX_INGREDIENT_UNIT);
 
         if (!argMultimap.arePrefixesPresent(PREFIX_INGREDIENT, PREFIX_INGREDIENT_UNIT)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddIngredientCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddCommand.MESSAGE_USAGE_INGREDIENT));
         }
 
         String ingredientName = ParserUtil.parseIngredient(argMultimap.getValue(PREFIX_INGREDIENT).get());
@@ -33,6 +34,6 @@ public class AddIngredientCommandParser {
 
         Ingredient ingredient = new Ingredient(ingredientName, ingredientUnit);
 
-        return new AddIngredientCommand(ingredient);
+        return new AddCommand(ingredient);
     }
 }

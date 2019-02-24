@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_UNIT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
@@ -14,6 +16,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Item;
 import seedu.address.model.Model;
 import seedu.address.model.booking.Booking;
+import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Person;
 
 /**
@@ -56,6 +59,20 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS_BOOKING = "New booking added: %1$s";
     public static final String MESSAGE_DUPLICATE_BOOKING = "This booking already exists in the address book";
 
+    public static final String COMMAND_WORD_INGREDIENT = "addingredient";
+    public static final String COMMAND_ALIAS_INGREDIENT = "ia";
+
+    public static final String MESSAGE_USAGE_INGREDIENT = COMMAND_WORD_INGREDIENT + ": Adds an ingredient to the book. "
+            + "Parameters: "
+            + PREFIX_INGREDIENT + "INGREDIENT "
+            + PREFIX_INGREDIENT_UNIT + "STANDARD UNIT "
+            + "Example: " + COMMAND_WORD_INGREDIENT + " "
+            + PREFIX_INGREDIENT + "cheese "
+            + PREFIX_INGREDIENT_UNIT + "8&Pounds";
+
+    public static final String MESSAGE_SUCCESS_INGREDIENT = "New ingredient added: %1$s";
+    public static final String MESSAGE_DUPLICATE_INGREDIENT = "This ingredient already exists in the book";
+
     private final String messageDuplicate;
     private final String messageSuccess;
 
@@ -72,6 +89,9 @@ public class AddCommand extends Command {
         } else if (item instanceof Booking) {
             messageDuplicate = MESSAGE_DUPLICATE_BOOKING;
             messageSuccess = MESSAGE_SUCCESS_BOOKING;
+        } else if (item instanceof Ingredient) {
+            messageDuplicate = MESSAGE_DUPLICATE_INGREDIENT;
+            messageSuccess = MESSAGE_SUCCESS_INGREDIENT;
         } else {
             throw new RuntimeException();
         }
