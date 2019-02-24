@@ -41,6 +41,7 @@ public class AddBookingCommand extends Command {
         }
 
         Person customer = lastShownList.get(personIndex.getZeroBased());
-        return new AddCommand(new Booking(startTime, customer)).execute(model, commandHistory);
+        Booking toAdd = new Booking(startTime, customer);
+        return new AddCommand(toAdd).execute(model, commandHistory);
     }
 }
