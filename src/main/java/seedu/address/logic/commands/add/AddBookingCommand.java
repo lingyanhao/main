@@ -1,7 +1,6 @@
 package seedu.address.logic.commands.add;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 
 import java.util.Date;
 import java.util.List;
@@ -27,6 +26,7 @@ public class AddBookingCommand extends Command {
 
     private final Date startTime;
     private final Index personIndex;
+
     public AddBookingCommand(Date startTime, Index personIndex) {
         this.startTime = startTime;
         this.personIndex = personIndex;
