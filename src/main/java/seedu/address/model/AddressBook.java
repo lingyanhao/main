@@ -8,6 +8,7 @@ import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.booking.Booking;
+import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Person;
 
 /**
@@ -18,6 +19,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueItemList<Person> persons;
     private final UniqueItemList<Booking> bookings;
+    private final UniqueItemList<Ingredient> ingredients;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -30,6 +32,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniqueItemList<>();
         bookings = new UniqueItemList<>();
+        ingredients = new UniqueItemList<>();
     }
 
     public AddressBook() {}
@@ -162,6 +165,8 @@ public class AddressBook implements ReadOnlyAddressBook {
             return (ObservableList<T>) persons.asUnmodifiableObservableList();
         } else if (clazz == Booking.class) {
             return (ObservableList<T>) bookings.asUnmodifiableObservableList();
+        } else if (clazz == Ingredient.class){
+            return (ObservableList<T>) ingredients.asUnmodifiableObservableList();
         } else {
             throw new RuntimeException();
         }
