@@ -156,6 +156,8 @@ public class ModelManager implements Model {
             filteredPersons.setPredicate((Predicate<Person>) predicate);
         } else if (clazz == Booking.class) {
             filteredBookings.setPredicate((Predicate<Booking>) predicate);
+        } else if (clazz == Ingredient.class) {
+            filteredIngredients.setPredicate((Predicate<Ingredient>) predicate);
         } else {
             throw new RuntimeException(); // this should not happen
         }

@@ -28,14 +28,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
-     */
-    {
+     */ {
         persons = new UniqueItemList<>();
         bookings = new UniqueItemList<>();
         ingredients = new UniqueItemList<>();
     }
 
-    public AddressBook() {}
+    public AddressBook() {
+    }
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
@@ -61,6 +61,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         indicateModified();
     }
 
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients.setItems(ingredients);
+        indicateModified();
+    }
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -69,6 +74,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setPersons(newData.getItemList(Person.class));
         setBooking(newData.getItemList(Booking.class));
+        setIngredients(newData.getItemList(Ingredient.class));
     }
 
     //// person-level operations
@@ -82,10 +88,12 @@ public class AddressBook implements ReadOnlyAddressBook {
             return persons.contains(item);
         } else if (item instanceof Booking) {
             return bookings.contains(item);
-        } else {
-            return false; // TODO: other classes not recognised, add in your own
+        } else if (item instanceof Ingredient) {
+            return ingredients.contains(item);
         }
+        return false; // TODO: other classes not recognised, add in your own
     }
+
 
     /**
      * Adds a person to the address book.
@@ -96,6 +104,8 @@ public class AddressBook implements ReadOnlyAddressBook {
             persons.add((Person) i);
         } else if (i instanceof Booking) {
             bookings.add((Booking) i);
+        } else if (i instanceof Ingredient) {
+            ingredients.add((Ingredient) i);
         } else {
             throw new RuntimeException(); // TODO: add your own
         }
@@ -113,6 +123,8 @@ public class AddressBook implements ReadOnlyAddressBook {
             persons.setItem((Person) target, (Person) editedItem);
         } else if (target instanceof Booking && editedItem instanceof Booking) {
             bookings.setItem((Booking) target, (Booking) editedItem);
+        } else if (target instanceof Ingredient && editedItem instanceof Ingredient) {
+            ingredients.setItem((Ingredient) target, (Ingredient) editedItem);
         } else {
             throw new RuntimeException(); // TODO: add your own
         }
@@ -128,6 +140,8 @@ public class AddressBook implements ReadOnlyAddressBook {
             persons.remove(key);
         } else if (key instanceof Booking) {
             bookings.remove(key);
+        } else if (key instanceof Ingredient) {
+            ingredients.remove(key);
         } else {
             throw new RuntimeException(); // TODO: add your own
         }
@@ -176,8 +190,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean equals(Object other) { // TODO: reflect the entire inventory when comparing equality
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons))
-                && bookings.equals((((AddressBook) other).bookings));
+                && persons.equals(((AddressBook) other).persons)
+                && bookings.equals(((AddressBook) other).bookings)
+                && ingredients.equals(((AddressBook) other).ingredients));
     }
 
     @Override
