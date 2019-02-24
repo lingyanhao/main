@@ -65,7 +65,10 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE_INGREDIENT = COMMAND_WORD_INGREDIENT + ": Adds an ingredient to the book. "
             + "Parameters: "
             + PREFIX_INGREDIENT + "INGREDIENT "
-            + PREFIX_INGREDIENT_UNIT + "STANDARD UNIT ";
+            + PREFIX_INGREDIENT_UNIT + "STANDARD UNIT "
+            + "Example: " + COMMAND_WORD_INGREDIENT + " "
+            + PREFIX_INGREDIENT + "cheese "
+            + PREFIX_INGREDIENT_UNIT + "8&Pounds";
 
     public static final String MESSAGE_SUCCESS_INGREDIENT = "New ingredient added: %1$s";
     public static final String MESSAGE_DUPLICATE_INGREDIENT = "This ingredient already exists in the book";
