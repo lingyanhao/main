@@ -6,14 +6,13 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Person;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Item> PREDICATE_SHOW_ALL_ITEMS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -54,37 +53,37 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if an item with the same identity as {@code person} exists in the address book.
      */
-    boolean hasPerson(Person person);
+    boolean hasItem(Item item);
 
     /**
-     * Deletes the given person.
+     * Deletes the given item.
      * The person must exist in the address book.
      */
-    void deletePerson(Person target);
+    void deleteItem(Item target);
 
     /**
      * Adds the given person.
      * {@code person} must not already exist in the address book.
      */
-    void addPerson(Person person);
+    void addItem(Item item);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
-    void setPerson(Person target, Person editedPerson);
+    <T extends Item> void setItem(T target, T editedItem);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered item list */
+    <T extends Item> ObservableList<T> getFilteredItemList(Class<T> clazz);
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    <T extends Item> void updateFilteredItemList(Predicate<? super T> predicate, Class<T> clazz);
 
     /**
      * Returns true if the model has previous address book states to restore.
@@ -115,16 +114,16 @@ public interface Model {
      * Selected person in the filtered person list.
      * null if no person is selected.
      */
-    ReadOnlyProperty<Person> selectedPersonProperty();
+    <T extends Item> ReadOnlyProperty<T> selectedItemProperty(Class<T> clazz);
 
     /**
      * Returns the selected person in the filtered person list.
      * null if no person is selected.
      */
-    Person getSelectedPerson();
+    <T extends Item> T getSelectedItem(Class<T> clazz);
 
     /**
      * Sets the selected person in the filtered person list.
      */
-    void setSelectedPerson(Person person);
+    <T extends Item> void setSelectedItem(T item, Class<T> clazz);
 }

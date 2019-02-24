@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= REM - REstaurant Manager - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -18,13 +18,28 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+REM is for small/medium size restaurant owners who *prefer to use a desktop app for managing their restaurant*. More importantly, REM is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, REM can get your restaurant management tasks done faster than traditional GUI apps.
+
+As REM is targeted at _restaurant owners_, it aims to facilitate the management of a restaurant, in these 5 different areas:
+
+* Member Management
+    ** Manage the contact details of the customers with membership
+* Inventory Management
+    ** Manage the inventory of recipes and stocks of inventory
+* Booking Management
+    ** Manage the reservations made by the general public
+* Staff management
+    ** Manage the contact details of the staff, and facilitate their shift work allocation
+* Overall
+    ** Collation of feedback by customers, and general statistics of the performance of the restaurant
+
+Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `rem.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your Restaurant Manager.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,9 +48,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`listMembers`* : lists all members of the restaurant
+* **`addMember`**`addMember n/John Doe e/johnd@gmail.com p/81234567` : adds a member named `John Doe` to the restaurant.
+* **`deleteMember`**`3` : deletes the 3rd member shown in the current list of members
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -46,194 +61,454 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Commands begin with the intended task, followed by a number of parameters preceded by a key (a unique alphabet and forward slash). The intended task (`addMember`) is non case-sensitive in the program and can be typed quickly as `addmember`, but is written in this manner for the user guide to be easily read.
+    ** e.g. `addMember n/CUSTOMER_NAME e/EMAIL p/PHONE_NUMBER`.
+* Words in UPPER_CASE are the parameters to be supplied by the user.
+* Items in square brackets are optional.
+    ** e.g. `notifySMS [l/LOYALTY_POINTS_MINIMUM]`
+* Items with `...` after them can be used multiple times including zero times
+    ** e.g. `addRecipe r/RECIPE_NAME n/NUMBER_OF_INGREDIENTS 1/INGREDIENT_1&AMOUNT_IN_UNITS 2/INGREDIENT_2&AMOUNT_IN_UNITS ...`
+* Parameters can be in any order
+
+
 ====
 
-=== Viewing help : `help`
+=== General
+
+==== Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+==== Exit: `exit`
+Exit the program
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-
-[TIP]
-A person can have any number of tags (including 0)
-
-Examples:
-
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-=== Selecting a person : `select`
-
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
-
-****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
-
-Examples:
-
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
-
-=== Listing entered commands : `history`
-
-Lists all the commands that you have entered in reverse chronological order. +
-Format: `history`
-
-[NOTE]
-====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
-====
-
-// tag::undoredo[]
-=== Undoing previous command : `undo`
-
-Restores the address book to the state before the previous _undoable_ command was executed. +
-Format: `undo`
-
-[NOTE]
-====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
-====
-
-Examples:
-
-* `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
-
-* `select 1` +
-`list` +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-
-=== Redoing the previously undone command : `redo`
-
-Reverses the most recent `undo` command. +
-Format: `redo`
-
-Examples:
-
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-
-* `delete 1` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
-// end::undoredo[]
-
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-
-=== Exiting the program : `exit`
-
-Exits the program. +
 Format: `exit`
 
-=== Saving the data
+=== Member Management
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+==== Add Member: `addMember`
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+Adds a customer who signs up for membership.
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Format: `addMember n/CUSTOMER_NAME e/EMAIL p/PHONE_NUMBER [l/LOYALTY_POINTS] [se/EMAIL_SUBSCRIPTION_BOOLEAN] [ss/SMS_SUBSCRIPTION_BOOLEAN]`
+
+If loyalty points is not specified, it will be taken to be 0. If subscription settings is not specified, it will be assumed that the user is by default subscribed to the system.
+
+Email of all members must be unique.
+
+Example:
+
+* `addMember n/John Doe e/johnd@gmail.com p/81234567`
+
+==== List Members: `listMembers`
+Lists all members who matches all the equations given.
+
+Format: `listMembers [n/NAME_REGEX] [e/EMAIL_REGEX] [l/LOYALTY_POINTS_EQUATION] [se/TRUE_FALSE] [ss/TRUE_FALSE]`
+
+Example:
+
+* `listMembers l/>10 se/true`
+
+Lists all members with greater than 10 loyalty points and with email subscription turned on.
+
+* `listMembers`
+
+All the members will be listed.
+
+==== Delete Members: `deleteMember`
+
+Deletes the specified member from the management system. This command is irreversible.
+
+Format: `deleteMember INDEX`
+
+Deletes the person at the specified `INDEX`. The index refers to the index number shown in the most recent listing.
+
+Example:
+
+* `listMember`
++
+`deleteMember 2`
+
+Deletes the 2nd person in the address book.
+
+* `listMember n/Betsy`
++
+`deleteMember 1`
+
+Deletes the 1st person in the results of the listMember command.
+
+==== Notify Via Email: `notifyEmail`
+
+Notifies all members with at least a minimum amount of loyalty points and with the specified email subscription settings.
+
+Format: `notifyEmail [l/LOYALTY_POINTS_MINIMUM] [se/TRUE_FALSE]`
+
+If `l` not specified, it will be taken to be 0.
+
+If `se` is not specified, the email will be sent regardless of email subscription settings.
+
+After entering this command, an email window will appear, where the text body can be keyed in.
+
+Example:
+
+* `notifyEmail l/100 se/true`
+
+==== Notify Via SMS: `notifySMS`
+
+Notifies all members with at least a minimum amount of loyalty points and with the specified SMS subscription settings.
+
+Format: `notifySMS [l/LOYALTY_POINTS_MINIMUM] [ss/TRUE_FALSE]`
+
+If `l` not specified, it will be taken to be 0.
+
+If `ss` is not specified, the SMS will be sent regardless of SMS subscription settings.
+
+Example:
+
+* `notifySMS l/100 ss/true`
+
+==== Add Loyalty Points: `addPoints`
+Adds specified number of loyalty points to the member specified
+
+Format: `addPoints i/INDEX l/LOYALTY_POINTS`
+
+Adds `LOYALTY_POINTS` to the person at the specified `INDEX`. The index refers to the index number shown in the most recent listing.
+
+Example:
+
+* `listMember`
++
+`addPoints i/2 l/10`
+
+Adds 10 points to the 2nd person.
+
+* `listMember n/Betsy`
++
+`addPoints i/1 l/5`
+
+Adds 5 points to the 1st person in the results of the listMember command.
+
+=== Inventory Management
+
+==== List Recipes: `listRecipes`
+
+View recipes of dishes served at the restaurant.
+
+Format: `listRecipes`
+
+For each recipe, the list of ingredients and its corresponding amount in units required for the standard serving will be displayed.
+Each recipe will be indexed.
+
+==== Add Recipe: `addRecipe`
+
+Add recipe of dish served at the restaurant.
+
+Format: `addRecipe r/RECIPE_NAME n/NUMBER_OF_INGREDIENTS 1/INGREDIENT_1&AMOUNT_IN_UNITS 2/INGREDIENT_2&AMOUNT_IN_UNITS ...`
+
+For all ingredient inputs, if ingredient is new, message appears as a prompt for user to `addIngredient` first, before adding recipe.
+
+Each ingredient input should have the format `1/INGREDIENT_1&AMOUNT_IN_UNITS` where ingredient and amount in standardised units are separated by `&`.
+
+`AMOUNT_IN_UNITS` is allowed to take on a decimal and is in the units specified in  listIngredients.
+
+Number of ingredient inputs should correspond to `n/NUMBER_OF_INGREDIENTS`. If it does not, a message will appear to say incorrect number of inputs.
+
+Example:
+
+* `listIngredients` (returns chicken - 10 full chickens, rice - 10 sacks)
++
+`addRecipe r/Chicken Rice n/3 1/Chicken&0.25 2/Rice&0.1`
+
+Adds new recipe chicken rice with all existing ingredients.
+
+* `addIngredient in/chicken u/full chickens`
++
+`addIngredient in/rice u/sacks`
++
+`addRecipe r/chicken rice n/3 1/chicken&0.25 2/rice&0.1`
+
+Adds new recipe chicken rice with non-existing ingredients.
+Each dish of chicken rice requires 1/4 a full chicken and 1/10 a sack of rice
+
+==== Delete Recipe: `deleteRecipe`
+
+Delete recipe of dish served at the restaurant, based on specified INDEX via listRecipes.
+
+Format: `delete i/RECIPE_INDEX`
+
+The index refers to the index number shown in the most recent listing.
+
+Example:
+
+* `listRecipes`
++
+`delete i/3`
+
+Delete recipe at index 3.
+
+==== Calculate Recipe: `calculateRecipe`
+Calculates number of dishes that can be prepared based on current inventory, based on specified `INDEX` via listRecipes.
+
+Format: `calculateRecipe [i/RECIPE_INDEX]`
+
+If recipe name is not specified, all recipes will be listed.
+
+Example:
+
+* `calculateRecipe`
+
+Shows number of dishes that can be prepared for every recipe
+
+* `listRecipes`
++
+`calculateRecipe [i/3]`
+
+Calculates number of dishes that can be prepared for recipe at index 3.
+
+==== List Ingredients: `listIngredients`
+
+View ingredients in inventory. If `w/true`, all ingredients falling below the previously stated warning amount will be listed.
+
+Format: `listIngredients [w/TRUE_FALSE]`
+
+For each ingredient, standardised unit for ingredient and amount in units in existing inventory is displayed.
+
+Each ingredient will be indexed.
+
+By default, all ingredients will be listed
+
+Example:
+
+* listIngredient `w/true`
+
+All ingredients falling below warning amount will be listed.
+
+==== Add Ingredient: `addIngredient`
+
+Add new ingredient into inventory. Previously not existing in inventory before.
+
+Format: `addIngredient in/INGREDIENT_NAME u/INGREDIENT_UNIT [a/AMOUNT] [w/INGREDIENT_WARNING_AMOUNT]`
+
+If amount is not specified, amount is set to 0.
+Units are chosen based on the units that the stock was bought. Amount of ingredients for each dish should be converted by the user himself before `addRecipe` is called.
+
+`w/INGREDIENT_WARNING_AMOUNT` User inputs warning amount that indicates a need for restock. Calling `listIngredients w/TRUE` will display all ingredients that fall below the minimum value.
+
+Example:
+
+* `addIngredient in/chicken u/full chicken`
+
+Adds 0 full chickens into inventory.
+
+* `addIngredient in/chicken u/full chicken a/10`
+
+Adds 10 full chickens into inventory.
+
+* `addIngredient in/chicken u/full chicken a/10 w/2`
+
+Adds 10 full chickens into inventory when amount falls below 2, listIngredients w/TRUE will display chicken.
+
+==== Restock Ingredient: `restockIngredient`
+
+Restock ingredient from inventory based on specified `INDEX` via `listIngredients`.
+Previously existing in inventory before.
+
+Format: `restockIngredient i/INGREDIENT_INDEX a/AMOUNT`
+
+Example:
+
+* `listIngredients` (returns chicken as 3rd index)
++
+`restock i/3 a/10`
+
+Adds 10 full chickens into inventory
+
+==== Deplete Ingredient: `depleteIngredient`
+
+Deplete ingredient from inventory based on specified `INDEX` via `listIngredients`.
+
+Format: `depleteIngredient i/INGREDIENT_INDEX a/AMOUNT`
+
+Example:
+
+* `listIngredients` (returns chicken as 3rd index)
++
+`depleteIngredient i/3 a/10`
+
+Depletes 10 full chickens from inventory
+
+==== Delete Ingredient: `deleteIngredient`
+
+Delete ingredient from inventory based on specified `INDEX` via `listIngredients`. This command is irreversible.
+
+Format: `delete i/INGREDIENT_INDEX`
+
+The index refers to the index number shown in the most recent listing.
+
+Example:
+
+* `listIngredients` (returns chicken as 3rd index)
++
+`delete i/3`
+
+Delete chicken from ingredient inventory
+
+=== Booking Management
+
+==== View Booking: `viewBooking`
+
+View the current lists of bookings within a certain time frame
+
+Format: `viewBooking [ts/TIME_START] [te/TIME_END]`
+
+The start and end times are optional arguments. If not specified, the list of all bookings (i.e. including future and past bookings) made so far will be displayed.
+
+Example:
+
+* `viewBooking ts/1200 te/1530`
+
+==== Update Restaurant Capacity: `updateCapacity`
+
+Update the capacity of the restaurant.
+
+Format: `updateCapacity NUMBER`
+
+If the capacity is full, the restaurant will not accept new bookings (refer to `addBooking` command). If this command causes the number of bookings to exceed the capacity, the `updateCapacity` command will not be allowed to be executed, instead some of the bookings must be cancelled.
+
+Example:
+
+* `updateCapacity 50`
+
+This updates the restaurants to cater for a capacity for 50 customers
+
+==== Create New Booking: `addBooking`
+
+Creates a new booking.
+
+Format: `addBooking [c/CUSTOMER_ID] n/NUMBER OF PERSONS t/TIME [d/DATE]`
+
+If the restaurant is full (as determined by the `updateCapacity` command), a message will appear telling the user that the restaurant is fully booked: “Restaurant is fully booked at (date) and (time). Please choose another time.”
+
+Date argument is optional, will be set to today’s date if not specified. All bookings will last for 1 hour.
+
+Customer ID refers to the index of the customer as displayed by the list. Leave the field blank the customer requesting the booking is a non-member. No loyalty points will be added to this customer.
+
+Example:
+
+* `addBooking 1 1300 25 Feb`
+
+Adds a booking for customer id 1 on 25 Feb, at 1300 hrs
+
+* `addBooking 2 1530`
+
+Adds a booking for customer id 2, at 1300 hrs today
+
+==== Cancel Booking: `cancelBooking`
+Cancels a booking permanently.
+
+Format: `cancelBooking INDEX`
+
+Cancles the booking at the specified `INDEX`. The index refers to the index number shown in the most recent listing.
+
+Example:
+
+* `viewBooking`
++
+`cancelBooking 3`
+
+Cancels the booking with index 3.
+
+==== View Booking Summary: `bookingSummary`
+
+Displays the overall statistics of bookings done so far. The statistics will reflect the total number of bookings made, the distribution of bookings by time and so on. This differs from the `viewBooking` command in the sense that details of a particular booking will not be shown, but only summarised data.
+
+Format: `bookingSummary`
+
+=== Staff Management
+
+==== View Staff: `viewStaff`
+
+View the list of all staff and their details
+
+Format: `viewStaff`
+
+==== Add Staff: `addStaff`
+
+Add a new staff member to the list of all staff.
+
+Format: `addStaff n/STAFF_NAME c/CONTACT_NUMBER a/APPOINTMENT`
+
+Example:
+
+* `addStaff n/John Doe c/91234567 a/Waiter`
+
+==== Delete Staff: `deleteStaff`
+
+Deletes the staff member with the specified id.
+
+Format: `deleteStaff STAFF_ID`
+
+Example
+
+* `deleteStaff 3`
+
+==== View Shift Staff: `shiftStaff`
+
+Lists all staff members working at the current time.
+
+Format: `shiftStaff`
+
+==== Set Shift Staff: `setShift`
+
+Sets the shift of a staff with the specified `STAFF_ID`. If the staff already has a shift, then it will be overwritten.
+
+Format: `setShift s/STAFF_ID ts/TIME_START te/TIME_END`
+
+Example:
+
+* setShift `1 1200 1530`
+
+=== Overall
+
+==== View Feedback: `viewFeedback`
+
+Lists all feedback submitted by customers.
+
+Format: `viewFeedback`
+
+==== Add Feedback: `addFeedback`
+
+Adds a feedback submitted by a customer.
+
+Format: `addFeedback FEEDBACK`
+
+Example
+
+* `addFeedback Good service and food!`
+
+==== Add Rating: `addRating`
+
+Adds a rating submitted by a customer. Ratings are on a 5 point scale.
+
+Format: `addRating RATING`
+
+`RATING` is an integer from 1 to 5, inclusive.
+
+Example
+
+* `addRating 5`
+
+==== View Graph Rating: `graphRating`
+
+Displays a graph of average rating per month against months.
+
+Format: `graphRating`
+
+==== View Rating Statistics: `ratingStats`
+
+Displays a summary of the overall rating statistics, such as the average rating and the rating distribution.
+
+Format: `ratingStats`
 
 == FAQ
 
@@ -242,19 +517,93 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
+=== Member Management
+
+* *addMember* `addMember n/CUSTOMER_NAME e/EMAIL p/PHONE_NUMBER [l/LOYALTY_POINTS] [se/EMAIL_SUBSCRIPTION_BOOLEAN] [ss/SMS_SUBSCRIPTION_BOOLEAN]` +
+e.g. `addMember n/John Doe e/johnd@gmail.com p/81234567`
+
+* *listMembers* `listMembers [n/NAME_REGEX] [e/EMAIL_REGEX] [l/LOYALTY_POINTS_EQUATION] [se/TRUE_FALSE] [ss/TRUE_FALSE]` +
+e.g. `listMembers l/>10 se/true`
+
+* *deleteMember* `deleteMember INDEX` +
+e.g. `deleteMember 2`
+
+* *notifyEmail* `notifyEmail [l/LOYALTY_POINTS_MINIMUM] [se/TRUE_FALSE]` +
+e.g. `notifyEmail l/100 se/true`
+
+* *notifySMS* `notifySMS [l/LOYALTY_POINTS_MINIMUM] [ss/TRUE_FALSE]` +
+e.g. `notifySMS l/100 ss/true`
+
+* *addPoints* `addPoints i/INDEX l/LOYALTY_POINTS`
+e.g. `addPoints i/2 l/10`
+
+=== Inventory Management
+
+* *listRecipes* `listRecipes`
+
+* *addRecipe*  `addRecipe r/RECIPE_NAME n/NUMBER_OF_INGREDIENTS 1/INGREDIENT_1&AMOUNT_IN_UNITS 2/INGREDIENT_2&AMOUNT_IN_UNITS ...` +
+e.g. `addRecipe r/Chicken Rice n/3 1/Chicken&0.25 2/Rice&0.1`
+
+* *deleteRecipe* `delete i/RECIPE_INDEX` +
+e.g. `delete i/3`
+
+* *calculateRecipe* `calculateRecipe [i/RECIPE_INDEX]` +
+e.g. `calculateRecipe [i/3]`
+
+* *listIngredients* `listIngredients [w/TRUE_FALSE]` +
+e.g. listIngredient `w/true`
+
+* *addIngredient* `addIngredient in/INGREDIENT_NAME u/INGREDIENT_UNIT [a/AMOUNT] [w/INGREDIENT_WARNING_AMOUNT]` +
+e.g. `addIngredient in/chicken u/full chicken`
+
+* *restockIngredient* `restockIngredient i/INGREDIENT_INDEX a/AMOUNT` +
+e.g. `restock i/3 a/10`
+
+* *depleteIngredient* `depleteIngredient i/INGREDIENT_INDEX a/AMOUNT` +
+e.g. `depleteIngredient i/3 a/10`
+
+* *deleteIngredient* `delete i/INGREDIENT_INDEX` +
+e.g. `delete i/3`
+
+=== Booking Management
+* *viewBooking* `viewBooking [ts/TIME_START] [te/TIME_END]` +
+e.g. `viewBooking ts/1200 te/1530`
+* *updateCapacity* `updateCapacity NUMBER` +
+e.g. `updateCapacity 50`
+
+* *addBooking* `addBooking [c/CUSTOMER_ID] n/NUMBER OF PERSONS t/TIME [d/DATE]` +
+e.g. `addBooking 1 1300 25 Feb`
+
+* *cancelBooking* `cancelBooking INDEX` +
+e.g. `cancelBooking 3`
+
+* *bookingSummary* `bookingSummary`
+
+=== Staff Management
+
+* *viewStaff* `viewStaff`
+
+* *addStaff* `addStaff n/STAFF_NAME c/CONTACT_NUMBER a/APPOINTMENT` +
+e.g. `addStaff n/John Doe c/91234567 a/Waiter`
+
+* *deleteStaff* `deleteStaff STAFF_ID` +
+e.g. `deleteStaff 3`
+
+* *shiftStaff* `shiftStaff`
+
+* *setShift* `setShift s/STAFF_ID ts/TIME_START te/TIME_END` +
+e.g. setShift `1 1200 1530`
+
+=== Overall Management
+
+* *viewFeedback* `viewFeedback`
+
+* *addFeedback* `addFeedback FEEDBACK` +
+e.g. `addFeedback Good service and food!`
+
+* *addRating* `addRating RATING` +
+e.g. `addRating 5`
+
+* *graphRating* `graphRating`
+
+* *ratingStats* `ratingStats`

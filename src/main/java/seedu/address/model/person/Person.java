@@ -7,15 +7,18 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.Item;
 import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Person in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Person {
+public class Person implements Item {
 
     // Identity fields
+    // TODO id
+    private final Id id;
     private final Name name;
     private final Phone phone;
     private final Email email;
@@ -34,6 +37,7 @@ public class Person {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.id = new Id("123"); // TODO this is hardcoded
     }
 
     public Name getName() {
@@ -50,6 +54,10 @@ public class Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    public Id getId() {
+        return id;
     }
 
     /**
@@ -74,6 +82,9 @@ public class Person {
                 && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
     }
 
+    public boolean isSameItem(Object otherItem) {
+        return otherItem instanceof Person && isSamePerson((Person) otherItem);
+    }
     /**
      * Returns true if both persons have the same identity and data fields.
      * This defines a stronger notion of equality between two persons.
@@ -105,7 +116,9 @@ public class Person {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
+        builder.append(" Id: ")
+                .append(getId())
+                .append(getName())
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Email: ")
