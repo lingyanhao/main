@@ -17,8 +17,6 @@ import seedu.address.model.tag.Tag;
 public class Person implements Item {
 
     // Identity fields
-    // TODO id
-    private final Id id;
     private final Name name;
     private final Phone phone;
     private final Email email;
@@ -37,7 +35,6 @@ public class Person implements Item {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
-        this.id = new Id("123"); // TODO this is hardcoded
     }
 
     public Name getName() {
@@ -54,10 +51,6 @@ public class Person implements Item {
 
     public Address getAddress() {
         return address;
-    }
-
-    public Id getId() {
-        return id;
     }
 
     /**
@@ -116,9 +109,7 @@ public class Person implements Item {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(" Id: ")
-                .append(getId())
-                .append(getName())
+        builder.append(getName())
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Email: ")
