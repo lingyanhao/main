@@ -81,7 +81,7 @@ public class AddCommand extends Command {
         } else if (item instanceof Booking) {
             messageDuplicate = MESSAGE_DUPLICATE_BOOKING;
             messageSuccess = MESSAGE_SUCCESS_BOOKING;
-        } else if (item instanceof Ingredient){
+        } else if (item instanceof Ingredient) {
             messageDuplicate = MESSAGE_DUPLICATE_INGREDIENT;
             messageSuccess = MESSAGE_SUCCESS_INGREDIENT;
         } else {

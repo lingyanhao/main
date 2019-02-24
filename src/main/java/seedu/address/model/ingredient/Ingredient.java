@@ -37,7 +37,7 @@ public class Ingredient implements Item {
      */
     @Override
     public boolean isSameItem(Object other) {
-        if(other instanceof Ingredient) {
+        if (other instanceof Ingredient) {
             return ingredientName.equals(((Ingredient) other).getIngredientName());
         } else {
             return false;

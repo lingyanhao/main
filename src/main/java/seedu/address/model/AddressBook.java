@@ -165,7 +165,7 @@ public class AddressBook implements ReadOnlyAddressBook {
             return (ObservableList<T>) persons.asUnmodifiableObservableList();
         } else if (clazz == Booking.class) {
             return (ObservableList<T>) bookings.asUnmodifiableObservableList();
-        } else if (clazz == Ingredient.class){
+        } else if (clazz == Ingredient.class) {
             return (ObservableList<T>) ingredients.asUnmodifiableObservableList();
         } else {
             throw new RuntimeException();

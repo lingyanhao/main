@@ -24,7 +24,8 @@ public class AddIngredientCommandParser {
 
         if (!argMultimap.arePrefixesPresent(PREFIX_INGREDIENT, PREFIX_INGREDIENT_UNIT)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE_INGREDIENT));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddCommand.MESSAGE_USAGE_INGREDIENT));
         }
 
         String ingredientName = ParserUtil.parseIngredient(argMultimap.getValue(PREFIX_INGREDIENT).get());
