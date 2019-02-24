@@ -58,7 +58,7 @@ public interface Logic {
     /**
      * Selected person in the filtered person list.
      * null if no person is selected.
-     *
+     *`
      * @see seedu.address.model.Model#selectedItemProperty()
      */
     ReadOnlyProperty<Person> selectedPersonProperty();
