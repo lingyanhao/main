@@ -34,11 +34,7 @@ public class Ingredient {
      * Returns true if both ingredients have same name.
      */
     public boolean isSameIngredient(Ingredient otherIngredient) {
-        if (otherIngredient.equals(this)) {
-            return true;
-        } else {
-            return false;
-        }
+       return otherIngredient.getIngredient().equals(this.ingredient);
     }
 
     @Override
@@ -52,7 +48,7 @@ public class Ingredient {
         final StringBuilder builder = new StringBuilder();
         builder.append("Ingredient: ")
                 .append(getIngredient())
-                .append(" Standard Unit: ")
+                .append(" Standard-Unit: ")
                 .append(getQuantity());
         return builder.toString();
     }
