@@ -1,11 +1,11 @@
 package seedu.address.ui;
 
+import java.util.function.Consumer;
+
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListCell;
 import seedu.address.model.booking.Booking;
-
-import java.util.function.Consumer;
 
 /**
  * Panel containing the list of persons.
@@ -13,7 +13,7 @@ import java.util.function.Consumer;
 public class BookingListPanel extends ItemListPanel<Booking> {
 
     public BookingListPanel(ObservableList<Booking> personList, ObservableValue<Booking> selectedPerson,
-                           Consumer<Booking> onSelectedPersonChange) {
+                            Consumer<Booking> onSelectedPersonChange) {
         super(personList, selectedPerson, onSelectedPersonChange, listview -> new BookingListViewCell());
     }
 }

@@ -1,5 +1,9 @@
 package seedu.address.ui;
 
+import java.util.Objects;
+import java.util.function.Consumer;
+import java.util.logging.Logger;
+
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -9,10 +13,6 @@ import javafx.scene.layout.Region;
 import javafx.util.Callback;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.Item;
-
-import java.util.Objects;
-import java.util.function.Consumer;
-import java.util.logging.Logger;
 
 /**
  * Panel containing the list of items.
