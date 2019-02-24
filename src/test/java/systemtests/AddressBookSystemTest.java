@@ -1,12 +1,15 @@
 package systemtests;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -60,6 +63,8 @@ public abstract class AddressBookSystemTest {
         setupHelper = new SystemTestSetupHelper();
         testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
+
+        assertApplicationStartingStateIsCorrect();
     }
 
     @After
@@ -158,7 +163,7 @@ public abstract class AddressBookSystemTest {
      * and the person list panel displays the persons in the model correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
-            Model expectedModel) {
+                                                     Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
@@ -166,7 +171,7 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Calls {@code BrowserPanelHandle}, {@code PersonListPanelHandle} and {@code StatusBarFooterHandle} to remember
+     * Calls {@code PersonListPanelHandle} and {@code StatusBarFooterHandle} to remember
      * their current state.
      */
     private void rememberStates() {
@@ -177,7 +182,23 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Asserts that the browser's url and the selected card in the person list panel remain unchanged.
+     * Asserts that the previously selected card is now deselected
+     */
+    protected void assertSelectedCardDeselected() {
+        assertFalse(getPersonListPanel().isAnyCardSelected());
+    }
+
+    /**
+     * Asserts that only the card at {@code expectedSelectedCardIndex} is selected.
+     * @see PersonListPanelHandle#isSelectedPersonCardChanged()
+     */
+    protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
+        getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
+        assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+    }
+
+    /**
+     * Asserts that the selected card in the person list panel remain unchanged.
      * @see PersonListPanelHandle#isSelectedPersonCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
@@ -217,6 +238,18 @@ public abstract class AddressBookSystemTest {
         String expectedSyncStatus = String.format(SYNC_STATUS_UPDATED, timestamp);
         assertEquals(expectedSyncStatus, handle.getSyncStatus());
         assertFalse(handle.isSaveLocationChanged());
+    }
+
+    /**
+     * Asserts that the starting state of the application is correct.
+     */
+    private void assertApplicationStartingStateIsCorrect() {
+        assertEquals("", getCommandBox().getInput());
+        assertEquals("", getResultDisplay().getText());
+        assertListMatching(getPersonListPanel(), getModel().getFilteredItemList(Person.class));
+        assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
+                getStatusBarFooter().getSaveLocation());
+        assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
 
     /**
