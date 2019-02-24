@@ -139,6 +139,8 @@ public class ModelManager implements Model {
     public <T extends Item> ObservableList<T> getFilteredItemList(Class<T> clazz) {
         if (clazz.equals(Person.class)) {
             return (ObservableList<T>) filteredPersons;
+        } else if (clazz.equals(Booking.class)) {
+            return (ObservableList<T>) filteredBookings;
         } else {
             throw new RuntimeException(); // this should not happen
         }
@@ -189,6 +191,8 @@ public class ModelManager implements Model {
     public <T extends Item> ReadOnlyProperty<T> selectedItemProperty(Class<T> clazz) {
         if (clazz == Person.class) {
             return (ReadOnlyProperty<T>) selectedPerson;
+        } else if (clazz == Booking.class) {
+            return (ReadOnlyProperty<T>) selectedBooking;
         } else {
             throw new RuntimeException();
         }
@@ -198,6 +202,8 @@ public class ModelManager implements Model {
     public <T extends Item> T getSelectedItem(Class<T> clazz) {
         if (clazz == Person.class) {
             return (T) selectedPerson.getValue();
+        } else if (clazz == Booking.class) {
+            return (T) selectedBooking.getValue();
         } else {
             throw new RuntimeException();
         }
@@ -210,6 +216,11 @@ public class ModelManager implements Model {
                 throw new ItemNotFoundException();
             }
             selectedPerson.setValue((Person) item);
+        } else if (clazz == Booking.class) {
+            if (item != null && !filteredBookings.contains(item)) {
+                throw new ItemNotFoundException();
+            }
+            selectedBooking.setValue((Booking) item);
         } else {
             throw new RuntimeException();
         }

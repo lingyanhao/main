@@ -15,6 +15,7 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.booking.Booking;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 
@@ -77,6 +78,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Booking> getFilteredBookingList() {
+        return model.getFilteredItemList(Booking.class);
+    }
+
+    @Override
     public ObservableList<String> getHistory() {
         return history.getHistory();
     }
@@ -102,7 +108,17 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ReadOnlyProperty<Booking> selectedBookingProperty() {
+        return model.selectedItemProperty(Booking.class);
+    }
+
+    @Override
     public void setSelectedPerson(Person person) {
         model.setSelectedItem(person, Person.class);
+    }
+
+    @Override
+    public void setSelectedBooking(Booking booking) {
+        model.setSelectedItem(booking, Booking.class);
     }
 }
