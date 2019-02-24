@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_UNIT;
@@ -49,7 +50,11 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_USAGE_BOOKING = COMMAND_WORD_BOOKING + ": Adds a booking to the restaurant. "
             + "Parameters: "
-            + PREFIX_START_TIME + "START_TIME ";
+            + PREFIX_CUSTOMER + "CUSTOMER "
+            + PREFIX_START_TIME + "START_TIME\n"
+            + "Example: " + COMMAND_WORD_BOOKING + " "
+            + PREFIX_CUSTOMER + "1 "
+            + PREFIX_START_TIME + "2019-02-23 14:30";
 
     public static final String MESSAGE_SUCCESS_BOOKING = "New booking added: %1$s";
     public static final String MESSAGE_DUPLICATE_BOOKING = "This booking already exists in the address book";
