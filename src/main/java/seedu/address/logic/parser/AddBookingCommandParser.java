@@ -10,8 +10,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.add.AddBookingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.booking.Booking;
-import seedu.address.model.person.Person;
 
 /**
  * Parses input arguments and creates a new AddCommand object.
