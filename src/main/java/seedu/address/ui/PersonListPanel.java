@@ -28,7 +28,6 @@ public class PersonListPanel extends UiPart<Region> {
         super(FXML);
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
-
         personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             logger.fine("Selection in person list panel changed to : '" + newValue + "'");
             onSelectedPersonChange.accept(newValue);
