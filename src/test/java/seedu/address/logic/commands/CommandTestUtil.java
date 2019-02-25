@@ -15,8 +15,8 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.RestaurantBook;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -109,7 +109,7 @@ public class CommandTestUtil {
             String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        RestaurantBook expectedRestaurantBook = new RestaurantBook(actualModel.getRestaurantBook());
         List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredItemList(Person.class));
         Person expectedSelectedPerson = actualModel.getSelectedItem(Person.class);
 
@@ -120,7 +120,7 @@ public class CommandTestUtil {
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
-            assertEquals(expectedAddressBook, actualModel.getAddressBook());
+            assertEquals(expectedRestaurantBook, actualModel.getRestaurantBook());
             assertEquals(expectedFilteredList, actualModel.getFilteredItemList(Person.class));
             assertEquals(expectedSelectedPerson, actualModel.getSelectedItem(Person.class));
             assertEquals(expectedCommandHistory, actualCommandHistory);
@@ -147,7 +147,7 @@ public class CommandTestUtil {
     public static void deleteFirstPerson(Model model) {
         Person firstPerson = model.getFilteredItemList(Person.class).get(0);
         model.deleteItem(firstPerson);
-        model.commitAddressBook();
+        model.commitRestaurantBook();
     }
 
 }

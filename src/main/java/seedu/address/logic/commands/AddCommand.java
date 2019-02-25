@@ -20,7 +20,7 @@ import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Person;
 
 /**
- * Adds a person to the address book.
+ * Adds an item to the restaurant book.
  */
 public class AddCommand extends Command {
 
@@ -107,7 +107,7 @@ public class AddCommand extends Command {
         }
 
         model.addItem(toAdd);
-        model.commitAddressBook();
+        model.commitRestaurantBook();
         return new CommandResult(String.format(messageSuccess, toAdd));
     }
 

@@ -21,12 +21,12 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.ItemNotFoundException;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the restaurant book data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedAddressBook versionedAddressBook;
+    private final VersionedRestaurantBook versionedRestaurantBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
@@ -37,27 +37,27 @@ public class ModelManager implements Model {
     private final FilteredList<Ingredient> filteredIngredients;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given restaurantBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyRestaurantBook restaurantBook, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(restaurantBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with restaurant book: " + restaurantBook + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedAddressBook(addressBook);
+        versionedRestaurantBook = new VersionedRestaurantBook(restaurantBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(versionedAddressBook.getItemList(Person.class));
+        filteredPersons = new FilteredList<>(versionedRestaurantBook.getItemList(Person.class));
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
 
-        filteredBookings = new FilteredList<>(versionedAddressBook.getItemList(Booking.class));
+        filteredBookings = new FilteredList<>(versionedRestaurantBook.getItemList(Booking.class));
         //filteredBookings.addListener(this::ensureSelectedPersonIsValid); TODO: get this to work
 
-        filteredIngredients = new FilteredList<>(versionedAddressBook.getItemList(Ingredient.class));
+        filteredIngredients = new FilteredList<>(versionedRestaurantBook.getItemList(Ingredient.class));
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new RestaurantBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -85,44 +85,44 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getRestaurantBookFilePath() {
+        return userPrefs.getRestaurantBookFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setRestaurantBookFilePath(Path restaurantBookFilePath) {
+        requireNonNull(restaurantBookFilePath);
+        userPrefs.setRestaurantBookFilePath(restaurantBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== RestaurantBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        versionedAddressBook.resetData(addressBook);
+    public void setRestaurantBook(ReadOnlyRestaurantBook restaurantBook) {
+        versionedRestaurantBook.resetData(restaurantBook);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return versionedAddressBook;
+    public ReadOnlyRestaurantBook getRestaurantBook() {
+        return versionedRestaurantBook;
     }
 
     @Override
     public boolean hasItem(Item item) {
         requireNonNull(item);
-        return versionedAddressBook.hasItem(item);
+        return versionedRestaurantBook.hasItem(item);
     }
 
     @Override
     public void deleteItem(Item target) {
         requireNonNull(target);
-        versionedAddressBook.removeItem(target);
+        versionedRestaurantBook.removeItem(target);
     }
 
     @Override
     public void addItem(Item item) {
         requireNonNull(item);
-        versionedAddressBook.addItem(item);
+        versionedRestaurantBook.addItem(item);
         updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS, item.getClass());
     }
 
@@ -130,7 +130,7 @@ public class ModelManager implements Model {
     public <T extends Item> void setItem(T target, T editedItem) {
         requireAllNonNull(target, editedItem);
 
-        versionedAddressBook.setItem(target, editedItem);
+        versionedRestaurantBook.setItem(target, editedItem);
     }
 
 
@@ -138,7 +138,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedRestaurantBook}
      */
     @Override
     public <T extends Item> ObservableList<T> getFilteredItemList(Class<T> clazz) {
@@ -168,28 +168,28 @@ public class ModelManager implements Model {
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
+    public boolean canUndoRestaurantBook() {
+        return versionedRestaurantBook.canUndo();
     }
 
     @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
+    public boolean canRedoRestaurantBook() {
+        return versionedRestaurantBook.canRedo();
     }
 
     @Override
-    public void undoAddressBook() {
-        versionedAddressBook.undo();
+    public void undoRestaurantBook() {
+        versionedRestaurantBook.undo();
     }
 
     @Override
-    public void redoAddressBook() {
-        versionedAddressBook.redo();
+    public void redoRestaurantBook() {
+        versionedRestaurantBook.redo();
     }
 
     @Override
-    public void commitAddressBook() {
-        versionedAddressBook.commit();
+    public void commitRestaurantBook() {
+        versionedRestaurantBook.commit();
     }
 
     //=========== Selected person ===========================================================================
@@ -308,7 +308,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
+        return versionedRestaurantBook.equals(other.versionedRestaurantBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get())

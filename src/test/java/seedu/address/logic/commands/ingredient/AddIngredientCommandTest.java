@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.ingredient;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
@@ -16,19 +16,25 @@ import org.junit.rules.ExpectedException;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Item;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyRestaurantBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.RestaurantBook;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.ingredient.Ingredient;
+import seedu.address.testutil.IngredientBuilder;
 
-public class AddCommandTest {
+/**
+ * Add Ingredient Command test to check if ingredients are properly added into the model.
+ */
 
+public class AddIngredientCommandTest {
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
     @Rule
@@ -37,56 +43,51 @@ public class AddCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class);
-        new AddCommand(null);
-    }
+    public void execute_ingredientAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingIngredientAdded modelStub = new ModelStubAcceptingIngredientAdded();
+        Ingredient validIngredient = new IngredientBuilder().build();
 
-    @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+        CommandResult commandResult = new AddCommand(validIngredient).execute(modelStub, commandHistory);
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
-
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS_PERSON, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS_INGREDIENT, validIngredient),
+                commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validIngredient), modelStub.ingredientsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+    public void execute_duplicateIngredient_throwsCommandException() throws Exception {
+        Ingredient validIngredient = new IngredientBuilder().build();
+        AddCommand addCommand = new AddCommand(validIngredient);
+        ModelStub modelStub = new ModelStubWithIngredient(validIngredient);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
+        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_INGREDIENT);
         addCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Ingredient cheese = new IngredientBuilder().withIngredient("cheese", 4).build();
+        Ingredient tomato = new IngredientBuilder().withIngredient("tomato", 5).build();
+        AddCommand addCheeseCommand = new AddCommand(cheese);
+        AddCommand addTomatoCommand = new AddCommand(tomato);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addCheeseCommand.equals(addCheeseCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddCommand addCheeseCommandCopy = new AddCommand(cheese);
+        assertTrue(addCheeseCommand.equals(addCheeseCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addCheeseCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addCheeseCommand.equals(null));
 
-        // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        // different ingredient -> returns false
+        assertFalse(addCheeseCommand.equals(addTomatoCommand));
     }
 
     /**
@@ -124,7 +125,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addItem(Item person) {
+        public void addItem(Item item) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -139,7 +140,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasItem(Item person) {
+        public boolean hasItem(Item item) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -149,7 +150,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setItem(Item target, Item editedPerson) {
+        public void setItem(Item target, Item editedItem) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -202,43 +203,42 @@ public class AddCommandTest {
         public <T extends Item> void setSelectedItem(T item, Class<T> clazz) {
             throw new AssertionError("This method should not be called.");
         }
-
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains an ingredient.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+    private class ModelStubWithIngredient extends ModelStub {
+        private final Ingredient ingredient;
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithIngredient(Ingredient ingredient) {
+            requireNonNull(ingredient);
+            this.ingredient = ingredient;
         }
 
         @Override
         public boolean hasItem(Item item) {
             requireNonNull(item);
-            return this.person.isSameItem(item);
+            return this.ingredient.isSameItem(item);
         }
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the ingredient being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingIngredientAdded extends ModelStub {
+        final ArrayList<Ingredient> ingredientsAdded = new ArrayList<>();
 
         @Override
         public boolean hasItem(Item item) {
             requireNonNull(item);
-            return personsAdded.stream().anyMatch(item::isSameItem);
+            return ingredientsAdded.stream().anyMatch(item::isSameItem);
         }
 
         @Override
         public void addItem(Item item) {
             requireNonNull(item);
-            personsAdded.add((Person) item); // temporary fix
+            ingredientsAdded.add((Ingredient) item); // temporary fix
         }
 
         @Override
@@ -253,3 +253,7 @@ public class AddCommandTest {
     }
 
 }
+
+
+
+

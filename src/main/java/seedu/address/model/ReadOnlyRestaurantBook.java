@@ -6,7 +6,7 @@ import javafx.collections.ObservableList;
 /**
  * Unmodifiable view of an address book
  */
-public interface ReadOnlyAddressBook extends Observable {
+public interface ReadOnlyRestaurantBook extends Observable {
 
     /**
      * Returns an unmodifiable view of the item list.

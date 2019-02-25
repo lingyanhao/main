@@ -12,10 +12,10 @@ import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Person;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the restaurant-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class RestaurantBook implements ReadOnlyRestaurantBook {
 
     private final UniqueItemList<Person> persons;
     private final UniqueItemList<Booking> bookings;
@@ -34,13 +34,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         ingredients = new UniqueItemList<>();
     }
 
-    public AddressBook() {
+    public RestaurantBook() {
     }
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an RestaurantBook using the Persons in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public RestaurantBook(ReadOnlyRestaurantBook toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -67,9 +67,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code RestaurantBook} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyRestaurantBook newData) {
         requireNonNull(newData);
 
         setPersons(newData.getItemList(Person.class));
@@ -80,7 +80,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// person-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a person with the same identity as {@code person} exists in the restaurant book.
      */
     public boolean hasItem(Item item) {
         requireNonNull(item);
@@ -96,8 +96,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds an item to the restaurant book.
+     * The item must not already exist in the restaurant book.
      */
     public void addItem(Item i) {
         if (i instanceof Person) {
@@ -114,8 +114,9 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * {@code target} must exist in the restaurant book.
+     * The person identity of {@code editedPerson} must not be the
+     * same as another existing person in the restaurant book.
      */
     public <T extends Item> void setItem(T target, T editedItem) {
         requireNonNull(editedItem);
@@ -132,8 +133,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code RestaurantBook}.
+     * {@code key} must exist in the restaurant book.
      */
     public void removeItem(Item key) {
         if (key instanceof Person) {
@@ -159,7 +160,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Notifies listeners that the address book has been modified.
+     * Notifies listeners that the restaurant book has been modified.
      */
     protected void indicateModified() {
         invalidationListenerManager.callListeners(this);
@@ -189,10 +190,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) { // TODO: reflect the entire inventory when comparing equality
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons)
-                && bookings.equals(((AddressBook) other).bookings)
-                && ingredients.equals(((AddressBook) other).ingredients));
+                || (other instanceof RestaurantBook // instanceof handles nulls
+                && persons.equals(((RestaurantBook) other).persons)
+                && bookings.equals(((RestaurantBook) other).bookings)
+                && ingredients.equals(((RestaurantBook) other).ingredients));
     }
 
     @Override
