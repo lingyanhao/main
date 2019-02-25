@@ -36,7 +36,8 @@ public class JsonRestaurantBookStorageTest {
     }
 
     private java.util.Optional<ReadOnlyRestaurantBook> readAddressBook(String filePath) throws Exception {
-        return new JsonRestaurantBookStorage(Paths.get(filePath)).readRestaurantBook(addToTestDataPathIfNotNull(filePath));
+        return new JsonRestaurantBookStorage(Paths.get(filePath))
+                .readRestaurantBook(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {

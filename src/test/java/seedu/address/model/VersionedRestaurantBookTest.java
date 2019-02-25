@@ -225,7 +225,8 @@ public class VersionedRestaurantBookTest {
         assertFalse(versionedAddressBook.equals(1));
 
         // different state list -> returns false
-        VersionedRestaurantBook differentAddressBookList = prepareAddressBookList(addressBookWithBob, addressBookWithCarl);
+        VersionedRestaurantBook differentAddressBookList =
+                prepareAddressBookList(addressBookWithBob, addressBookWithCarl);
         assertFalse(versionedAddressBook.equals(differentAddressBookList));
 
         // different current pointer index -> returns false

@@ -49,7 +49,8 @@ public class LogicManagerTest {
 
     @Before
     public void setUp() throws Exception {
-        JsonRestaurantBookStorage addressBookStorage = new JsonRestaurantBookStorage(temporaryFolder.newFile().toPath());
+        JsonRestaurantBookStorage addressBookStorage =
+                new JsonRestaurantBookStorage(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);

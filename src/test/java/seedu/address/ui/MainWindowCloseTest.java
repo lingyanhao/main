@@ -34,7 +34,8 @@ public class MainWindowCloseTest extends GuiUnitTest {
 
     @Before
     public void setUp() throws Exception {
-        JsonRestaurantBookStorage jsonAddressBookStorage = new JsonRestaurantBookStorage(temporaryFolder.newFile().toPath());
+        JsonRestaurantBookStorage jsonAddressBookStorage =
+                new JsonRestaurantBookStorage(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage jsonUserPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         StorageManager storageManager = new StorageManager(jsonAddressBookStorage, jsonUserPrefsStorage);
         FxToolkit.setupStage(stage -> {
