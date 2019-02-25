@@ -58,7 +58,8 @@ public class StorageManager implements Storage {
     }
     
     @Override
-    public Optional<ReadOnlyRestaurantBook> readRestaurantBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyRestaurantBook> readRestaurantBook(Path filePath) 
+        throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return restaurantBookStorage.readRestaurantBook(filePath);
     }
