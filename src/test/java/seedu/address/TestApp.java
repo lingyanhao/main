@@ -9,13 +9,13 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.RestaurantBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyRestaurantBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonRestaurantBookStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.testutil.TestUtil;
 import systemtests.ModelHelper;
@@ -30,22 +30,22 @@ public class TestApp extends MainApp {
 
     protected static final Path DEFAULT_PREF_FILE_LOCATION_FOR_TESTING =
             TestUtil.getFilePathInSandboxFolder("pref_testing.json");
-    protected Supplier<ReadOnlyAddressBook> initialDataSupplier = () -> null;
+    protected Supplier<ReadOnlyRestaurantBook> initialDataSupplier = () -> null;
     protected Path saveFileLocation = SAVE_LOCATION_FOR_TESTING;
 
     public TestApp() {
     }
 
-    public TestApp(Supplier<ReadOnlyAddressBook> initialDataSupplier, Path saveFileLocation) {
+    public TestApp(Supplier<ReadOnlyRestaurantBook> initialDataSupplier, Path saveFileLocation) {
         super();
         this.initialDataSupplier = initialDataSupplier;
         this.saveFileLocation = saveFileLocation;
 
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
-            JsonAddressBookStorage jsonAddressBookStorage = new JsonAddressBookStorage(saveFileLocation);
+            JsonRestaurantBookStorage jsonAddressBookStorage = new JsonRestaurantBookStorage(saveFileLocation);
             try {
-                jsonAddressBookStorage.saveAddressBook(initialDataSupplier.get());
+                jsonAddressBookStorage.saveRestaurantBook(initialDataSupplier.get());
             } catch (IOException ioe) {
                 throw new AssertionError(ioe);
             }
@@ -65,18 +65,18 @@ public class TestApp extends MainApp {
         double x = Screen.getPrimary().getVisualBounds().getMinX();
         double y = Screen.getPrimary().getVisualBounds().getMinY();
         userPrefs.setGuiSettings(new GuiSettings(600.0, 600.0, (int) x, (int) y));
-        userPrefs.setAddressBookFilePath(saveFileLocation);
+        userPrefs.setRestaurantBookFilePath(saveFileLocation);
         return userPrefs;
     }
 
     /**
      * Returns a defensive copy of the address book data stored inside the storage file.
      */
-    public AddressBook readStorageAddressBook() {
+    public RestaurantBook readStorageAddressBook() {
         try {
-            return new AddressBook(storage.readAddressBook().get());
+            return new RestaurantBook(storage.readRestaurantBook().get());
         } catch (DataConversionException dce) {
-            throw new AssertionError("Data is not in the AddressBook format.", dce);
+            throw new AssertionError("Data is not in the RestaurantBook format.", dce);
         } catch (IOException ioe) {
             throw new AssertionError("Storage file cannot be found.", ioe);
         }
@@ -86,14 +86,14 @@ public class TestApp extends MainApp {
      * Returns the file path of the storage file.
      */
     public Path getStorageSaveLocation() {
-        return storage.getAddressBookFilePath();
+        return storage.getRestaurantBookFilePath();
     }
 
     /**
      * Returns a defensive copy of the model.
      */
     public Model getModel() {
-        Model copy = new ModelManager((model.getAddressBook()), new UserPrefs());
+        Model copy = new ModelManager((model.getRestaurantBook()), new UserPrefs());
         ModelHelper.setFilteredList(copy, model.getFilteredItemList(Person.class));
         return copy;
     }

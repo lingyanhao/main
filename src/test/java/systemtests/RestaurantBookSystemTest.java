@@ -29,17 +29,17 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
-import seedu.address.model.AddressBook;
+import seedu.address.model.RestaurantBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.ui.CommandBox;
 
 /**
- * A system test class for AddressBook, which provides access to handles of GUI components and helper methods
+ * A system test class for RestaurantBook, which provides access to handles of GUI components and helper methods
  * for test verification.
  */
-public abstract class AddressBookSystemTest {
+public abstract class RestaurantBookSystemTest {
     @ClassRule
     public static ClockRule clockRule = new ClockRule();
 
@@ -73,7 +73,7 @@ public abstract class AddressBookSystemTest {
     /**
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
-    protected AddressBook getInitialData() {
+    protected RestaurantBook getInitialData() {
         return TypicalPersons.getTypicalAddressBook();
     }
 
@@ -126,7 +126,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void showAllPersons() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getAddressBook().getItemList(Person.class).size(),
+        assertEquals(getModel().getRestaurantBook().getItemList(Person.class).size(),
                 getModel().getFilteredItemList(Person.class).size());
     }
 
@@ -136,7 +136,7 @@ public abstract class AddressBookSystemTest {
     protected void showPersonsWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
         assertTrue(getModel().getFilteredItemList(Person.class).size()
-                < getModel().getAddressBook().getItemList(Person.class).size());
+                < getModel().getRestaurantBook().getItemList(Person.class).size());
     }
 
     /**
@@ -152,7 +152,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void deleteAllPersons() {
         executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getAddressBook().getItemList(Person.class).size());
+        assertEquals(0, getModel().getRestaurantBook().getItemList(Person.class).size());
     }
 
     /**
@@ -164,7 +164,7 @@ public abstract class AddressBookSystemTest {
                                                      Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
+        assertEquals(new RestaurantBook(expectedModel.getRestaurantBook()), testApp.readStorageAddressBook());
         assertListMatching(getPersonListPanel(), expectedModel.getFilteredItemList(Person.class));
     }
 

@@ -22,10 +22,10 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.RestaurantBook;
 import seedu.address.model.Item;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyRestaurantBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.testutil.IngredientBuilder;
@@ -115,12 +115,12 @@ public class AddIngredientCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getRestaurantBookFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setRestaurantBookFilePath(Path restaurantBookFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -130,12 +130,12 @@ public class AddIngredientCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setRestaurantBook(ReadOnlyRestaurantBook newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyRestaurantBook getRestaurantBook() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -165,27 +165,27 @@ public class AddIngredientCommandTest {
         }
 
         @Override
-        public boolean canUndoAddressBook() {
+        public boolean canUndoRestaurantBook() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean canRedoAddressBook() {
+        public boolean canRedoRestaurantBook() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void undoAddressBook() {
+        public void undoRestaurantBook() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoAddressBook() {
+        public void redoRestaurantBook() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitRestaurantBook() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -242,13 +242,13 @@ public class AddIngredientCommandTest {
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitRestaurantBook() {
             // called by {@code AddCommand#execute()}
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyRestaurantBook getRestaurantBook() {
+            return new RestaurantBook();
         }
     }
 
