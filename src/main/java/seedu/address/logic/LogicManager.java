@@ -78,6 +78,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Booking> getFilteredBookingList() {
+        return model.getFilteredItemList(Booking.class);
+    }
+
+    @Override
     public ObservableList<String> getHistory() {
         return history.getHistory();
     }
@@ -103,7 +108,17 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ReadOnlyProperty<Booking> selectedBookingProperty() {
+        return model.selectedItemProperty(Booking.class);
+    }
+
+    @Override
     public void setSelectedPerson(Person person) {
         model.setSelectedItem(person, Person.class);
+    }
+
+    @Override
+    public void setSelectedBooking(Booking booking) {
+        model.setSelectedItem(booking, Booking.class);
     }
 }

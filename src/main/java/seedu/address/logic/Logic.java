@@ -35,6 +35,9 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
 
+    /** Returns an unmodifiable view of the filtered list of bookings */
+    ObservableList<Booking> getFilteredBookingList();
+
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
      * The list is ordered from the least recent command to the most recent command.
@@ -65,9 +68,24 @@ public interface Logic {
     ReadOnlyProperty<Person> selectedPersonProperty();
 
     /**
+     * Selected booking in the filtered booking list.
+     * null if no booking is selected.
+     *
+     * @see seedu.address.model.Model#selectedItemProperty()
+     */
+    ReadOnlyProperty<Booking> selectedBookingProperty();
+
+    /**
      * Sets the selected person in the filtered person list.
      *
      * @see seedu.address.model.Model#setSelectedItem(Person)
      */
     void setSelectedPerson(Person person);
+
+    /**
+     * Sets the selected booking in the filtered booking list.
+     *
+     * @see seedu.address.model.Model#setSelectedItem(Person)
+     */
+    void setSelectedBooking(Booking booking);
 }
