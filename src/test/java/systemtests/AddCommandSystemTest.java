@@ -118,10 +118,6 @@ public class AddCommandSystemTest extends RestaurantBookSystemTest {
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
-        /* Case: add a duplicate person except with different tags -> rejected */
-        command = PersonUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
-
         /* Case: missing name -> rejected */
         command = AddCommand.COMMAND_WORD_PERSON + PHONE_DESC_AMY + EMAIL_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE_PERSON));
@@ -133,11 +129,7 @@ public class AddCommandSystemTest extends RestaurantBookSystemTest {
         /* Case: missing email -> rejected */
         command = AddCommand.COMMAND_WORD_PERSON + NAME_DESC_AMY + PHONE_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE_PERSON));
-
-        /* Case: missing address -> rejected */
-        command = AddCommand.COMMAND_WORD_PERSON + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE_PERSON));
-
+        
         /* Case: invalid keyword -> rejected */
         command = "adds " + PersonUtil.getPersonDetails(toAdd);
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
