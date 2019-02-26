@@ -129,7 +129,7 @@ public class AddCommandSystemTest extends RestaurantBookSystemTest {
         /* Case: missing email -> rejected */
         command = AddCommand.COMMAND_WORD_PERSON + NAME_DESC_AMY + PHONE_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE_PERSON));
-        
+
         /* Case: invalid keyword -> rejected */
         command = "adds " + PersonUtil.getPersonDetails(toAdd);
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
