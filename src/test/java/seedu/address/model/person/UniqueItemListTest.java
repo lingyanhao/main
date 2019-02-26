@@ -3,8 +3,6 @@ package seedu.address.model.person;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
@@ -47,8 +45,7 @@ public class UniqueItemListTest {
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniqueItemList.add(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
+        Person editedAlice = new PersonBuilder(ALICE).build();
         assertTrue(uniqueItemList.contains(editedAlice));
     }
 
@@ -95,8 +92,7 @@ public class UniqueItemListTest {
     @Test
     public void setPerson_editedPersonHasSameIdentity_success() {
         uniqueItemList.add(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
+        Person editedAlice = new PersonBuilder(ALICE).build();
         uniqueItemList.setItem(ALICE, editedAlice);
         UniqueItemList expectedUniqueItemList = new UniqueItemList();
         expectedUniqueItemList.add(editedAlice);
