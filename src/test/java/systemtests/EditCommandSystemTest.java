@@ -95,7 +95,7 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
         index = INDEX_FIRST_PERSON;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
         Person personToEdit = getModel().getFilteredItemList(Person.class).get(index.getZeroBased());
-        editedPerson = new PersonBuilder(personToEdit).withTags().build();
+        editedPerson = new PersonBuilder(personToEdit).build();
         assertCommandSuccess(command, index, editedPerson);
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
