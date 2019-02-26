@@ -8,8 +8,6 @@ import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
-import java.util.Collections;
-
 import org.junit.Test;
 
 import guitests.guihandles.PersonCardHandle;
