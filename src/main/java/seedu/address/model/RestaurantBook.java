@@ -128,8 +128,8 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
             persons.setItem((Person) target, (Person) editedItem);
             // when a person is edited, update all the associated bookings too
             ObservableList<Booking> bookingObservableList = bookings.asUnmodifiableObservableList();
-            Function<Booking, Booking> updateBooking =
-                    b -> (b.getCustomer().equals(target) ? b.editContacts((Person) editedItem) : b);
+            Function<Booking, Booking>
+                    updateBooking = b -> (b.getCustomer().equals(target) ? b.editContacts((Person) editedItem) : b);
             setBooking(bookingObservableList.stream().map(updateBooking).collect(Collectors.toList()));
         } else if (target instanceof Booking && editedItem instanceof Booking) {
             bookings.setItem((Booking) target, (Booking) editedItem);

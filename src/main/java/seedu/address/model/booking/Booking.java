@@ -1,13 +1,8 @@
 package seedu.address.model.booking;
 
 import java.text.SimpleDateFormat;
-import java.util.Comparator;
 import java.util.Date;
-import java.util.Optional;
-
-import javafx.collections.ObservableList;
 import seedu.address.model.Item;
-import seedu.address.model.UniqueItemList;
 import seedu.address.model.person.Person;
 
 /**
