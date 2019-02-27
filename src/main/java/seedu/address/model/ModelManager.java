@@ -35,6 +35,7 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<Booking> selectedBooking = new SimpleObjectProperty<>();
 
     private final FilteredList<Ingredient> filteredIngredients;
+    private final SimpleObjectProperty<Ingredient> selectedIngredient= new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given restaurantBook and userPrefs.
@@ -146,6 +147,8 @@ public class ModelManager implements Model {
             return (ObservableList<T>) filteredPersons;
         } else if (clazz.equals(Booking.class)) {
             return (ObservableList<T>) filteredBookings;
+        } else if (clazz.equals(Ingredient.class)) {
+            return (ObservableList<T>) filteredIngredients;
         } else {
             throw new RuntimeException(); // this should not happen
         }
@@ -200,6 +203,8 @@ public class ModelManager implements Model {
             return (ReadOnlyProperty<T>) selectedPerson;
         } else if (clazz == Booking.class) {
             return (ReadOnlyProperty<T>) selectedBooking;
+        } else if (clazz == Ingredient.class) {
+            return (ReadOnlyProperty<T>) selectedIngredient;
         } else {
             throw new RuntimeException();
         }
@@ -211,6 +216,8 @@ public class ModelManager implements Model {
             return (T) selectedPerson.getValue();
         } else if (clazz == Booking.class) {
             return (T) selectedBooking.getValue();
+        } else if (clazz == Ingredient.class) {
+            return (T) selectedIngredient.getValue();
         } else {
             throw new RuntimeException();
         }
@@ -228,6 +235,11 @@ public class ModelManager implements Model {
                 throw new ItemNotFoundException();
             }
             selectedBooking.setValue((Booking) item);
+        } else if (clazz == Ingredient.class) {
+            if (item != null && !filteredIngredients.contains(item)) {
+                throw new ItemNotFoundException();
+            }
+            selectedIngredient.setValue((Ingredient) item);
         } else {
             throw new RuntimeException();
         }

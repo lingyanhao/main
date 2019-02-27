@@ -36,7 +36,7 @@ public class BookingCard extends UiPart<Region> {
         super(FXML);
         this.booking = booking;
         id.setText(displayedIndex + ". ");
-        name.setText("Temp name");
+        name.setText("Temp name (booking)");
         date.setText(booking.toString());
     }
 

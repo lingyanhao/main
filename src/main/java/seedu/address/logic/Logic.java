@@ -10,6 +10,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyRestaurantBook;
 import seedu.address.model.booking.Booking;
+import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Person;
 
 /**
@@ -37,6 +38,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of bookings */
     ObservableList<Booking> getFilteredBookingList();
+
+    /** Returns an unmodifiable view of the filtered list of ingredients */
+    ObservableList<Ingredient> getFilteredIngredientList();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
@@ -76,6 +80,14 @@ public interface Logic {
     ReadOnlyProperty<Booking> selectedBookingProperty();
 
     /**
+     * Selected ingredient in the filtered ingredient list.
+     * null if no ingredient is selected.
+     *
+     * @see seedu.address.model.Model#selectedItemProperty()
+     */
+    ReadOnlyProperty<Ingredient> selectedIngredientProperty();
+
+    /**
      * Sets the selected person in the filtered person list.
      *
      * @see seedu.address.model.Model#setSelectedItem(Person)
@@ -85,7 +97,14 @@ public interface Logic {
     /**
      * Sets the selected booking in the filtered booking list.
      *
-     * @see seedu.address.model.Model#setSelectedItem(Person)
+     * @see seedu.address.model.Model#setSelectedItem(Booking)
      */
     void setSelectedBooking(Booking booking);
+
+    /**
+     * Sets the selected ingredient in the filtered ingredient list.
+     *
+     * @see seedu.address.model.Model#setSelectedItem(Ingredient)
+     */
+    void setSelectedIngredient(Ingredient ingredient);
 }

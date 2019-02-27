@@ -36,7 +36,7 @@ public class IngredientCard extends UiPart<Region> {
         super(FXML);
         this.ingredient = ingredient;
         id.setText(displayedIndex + ". ");
-        name.setText("Temp name");
+        name.setText("Temp name (ingredient)");
         data.setText(ingredient.toString());
     }
 
