@@ -56,7 +56,7 @@ public class AddCommand extends Command {
             + PREFIX_NUMBER_PERSONS + "NUMBER_OF_PERSONS\n"
             + "Example: " + COMMAND_WORD_BOOKING + " "
             + PREFIX_CUSTOMER + "1 "
-            + PREFIX_START_TIME + "2019-02-23 14:30"
+            + PREFIX_START_TIME + "2019-02-23 14:30 "
             + PREFIX_NUMBER_PERSONS + "3";
 
     public static final String MESSAGE_SUCCESS_BOOKING = "New booking added: %1$s";
