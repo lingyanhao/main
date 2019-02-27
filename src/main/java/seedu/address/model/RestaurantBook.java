@@ -2,7 +2,10 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
@@ -13,7 +16,7 @@ import seedu.address.model.person.Person;
 
 /**
  * Wraps all data at the restaurant-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSameItem comparison)
  */
 public class RestaurantBook implements ReadOnlyRestaurantBook {
 
@@ -104,6 +107,7 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
             persons.add((Person) i);
         } else if (i instanceof Booking) {
             bookings.add((Booking) i);
+            bookings.sort(Comparator.naturalOrder());
         } else if (i instanceof Ingredient) {
             ingredients.add((Ingredient) i);
         } else {
@@ -122,8 +126,14 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
         requireNonNull(editedItem);
         if (target instanceof Person && editedItem instanceof Person) {
             persons.setItem((Person) target, (Person) editedItem);
+            // when a person is edited, update all the associated bookings too
+            ObservableList<Booking> bookingObservableList = bookings.asUnmodifiableObservableList();
+            Function<Booking, Booking>
+                    updateBooking = b -> (b.getCustomer().equals(target) ? b.editContacts((Person) editedItem) : b);
+            setBooking(bookingObservableList.stream().map(updateBooking).collect(Collectors.toList()));
         } else if (target instanceof Booking && editedItem instanceof Booking) {
             bookings.setItem((Booking) target, (Booking) editedItem);
+            bookings.sort(Comparator.naturalOrder());
         } else if (target instanceof Ingredient && editedItem instanceof Ingredient) {
             ingredients.setItem((Ingredient) target, (Ingredient) editedItem);
         } else {

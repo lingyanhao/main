@@ -26,10 +26,12 @@ public class AddBookingCommand extends Command {
 
     private final Date startTime;
     private final Index personIndex;
+    private int numPersons;
 
-    public AddBookingCommand(Date startTime, Index personIndex) {
+    public AddBookingCommand(Date startTime, Index personIndex, int numPersons) {
         this.startTime = startTime;
         this.personIndex = personIndex;
+        this.numPersons = numPersons;
     }
 
     @Override
@@ -41,7 +43,7 @@ public class AddBookingCommand extends Command {
         }
 
         Person customer = lastShownList.get(personIndex.getZeroBased());
-        Booking toAdd = new Booking(startTime, customer);
+        Booking toAdd = new Booking(startTime, customer, numPersons);
         return new AddCommand(toAdd).execute(model, commandHistory);
     }
 }
