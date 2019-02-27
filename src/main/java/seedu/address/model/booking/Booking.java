@@ -2,6 +2,7 @@ package seedu.address.model.booking;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import seedu.address.model.Item;
 import seedu.address.model.person.Person;
 
