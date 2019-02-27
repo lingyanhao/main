@@ -1,7 +1,7 @@
 package seedu.address.model;
 
 /**
- * Represents an Item in the address book.
+ * Represents an Item in the restaurant book.
  */
 public interface Item {
     /**

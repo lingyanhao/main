@@ -770,7 +770,7 @@ We now have `Remark` s for `Person` s, but they will be gone when we exit the ap
 
 **Tests:**
 
-. Fix `invalidAndValidPersonAddressBook.json`, `typicalPersonsAddressBook.json`, `validAddressBook.json` etc., such that the JSON tests will not fail due to a missing `remark` field.
+. Fix `invalidAndValidPersonAddressBook.json`, `typicalPersonsRestaurantBook.json`, `validAddressBook.json` etc., such that the JSON tests will not fail due to a missing `remark` field.
 
 ===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
 Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
@@ -827,20 +827,33 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |restaurant owner |*Member Management:* keep track of the members of the restaurant |reward members with special benefits
 
-|`* * *` |user |add a new person |
+|`* * *` |restaurant owner |*Booking Management:* manage the bookings made by customers |ensure customers who have made bookings have a table
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |restaurant owner |*Booking Management:* view which bookings clash and which are available |ensure restaurant will not be overbooked
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |restaurant owner |*Inventory Management:* keep track of food inventory |do necessary restocking
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |restaurant owner |*Inventory Management:* keep track of my recipes and necessary ingredients |know what customers can order
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |restaurant owner |*Staff Management:* keep track of the staff working for my restaurant |hire staff accordingly
+
+|`* * *` |restaurant owner |*Staff Management:* keep track of what shift each staff is working |assign shifts and pay them accordingly
+
+|`* *` |restaurant owner |*Booking Management:* view the statistics of customers |plan for resources and for future business expansion
+
+|`* *` |restaurant owner |*Booking Management:* view the frequency statistics based on booking time |hire more staff at peak periods appropriately
+
+|`* *` |restaurant owner |*Inventory Management:* predict how many dishes can be prepared with current food inventory |plan for business operations
+
+|`*` |restaurant owner |keep track of my profits |
+
+|`*` |restaurant owner |view my total expenditure |
+
+|`*` |restaurant owner |keep track of customer feedback |improve on my restaurant
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases

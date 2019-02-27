@@ -24,7 +24,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class RestaurantBookParser {
 
     /**
      * Used for initial separation of command word and args.
@@ -56,9 +56,9 @@ public class AddressBookParser {
         case AddCommand.COMMAND_ALIAS_BOOKING:
             return new AddBookingCommandParser().parse(arguments);
 
-        /*case AddIngredientCommand.COMMAND_WORD:
-        case AddIngredientCommand.COMMAND_ALIAS:
-            return new AddPersonCommandParser().parseIngredient(arguments);*/
+        case AddCommand.COMMAND_WORD_INGREDIENT:
+        case AddCommand.COMMAND_ALIAS_INGREDIENT:
+            return new AddIngredientCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
         case EditCommand.COMMAND_ALIAS:

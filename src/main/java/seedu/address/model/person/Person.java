@@ -2,13 +2,9 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 import seedu.address.model.Item;
-import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Person in the address book.
@@ -16,25 +12,37 @@ import seedu.address.model.tag.Tag;
  */
 public class Person implements Item {
 
+    private static int idCounter = 0;
+
     // Identity fields
     private final Name name;
     private final Phone phone;
     private final Email email;
-
-    // Data fields
-    private final Address address;
-    private final Set<Tag> tags = new HashSet<>();
+    private final int id;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email) {
+        requireAllNonNull(name, phone, email);
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.address = address;
-        this.tags.addAll(tags);
+        id = idCounter;
+        idCounter++;
+    }
+
+    /**
+     * Creates a new person with the same ID as another person.
+     * Used for editing a person's details so that the system can track that it is the same person.
+     */
+    public Person(Name name, Phone phone, Email email, Person other) {
+        requireAllNonNull(name, phone, email, other);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        id = other.id;
+        // Take note: do not increment idCounter here, this is intentional
     }
 
     public Name getName() {
@@ -47,18 +55,6 @@ public class Person implements Item {
 
     public Email getEmail() {
         return email;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
     }
 
     /**
@@ -78,6 +74,10 @@ public class Person implements Item {
     public boolean isSameItem(Object otherItem) {
         return otherItem instanceof Person && isSamePerson((Person) otherItem);
     }
+
+    public boolean hasSameId(Person other) {
+        return id == other.id;
+    }
     /**
      * Returns true if both persons have the same identity and data fields.
      * This defines a stronger notion of equality between two persons.
@@ -95,15 +95,13 @@ public class Person implements Item {
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+                && otherPerson.getEmail().equals(getEmail());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email);
     }
 
     @Override
@@ -113,11 +111,7 @@ public class Person implements Item {
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+                .append(getEmail());
         return builder.toString();
     }
 

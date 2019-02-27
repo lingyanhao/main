@@ -8,7 +8,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyRestaurantBook;
+import seedu.address.model.booking.Booking;
 import seedu.address.model.person.Person;
 
 /**
@@ -25,14 +26,17 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the RestaurantBook.
      *
-     * @see seedu.address.model.Model#getAddressBook()
+     * @see seedu.address.model.Model#getRestaurantBook()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyRestaurantBook getRestaurantBook();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered list of bookings */
+    ObservableList<Booking> getFilteredBookingList();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
@@ -43,7 +47,7 @@ public interface Logic {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getRestaurantBookFilePath();
 
     /**
      * Returns the user prefs' GUI settings.
@@ -64,9 +68,24 @@ public interface Logic {
     ReadOnlyProperty<Person> selectedPersonProperty();
 
     /**
+     * Selected booking in the filtered booking list.
+     * null if no booking is selected.
+     *
+     * @see seedu.address.model.Model#selectedItemProperty()
+     */
+    ReadOnlyProperty<Booking> selectedBookingProperty();
+
+    /**
      * Sets the selected person in the filtered person list.
      *
      * @see seedu.address.model.Model#setSelectedItem(Person)
      */
     void setSelectedPerson(Person person);
+
+    /**
+     * Sets the selected booking in the filtered booking list.
+     *
+     * @see seedu.address.model.Model#setSelectedItem(Person)
+     */
+    void setSelectedBooking(Booking booking);
 }

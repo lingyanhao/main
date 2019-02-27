@@ -35,44 +35,45 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' restaurant book file path.
      */
-    Path getAddressBookFilePath();
+    Path getRestaurantBookFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' restaurant book file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setRestaurantBookFilePath(Path restaurantBookFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces restaurant book data with the data in {@code restaurantBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setRestaurantBook(ReadOnlyRestaurantBook restaurantBook);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the RestaurantBook */
+    ReadOnlyRestaurantBook getRestaurantBook();
 
     /**
-     * Returns true if an item with the same identity as {@code person} exists in the address book.
+     * Returns true if an item with the same identity as {@code item} exists in the restaurant book.
      */
     boolean hasItem(Item item);
 
     /**
      * Deletes the given item.
-     * The person must exist in the address book.
+     * The item must exist in the restaurant book.
      */
     void deleteItem(Item target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Adds the given item.
+     * {@code person} must not already exist in the restaurant book.
      */
     void addItem(Item item);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * {@code target} must exist in the restaurant book.
+     * The person identity of {@code editedPerson}
+     * must not be the same as another existing person in the restaurant book.
      */
     <T extends Item> void setItem(T target, T editedItem);
 
@@ -86,29 +87,29 @@ public interface Model {
     <T extends Item> void updateFilteredItemList(Predicate<? super T> predicate, Class<T> clazz);
 
     /**
-     * Returns true if the model has previous address book states to restore.
+     * Returns true if the model has previous restaurant book states to restore.
      */
-    boolean canUndoAddressBook();
+    boolean canUndoRestaurantBook();
 
     /**
-     * Returns true if the model has undone address book states to restore.
+     * Returns true if the model has undone restaurant book states to restore.
      */
-    boolean canRedoAddressBook();
+    boolean canRedoRestaurantBook();
 
     /**
-     * Restores the model's address book to its previous state.
+     * Restores the model's restaurant book to its previous state.
      */
-    void undoAddressBook();
+    void undoRestaurantBook();
 
     /**
-     * Restores the model's address book to its previously undone state.
+     * Restores the model's restaurant book to its previously undone state.
      */
-    void redoAddressBook();
+    void redoRestaurantBook();
 
     /**
-     * Saves the current address book state for undo/redo.
+     * Saves the current restaurant book state for undo/redo.
      */
-    void commitAddressBook();
+    void commitRestaurantBook();
 
     /**
      * Selected person in the filtered person list.
