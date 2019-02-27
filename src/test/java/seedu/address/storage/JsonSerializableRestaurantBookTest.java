@@ -49,5 +49,4 @@ public class JsonSerializableRestaurantBookTest {
         thrown.expectMessage(JsonSerializableRestaurantBook.MESSAGE_DUPLICATE_PERSON);
         dataFromFile.toModelType();
     }
-
 }

@@ -31,7 +31,8 @@ class JsonSerializableRestaurantBook {
      * Constructs a {@code JsonSerializableRestaurantBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableRestaurantBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons, @JsonProperty("ingredients") List<JsonAdaptedIngredient> ingredients) {
+    public JsonSerializableRestaurantBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
+                                          @JsonProperty("ingredients") List<JsonAdaptedIngredient> ingredients) {
         this.persons.addAll(persons);
         this.ingredients.addAll(ingredients);
     }
@@ -46,6 +47,7 @@ class JsonSerializableRestaurantBook {
                 .map(JsonAdaptedPerson::new).collect(Collectors.toList()));
         ingredients.addAll(source.getItemList(Ingredient.class).stream()
                 .map(JsonAdaptedIngredient::new).collect(Collectors.toList()));
+
     }
 
     /**
@@ -62,6 +64,7 @@ class JsonSerializableRestaurantBook {
             }
             restaurantBook.addItem(person);
         }
+
         for (JsonAdaptedIngredient jsonAdaptedIngredient : ingredients) {
             Ingredient ingredient = jsonAdaptedIngredient.toModelType();
             if (restaurantBook.hasItem(ingredient)) {
@@ -69,6 +72,7 @@ class JsonSerializableRestaurantBook {
             }
             restaurantBook.addItem(ingredient);
         }
+
         return restaurantBook;
     }
 
