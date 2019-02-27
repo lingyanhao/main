@@ -11,6 +11,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -129,10 +130,12 @@ public class ParserUtil {
      * Leading and trailing whitespaces will be trimmed.
      *
      */
-    public static String parseIngredient(String ingredient) {
-        requireNonNull(ingredient);
-        String trimmedIngredient = ingredient.trim();
-        return trimmedIngredient;
+    public static String parseIngredient(String name) throws ParseException {
+        requireNonNull(name);
+        if (!Ingredient.isValidIngredientName(name)) {
+            throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS_INGREDIENTNAME);
+        }
+        return name;
     }
 
     /**
@@ -140,9 +143,12 @@ public class ParserUtil {
      *
      */
 
-    public static int parseIngredientUnit(int ingredientUnit) {
-        requireNonNull(ingredientUnit);
-        return ingredientUnit;
+    public static int parseIngredientUnit(String unit) throws ParseException {
+        requireNonNull(unit);
+        if (!StringUtil.isNonZeroUnsignedInteger(unit)) {
+            throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS_INGREDIENTUNIT);
+        }
+        return Integer.parseInt(unit);
     }
 
     /**

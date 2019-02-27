@@ -22,13 +22,16 @@ class JsonSerializableRestaurantBook {
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    //private final List<JsonAdaptedIngredient> ingredients = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableRestaurantBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableRestaurantBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
+    public JsonSerializableRestaurantBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
+                                          @JsonProperty("ingredients") List<JsonAdaptedIngredient> ingredients) {
         this.persons.addAll(persons);
+        //this.ingredients.addAll(ingredients);
     }
 
     /**
@@ -39,6 +42,10 @@ class JsonSerializableRestaurantBook {
     public JsonSerializableRestaurantBook(ReadOnlyRestaurantBook source) {
         persons.addAll(source.getItemList(Person.class).stream()
                 .map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        /*ingredients.addAll(source.getItemList(Ingredient.class).stream()
+                .map(JsonAdaptedIngredient::new).collect(Collectors.toList()));
+                */
+
     }
 
     /**
@@ -55,6 +62,17 @@ class JsonSerializableRestaurantBook {
             }
             restaurantBook.addItem(person);
         }
+
+        /*
+        for (JsonAdaptedIngredient jsonAdaptedIngredient : ingredients) {
+            Ingredient ingredient = jsonAdaptedIngredient.toModelType();
+            if (restaurantBook.hasItem(ingredient)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_INGREDIENT);
+            }
+            restaurantBook.addItem(ingredient);
+        }
+        */
+
         return restaurantBook;
     }
 

@@ -10,6 +10,18 @@ import seedu.address.model.Item;
  */
 
 public class Ingredient implements Item {
+    public static final String MESSAGE_CONSTRAINTS_INGREDIENTNAME =
+            "Ingredient should only contain alphabets and spaces, and it should not be blank.";
+
+    public static final String MESSAGE_CONSTRAINTS_INGREDIENTUNIT =
+            "Ingredient unit should be non-zero unsigned integer.";
+
+
+    public static final String VALIDATION_REGEX_INGREDIENTNAME = "[a-zA-Z\\s]*";
+    public static final String VALIDATION_REGEX_INGREDIENTUNIT = "^[0-9]*$";
+
+
+
     // Identity fields
     private final String ingredientName;
     private int unit;
@@ -31,6 +43,13 @@ public class Ingredient implements Item {
         return unit;
     }
 
+    public static boolean isValidIngredientName(String test) {
+        return test.matches(VALIDATION_REGEX_INGREDIENTNAME);
+    }
+
+    public static boolean isValidIngredientUnit(String test) {
+        return test.matches(VALIDATION_REGEX_INGREDIENTUNIT);
+    }
 
     /**
      * Returns true if both ingredients have same name.
