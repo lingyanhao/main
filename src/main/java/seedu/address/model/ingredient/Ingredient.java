@@ -1,7 +1,5 @@
 package seedu.address.model.ingredient;
 
-import static seedu.address.model.person.Name.VALIDATION_REGEX;
-
 import java.util.Objects;
 
 import seedu.address.model.Item;
@@ -13,10 +11,16 @@ import seedu.address.model.Item;
 
 public class Ingredient implements Item {
     public static final String MESSAGE_CONSTRAINTS_INGREDIENTNAME =
-            "Ingredient should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Ingredient should only contain alphabets and spaces, and it should not be blank";
 
     public static final String MESSAGE_CONSTRAINTS_INGREDIENTUNIT =
             "Unit should be integers only";
+
+
+    public static final String VALIDATION_REGEX_INGREDIENTNAME = "[a-zA-Z\\s]*";
+    public static final String VALIDATION_REGEX_INGREDIENTUNIT = "[\\p{Alnum}][\\p{Alnum} ]*";
+
+
 
     // Identity fields
     private final String ingredientName;
@@ -40,10 +44,10 @@ public class Ingredient implements Item {
     }
 
     public static boolean isValidIngredientName(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX_INGREDIENTNAME);
     }
 
-    public static boolean isValidIngredientUnit(int test) {
+    public static boolean isValidIngredientUnit(String test) {
         return true;
     }
 
