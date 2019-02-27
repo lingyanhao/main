@@ -12,9 +12,10 @@ import seedu.address.model.ingredient.Ingredient;
  */
 public class IngredientListPanel extends ItemListPanel<Ingredient> {
 
-    public IngredientListPanel(ObservableList<Ingredient> IngredientList, ObservableValue<Ingredient> selectedIngredient,
-                           Consumer<Ingredient> onSelectedIngredientChange) {
-        super(IngredientList, selectedIngredient, onSelectedIngredientChange, listview -> new IngredientListViewCell());
+    public IngredientListPanel(ObservableList<Ingredient> ingredientList,
+                               ObservableValue<Ingredient> selectedIngredient,
+                               Consumer<Ingredient> onSelectedIngredientChange) {
+        super(ingredientList, selectedIngredient, onSelectedIngredientChange, listview -> new IngredientListViewCell());
     }
 }
 
@@ -23,14 +24,14 @@ public class IngredientListPanel extends ItemListPanel<Ingredient> {
  */
 class IngredientListViewCell extends ListCell<Ingredient> {
     @Override
-    protected void updateItem(Ingredient Ingredient, boolean empty) {
-        super.updateItem(Ingredient, empty);
+    protected void updateItem(Ingredient ingredient, boolean empty) {
+        super.updateItem(ingredient, empty);
 
-        if (empty || Ingredient == null) {
+        if (empty || ingredient == null) {
             setGraphic(null);
             setText(null);
         } else {
-            setGraphic(new IngredientCard(Ingredient, getIndex() + 1).getRoot());
+            setGraphic(new IngredientCard(ingredient, getIndex() + 1).getRoot());
         }
     }
 }

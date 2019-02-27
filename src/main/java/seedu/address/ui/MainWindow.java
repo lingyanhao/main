@@ -123,8 +123,8 @@ public class MainWindow extends UiPart<Stage> {
                 logic::setSelectedBooking);
         bookingListPanelPlaceholder.getChildren().add(bookingListPanel.getRoot());
 
-        ingredientListPanel = new IngredientListPanel(logic.getFilteredIngredientList(), logic.selectedIngredientProperty(),
-                logic::setSelectedIngredient);
+        ingredientListPanel = new IngredientListPanel(logic.getFilteredIngredientList(),
+                logic.selectedIngredientProperty(), logic::setSelectedIngredient);
         ingredientListPanelPlaceholder.getChildren().add(ingredientListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();

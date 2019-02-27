@@ -35,7 +35,7 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<Booking> selectedBooking = new SimpleObjectProperty<>();
 
     private final FilteredList<Ingredient> filteredIngredients;
-    private final SimpleObjectProperty<Ingredient> selectedIngredient= new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Ingredient> selectedIngredient = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given restaurantBook and userPrefs.
