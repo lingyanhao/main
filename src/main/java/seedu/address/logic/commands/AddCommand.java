@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_UNIT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NUMBER_PERSONS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -48,16 +49,18 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD_BOOKING = "addbooking"; // make sure that this is in lower case
     public static final String COMMAND_ALIAS_BOOKING = "ab";
 
-    public static final String MESSAGE_USAGE_BOOKING = COMMAND_WORD_BOOKING + ": Adds a booking to the restaurant. "
+    public static final String MESSAGE_USAGE_BOOKING = COMMAND_WORD_BOOKING + ": Adds a booking to the restaurant."
             + "Parameters: "
             + PREFIX_CUSTOMER + "CUSTOMER "
-            + PREFIX_START_TIME + "START_TIME\n"
+            + PREFIX_START_TIME + "START_TIME "
+            + PREFIX_NUMBER_PERSONS + "NUMBER_OF_PERSONS\n"
             + "Example: " + COMMAND_WORD_BOOKING + " "
             + PREFIX_CUSTOMER + "1 "
-            + PREFIX_START_TIME + "2019-02-23 14:30";
+            + PREFIX_START_TIME + "2019-02-23 14:30"
+            + PREFIX_NUMBER_PERSONS + "3";
 
     public static final String MESSAGE_SUCCESS_BOOKING = "New booking added: %1$s";
-    public static final String MESSAGE_DUPLICATE_BOOKING = "This booking already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_BOOKING = "Booking has already been made.";
 
     public static final String COMMAND_WORD_INGREDIENT = "addingredient";
     public static final String COMMAND_ALIAS_INGREDIENT = "ia";
