@@ -11,10 +11,10 @@ import seedu.address.model.Item;
 
 public class Ingredient implements Item {
     public static final String MESSAGE_CONSTRAINTS_INGREDIENTNAME =
-            "Ingredient should only contain alphabets and spaces, and it should not be blank";
+            "Ingredient should only contain alphabets and spaces, and it should not be blank.";
 
     public static final String MESSAGE_CONSTRAINTS_INGREDIENTUNIT =
-            "Unit should be integers only";
+            "Ingredient unit should be non-zero unsigned integer.";
 
 
     public static final String VALIDATION_REGEX_INGREDIENTNAME = "[a-zA-Z\\s]*";

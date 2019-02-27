@@ -145,7 +145,7 @@ public class ParserUtil {
 
     public static int parseIngredientUnit(String unit) throws ParseException {
         requireNonNull(unit);
-        if (!Ingredient.isValidIngredientUnit(unit)) {
+        if (!StringUtil.isNonZeroUnsignedInteger(unit)) {
             throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS_INGREDIENTUNIT);
         }
         return Integer.parseInt(unit);
