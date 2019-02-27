@@ -15,8 +15,11 @@ public class JsonAdaptedIngredient {
 
     private final String ingredientName;
     private final int ingredientQuantity;
+
     /**
-     * Constructs a {@code JsonAdaptedIngredient with the given ingredient details.
+     * Constructs a {@code JsonAdaptedIngredient} with the given ingredient details.
+     * @param name
+     * @param unit
      */
     @JsonCreator
     public JsonAdaptedIngredient (@JsonProperty("ingredientName") String name,
@@ -48,7 +51,7 @@ public class JsonAdaptedIngredient {
             throw new IllegalValueException(Ingredient.MESSAGE_CONSTRAINTS_INGREDIENTNAME);
         }
 
-        if (!Ingredient.isValidIngredientUnit(ingredientQuantity)) {
+        if (!Ingredient.isValidIngredientUnit(Integer.toString(ingredientQuantity))) {
             throw new IllegalValueException(Ingredient.MESSAGE_CONSTRAINTS_INGREDIENTUNIT);
         }
 
