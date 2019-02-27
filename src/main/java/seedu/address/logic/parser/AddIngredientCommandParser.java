@@ -32,6 +32,7 @@ public class AddIngredientCommandParser {
         int ingredientUnit =
                 ParserUtil.parseIngredientUnit(argMultimap.getValue(PREFIX_INGREDIENT_UNIT).get());
 
+
         Ingredient ingredient = new Ingredient(ingredientName, ingredientUnit);
 
         return new AddCommand(ingredient);

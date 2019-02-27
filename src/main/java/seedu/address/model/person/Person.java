@@ -12,10 +12,13 @@ import seedu.address.model.Item;
  */
 public class Person implements Item {
 
+    private static int idCounter = 0;
+
     // Identity fields
     private final Name name;
     private final Phone phone;
     private final Email email;
+    private final int id;
 
     /**
      * Every field must be present and not null.
@@ -25,6 +28,21 @@ public class Person implements Item {
         this.name = name;
         this.phone = phone;
         this.email = email;
+        id = idCounter;
+        idCounter++;
+    }
+
+    /**
+     * Creates a new person with the same ID as another person.
+     * Used for editing a person's details so that the system can track that it is the same person.
+     */
+    public Person(Name name, Phone phone, Email email, Person other) {
+        requireAllNonNull(name, phone, email, other);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        id = other.id;
+        // Take note: do not increment idCounter here, this is intentional
     }
 
     public Name getName() {
@@ -55,6 +73,10 @@ public class Person implements Item {
 
     public boolean isSameItem(Object otherItem) {
         return otherItem instanceof Person && isSamePerson((Person) otherItem);
+    }
+
+    public boolean hasSameId(Person other) {
+        return id == other.id;
     }
     /**
      * Returns true if both persons have the same identity and data fields.
