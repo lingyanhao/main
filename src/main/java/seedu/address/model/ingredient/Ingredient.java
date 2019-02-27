@@ -1,5 +1,7 @@
 package seedu.address.model.ingredient;
 
+import static seedu.address.model.person.Name.VALIDATION_REGEX;
+
 import java.util.Objects;
 
 import seedu.address.model.Item;
@@ -10,6 +12,12 @@ import seedu.address.model.Item;
  */
 
 public class Ingredient implements Item {
+    public static final String MESSAGE_CONSTRAINTS_INGREDIENTNAME =
+            "Ingredient should only contain alphanumeric characters and spaces, and it should not be blank";
+
+    public static final String MESSAGE_CONSTRAINTS_INGREDIENTUNIT =
+            "Unit should be integers only";
+
     // Identity fields
     private final String ingredientName;
     private int unit;
@@ -31,6 +39,13 @@ public class Ingredient implements Item {
         return unit;
     }
 
+    public static boolean isValidIngredientName(String test) {
+        return test.matches(VALIDATION_REGEX);
+    }
+
+    public static boolean isValidIngredientUnit(int test) {
+        return true;
+    }
 
     /**
      * Returns true if both ingredients have same name.
