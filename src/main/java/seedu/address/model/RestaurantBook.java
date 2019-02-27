@@ -13,7 +13,7 @@ import seedu.address.model.person.Person;
 
 /**
  * Wraps all data at the restaurant-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSameItem comparison)
  */
 public class RestaurantBook implements ReadOnlyRestaurantBook {
 

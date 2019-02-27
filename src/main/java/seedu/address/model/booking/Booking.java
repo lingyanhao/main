@@ -9,11 +9,14 @@ import seedu.address.model.person.Person;
  * A class to represent restaurant bookings.
  */
 public class Booking implements Item {
-    private Date startTime;
+    private Date startTime; // TODO: make sure the person card displays the right things
     private Person customer;
-    public Booking(Date startTime, Person customer) {
+    private int numPersons;
+
+    public Booking(Date startTime, Person customer, int numPersons) {
         this.startTime = startTime;
         this.customer = customer;
+        this.numPersons = numPersons;
     }
 
     @Override
@@ -27,6 +30,7 @@ public class Booking implements Item {
 
     @Override
     public String toString() {
-        return customer.getName().toString() + " " + customer.getPhone().toString() + " " + startTime.toString();
+        return customer.getName().toString() + " " + customer.getPhone().toString() + " "
+                + startTime.toString() + " " + numPersons;
     }
 }
