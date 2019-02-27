@@ -8,8 +8,6 @@ import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
-import java.util.Collections;
-
 import org.junit.Test;
 
 import guitests.guihandles.PersonCardHandle;
@@ -83,7 +81,7 @@ public class PersonListPanelTest extends GuiUnitTest {
             Phone phone = new Phone("000");
             Email email = new Email("a@aa");
             Address address = new Address("a");
-            Person person = new Person(name, phone, email, address, Collections.emptySet());
+            Person person = new Person(name, phone, email);
             backingList.add(person);
         }
         return backingList;
