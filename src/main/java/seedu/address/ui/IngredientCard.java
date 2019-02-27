@@ -4,24 +4,24 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.booking.Booking;
+import seedu.address.model.ingredient.Ingredient;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Ingredient}.
  */
-public class BookingCard extends UiPart<Region> {
+public class IngredientCard extends UiPart<Region> {
 
-    private static final String FXML = "BookingListCard.fxml";
+    private static final String FXML = "IngredientListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
      * As a consequence, UI elements' variable names cannot be set to such keywords
      * or an exception will be thrown by JavaFX during runtime.
      *
-     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
+     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on RestaurantBook level 4</a>
      */
 
-    public final Booking booking;
+    public final Ingredient ingredient;
 
     @FXML
     private HBox cardPane;
@@ -30,14 +30,14 @@ public class BookingCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label date;
+    private Label data;
 
-    public BookingCard(Booking booking, int displayedIndex) {
+    public IngredientCard(Ingredient ingredient, int displayedIndex) {
         super(FXML);
-        this.booking = booking;
+        this.ingredient = ingredient;
         id.setText(displayedIndex + ". ");
-        name.setText("Temp name (booking)");
-        date.setText(booking.toString());
+        name.setText("Temp name (ingredient)");
+        data.setText(ingredient.toString());
     }
 
     @Override
@@ -48,13 +48,13 @@ public class BookingCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof BookingCard)) {
+        if (!(other instanceof IngredientCard)) {
             return false;
         }
 
         // state check
-        BookingCard card = (BookingCard) other;
+        IngredientCard card = (IngredientCard) other;
         return id.getText().equals(card.id.getText())
-                && booking.equals(card.booking);
+                && ingredient.equals(card.ingredient);
     }
 }
