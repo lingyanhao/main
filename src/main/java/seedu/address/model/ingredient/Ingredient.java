@@ -18,7 +18,7 @@ public class Ingredient implements Item {
 
 
     public static final String VALIDATION_REGEX_INGREDIENTNAME = "[a-zA-Z\\s]*";
-    public static final String VALIDATION_REGEX_INGREDIENTUNIT = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX_INGREDIENTUNIT = "^[0-9]*$";
 
 
 
@@ -48,7 +48,7 @@ public class Ingredient implements Item {
     }
 
     public static boolean isValidIngredientUnit(String test) {
-        return true;
+        return test.matches(VALIDATION_REGEX_INGREDIENTUNIT);
     }
 
     /**
