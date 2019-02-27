@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.text.SimpleDateFormat;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -26,9 +28,13 @@ public class BookingCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
+    private Label id;
+    @FXML
     private Label name;
     @FXML
-    private Label id;
+    private Label numPersons;
+    @FXML
+    private Label phone;
     @FXML
     private Label date;
 
@@ -36,8 +42,11 @@ public class BookingCard extends UiPart<Region> {
         super(FXML);
         this.booking = booking;
         id.setText(displayedIndex + ". ");
-        name.setText("Temp name (booking)");
-        date.setText(booking.toString());
+        name.setText(booking.getCustomer().getName().toString());
+        numPersons.setText("(" + booking.getNumPersons() + " person(s))");
+        phone.setText(booking.getCustomer().getPhone().toString());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        date.setText(sdf.format(booking.getStartTime()));
     }
 
     @Override

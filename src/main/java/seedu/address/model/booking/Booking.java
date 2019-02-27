@@ -40,7 +40,6 @@ public class Booking implements Item, Comparable<Booking> {
         return numPersons;
     }
 
-
     @Override
     public boolean isSameItem(Object other) {
         if (other instanceof Booking) {
