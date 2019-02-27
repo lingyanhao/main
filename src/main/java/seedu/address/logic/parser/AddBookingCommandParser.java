@@ -38,7 +38,7 @@ public class AddBookingCommandParser {
         } catch (NumberFormatException e) {
             throw new ParseException("Number of persons needs to be a positive integer.");
         }
-        if (numPersons < 0) {
+        if (numPersons <= 0) {
             throw new ParseException("Number of persons needs to be a positive integer.");
         }
 
