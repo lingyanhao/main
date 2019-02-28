@@ -18,17 +18,17 @@ import seedu.address.model.Item;
 import seedu.address.model.Model;
 import seedu.address.model.booking.Booking;
 import seedu.address.model.ingredient.Ingredient;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Member;
 
 /**
  * Adds an item to the restaurant book.
  */
 public class AddCommand extends Command {
 
-    public static final String COMMAND_WORD_PERSON = "addperson"; // make sure that this is in lower case
+    public static final String COMMAND_WORD_PERSON = "addmember"; // make sure that this is in lower case
     public static final String COMMAND_ALIAS_PERSON = "ap";
 
-    public static final String MESSAGE_USAGE_PERSON = COMMAND_WORD_PERSON + ": Adds a person to the address book. "
+    public static final String MESSAGE_USAGE_PERSON = COMMAND_WORD_PERSON + ": Adds a member to the address book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
@@ -43,8 +43,8 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 
-    public static final String MESSAGE_SUCCESS_PERSON = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_SUCCESS_PERSON = "New member added: %1$s";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This member already exists in the address book";
 
     public static final String COMMAND_WORD_BOOKING = "addbooking"; // make sure that this is in lower case
     public static final String COMMAND_ALIAS_BOOKING = "ab";
@@ -82,11 +82,11 @@ public class AddCommand extends Command {
     private final Item toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code Member}
      */
     public AddCommand(Item item) {
         requireNonNull(item);
-        if (item instanceof Person) {
+        if (item instanceof Member) {
             messageDuplicate = MESSAGE_DUPLICATE_PERSON;
             messageSuccess = MESSAGE_SUCCESS_PERSON;
         } else if (item instanceof Booking) {

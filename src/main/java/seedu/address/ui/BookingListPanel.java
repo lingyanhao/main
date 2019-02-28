@@ -8,18 +8,18 @@ import javafx.scene.control.ListCell;
 import seedu.address.model.booking.Booking;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of members.
  */
 public class BookingListPanel extends ItemListPanel<Booking> {
 
-    public BookingListPanel(ObservableList<Booking> personList, ObservableValue<Booking> selectedPerson,
-                            Consumer<Booking> onSelectedPersonChange) {
-        super(personList, selectedPerson, onSelectedPersonChange, listview -> new BookingListViewCell());
+    public BookingListPanel(ObservableList<Booking> memberList, ObservableValue<Booking> selectedMember,
+                            Consumer<Booking> onSelectedMemberChange) {
+        super(memberList, selectedMember, onSelectedMemberChange, listview -> new BookingListViewCell());
     }
 }
 
 /**
- * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+ * Custom {@code ListCell} that displays the graphics of a {@code Member} using a {@code MemberCard}.
  */
 class BookingListViewCell extends ListCell<Booking> {
     @Override

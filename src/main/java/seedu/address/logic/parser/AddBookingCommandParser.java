@@ -31,17 +31,17 @@ public class AddBookingCommandParser {
         }
 
         Date startTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_START_TIME).get());
-        Index personIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_CUSTOMER).get());
-        int numPersons;
+        Index memberIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_CUSTOMER).get());
+        int numMembers;
         try {
-            numPersons = Integer.parseInt(argMultimap.getValue(PREFIX_NUMBER_PERSONS).get());
+            numMembers = Integer.parseInt(argMultimap.getValue(PREFIX_NUMBER_PERSONS).get());
         } catch (NumberFormatException e) {
-            throw new ParseException("Number of persons needs to be a positive integer.");
+            throw new ParseException("Number of members needs to be a positive integer.");
         }
-        if (numPersons <= 0) {
-            throw new ParseException("Number of persons needs to be a positive integer.");
+        if (numMembers <= 0) {
+            throw new ParseException("Number of members needs to be a positive integer.");
         }
 
-        return new AddBookingCommand(startTime, personIndex, numPersons);
+        return new AddBookingCommand(startTime, memberIndex, numMembers);
     }
 }

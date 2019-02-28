@@ -16,8 +16,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.RestaurantBook;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.model.person.Member;
+import seedu.address.testutil.EditMemberDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -45,13 +45,13 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    public static final EditCommand.EditMemberDescriptor DESC_AMY;
+    public static final EditCommand.EditMemberDescriptor DESC_BOB;
 
     static {
-        DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
+        DESC_AMY = new EditMemberDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
-        DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
+        DESC_BOB = new EditMemberDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
     }
 
@@ -88,7 +88,7 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book, filtered person list and selected person in {@code actualModel} remain unchanged <br>
+     * - the address book, filtered member list and selected member in {@code actualModel} remain unchanged <br>
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
@@ -96,8 +96,8 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         RestaurantBook expectedRestaurantBook = new RestaurantBook(actualModel.getRestaurantBook());
-        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredItemList(Person.class));
-        Person expectedSelectedPerson = actualModel.getSelectedItem(Person.class);
+        List<Member> expectedFilteredList = new ArrayList<>(actualModel.getFilteredItemList(Member.class));
+        Member expectedSelectedMember = actualModel.getSelectedItem(Member.class);
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -107,32 +107,32 @@ public class CommandTestUtil {
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedRestaurantBook, actualModel.getRestaurantBook());
-            assertEquals(expectedFilteredList, actualModel.getFilteredItemList(Person.class));
-            assertEquals(expectedSelectedPerson, actualModel.getSelectedItem(Person.class));
+            assertEquals(expectedFilteredList, actualModel.getFilteredItemList(Member.class));
+            assertEquals(expectedSelectedMember, actualModel.getSelectedItem(Member.class));
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }
 
     /**
-     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
+     * Updates {@code model}'s filtered list to show only the member at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
-    public static void showPersonAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredItemList(Person.class).size());
+    public static void showMemberAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredItemList(Member.class).size());
 
-        Person person = model.getFilteredItemList(Person.class).get(targetIndex.getZeroBased());
-        final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredItemList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])), Person.class);
+        Member member = model.getFilteredItemList(Member.class).get(targetIndex.getZeroBased());
+        final String[] splitName = member.getName().fullName.split("\\s+");
+        model.updateFilteredItemList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])), Member.class);
 
-        assertEquals(1, model.getFilteredItemList(Person.class).size());
+        assertEquals(1, model.getFilteredItemList(Member.class).size());
     }
 
     /**
-     * Deletes the first person in {@code model}'s filtered list from {@code model}'s address book.
+     * Deletes the first member in {@code model}'s filtered list from {@code model}'s address book.
      */
-    public static void deleteFirstPerson(Model model) {
-        Person firstPerson = model.getFilteredItemList(Person.class).get(0);
-        model.deleteItem(firstPerson);
+    public static void deleteFirstMember(Model model) {
+        Member firstMember = model.getFilteredItemList(Member.class).get(0);
+        model.deleteItem(firstMember);
         model.commitRestaurantBook();
     }
 

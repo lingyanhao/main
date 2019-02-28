@@ -5,9 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ITEMS;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalMembers.ALICE;
+import static seedu.address.testutil.TypicalMembers.BENSON;
+import static seedu.address.testutil.TypicalMembers.BOB;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -20,10 +20,10 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Member;
 import seedu.address.model.person.exceptions.ItemNotFoundException;
 import seedu.address.testutil.AddressBookBuilder;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.MemberBuilder;
 
 public class ModelManagerTest {
     @Rule
@@ -36,7 +36,7 @@ public class ModelManagerTest {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new RestaurantBook(), new RestaurantBook(modelManager.getRestaurantBook()));
-        assertEquals(null, modelManager.getSelectedItem(Person.class));
+        assertEquals(null, modelManager.getSelectedItem(Member.class));
     }
 
     @Test
@@ -86,72 +86,72 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasMember_nullMember_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         modelManager.hasItem(null);
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
+    public void hasMember_memberNotInAddressBook_returnsFalse() {
         assertFalse(modelManager.hasItem(ALICE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
+    public void hasMember_memberInAddressBook_returnsTrue() {
         modelManager.addItem(ALICE);
         assertTrue(modelManager.hasItem(ALICE));
     }
 
     @Test
-    public void deletePerson_personIsSelectedAndFirstPersonInFilteredPersonList_selectionCleared() {
+    public void deleteMember_memberIsSelectedAndFirstMemberInFilteredMemberList_selectionCleared() {
         modelManager.addItem(ALICE);
-        modelManager.setSelectedItem(ALICE, Person.class);
+        modelManager.setSelectedItem(ALICE, Member.class);
         modelManager.deleteItem(ALICE);
-        assertEquals(null, modelManager.getSelectedItem(Person.class));
+        assertEquals(null, modelManager.getSelectedItem(Member.class));
     }
 
     @Test
-    public void deletePerson_personIsSelectedAndSecondPersonInFilteredPersonList_firstPersonSelected() {
+    public void deleteMember_memberIsSelectedAndSecondMemberInFilteredMemberList_firstMemberSelected() {
         modelManager.addItem(ALICE);
         modelManager.addItem(BOB);
-        assertEquals(Arrays.asList(ALICE, BOB), modelManager.getFilteredItemList(Person.class));
-        modelManager.setSelectedItem(BOB, Person.class);
+        assertEquals(Arrays.asList(ALICE, BOB), modelManager.getFilteredItemList(Member.class));
+        modelManager.setSelectedItem(BOB, Member.class);
         modelManager.deleteItem(BOB);
-        assertEquals(ALICE, modelManager.getSelectedItem(Person.class));
+        assertEquals(ALICE, modelManager.getSelectedItem(Member.class));
     }
 
     @Test
-    public void setPerson_personIsSelected_selectedPersonUpdated() {
+    public void setMember_memberIsSelected_selectedMemberUpdated() {
         modelManager.addItem(ALICE);
-        modelManager.setSelectedItem(ALICE, Person.class);
-        Person updatedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
+        modelManager.setSelectedItem(ALICE, Member.class);
+        Member updatedAlice = new MemberBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
         modelManager.setItem(ALICE, updatedAlice);
-        assertEquals(updatedAlice, modelManager.getSelectedItem(Person.class));
+        assertEquals(updatedAlice, modelManager.getSelectedItem(Member.class));
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredMemberList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        modelManager.getFilteredItemList(Person.class).remove(0);
+        modelManager.getFilteredItemList(Member.class).remove(0);
     }
 
     @Test
-    public void setSelectedPerson_personNotInFilteredPersonList_throwsPersonNotFoundException() {
+    public void setSelectedMember_memberNotInFilteredMemberList_throwsMemberNotFoundException() {
         thrown.expect(ItemNotFoundException.class);
-        modelManager.setSelectedItem(ALICE, Person.class);
+        modelManager.setSelectedItem(ALICE, Member.class);
     }
 
     @Test
-    public void setSelectedPerson_personInFilteredPersonList_setsSelectedPerson() {
+    public void setSelectedMember_memberInFilteredMemberList_setsSelectedMember() {
         modelManager.addItem(ALICE);
-        assertEquals(Collections.singletonList(ALICE), modelManager.getFilteredItemList(Person.class));
-        modelManager.setSelectedItem(ALICE, Person.class);
-        assertEquals(ALICE, modelManager.getSelectedItem(Person.class));
+        assertEquals(Collections.singletonList(ALICE), modelManager.getFilteredItemList(Member.class));
+        modelManager.setSelectedItem(ALICE, Member.class);
+        assertEquals(ALICE, modelManager.getSelectedItem(Member.class));
     }
 
     @Test
     public void equals() {
-        RestaurantBook restaurantBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        RestaurantBook restaurantBook = new AddressBookBuilder().withMember(ALICE).withMember(BENSON).build();
         RestaurantBook differentRestaurantBook = new RestaurantBook();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -174,11 +174,11 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredItemList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)), Person.class);
+        modelManager.updateFilteredItemList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)), Member.class);
         assertFalse(modelManager.equals(new ModelManager(restaurantBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS, Person.class);
+        modelManager.updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS, Member.class);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();

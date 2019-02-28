@@ -17,7 +17,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.booking.Booking;
 import seedu.address.model.ingredient.Ingredient;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Member;
 import seedu.address.model.person.exceptions.ItemNotFoundException;
 
 /**
@@ -28,8 +28,8 @@ public class ModelManager implements Model {
 
     private final VersionedRestaurantBook versionedRestaurantBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
-    private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
+    private final FilteredList<Member> filteredMembers;
+    private final SimpleObjectProperty<Member> selectedMember = new SimpleObjectProperty<>();
 
     private final FilteredList<Booking> filteredBookings;
     private final SimpleObjectProperty<Booking> selectedBooking = new SimpleObjectProperty<>();
@@ -48,11 +48,11 @@ public class ModelManager implements Model {
 
         versionedRestaurantBook = new VersionedRestaurantBook(restaurantBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(versionedRestaurantBook.getItemList(Person.class));
-        filteredPersons.addListener(this::ensureSelectedPersonIsValid);
+        filteredMembers = new FilteredList<>(versionedRestaurantBook.getItemList(Member.class));
+        filteredMembers.addListener(this::ensureSelectedMemberIsValid);
 
         filteredBookings = new FilteredList<>(versionedRestaurantBook.getItemList(Booking.class));
-        //filteredBookings.addListener(this::ensureSelectedPersonIsValid); TODO: get this to work
+        //filteredBookings.addListener(this::ensureSelectedMemberIsValid); TODO: get this to work
 
         filteredIngredients = new FilteredList<>(versionedRestaurantBook.getItemList(Ingredient.class));
     }
@@ -135,16 +135,16 @@ public class ModelManager implements Model {
     }
 
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Member List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Member} backed by the internal list of
      * {@code versionedRestaurantBook}
      */
     @Override
     public <T extends Item> ObservableList<T> getFilteredItemList(Class<T> clazz) {
-        if (clazz.equals(Person.class)) {
-            return (ObservableList<T>) filteredPersons;
+        if (clazz.equals(Member.class)) {
+            return (ObservableList<T>) filteredMembers;
         } else if (clazz.equals(Booking.class)) {
             return (ObservableList<T>) filteredBookings;
         } else if (clazz.equals(Ingredient.class)) {
@@ -157,8 +157,8 @@ public class ModelManager implements Model {
     @Override
     public <T extends Item> void updateFilteredItemList(Predicate<? super T> predicate, Class<T> clazz) {
         requireNonNull(predicate);
-        if (clazz == Person.class) {
-            filteredPersons.setPredicate((Predicate<Person>) predicate);
+        if (clazz == Member.class) {
+            filteredMembers.setPredicate((Predicate<Member>) predicate);
         } else if (clazz == Booking.class) {
             filteredBookings.setPredicate((Predicate<Booking>) predicate);
         } else if (clazz == Ingredient.class) {
@@ -195,12 +195,12 @@ public class ModelManager implements Model {
         versionedRestaurantBook.commit();
     }
 
-    //=========== Selected person ===========================================================================
+    //=========== Selected member ===========================================================================
 
     @Override
     public <T extends Item> ReadOnlyProperty<T> selectedItemProperty(Class<T> clazz) {
-        if (clazz == Person.class) {
-            return (ReadOnlyProperty<T>) selectedPerson;
+        if (clazz == Member.class) {
+            return (ReadOnlyProperty<T>) selectedMember;
         } else if (clazz == Booking.class) {
             return (ReadOnlyProperty<T>) selectedBooking;
         } else if (clazz == Ingredient.class) {
@@ -212,8 +212,8 @@ public class ModelManager implements Model {
 
     @Override
     public <T extends Item> T getSelectedItem(Class<T> clazz) {
-        if (clazz == Person.class) {
-            return (T) selectedPerson.getValue();
+        if (clazz == Member.class) {
+            return (T) selectedMember.getValue();
         } else if (clazz == Booking.class) {
             return (T) selectedBooking.getValue();
         } else if (clazz == Ingredient.class) {
@@ -225,11 +225,11 @@ public class ModelManager implements Model {
 
     @Override
     public <T extends Item> void setSelectedItem(T item, Class<T> clazz) {
-        if (clazz == Person.class) {
-            if (item != null && !filteredPersons.contains(item)) {
+        if (clazz == Member.class) {
+            if (item != null && !filteredMembers.contains(item)) {
                 throw new ItemNotFoundException();
             }
-            selectedPerson.setValue((Person) item);
+            selectedMember.setValue((Member) item);
         } else if (clazz == Booking.class) {
             if (item != null && !filteredBookings.contains(item)) {
                 throw new ItemNotFoundException();
@@ -246,30 +246,30 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Ensures {@code selectedPerson} is a valid person in {@code filteredPersons}.
+     * Ensures {@code selectedMember} is a valid member in {@code filteredMembers}.
      */
-    private void ensureSelectedPersonIsValid(ListChangeListener.Change<? extends Person> change) {
+    private void ensureSelectedMemberIsValid(ListChangeListener.Change<? extends Member> change) {
         while (change.next()) {
-            if (selectedPerson.getValue() == null) {
-                // null is always a valid selected person, so we do not need to check that it is valid anymore.
+            if (selectedMember.getValue() == null) {
+                // null is always a valid selected member, so we do not need to check that it is valid anymore.
                 return;
             }
 
-            boolean wasSelectedPersonReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedPerson.getValue());
-            if (wasSelectedPersonReplaced) {
-                // Update selectedPerson to its new value.
-                int index = change.getRemoved().indexOf(selectedPerson.getValue());
-                selectedPerson.setValue(change.getAddedSubList().get(index));
+            boolean wasSelectedMemberReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                    && change.getRemoved().contains(selectedMember.getValue());
+            if (wasSelectedMemberReplaced) {
+                // Update selectedMember to its new value.
+                int index = change.getRemoved().indexOf(selectedMember.getValue());
+                selectedMember.setValue(change.getAddedSubList().get(index));
                 continue;
             }
 
-            boolean wasSelectedPersonRemoved = change.getRemoved().stream()
-                    .anyMatch(removedPerson -> selectedPerson.getValue().isSamePerson(removedPerson));
-            if (wasSelectedPersonRemoved) {
-                // Select the person that came before it in the list,
-                // or clear the selection if there is no such person.
-                selectedPerson.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            boolean wasSelectedMemberRemoved = change.getRemoved().stream()
+                    .anyMatch(removedMember -> selectedMember.getValue().isSameMember(removedMember));
+            if (wasSelectedMemberRemoved) {
+                // Select the member that came before it in the list,
+                // or clear the selection if there is no such member.
+                selectedMember.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
     }
@@ -322,8 +322,8 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return versionedRestaurantBook.equals(other.versionedRestaurantBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons)
-                && Objects.equals(selectedPerson.get(), other.selectedPerson.get())
+                && filteredMembers.equals(other.filteredMembers)
+                && Objects.equals(selectedMember.get(), other.selectedMember.get())
                 && filteredBookings.equals(other.filteredBookings)
                 && Objects.equals(selectedBooking.get(), other.selectedBooking.get());
     }

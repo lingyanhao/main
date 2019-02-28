@@ -3,8 +3,8 @@ package seedu.address.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalMembers.ALICE;
+import static seedu.address.testutil.TypicalMembers.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -20,9 +20,9 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.booking.Booking;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Member;
 import seedu.address.model.person.exceptions.DuplicateItemException;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.MemberBuilder;
 
 public class RestaurantBookTest {
 
@@ -33,7 +33,7 @@ public class RestaurantBookTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), restaurantBook.getItemList(Person.class));
+        assertEquals(Collections.emptyList(), restaurantBook.getItemList(Member.class));
     }
 
     @Test
@@ -50,44 +50,44 @@ public class RestaurantBookTest {
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-        // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(ALICE).build();
-        List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        RestaurantBookStub newData = new RestaurantBookStub(newPersons);
+    public void resetData_withDuplicateMembers_throwsDuplicateMemberException() {
+        // Two members with the same identity fields
+        Member editedAlice = new MemberBuilder(ALICE).build();
+        List<Member> newMembers = Arrays.asList(ALICE, editedAlice);
+        RestaurantBookStub newData = new RestaurantBookStub(newMembers);
 
         thrown.expect(DuplicateItemException.class);
         restaurantBook.resetData(newData);
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasMember_nullMember_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         restaurantBook.hasItem(null);
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
+    public void hasMember_memberNotInAddressBook_returnsFalse() {
         assertFalse(restaurantBook.hasItem(ALICE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
+    public void hasMember_memberInAddressBook_returnsTrue() {
         restaurantBook.addItem(ALICE);
         assertTrue(restaurantBook.hasItem(ALICE));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
+    public void hasMember_memberWithSameIdentityFieldsInAddressBook_returnsTrue() {
         restaurantBook.addItem(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).build();
+        Member editedAlice = new MemberBuilder(ALICE).build();
         assertTrue(restaurantBook.hasItem(editedAlice));
     }
 
     @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getMemberList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        restaurantBook.getItemList(Person.class).remove(0);
+        restaurantBook.getItemList(Member.class).remove(0);
     }
 
     @Test
@@ -110,21 +110,21 @@ public class RestaurantBookTest {
     }
 
     /**
-     * A stub ReadOnlyRestaurantBook whose persons list can violate interface constraints.
+     * A stub ReadOnlyRestaurantBook whose members list can violate interface constraints.
      */
     private static class RestaurantBookStub implements ReadOnlyRestaurantBook {
-        private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<Member> members = FXCollections.observableArrayList();
         private final ObservableList<Booking> bookings = FXCollections.observableArrayList();
 
-        RestaurantBookStub(Collection<Person> persons) {
-            this.persons.setAll(persons);
+        RestaurantBookStub(Collection<Member> members) {
+            this.members.setAll(members);
         }
 
         @Override
         public <T extends Item> ObservableList<T> getItemList(Class<T> clazz) {
 
-            if (clazz == Person.class) {
-                return (ObservableList<T>) persons;
+            if (clazz == Member.class) {
+                return (ObservableList<T>) members;
             } else if (clazz == Booking.class) {
                 return (ObservableList<T>) bookings;
             } else {

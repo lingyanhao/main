@@ -50,7 +50,7 @@ public class RestaurantBookParser {
 
         case AddCommand.COMMAND_WORD_PERSON:
         case AddCommand.COMMAND_ALIAS_PERSON:
-            return new AddPersonCommandParser().parse(arguments);
+            return new AddMemberCommandParser().parse(arguments);
 
         case AddCommand.COMMAND_WORD_BOOKING:
         case AddCommand.COMMAND_ALIAS_BOOKING:

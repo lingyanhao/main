@@ -11,7 +11,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyRestaurantBook;
 import seedu.address.model.booking.Booking;
 import seedu.address.model.ingredient.Ingredient;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Member;
 
 /**
  * API of the Logic component
@@ -33,8 +33,8 @@ public interface Logic {
      */
     ReadOnlyRestaurantBook getRestaurantBook();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered list of members */
+    ObservableList<Member> getFilteredMemberList();
 
     /** Returns an unmodifiable view of the filtered list of bookings */
     ObservableList<Booking> getFilteredBookingList();
@@ -64,12 +64,12 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
+     * Selected member in the filtered member list.
+     * null if no member is selected.
      *
      * @see seedu.address.model.Model#selectedItemProperty()
      */
-    ReadOnlyProperty<Person> selectedPersonProperty();
+    ReadOnlyProperty<Member> selectedMemberProperty();
 
     /**
      * Selected booking in the filtered booking list.
@@ -88,11 +88,11 @@ public interface Logic {
     ReadOnlyProperty<Ingredient> selectedIngredientProperty();
 
     /**
-     * Sets the selected person in the filtered person list.
+     * Sets the selected member in the filtered member list.
      *
-     * @see seedu.address.model.Model#setSelectedItem(Person)
+     * @see seedu.address.model.Model#setSelectedItem(Member)
      */
-    void setSelectedPerson(Person person);
+    void setSelectedMember(Member member);
 
     /**
      * Sets the selected booking in the filtered booking list.
