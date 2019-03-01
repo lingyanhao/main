@@ -9,7 +9,7 @@ import javafx.scene.layout.Region;
 import seedu.address.model.booking.Booking;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Member}.
  */
 public class BookingCard extends UiPart<Region> {
 
@@ -32,7 +32,7 @@ public class BookingCard extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
-    private Label numPersons;
+    private Label numMembers;
     @FXML
     private Label phone;
     @FXML
@@ -43,7 +43,7 @@ public class BookingCard extends UiPart<Region> {
         this.booking = booking;
         id.setText(displayedIndex + ". ");
         name.setText(booking.getCustomer().getName().toString());
-        numPersons.setText("(" + booking.getNumPersons() + " person(s))");
+        numMembers.setText("(" + booking.getNumMembers() + " member(s))");
         phone.setText(booking.getCustomer().getPhone().toString());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         date.setText(sdf.format(booking.getStartTime()));

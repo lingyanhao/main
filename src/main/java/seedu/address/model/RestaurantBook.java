@@ -12,7 +12,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.booking.Booking;
 import seedu.address.model.ingredient.Ingredient;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Member;
 
 /**
  * Wraps all data at the restaurant-book level
@@ -20,7 +20,7 @@ import seedu.address.model.person.Person;
  */
 public class RestaurantBook implements ReadOnlyRestaurantBook {
 
-    private final UniqueItemList<Person> persons;
+    private final UniqueItemList<Member> members;
     private final UniqueItemList<Booking> bookings;
     private final UniqueItemList<Ingredient> ingredients;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
@@ -32,7 +32,7 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
         * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
         *   among constructors.
         */ {
-        persons = new UniqueItemList<>();
+        members = new UniqueItemList<>();
         bookings = new UniqueItemList<>();
         ingredients = new UniqueItemList<>();
     }
@@ -41,7 +41,7 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
     }
 
     /**
-     * Creates an RestaurantBook using the Persons in the {@code toBeCopied}
+     * Creates an RestaurantBook using the Members in the {@code toBeCopied}
      */
     public RestaurantBook(ReadOnlyRestaurantBook toBeCopied) {
         this();
@@ -51,11 +51,11 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the member list with {@code members}.
+     * {@code members} must not contain duplicate members.
      */
-    public void setPersons(List<Person> persons) { // TODO: decide to keep this method as it is?
-        this.persons.setItems(persons);
+    public void setMembers(List<Member> members) { // TODO: decide to keep this method as it is?
+        this.members.setItems(members);
         indicateModified();
     }
 
@@ -75,20 +75,20 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
     public void resetData(ReadOnlyRestaurantBook newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getItemList(Person.class));
+        setMembers(newData.getItemList(Member.class));
         setBooking(newData.getItemList(Booking.class));
         setIngredients(newData.getItemList(Ingredient.class));
     }
 
-    //// person-level operations
+    //// member-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the restaurant book.
+     * Returns true if a member with the same identity as {@code member} exists in the restaurant book.
      */
     public boolean hasItem(Item item) {
         requireNonNull(item);
-        if (item instanceof Person) {
-            return persons.contains(item);
+        if (item instanceof Member) {
+            return members.contains(item);
         } else if (item instanceof Booking) {
             return bookings.contains(item);
         } else if (item instanceof Ingredient) {
@@ -103,8 +103,8 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
      * The item must not already exist in the restaurant book.
      */
     public void addItem(Item i) {
-        if (i instanceof Person) {
-            persons.add((Person) i);
+        if (i instanceof Member) {
+            members.add((Member) i);
         } else if (i instanceof Booking) {
             bookings.add((Booking) i);
             bookings.sort(Comparator.naturalOrder());
@@ -117,19 +117,19 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given member {@code target} in the list with {@code editedMember}.
      * {@code target} must exist in the restaurant book.
-     * The person identity of {@code editedPerson} must not be the
-     * same as another existing person in the restaurant book.
+     * The member identity of {@code editedMember} must not be the
+     * same as another existing member in the restaurant book.
      */
     public <T extends Item> void setItem(T target, T editedItem) {
         requireNonNull(editedItem);
-        if (target instanceof Person && editedItem instanceof Person) {
-            persons.setItem((Person) target, (Person) editedItem);
-            // when a person is edited, update all the associated bookings too
+        if (target instanceof Member && editedItem instanceof Member) {
+            members.setItem((Member) target, (Member) editedItem);
+            // when a member is edited, update all the associated bookings too
             ObservableList<Booking> bookingObservableList = bookings.asUnmodifiableObservableList();
             Function<Booking, Booking>
-                    updateBooking = b -> (b.getCustomer().equals(target) ? b.editContacts((Person) editedItem) : b);
+                    updateBooking = b -> (b.getCustomer().equals(target) ? b.editContacts((Member) editedItem) : b);
             setBooking(bookingObservableList.stream().map(updateBooking).collect(Collectors.toList()));
         } else if (target instanceof Booking && editedItem instanceof Booking) {
             bookings.setItem((Booking) target, (Booking) editedItem);
@@ -147,8 +147,8 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
      * {@code key} must exist in the restaurant book.
      */
     public void removeItem(Item key) {
-        if (key instanceof Person) {
-            persons.remove(key);
+        if (key instanceof Member) {
+            members.remove(key);
         } else if (key instanceof Booking) {
             bookings.remove(key);
         } else if (key instanceof Ingredient) {
@@ -180,14 +180,14 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons ";
+        return members.asUnmodifiableObservableList().size() + " members ";
         // TODO: refine later
     }
 
     @Override
     public <T extends Item> ObservableList<T> getItemList(Class<T> clazz) {
-        if (clazz == Person.class) {
-            return (ObservableList<T>) persons.asUnmodifiableObservableList();
+        if (clazz == Member.class) {
+            return (ObservableList<T>) members.asUnmodifiableObservableList();
         } else if (clazz == Booking.class) {
             return (ObservableList<T>) bookings.asUnmodifiableObservableList();
         } else if (clazz == Ingredient.class) {
@@ -201,13 +201,13 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
     public boolean equals(Object other) { // TODO: reflect the entire inventory when comparing equality
         return other == this // short circuit if same object
                 || (other instanceof RestaurantBook // instanceof handles nulls
-                && persons.equals(((RestaurantBook) other).persons)
+                && members.equals(((RestaurantBook) other).members)
                 && bookings.equals(((RestaurantBook) other).bookings)
                 && ingredients.equals(((RestaurantBook) other).ingredients));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return members.hashCode();
     }
 }

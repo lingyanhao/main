@@ -4,9 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalPersons.BOB;
-import static seedu.address.testutil.TypicalPersons.CARL;
+import static seedu.address.testutil.TypicalMembers.AMY;
+import static seedu.address.testutil.TypicalMembers.BOB;
+import static seedu.address.testutil.TypicalMembers.CARL;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,9 +18,9 @@ import seedu.address.testutil.AddressBookBuilder;
 
 public class VersionedRestaurantBookTest {
 
-    private final ReadOnlyRestaurantBook addressBookWithAmy = new AddressBookBuilder().withPerson(AMY).build();
-    private final ReadOnlyRestaurantBook addressBookWithBob = new AddressBookBuilder().withPerson(BOB).build();
-    private final ReadOnlyRestaurantBook addressBookWithCarl = new AddressBookBuilder().withPerson(CARL).build();
+    private final ReadOnlyRestaurantBook addressBookWithAmy = new AddressBookBuilder().withMember(AMY).build();
+    private final ReadOnlyRestaurantBook addressBookWithBob = new AddressBookBuilder().withMember(BOB).build();
+    private final ReadOnlyRestaurantBook addressBookWithCarl = new AddressBookBuilder().withMember(CARL).build();
     private final ReadOnlyRestaurantBook emptyAddressBook = new AddressBookBuilder().build();
 
     @Test

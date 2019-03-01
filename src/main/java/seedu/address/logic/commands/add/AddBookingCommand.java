@@ -14,7 +14,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.booking.Booking;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Member;
 
 /**
  * A command that stores the details of adding a booking.
@@ -25,25 +25,25 @@ import seedu.address.model.person.Person;
 public class AddBookingCommand extends Command {
 
     private final Date startTime;
-    private final Index personIndex;
-    private int numPersons;
+    private final Index memberIndex;
+    private int numMembers;
 
-    public AddBookingCommand(Date startTime, Index personIndex, int numPersons) {
+    public AddBookingCommand(Date startTime, Index memberIndex, int numMembers) {
         this.startTime = startTime;
-        this.personIndex = personIndex;
-        this.numPersons = numPersons;
+        this.memberIndex = memberIndex;
+        this.numMembers = numMembers;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory commandHistory) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredItemList(Person.class);
-        if (personIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        List<Member> lastShownList = model.getFilteredItemList(Member.class);
+        if (memberIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_MEMBER_DISPLAYED_INDEX);
         }
 
-        Person customer = lastShownList.get(personIndex.getZeroBased());
-        Booking toAdd = new Booking(startTime, customer, numPersons);
+        Member customer = lastShownList.get(memberIndex.getZeroBased());
+        Booking toAdd = new Booking(startTime, customer, numMembers);
         return new AddCommand(toAdd).execute(model, commandHistory);
     }
 }

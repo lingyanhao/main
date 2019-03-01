@@ -2,10 +2,10 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.HOON;
-import static seedu.address.testutil.TypicalPersons.IDA;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalMembers.ALICE;
+import static seedu.address.testutil.TypicalMembers.HOON;
+import static seedu.address.testutil.TypicalMembers.IDA;
+import static seedu.address.testutil.TypicalMembers.getTypicalAddressBook;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -62,15 +62,15 @@ public class JsonRestaurantBookStorageTest {
     }
 
     @Test
-    public void readAddressBook_invalidPersonAddressBook_throwDataConversionException() throws Exception {
+    public void readAddressBook_invalidMemberAddressBook_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidPersonAddressBook.json");
+        readAddressBook("invalidMemberAddressBook.json");
     }
 
     @Test
-    public void readAddressBook_invalidAndValidPersonAddressBook_throwDataConversionException() throws Exception {
+    public void readAddressBook_invalidAndValidMemberAddressBook_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidAndValidPersonAddressBook.json");
+        readAddressBook("invalidAndValidMemberAddressBook.json");
     }
 
     @Test

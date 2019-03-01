@@ -2,12 +2,12 @@ package guitests.guihandles;
 
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Member;
 
 /**
- * Provides a handle to a person card in the person list panel.
+ * Provides a handle to a member card in the member list panel.
  */
-public class PersonCardHandle extends NodeHandle<Node> {
+public class MemberCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String NAME_FIELD_ID = "#name";
     private static final String PHONE_FIELD_ID = "#phone";
@@ -18,7 +18,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
     private final Label phoneLabel;
     private final Label emailLabel;
 
-    public PersonCardHandle(Node cardNode) {
+    public MemberCardHandle(Node cardNode) {
         super(cardNode);
 
         idLabel = getChildNode(ID_FIELD_ID);
@@ -44,11 +44,11 @@ public class PersonCardHandle extends NodeHandle<Node> {
     }
 
     /**
-     * Returns true if this handle contains {@code person}.
+     * Returns true if this handle contains {@code member}.
      */
-    public boolean equals(Person person) {
-        return getName().equals(person.getName().fullName)
-                && getPhone().equals(person.getPhone().value)
-                && getEmail().equals(person.getEmail().value);
+    public boolean equals(Member member) {
+        return getName().equals(member.getName().fullName)
+                && getPhone().equals(member.getPhone().value)
+                && getEmail().equals(member.getEmail().value);
     }
 }

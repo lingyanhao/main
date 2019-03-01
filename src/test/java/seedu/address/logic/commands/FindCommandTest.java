@@ -3,12 +3,12 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
+import static seedu.address.commons.core.Messages.MESSAGE_MEMBERS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.CARL;
-import static seedu.address.testutil.TypicalPersons.ELLE;
-import static seedu.address.testutil.TypicalPersons.FIONA;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalMembers.CARL;
+import static seedu.address.testutil.TypicalMembers.ELLE;
+import static seedu.address.testutil.TypicalMembers.FIONA;
+import static seedu.address.testutil.TypicalMembers.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,8 +19,8 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Member;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
@@ -53,28 +53,28 @@ public class FindCommandTest {
         // null -> returns false
         assertFalse(findFirstCommand.equals(null));
 
-        // different person -> returns false
+        // different member -> returns false
         assertFalse(findFirstCommand.equals(findSecondCommand));
     }
 
     @Test
-    public void execute_zeroKeywords_noPersonFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+    public void execute_zeroKeywords_noMemberFound() {
+        String expectedMessage = String.format(MESSAGE_MEMBERS_LISTED_OVERVIEW, 0);
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredItemList(predicate, Person.class);
+        expectedModel.updateFilteredItemList(predicate, Member.class);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredItemList(Person.class));
+        assertEquals(Collections.emptyList(), model.getFilteredItemList(Member.class));
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
+    public void execute_multipleKeywords_multipleMembersFound() {
+        String expectedMessage = String.format(MESSAGE_MEMBERS_LISTED_OVERVIEW, 3);
         NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredItemList(predicate, Person.class);
+        expectedModel.updateFilteredItemList(predicate, Member.class);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredItemList(Person.class));
+        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredItemList(Member.class));
     }
 
     /**

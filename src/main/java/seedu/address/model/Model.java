@@ -65,15 +65,15 @@ public interface Model {
 
     /**
      * Adds the given item.
-     * {@code person} must not already exist in the restaurant book.
+     * {@code member} must not already exist in the restaurant book.
      */
     void addItem(Item item);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given member {@code target} with {@code editedMember}.
      * {@code target} must exist in the restaurant book.
-     * The person identity of {@code editedPerson}
-     * must not be the same as another existing person in the restaurant book.
+     * The member identity of {@code editedMember}
+     * must not be the same as another existing member in the restaurant book.
      */
     <T extends Item> void setItem(T target, T editedItem);
 
@@ -81,7 +81,7 @@ public interface Model {
     <T extends Item> ObservableList<T> getFilteredItemList(Class<T> clazz);
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered member list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     <T extends Item> void updateFilteredItemList(Predicate<? super T> predicate, Class<T> clazz);
@@ -112,19 +112,19 @@ public interface Model {
     void commitRestaurantBook();
 
     /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
+     * Selected member in the filtered member list.
+     * null if no member is selected.
      */
     <T extends Item> ReadOnlyProperty<T> selectedItemProperty(Class<T> clazz);
 
     /**
-     * Returns the selected person in the filtered person list.
-     * null if no person is selected.
+     * Returns the selected member in the filtered member list.
+     * null if no member is selected.
      */
     <T extends Item> T getSelectedItem(Class<T> clazz);
 
     /**
-     * Sets the selected person in the filtered person list.
+     * Sets the selected member in the filtered member list.
      */
     <T extends Item> void setSelectedItem(T item, Class<T> clazz);
 }
