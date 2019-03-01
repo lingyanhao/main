@@ -24,8 +24,8 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Member;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.testutil.MemberBuilder;
 

@@ -17,8 +17,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Member;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 
 public class MemberListPanelTest extends GuiUnitTest {
