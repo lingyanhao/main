@@ -36,14 +36,14 @@ public class AddCommandIntegrationTest {
         expectedModel.commitRestaurantBook();
 
         assertCommandSuccess(new AddCommand(validMember), model, commandHistory,
-                String.format(AddCommand.MESSAGE_SUCCESS_PERSON, validMember), expectedModel);
+                String.format(AddCommand.MESSAGE_SUCCESS_MEMBER, validMember), expectedModel);
     }
 
     @Test
     public void execute_duplicateMember_throwsCommandException() {
         Member memberInList = model.getRestaurantBook().getItemList(Member.class).get(0);
         assertCommandFailure(new AddCommand(memberInList), model, commandHistory,
-                AddCommand.MESSAGE_DUPLICATE_PERSON);
+                AddCommand.MESSAGE_DUPLICATE_MEMBER);
     }
 
 }

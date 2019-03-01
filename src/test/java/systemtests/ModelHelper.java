@@ -12,7 +12,7 @@ import seedu.address.model.person.Member;
  * Contains helper methods to set up {@code Model} for testing.
  */
 public class ModelHelper {
-    private static final Predicate<Member> PREDICATE_MATCHING_NO_PERSONS = unused -> false;
+    private static final Predicate<Member> PREDICATE_MATCHING_NO_MEMBERS = unused -> false;
 
     /**
      * Updates {@code model}'s filtered list to display only {@code toDisplay}.
@@ -20,7 +20,7 @@ public class ModelHelper {
     public static void setFilteredList(Model model, List<Member> toDisplay) {
         Optional<Predicate<Member>> predicate =
                 toDisplay.stream().map(ModelHelper::getPredicateMatching).reduce(Predicate::or);
-        model.updateFilteredItemList(predicate.orElse(PREDICATE_MATCHING_NO_PERSONS), Member.class);
+        model.updateFilteredItemList(predicate.orElse(PREDICATE_MATCHING_NO_MEMBERS), Member.class);
     }
 
     /**

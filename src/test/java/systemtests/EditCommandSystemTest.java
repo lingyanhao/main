@@ -18,8 +18,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ITEMS;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MEMBER;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MEMBER;
 import static seedu.address.testutil.TypicalMembers.AMY;
 import static seedu.address.testutil.TypicalMembers.BOB;
 import static seedu.address.testutil.TypicalMembers.KEYWORD_MATCHING_MEIER;
@@ -50,7 +50,7 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
         /* Case: edit all fields, command with leading spaces, trailing spaces and multiple spaces between each field
          * -> edited
          */
-        Index index = INDEX_FIRST_PERSON;
+        Index index = INDEX_FIRST_MEMBER;
         String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
                 + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB;
         Member editedMember = new MemberBuilder(BOB).build();
@@ -64,7 +64,7 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
         /* Case: redo editing the last member in the list -> last member edited again */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        model.setItem(getModel().getFilteredItemList(Member.class).get(INDEX_FIRST_PERSON.getZeroBased()),
+        model.setItem(getModel().getFilteredItemList(Member.class).get(INDEX_FIRST_MEMBER.getZeroBased()),
                 editedMember);
         assertCommandSuccess(command, model, expectedResultMessage);
 
@@ -75,7 +75,7 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
 
         /* Case: edit a member with new values same as another member's values but with different name -> edited */
         assertTrue(getModel().getRestaurantBook().getItemList(Member.class).contains(BOB));
-        index = INDEX_SECOND_PERSON;
+        index = INDEX_SECOND_MEMBER;
         assertNotEquals(getModel().getFilteredItemList(Member.class).get(index.getZeroBased()), BOB);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB
                 + EMAIL_DESC_BOB;
@@ -85,14 +85,14 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
         /* Case: edit a member with new values same as another member's values but with different phone and email
          * -> edited
          */
-        index = INDEX_SECOND_PERSON;
+        index = INDEX_SECOND_MEMBER;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY
                 + EMAIL_DESC_AMY;
         editedMember = new MemberBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
         assertCommandSuccess(command, index, editedMember);
 
         /* Case: clear tags -> cleared */
-        index = INDEX_FIRST_PERSON;
+        index = INDEX_FIRST_MEMBER;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
         Member memberToEdit = getModel().getFilteredItemList(Member.class).get(index.getZeroBased());
         editedMember = new MemberBuilder(memberToEdit).build();
@@ -102,7 +102,7 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
 
         /* Case: filtered member list, edit index within bounds of address book and member list -> edited */
         showMembersWithName(KEYWORD_MATCHING_MEIER);
-        index = INDEX_FIRST_PERSON;
+        index = INDEX_FIRST_MEMBER;
         assertTrue(index.getZeroBased() < getModel().getFilteredItemList(Member.class).size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
         memberToEdit = getModel().getFilteredItemList(Member.class).get(index.getZeroBased());
@@ -115,7 +115,7 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
         showMembersWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getRestaurantBook().getItemList(Member.class).size();
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
-                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+                Messages.MESSAGE_INVALID_MEMBER_DISPLAYED_INDEX);
 
         /* --------------------- Performing edit operation while a member card is selected -------------------------- */
 
@@ -123,7 +123,7 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
          * browser url changes
          */
         showAllMembers();
-        index = INDEX_FIRST_PERSON;
+        index = INDEX_FIRST_MEMBER;
         selectMember(index);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_AMY
                 + EMAIL_DESC_AMY;
@@ -144,56 +144,56 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
         /* Case: invalid index (size + 1) -> rejected */
         invalidIndex = getModel().getFilteredItemList(Member.class).size() + 1;
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
-                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+                Messages.MESSAGE_INVALID_MEMBER_DISPLAYED_INDEX);
 
         /* Case: missing index -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + NAME_DESC_BOB,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: missing all fields -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(),
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_MEMBER.getOneBased(),
                 EditCommand.MESSAGE_NOT_EDITED);
 
         /* Case: invalid name -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_NAME_DESC,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_MEMBER.getOneBased() + INVALID_NAME_DESC,
                 Name.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_PHONE_DESC,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_MEMBER.getOneBased() + INVALID_PHONE_DESC,
                 Phone.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_EMAIL_DESC,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_MEMBER.getOneBased() + INVALID_EMAIL_DESC,
                 Email.MESSAGE_CONSTRAINTS);
 
         /* Case: edit a member with new values same as another member's values -> rejected */
         executeCommand(MemberUtil.getAddCommand(BOB));
         assertTrue(getModel().getRestaurantBook().getItemList(Member.class).contains(BOB));
-        index = INDEX_FIRST_PERSON;
+        index = INDEX_FIRST_MEMBER;
         assertFalse(getModel().getFilteredItemList(Member.class).get(index.getZeroBased()).equals(BOB));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
                 + EMAIL_DESC_BOB;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_MEMBER);
 
         /* Case: edit a member with new values same as another member's values but with different tags -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
                 + EMAIL_DESC_BOB;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_MEMBER);
 
         /* Case: edit a member with new values same as another member's values but with different address -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
                 + EMAIL_DESC_BOB;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_MEMBER);
 
         /* Case: edit a member with new values same as another member's values but with different phone -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY
                 + EMAIL_DESC_BOB;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_MEMBER);
 
         /* Case: edit a member with new values same as another member's values but with different email -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
                 + EMAIL_DESC_AMY;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_MEMBER);
     }
 
     /**
@@ -221,7 +221,7 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
         expectedModel.updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS, Member.class);
 
         assertCommandSuccess(command, expectedModel,
-                String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedMember), expectedSelectedCardIndex);
+                String.format(EditCommand.MESSAGE_EDIT_MEMBER_SUCCESS, editedMember), expectedSelectedCardIndex);
     }
 
     /**

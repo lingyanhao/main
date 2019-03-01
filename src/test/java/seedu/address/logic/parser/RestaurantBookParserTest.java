@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MEMBER;
 
 import java.util.Arrays;
 import java.util.List;
@@ -62,11 +62,11 @@ public class RestaurantBookParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_MEMBER.getOneBased());
+        assertEquals(new DeleteCommand(INDEX_FIRST_MEMBER), command);
         command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_ALIAS + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+                DeleteCommand.COMMAND_ALIAS + " " + INDEX_FIRST_MEMBER.getOneBased());
+        assertEquals(new DeleteCommand(INDEX_FIRST_MEMBER), command);
     }
 
     @Test
@@ -74,11 +74,11 @@ public class RestaurantBookParserTest {
         Member member = new MemberBuilder().build();
         EditMemberDescriptor descriptor = new EditMemberDescriptorBuilder(member).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + MemberUtil.getEditMemberDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
+                + INDEX_FIRST_MEMBER.getOneBased() + " " + MemberUtil.getEditMemberDescriptorDetails(descriptor));
+        assertEquals(new EditCommand(INDEX_FIRST_MEMBER, descriptor), command);
         command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_ALIAS + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + MemberUtil.getEditMemberDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
+                + INDEX_FIRST_MEMBER.getOneBased() + " " + MemberUtil.getEditMemberDescriptorDetails(descriptor));
+        assertEquals(new EditCommand(INDEX_FIRST_MEMBER, descriptor), command);
     }
 
     @Test
@@ -134,11 +134,11 @@ public class RestaurantBookParserTest {
     @Test
     public void parseCommand_select() throws Exception {
         SelectCommand command = (SelectCommand) parser.parseCommand(
-                SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new SelectCommand(INDEX_FIRST_PERSON), command);
+                SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_MEMBER.getOneBased());
+        assertEquals(new SelectCommand(INDEX_FIRST_MEMBER), command);
         command = (SelectCommand) parser.parseCommand(
-                SelectCommand.COMMAND_ALIAS + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new SelectCommand(INDEX_FIRST_PERSON), command);
+                SelectCommand.COMMAND_ALIAS + " " + INDEX_FIRST_MEMBER.getOneBased());
+        assertEquals(new SelectCommand(INDEX_FIRST_MEMBER), command);
     }
 
     @Test
@@ -174,7 +174,7 @@ public class RestaurantBookParserTest {
     @Test
     public void parseUpperCaseCommand() throws Exception {
         Member member = new MemberBuilder().build();
-        Command command = parser.parseCommand("aDdpERsoN" + " "
+        Command command = parser.parseCommand("aDdmEmBEr" + " "
                 + MemberUtil.getMemberDetails(member));
         assertEquals(new AddCommand(member), command);
 

@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NUMBER_PERSONS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NUMBER_MEMBERS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 
 import java.util.Date;
@@ -23,9 +23,9 @@ public class AddBookingCommandParser {
      */
     public AddBookingCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_START_TIME, PREFIX_CUSTOMER, PREFIX_NUMBER_PERSONS);
+                ArgumentTokenizer.tokenize(args, PREFIX_START_TIME, PREFIX_CUSTOMER, PREFIX_NUMBER_MEMBERS);
 
-        if (!argMultimap.arePrefixesPresent(PREFIX_START_TIME, PREFIX_CUSTOMER, PREFIX_NUMBER_PERSONS)
+        if (!argMultimap.arePrefixesPresent(PREFIX_START_TIME, PREFIX_CUSTOMER, PREFIX_NUMBER_MEMBERS)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE_BOOKING));
         }
@@ -34,7 +34,7 @@ public class AddBookingCommandParser {
         Index memberIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_CUSTOMER).get());
         int numMembers;
         try {
-            numMembers = Integer.parseInt(argMultimap.getValue(PREFIX_NUMBER_PERSONS).get());
+            numMembers = Integer.parseInt(argMultimap.getValue(PREFIX_NUMBER_MEMBERS).get());
         } catch (NumberFormatException e) {
             throw new ParseException("Number of members needs to be a positive integer.");
         }

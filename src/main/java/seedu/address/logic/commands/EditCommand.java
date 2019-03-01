@@ -48,9 +48,9 @@ public class EditCommand extends Command {
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Member: %1$s";
+    public static final String MESSAGE_EDIT_MEMBER_SUCCESS = "Edited Member: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This member already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_MEMBER = "This member already exists in the address book.";
 
     private final Index index;
     private final EditMemberDescriptor editMemberDescriptor;
@@ -73,20 +73,20 @@ public class EditCommand extends Command {
         List<Member> lastShownList = model.getFilteredItemList(Member.class);
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_MEMBER_DISPLAYED_INDEX);
         }
 
         Member memberToEdit = lastShownList.get(index.getZeroBased());
         Member editedMember = createEditedMember(memberToEdit, editMemberDescriptor);
 
         if (!memberToEdit.isSameMember(editedMember) && model.hasItem(editedMember)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_MEMBER);
         }
 
         model.setItem(memberToEdit, editedMember);
         model.updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS, Member.class);
         model.commitRestaurantBook();
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedMember));
+        return new CommandResult(String.format(MESSAGE_EDIT_MEMBER_SUCCESS, editedMember));
     }
 
     /**

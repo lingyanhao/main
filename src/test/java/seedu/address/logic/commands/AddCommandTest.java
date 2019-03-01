@@ -49,7 +49,7 @@ public class AddCommandTest {
 
         CommandResult commandResult = new AddCommand(validMember).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS_PERSON, validMember), commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS_MEMBER, validMember), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validMember), modelStub.membersAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
@@ -61,7 +61,7 @@ public class AddCommandTest {
         ModelStub modelStub = new ModelStubWithMember(validMember);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
+        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_MEMBER);
         addCommand.execute(modelStub, commandHistory);
     }
 

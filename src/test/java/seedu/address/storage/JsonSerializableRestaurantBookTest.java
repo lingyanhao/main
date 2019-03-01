@@ -17,16 +17,16 @@ import seedu.address.testutil.TypicalMembers;
 public class JsonSerializableRestaurantBookTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableRestaurantBookTest");
-    private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalMembersAddressBook.json");
-    private static final Path INVALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("invalidMemberAddressBook.json");
-    private static final Path DUPLICATE_PERSON_FILE = TEST_DATA_FOLDER.resolve("duplicateMemberAddressBook.json");
+    private static final Path TYPICAL_MEMBERS_FILE = TEST_DATA_FOLDER.resolve("typicalMembersAddressBook.json");
+    private static final Path INVALID_MEMBER_FILE = TEST_DATA_FOLDER.resolve("invalidMemberAddressBook.json");
+    private static final Path DUPLICATE_MEMBER_FILE = TEST_DATA_FOLDER.resolve("duplicateMemberAddressBook.json");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void toModelType_typicalMembersFile_success() throws Exception {
-        JsonSerializableRestaurantBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
+        JsonSerializableRestaurantBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_MEMBERS_FILE,
                 JsonSerializableRestaurantBook.class).get();
         RestaurantBook restaurantBookFromFile = dataFromFile.toModelType();
         RestaurantBook typicalMembersRestaurantBook = TypicalMembers.getTypicalAddressBook();
@@ -35,7 +35,7 @@ public class JsonSerializableRestaurantBookTest {
 
     @Test
     public void toModelType_invalidMemberFile_throwsIllegalValueException() throws Exception {
-        JsonSerializableRestaurantBook dataFromFile = JsonUtil.readJsonFile(INVALID_PERSON_FILE,
+        JsonSerializableRestaurantBook dataFromFile = JsonUtil.readJsonFile(INVALID_MEMBER_FILE,
                 JsonSerializableRestaurantBook.class).get();
         thrown.expect(IllegalValueException.class);
         dataFromFile.toModelType();
@@ -43,10 +43,10 @@ public class JsonSerializableRestaurantBookTest {
 
     @Test
     public void toModelType_duplicateMembers_throwsIllegalValueException() throws Exception {
-        JsonSerializableRestaurantBook dataFromFile = JsonUtil.readJsonFile(DUPLICATE_PERSON_FILE,
+        JsonSerializableRestaurantBook dataFromFile = JsonUtil.readJsonFile(DUPLICATE_MEMBER_FILE,
                 JsonSerializableRestaurantBook.class).get();
         thrown.expect(IllegalValueException.class);
-        thrown.expectMessage(JsonSerializableRestaurantBook.MESSAGE_DUPLICATE_PERSON);
+        thrown.expectMessage(JsonSerializableRestaurantBook.MESSAGE_DUPLICATE_MEMBER);
         dataFromFile.toModelType();
     }
 }

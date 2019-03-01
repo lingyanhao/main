@@ -385,7 +385,7 @@ This updates the restaurants to cater for a capacity for 50 customers
 
 Creates a new booking.
 
-Format: `addBooking [c/CUSTOMER_ID] n/NUMBER OF PERSONS t/TIME [d/DATE]`
+Format: `addBooking [c/CUSTOMER_ID] n/NUMBER OF MEMBERS t/TIME [d/DATE]`
 
 If the restaurant is full (as determined by the `updateCapacity` command), a message will appear telling the user that the restaurant is fully booked: “Restaurant is fully booked at (date) and (time). Please choose another time.”
 
@@ -571,7 +571,7 @@ e.g. `viewBooking ts/1200 te/1530`
 * *updateCapacity* `updateCapacity NUMBER` +
 e.g. `updateCapacity 50`
 
-* *addBooking* `addBooking [c/CUSTOMER_ID] n/NUMBER OF PERSONS t/TIME [d/DATE]` +
+* *addBooking* `addBooking [c/CUSTOMER_ID] n/NUMBER OF MEMBERS t/TIME [d/DATE]` +
 e.g. `addBooking 1 1300 25 Feb`
 
 * *cancelBooking* `cancelBooking INDEX` +

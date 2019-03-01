@@ -22,14 +22,14 @@ public class MemberUtil {
      * Returns an add command string for adding the {@code member}.
      */
     public static String getAddCommand(Member member) {
-        return AddCommand.COMMAND_WORD_PERSON + " " + getMemberDetails(member);
+        return AddCommand.COMMAND_WORD_MEMBER + " " + getMemberDetails(member);
     }
 
     /**
      * Returns an add command string for adding the {@code member}, using the command alias.
      */
     public static String getAddCommandAlias(Member member) {
-        return AddCommand.COMMAND_ALIAS_PERSON + " " + getMemberDetails(member);
+        return AddCommand.COMMAND_ALIAS_MEMBER + " " + getMemberDetails(member);
     }
 
     /**

@@ -3,7 +3,7 @@ package seedu.address.ui;
 import static java.time.Duration.ofMillis;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MEMBER;
 import static seedu.address.testutil.TypicalMembers.getTypicalMembers;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysMember;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
@@ -22,7 +22,7 @@ import seedu.address.model.person.Member;
 import seedu.address.model.person.Phone;
 
 public class MemberListPanelTest extends GuiUnitTest {
-    private static final ObservableList<Member> TYPICAL_PERSONS =
+    private static final ObservableList<Member> TYPICAL_MEMBERS =
             FXCollections.observableList(getTypicalMembers());
 
     private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
@@ -32,11 +32,11 @@ public class MemberListPanelTest extends GuiUnitTest {
 
     @Test
     public void display() {
-        initUi(TYPICAL_PERSONS);
+        initUi(TYPICAL_MEMBERS);
 
-        for (int i = 0; i < TYPICAL_PERSONS.size(); i++) {
-            memberListPanelHandle.navigateToCard(TYPICAL_PERSONS.get(i));
-            Member expectedMember = TYPICAL_PERSONS.get(i);
+        for (int i = 0; i < TYPICAL_MEMBERS.size(); i++) {
+            memberListPanelHandle.navigateToCard(TYPICAL_MEMBERS.get(i));
+            Member expectedMember = TYPICAL_MEMBERS.get(i);
             MemberCardHandle actualCard = memberListPanelHandle.getMemberCardHandle(i);
 
             assertCardDisplaysMember(expectedMember, actualCard);
@@ -46,12 +46,12 @@ public class MemberListPanelTest extends GuiUnitTest {
 
     @Test
     public void selection_modelSelectedMemberChanged_selectionChanges() {
-        initUi(TYPICAL_PERSONS);
-        Member secondMember = TYPICAL_PERSONS.get(INDEX_SECOND_PERSON.getZeroBased());
+        initUi(TYPICAL_MEMBERS);
+        Member secondMember = TYPICAL_MEMBERS.get(INDEX_SECOND_MEMBER.getZeroBased());
         guiRobot.interact(() -> selectedMember.set(secondMember));
         guiRobot.pauseForHuman();
 
-        MemberCardHandle expectedMember = memberListPanelHandle.getMemberCardHandle(INDEX_SECOND_PERSON.getZeroBased());
+        MemberCardHandle expectedMember = memberListPanelHandle.getMemberCardHandle(INDEX_SECOND_MEMBER.getZeroBased());
         MemberCardHandle selectedMember = memberListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedMember, selectedMember);
     }
@@ -97,6 +97,6 @@ public class MemberListPanelTest extends GuiUnitTest {
         uiPartRule.setUiPart(memberListPanel);
 
         memberListPanelHandle = new MemberListPanelHandle(getChildNode(memberListPanel.getRoot(),
-                MemberListPanelHandle.PERSON_LIST_VIEW_ID));
+                MemberListPanelHandle.MEMBER_LIST_VIEW_ID));
     }
 }

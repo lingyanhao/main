@@ -48,7 +48,7 @@ public class AddCommandSystemTest extends RestaurantBookSystemTest {
          * -> added
          */
         Member toAdd = AMY;
-        String command = "   " + AddCommand.COMMAND_WORD_PERSON + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
+        String command = "   " + AddCommand.COMMAND_WORD_MEMBER + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
                 + EMAIL_DESC_AMY;
         assertCommandSuccess(command, toAdd);
 
@@ -65,7 +65,7 @@ public class AddCommandSystemTest extends RestaurantBookSystemTest {
 
         /* Case: add a member with all fields same as another member in the address book except name -> added */
         toAdd = new MemberBuilder(AMY).withName(VALID_NAME_BOB).build();
-        command = AddCommand.COMMAND_WORD_PERSON + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY;
+        command = AddCommand.COMMAND_WORD_MEMBER + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a member with all fields same as another member in the address book except phone and email
@@ -81,7 +81,7 @@ public class AddCommandSystemTest extends RestaurantBookSystemTest {
 
         /* Case: add a member with tags, command with parameters in random order -> added */
         toAdd = BOB;
-        command = AddCommand.COMMAND_WORD_PERSON + PHONE_DESC_BOB + NAME_DESC_BOB + EMAIL_DESC_BOB;
+        command = AddCommand.COMMAND_WORD_MEMBER + PHONE_DESC_BOB + NAME_DESC_BOB + EMAIL_DESC_BOB;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a member, missing tags -> added */
@@ -103,44 +103,44 @@ public class AddCommandSystemTest extends RestaurantBookSystemTest {
 
         /* Case: add a duplicate member -> rejected */
         command = MemberUtil.getAddCommand(HOON);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_MEMBER);
 
         /* Case: add a duplicate member except with different phone -> rejected */
         toAdd = new MemberBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
         command = MemberUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_MEMBER);
 
         /* Case: add a duplicate member except with different email -> rejected */
         toAdd = new MemberBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
         command = MemberUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_MEMBER);
 
         /* Case: missing name -> rejected */
-        command = AddCommand.COMMAND_WORD_PERSON + PHONE_DESC_AMY + EMAIL_DESC_AMY;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE_PERSON));
+        command = AddCommand.COMMAND_WORD_MEMBER + PHONE_DESC_AMY + EMAIL_DESC_AMY;
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE_MEMBER));
 
         /* Case: missing phone -> rejected */
-        command = AddCommand.COMMAND_WORD_PERSON + NAME_DESC_AMY + EMAIL_DESC_AMY;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE_PERSON));
+        command = AddCommand.COMMAND_WORD_MEMBER + NAME_DESC_AMY + EMAIL_DESC_AMY;
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE_MEMBER));
 
         /* Case: missing email -> rejected */
-        command = AddCommand.COMMAND_WORD_PERSON + NAME_DESC_AMY + PHONE_DESC_AMY;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE_PERSON));
+        command = AddCommand.COMMAND_WORD_MEMBER + NAME_DESC_AMY + PHONE_DESC_AMY;
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE_MEMBER));
 
         /* Case: invalid keyword -> rejected */
         command = "adds " + MemberUtil.getMemberDetails(toAdd);
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
-        command = AddCommand.COMMAND_WORD_PERSON + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY;
+        command = AddCommand.COMMAND_WORD_MEMBER + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY;
         assertCommandFailure(command, Name.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
-        command = AddCommand.COMMAND_WORD_PERSON + NAME_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY;
+        command = AddCommand.COMMAND_WORD_MEMBER + NAME_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY;
         assertCommandFailure(command, Phone.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
-        command = AddCommand.COMMAND_WORD_PERSON + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC;
+        command = AddCommand.COMMAND_WORD_MEMBER + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC;
         assertCommandFailure(command, Email.MESSAGE_CONSTRAINTS);
     }
 
@@ -170,7 +170,7 @@ public class AddCommandSystemTest extends RestaurantBookSystemTest {
     private void assertCommandSuccess(String command, Member toAdd) {
         Model expectedModel = getModel();
         expectedModel.addItem(toAdd);
-        String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS_PERSON, toAdd);
+        String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS_MEMBER, toAdd);
 
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
     }
