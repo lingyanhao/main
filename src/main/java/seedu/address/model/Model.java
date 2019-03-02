@@ -128,8 +128,4 @@ public interface Model {
      */
     <T extends Item> void setSelectedItem(T item, Class<T> clazz);
 
-    /**
-     * Returns true if replacing itemToEdit with editedItem will result in a duplicate item.
-     */
-    <T extends Item> boolean safeToReplace(T itemToEdit, T editedItem, Class<T> clazz);
 }

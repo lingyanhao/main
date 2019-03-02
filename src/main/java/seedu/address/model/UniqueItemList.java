@@ -41,7 +41,7 @@ public class UniqueItemList<T extends Item> implements Iterable<T> {
      * Checks if it is replacing itemToEdit can be replaced with editedItem without duplicates.
      * itemToEdit must be present in the list.
      */
-    public boolean safeToReplace(T itemToEdit, T editedItem) {
+    private boolean safeToReplace(T itemToEdit, T editedItem) {
         List<T> replacement = internalList.stream().map(x -> (x.isSameItem(itemToEdit) ? editedItem : x))
                 .collect(Collectors.toList());
         return itemsAreUnique(replacement);
@@ -60,9 +60,10 @@ public class UniqueItemList<T extends Item> implements Iterable<T> {
     }
 
     /**
-     * Replaces the member {@code target} in the list with {@code editedMember}.
+     * Replaces the member {@code target} in the list with {@code editedItem}.
      * {@code target} must exist in the list.
-     * The member identity of {@code editedMember} must not be the same as another existing member in the list.
+     * DuplicateItemException is thrown if the member identity of {@code editedItem}
+     * is the same as another item.
      */
     public void setItem(T target, T editedItem) {
         requireAllNonNull(target, editedItem);
