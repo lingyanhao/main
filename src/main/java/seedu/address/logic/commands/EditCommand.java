@@ -79,7 +79,7 @@ public class EditCommand extends Command {
         Member memberToEdit = lastShownList.get(index.getZeroBased());
         Member editedMember = createEditedMember(memberToEdit, editMemberDescriptor);
 
-        if (!memberToEdit.isSameMember(editedMember) && model.hasItem(editedMember)) {
+        if (!model.safeToReplace(memberToEdit, editedMember, Member.class)) {
             throw new CommandException(MESSAGE_DUPLICATE_MEMBER);
         }
 
