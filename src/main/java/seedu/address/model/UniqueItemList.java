@@ -44,7 +44,6 @@ public class UniqueItemList<T extends Item> implements Iterable<T> {
     public boolean safeToReplace(T itemToEdit, T editedItem) {
         List<T> replacement = internalList.stream().map(x -> (x.isSameItem(itemToEdit) ? editedItem : x))
                 .collect(Collectors.toList());
-        boolean returnVal = itemsAreUnique(replacement);
         return itemsAreUnique(replacement);
     }
 
