@@ -143,6 +143,21 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
     }
 
     /**
+     * Returns true if replacing itemToEdit with editedItem will result in a duplicate item.
+     */
+    public <T extends Item> boolean safeToReplace(T itemToEdit, T editedItem, Class<T> clazz) {
+        if (clazz == Member.class) {
+            return members.safeToReplace((Member) itemToEdit, (Member) editedItem);
+        } else if (clazz == Booking.class) {
+            return bookings.safeToReplace((Booking) itemToEdit, (Booking) editedItem);
+        } else if (clazz == Ingredient.class) {
+            return ingredients.safeToReplace((Ingredient) itemToEdit, (Ingredient) editedItem);
+        } else {
+            return true; // TODO: add your own
+        }
+    }
+
+    /**
      * Removes {@code key} from this {@code RestaurantBook}.
      * {@code key} must exist in the restaurant book.
      */

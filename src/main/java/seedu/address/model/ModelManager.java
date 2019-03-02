@@ -134,6 +134,11 @@ public class ModelManager implements Model {
         versionedRestaurantBook.setItem(target, editedItem);
     }
 
+    @Override
+    public <T extends Item> boolean safeToReplace(T itemToEdit, T editedItem, Class<T> clazz) {
+        return versionedRestaurantBook.safeToReplace(itemToEdit, editedItem, clazz);
+    }
+
 
     //=========== Filtered Member List Accessors =============================================================
 
