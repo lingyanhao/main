@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_UNIT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NUMBER_MEMBERS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NUMBER_PERSONS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 
@@ -46,11 +46,11 @@ public class AddCommand extends Command {
             + "Parameters: "
             + PREFIX_CUSTOMER + "CUSTOMER "
             + PREFIX_START_TIME + "START_TIME "
-            + PREFIX_NUMBER_MEMBERS + "NUMBER_OF_MEMBERS\n"
+            + PREFIX_NUMBER_PERSONS + "NUMBER_OF_PERSONS\n"
             + "Example: " + COMMAND_WORD_BOOKING + " "
             + PREFIX_CUSTOMER + "1 "
             + PREFIX_START_TIME + "2019-02-23 14:30 "
-            + PREFIX_NUMBER_MEMBERS + "3";
+            + PREFIX_NUMBER_PERSONS + "3";
 
     public static final String MESSAGE_SUCCESS_BOOKING = "New booking added: %1$s";
     public static final String MESSAGE_DUPLICATE_BOOKING = "Booking has already been made.";

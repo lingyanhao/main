@@ -15,5 +15,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_INGREDIENT_UNIT = new Prefix("u/");
     public static final Prefix PREFIX_START_TIME = new Prefix("ts/");
     public static final Prefix PREFIX_CUSTOMER = new Prefix("c/");
-    public static final Prefix PREFIX_NUMBER_MEMBERS = new Prefix("n/");
+    public static final Prefix PREFIX_NUMBER_PERSONS = new Prefix("n/");
 }
