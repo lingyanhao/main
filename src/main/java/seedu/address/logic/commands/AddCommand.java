@@ -10,6 +10,7 @@ import seedu.address.model.Model;
 import seedu.address.model.booking.Booking;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Member;
+import seedu.address.model.person.Staff;
 
 /**
  * Adds an item to the restaurant book.
@@ -77,6 +78,9 @@ public class AddCommand extends Command {
             + PREFIX_EMAIL + "jsmith@example.com"
             + PREFIX_APPOINTMENT + "Server";
 
+    public static final String MESSAGE_SUCCESS_STAFF = "New staff added: %1$s";
+    public static final String MESSAGE_DUPLICATE_STAFF = "This staff already exists in the restaurant!";
+
     private final String messageDuplicate;
     private final String messageSuccess;
 
@@ -96,6 +100,9 @@ public class AddCommand extends Command {
         } else if (item instanceof Ingredient) {
             messageDuplicate = MESSAGE_DUPLICATE_INGREDIENT;
             messageSuccess = MESSAGE_SUCCESS_INGREDIENT;
+        } else if (item instanceof Staff) {
+            messageDuplicate = MESSAGE_DUPLICATE_STAFF;
+            messageSuccess = MESSAGE_SUCCESS_STAFF;
         } else {
             throw new RuntimeException();
         }
