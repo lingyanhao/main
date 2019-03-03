@@ -60,6 +60,10 @@ public class RestaurantBookParser {
         case AddCommand.COMMAND_ALIAS_INGREDIENT:
             return new AddIngredientCommandParser().parse(arguments);
 
+        case AddCommand.COMMAND_WORD_STAFF:
+        case AddCommand.COMMAND_ALIAS_STAFF:
+            break;
+
         case EditCommand.COMMAND_WORD:
         case EditCommand.COMMAND_ALIAS:
             return new EditCommandParser().parse(arguments);
