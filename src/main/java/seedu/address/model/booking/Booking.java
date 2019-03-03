@@ -43,7 +43,7 @@ public class Booking implements Item, Comparable<Booking> {
     @Override
     public boolean isSameItem(Object other) {
         if (other instanceof Booking) {
-            // take note, the .equals() instead of .isSameItem from Customer class is being used here
+            // take note, the .equals() instead of .isSameItem() from Customer class is being used here
             // as the isSameItem() method from Customer class is not transitive
             return startTime.equals(((Booking) other).startTime) && customer.equals(((Booking) other).customer);
         } else {
