@@ -1,14 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_UNIT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NUMBER_PERSONS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -69,13 +62,28 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS_INGREDIENT = "New ingredient added: %1$s";
     public static final String MESSAGE_DUPLICATE_INGREDIENT = "This ingredient already exists in the book";
 
+    public static final String COMMAND_WORD_STAFF = "addstaff";
+    public static final String COMMAND_ALIAS_STAFF = "sa";
+
+    public static final String MESSAGE_USAGE_STAFF = COMMAND_WORD_STAFF + ": Adds a staff to the restaurant. "
+            + "Parameters: "
+            + PREFIX_NAME + "NAME "
+            + PREFIX_PHONE + "PHONE "
+            + PREFIX_EMAIL + "EMAIL "
+            + PREFIX_APPOINTMENT + "APPOINTMENT\n"
+            + "Example: " + COMMAND_WORD_STAFF + " "
+            + PREFIX_NAME + "Jane Smith"
+            + PREFIX_PHONE + "91234567"
+            + PREFIX_EMAIL + "jsmith@example.com"
+            + PREFIX_APPOINTMENT + "Server";
+
     private final String messageDuplicate;
     private final String messageSuccess;
 
     private final Item toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Member}
+     * Creates an AddCommand to add the specified {@code Item}
      */
     public AddCommand(Item item) {
         requireNonNull(item);
