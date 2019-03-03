@@ -1,34 +1,20 @@
 package seedu.address.model.person;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
 import java.util.Objects;
 
-import seedu.address.model.Item;
-
 /**
- * Represents a Member in the address book.
+ * Represents a Member in the restaurant book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Member implements Item {
+public class Member extends Person {
 
     private static int idCounter = 0;
-
-    // Identity fields
-    private final Name name;
-    private final Phone phone;
-    private final Email email;
-    private final int id;
 
     /**
      * Every field must be present and not null.
      */
     public Member(Name name, Phone phone, Email email) {
-        requireAllNonNull(name, phone, email);
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        id = idCounter;
+        super(name, phone, email, idCounter);
         idCounter++;
     }
 
@@ -37,24 +23,8 @@ public class Member implements Item {
      * Used for editing a member's details so that the system can track that it is the same member.
      */
     public Member(Name name, Phone phone, Email email, Member other) {
-        requireAllNonNull(name, phone, email, other);
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        id = other.id;
+        super(name, phone, email, other.id);
         // Take note: do not increment idCounter here, this is intentional
-    }
-
-    public Name getName() {
-        return name;
-    }
-
-    public Phone getPhone() {
-        return phone;
-    }
-
-    public Email getEmail() {
-        return email;
     }
 
     /**
@@ -75,9 +45,6 @@ public class Member implements Item {
         return otherItem instanceof Member && isSameMember((Member) otherItem);
     }
 
-    public boolean hasSameId(Member other) {
-        return id == other.id;
-    }
     /**
      * Returns true if both members have the same identity and data fields.
      * This defines a stronger notion of equality between two members.
