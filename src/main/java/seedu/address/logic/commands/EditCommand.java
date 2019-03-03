@@ -25,6 +25,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Member;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.exceptions.DuplicateItemException;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -79,11 +80,12 @@ public class EditCommand extends Command {
         Member memberToEdit = lastShownList.get(index.getZeroBased());
         Member editedMember = createEditedMember(memberToEdit, editMemberDescriptor);
 
-        if (!model.safeToReplace(memberToEdit, editedMember, Member.class)) {
+        try {
+            model.setItem(memberToEdit, editedMember);
+        } catch (DuplicateItemException e) {
             throw new CommandException(MESSAGE_DUPLICATE_MEMBER);
         }
 
-        model.setItem(memberToEdit, editedMember);
         model.updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS, Member.class);
         model.commitRestaurantBook();
         return new CommandResult(String.format(MESSAGE_EDIT_MEMBER_SUCCESS, editedMember));

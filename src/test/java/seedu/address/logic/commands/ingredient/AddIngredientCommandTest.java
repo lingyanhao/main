@@ -155,11 +155,6 @@ public class AddIngredientCommandTest {
         }
 
         @Override
-        public <T extends Item> boolean safeToReplace(T itemToEdit, T editedItem, Class<T> clazz) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public <T extends Item> ObservableList<T> getFilteredItemList(Class<T> clazz) {
             throw new AssertionError("This method should not be called.");
         }
@@ -258,7 +253,4 @@ public class AddIngredientCommandTest {
     }
 
 }
-
-
-
 
