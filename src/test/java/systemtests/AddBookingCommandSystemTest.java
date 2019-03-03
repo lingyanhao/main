@@ -65,7 +65,8 @@ public class AddBookingCommandSystemTest extends RestaurantBookSystemTest {
 
             Member modifiedAlice = new Member(ALICE.getName(), new Phone("12345678"), ALICE.getEmail());
             String editCommandString = " 1 " + PREFIX_PHONE + modifiedAlice.getPhone().toString();
-            (new EditCommandParser().parse(editCommandString)).execute(model, commandHistory);
+            Command editCommand = new EditCommandParser().parse(editCommandString);
+            editCommand.execute(model, commandHistory);
             Booking modifiedAlice1400 = new Booking(startTime1400, modifiedAlice, 5);
             Booking modifiedAliceBooking = new Booking(startTime1430, modifiedAlice, 5);
             expectedBookingList = Arrays.asList(modifiedAlice1400, modifiedAliceBooking);
