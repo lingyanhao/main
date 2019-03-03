@@ -73,9 +73,9 @@ public class AddCommand extends Command {
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_APPOINTMENT + "APPOINTMENT\n"
             + "Example: " + COMMAND_WORD_STAFF + " "
-            + PREFIX_NAME + "Jane Smith"
-            + PREFIX_PHONE + "91234567"
-            + PREFIX_EMAIL + "jsmith@example.com"
+            + PREFIX_NAME + "Jane Smith "
+            + PREFIX_PHONE + "91234567 "
+            + PREFIX_EMAIL + "jsmith@example.com "
             + PREFIX_APPOINTMENT + "Server";
 
     public static final String MESSAGE_SUCCESS_STAFF = "New staff added: %1$s";
