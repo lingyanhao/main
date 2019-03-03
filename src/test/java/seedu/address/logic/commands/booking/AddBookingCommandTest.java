@@ -53,7 +53,8 @@ public class AddBookingCommandTest {
 
         CommandResult commandResult = new AddCommand(validBooking).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS_BOOKING, validBooking), commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS_BOOKING, validBooking),
+                commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validBooking), modelStub.bookingsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
@@ -78,12 +79,12 @@ public class AddBookingCommandTest {
             AddCommand defaultBookingCommand = new AddCommand(new BookingBuilder().build());
             AddCommand duplicateDefaultBookingCommand = new AddCommand(new BookingBuilder().build());
             AddCommand bobBookingCommand = new AddCommand(new BookingBuilder().withCustomer(bob).build());
-            AddCommand modifiedPhoneBookingCommand
-                    = new AddCommand(new BookingBuilder().withCustomer(modifiedPhoneAlice).build());
-            AddCommand modifiedEmailBookingCommand
-                    = new AddCommand(new BookingBuilder().withCustomer(modifiedEmailAlice).build());
-            AddCommand changeDateBookingCommand
-                    = new AddCommand(new BookingBuilder().withDate("2019-02-24 14:30").build());
+            AddCommand modifiedPhoneBookingCommand =
+                    new AddCommand(new BookingBuilder().withCustomer(modifiedPhoneAlice).build());
+            AddCommand modifiedEmailBookingCommand =
+                    new AddCommand(new BookingBuilder().withCustomer(modifiedEmailAlice).build());
+            AddCommand changeDateBookingCommand =
+                    new AddCommand(new BookingBuilder().withDate("2019-02-24 14:30").build());
             AddCommand changeNumPersonsBookingCommand = new AddCommand(new BookingBuilder().withNumPersons(2).build());
 
             // same object -> equal

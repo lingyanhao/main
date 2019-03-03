@@ -5,7 +5,6 @@ import static seedu.address.logic.commands.AddCommand.MESSAGE_DUPLICATE_BOOKING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.testutil.TypicalMembers.ALICE;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -86,8 +85,8 @@ public class AddBookingCommandSystemTest extends RestaurantBookSystemTest {
      * @param commandString the command to execute as a String
      * @param expectedBookingList the bookinglist to match
      */
-    private void assertCommandSuccess
-            (String commandString, Model model, CommandHistory commandHistory, List<Booking> expectedBookingList) {
+    private void assertCommandSuccess(
+            String commandString, Model model, CommandHistory commandHistory, List<Booking> expectedBookingList) {
         try {
             Command command = new AddBookingCommandParser().parse(commandString);
             command.execute(model, commandHistory);
