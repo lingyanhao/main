@@ -43,6 +43,8 @@ public class Booking implements Item, Comparable<Booking> {
     @Override
     public boolean isSameItem(Object other) {
         if (other instanceof Booking) {
+            // take note, the .equals() instead of .isSameItem() from Customer class is being used here
+            // as the isSameItem() method from Customer class is not transitive
             return startTime.equals(((Booking) other).startTime) && customer.equals(((Booking) other).customer);
         } else {
             return false;
@@ -59,5 +61,14 @@ public class Booking implements Item, Comparable<Booking> {
         SimpleDateFormat sdf = new SimpleDateFormat("EEE yyyy-MM-dd HH:mm");
         return "Customer: " + customer.getName().toString() + " " + customer.getPhone().toString() + " Time: "
                 + sdf.format(startTime) + " Members: " + numMembers;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Booking // instanceof handles nulls
+                && customer.equals(((Booking) other).customer)
+                && startTime.equals(((Booking) other).startTime)
+                && numMembers == ((Booking) other).numMembers);
     }
 }
