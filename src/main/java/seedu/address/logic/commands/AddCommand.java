@@ -11,7 +11,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NUMBER_PERSONS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 
-
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Item;
