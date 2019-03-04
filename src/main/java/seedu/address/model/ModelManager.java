@@ -18,6 +18,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.booking.Booking;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Member;
+import seedu.address.model.person.Staff;
 import seedu.address.model.person.exceptions.ItemNotFoundException;
 
 /**
@@ -37,6 +38,9 @@ public class ModelManager implements Model {
     private final FilteredList<Ingredient> filteredIngredients;
     private final SimpleObjectProperty<Ingredient> selectedIngredient = new SimpleObjectProperty<>();
 
+    private final FilteredList<Staff> filteredStaff;
+    private final SimpleObjectProperty<Staff> selectedStaff = new SimpleObjectProperty<>();
+
     /**
      * Initializes a ModelManager with the given restaurantBook and userPrefs.
      */
@@ -55,6 +59,8 @@ public class ModelManager implements Model {
         //filteredBookings.addListener(this::ensureSelectedMemberIsValid); TODO: get this to work
 
         filteredIngredients = new FilteredList<>(versionedRestaurantBook.getItemList(Ingredient.class));
+
+        filteredStaff = new FilteredList<>(versionedRestaurantBook.getItemList(Staff.class));
     }
 
     public ModelManager() {
@@ -149,6 +155,8 @@ public class ModelManager implements Model {
             return (ObservableList<T>) filteredBookings;
         } else if (clazz.equals(Ingredient.class)) {
             return (ObservableList<T>) filteredIngredients;
+        } else if (clazz.equals(Staff.class)) {
+            return (ObservableList<T>) filteredStaff;
         } else {
             throw new RuntimeException(); // this should not happen
         }
@@ -163,6 +171,8 @@ public class ModelManager implements Model {
             filteredBookings.setPredicate((Predicate<Booking>) predicate);
         } else if (clazz == Ingredient.class) {
             filteredIngredients.setPredicate((Predicate<Ingredient>) predicate);
+        } else if (clazz == Staff.class) {
+            filteredStaff.setPredicate((Predicate<Staff>) predicate);
         } else {
             throw new RuntimeException(); // this should not happen
         }
@@ -205,6 +215,8 @@ public class ModelManager implements Model {
             return (ReadOnlyProperty<T>) selectedBooking;
         } else if (clazz == Ingredient.class) {
             return (ReadOnlyProperty<T>) selectedIngredient;
+        } else if (clazz == Staff.class) {
+            return (ReadOnlyProperty<T>) selectedStaff;
         } else {
             throw new RuntimeException();
         }
@@ -218,6 +230,8 @@ public class ModelManager implements Model {
             return (T) selectedBooking.getValue();
         } else if (clazz == Ingredient.class) {
             return (T) selectedIngredient.getValue();
+        } else if (clazz == Staff.class) {
+            return (T) selectedStaff.getValue();
         } else {
             throw new RuntimeException();
         }
@@ -240,6 +254,11 @@ public class ModelManager implements Model {
                 throw new ItemNotFoundException();
             }
             selectedIngredient.setValue((Ingredient) item);
+        } else if (clazz == Staff.class) {
+            if (item != null && !filteredStaff.contains(item)) {
+                throw new ItemNotFoundException();
+            }
+            selectedStaff.setValue((Staff) item);
         } else {
             throw new RuntimeException();
         }

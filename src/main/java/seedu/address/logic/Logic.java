@@ -12,6 +12,7 @@ import seedu.address.model.ReadOnlyRestaurantBook;
 import seedu.address.model.booking.Booking;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Member;
+import seedu.address.model.person.Staff;
 
 /**
  * API of the Logic component
@@ -41,6 +42,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of ingredients */
     ObservableList<Ingredient> getFilteredIngredientList();
+
+    /** Returns an unmodifiable view of the filtered list of staff */
+    ObservableList<Staff> getFilteredStaffList();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
@@ -88,6 +92,14 @@ public interface Logic {
     ReadOnlyProperty<Ingredient> selectedIngredientProperty();
 
     /**
+     * Selected staff in the filtered staff list.
+     * null if no staff is selected.
+     *
+     * @see seedu.address.model.Model#selectedItemProperty()
+     */
+    ReadOnlyProperty<Staff> selectedStaffProperty();
+
+    /**
      * Sets the selected member in the filtered member list.
      *
      * @see seedu.address.model.Model#setSelectedItem(Member)
@@ -107,4 +119,11 @@ public interface Logic {
      * @see seedu.address.model.Model#setSelectedItem(Ingredient)
      */
     void setSelectedIngredient(Ingredient ingredient);
+
+    /**
+     * Sets the selected staff in the filtered staff list.
+     *
+     * @see seedu.address.model.Model#setSelectedItem(Staff)
+     */
+    void setSelectedStaff(Staff staff);
 }

@@ -13,6 +13,7 @@ import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.booking.Booking;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Member;
+import seedu.address.model.person.Staff;
 
 /**
  * Wraps all data at the restaurant-book level
@@ -23,6 +24,7 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
     private final UniqueItemList<Member> members;
     private final UniqueItemList<Booking> bookings;
     private final UniqueItemList<Ingredient> ingredients;
+    private final UniqueItemList<Staff> staff;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
         /*
@@ -35,6 +37,7 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
         members = new UniqueItemList<>();
         bookings = new UniqueItemList<>();
         ingredients = new UniqueItemList<>();
+        staff = new UniqueItemList<>();
     }
 
     public RestaurantBook() {
@@ -69,6 +72,11 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
         indicateModified();
     }
 
+    public void setStaff(List<Staff> staff) {
+        this.staff.setItems(staff);
+        indicateModified();
+    }
+
     /**
      * Resets the existing data of this {@code RestaurantBook} with {@code newData}.
      */
@@ -78,6 +86,7 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
         setMembers(newData.getItemList(Member.class));
         setBooking(newData.getItemList(Booking.class));
         setIngredients(newData.getItemList(Ingredient.class));
+        setStaff(newData.getItemList(Staff.class));
     }
 
     //// member-level operations
@@ -93,6 +102,8 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
             return bookings.contains(item);
         } else if (item instanceof Ingredient) {
             return ingredients.contains(item);
+        } else if (item instanceof Staff) {
+            return staff.contains(item);
         }
         return false; // TODO: other classes not recognised, add in your own
     }
@@ -110,6 +121,8 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
             bookings.sort(Comparator.naturalOrder());
         } else if (i instanceof Ingredient) {
             ingredients.add((Ingredient) i);
+        } else if (i instanceof Staff) {
+            staff.add((Staff) i);
         } else {
             throw new RuntimeException(); // TODO: add your own
         }
@@ -136,6 +149,8 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
             bookings.sort(Comparator.naturalOrder());
         } else if (target instanceof Ingredient && editedItem instanceof Ingredient) {
             ingredients.setItem((Ingredient) target, (Ingredient) editedItem);
+        } else if (target instanceof Staff && editedItem instanceof Staff) {
+            staff.setItem((Staff) target, (Staff) editedItem);
         } else {
             throw new RuntimeException(); // TODO: add your own
         }
@@ -153,6 +168,8 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
             bookings.remove(key);
         } else if (key instanceof Ingredient) {
             ingredients.remove(key);
+        } else if (key instanceof Staff) {
+            staff.remove(key);
         } else {
             throw new RuntimeException(); // TODO: add your own
         }
@@ -192,6 +209,8 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
             return (ObservableList<T>) bookings.asUnmodifiableObservableList();
         } else if (clazz == Ingredient.class) {
             return (ObservableList<T>) ingredients.asUnmodifiableObservableList();
+        } else if (clazz == Staff.class) {
+            return (ObservableList<T>) staff.asUnmodifiableObservableList();
         } else {
             throw new RuntimeException();
         }
@@ -203,7 +222,8 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
                 || (other instanceof RestaurantBook // instanceof handles nulls
                 && members.equals(((RestaurantBook) other).members)
                 && bookings.equals(((RestaurantBook) other).bookings)
-                && ingredients.equals(((RestaurantBook) other).ingredients));
+                && ingredients.equals(((RestaurantBook) other).ingredients)
+                && staff.equals(((RestaurantBook) other).staff));
     }
 
     @Override

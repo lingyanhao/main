@@ -29,5 +29,6 @@
     "phone" : "9482442",
     "email" : "anna@example.com"
   } ],
-  "ingredients" : [ ]
+  "ingredients" : [ ],
+  "staff" : [ ]
 }
