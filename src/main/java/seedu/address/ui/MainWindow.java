@@ -34,6 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     private MemberListPanel memberListPanel;
     private BookingListPanel bookingListPanel;
     private IngredientListPanel ingredientListPanel;
+    private StaffListPanel staffListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -51,6 +52,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane ingredientListPanelPlaceholder;
+
+    @FXML
+    private StackPane staffListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -126,6 +130,10 @@ public class MainWindow extends UiPart<Stage> {
         ingredientListPanel = new IngredientListPanel(logic.getFilteredIngredientList(),
                 logic.selectedIngredientProperty(), logic::setSelectedIngredient);
         ingredientListPanelPlaceholder.getChildren().add(ingredientListPanel.getRoot());
+
+        staffListPanel = new StaffListPanel(logic.getFilteredStaffList(),
+                logic.selectedStaffProperty(), logic::setSelectedStaff);
+        staffListPanelPlaceholder.getChildren().add(staffListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
