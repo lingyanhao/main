@@ -93,7 +93,8 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
         /* Case: edit with invalid tag argument -> rejected */
         index = INDEX_FIRST_MEMBER;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + "t/";
-        assertCommandFailure(command, String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        assertCommandFailure(command,
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
