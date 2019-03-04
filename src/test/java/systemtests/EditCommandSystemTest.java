@@ -90,12 +90,10 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
         editedMember = new MemberBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
         assertCommandSuccess(command, index, editedMember);
 
-        /* Case: edit with number and no arguments */
+        /* Case: edit with invalid tag argument -> rejected */
         index = INDEX_FIRST_MEMBER;
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased();
-        Member memberToEdit = getModel().getFilteredItemList(Member.class).get(index.getZeroBased());
-        editedMember = new MemberBuilder(memberToEdit).build();
-        assertCommandSuccess(command, index, editedMember);
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + "t/";
+        assertCommandFailure(command, String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
@@ -104,7 +102,7 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
         index = INDEX_FIRST_MEMBER;
         assertTrue(index.getZeroBased() < getModel().getFilteredItemList(Member.class).size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
-        memberToEdit = getModel().getFilteredItemList(Member.class).get(index.getZeroBased());
+        Member memberToEdit = getModel().getFilteredItemList(Member.class).get(index.getZeroBased());
         editedMember = new MemberBuilder(memberToEdit).withName(VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedMember);
 
