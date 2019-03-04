@@ -15,7 +15,7 @@ image::lingyanhao.png[width="150", align="left"]
 {empty}[https://github.com/lingyanhao[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: Deliverables and deadlines, Scheduling and Tracking, in charge of Model component
+Responsibilities: Deliverables and deadlines, Scheduling and Tracking, in charge of Model component +
 Working on: booking management feature
 
 '''
@@ -25,7 +25,7 @@ image::zj-cs2103.png[width="150", align="left"]
 {empty}[http://github.com/zj-cs2103[github]] [<<johndoe#, portfolio>>]
 
 Role: Testing +
-Responsibilities: Integration, in charge of Logic component
+Responsibilities: Integration, in charge of Logic component +
 Working on: staff management feature
 
 '''
@@ -35,7 +35,7 @@ image::limli.png[width="150", align="left"]
 {empty}[http://github.com/limli[github]] [<<johndoe#, portfolio>>]
 
 Role: Code quality +
-Responsibilities: JavaFX expert, in charge of UI component
+Responsibilities: JavaFX expert, in charge of UI component +
 Working on: restaurant customer management feature
 
 '''
@@ -45,7 +45,7 @@ image::hiyingnn.png[width="150", align="left"]
 {empty}[http://github.com/hiyingnn[github]] [<<johndoe#, portfolio>>]
 
 Role: Documentation +
-Responsibilities: In charge of Storage component
+Responsibilities: In charge of Storage component +
 Working on: ingredient management feature
 
 '''
