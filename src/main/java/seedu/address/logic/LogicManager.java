@@ -90,7 +90,9 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Staff> getFilteredStaffList() { return model.getFilteredItemList(Staff.class); }
+    public ObservableList<Staff> getFilteredStaffList() {
+        return model.getFilteredItemList(Staff.class);
+    }
 
     @Override
     public ObservableList<String> getHistory() {
@@ -128,7 +130,9 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyProperty<Staff> selectedStaffProperty() { return model.selectedItemProperty(Staff.class); }
+    public ReadOnlyProperty<Staff> selectedStaffProperty() {
+        return model.selectedItemProperty(Staff.class);
+    }
 
     @Override
     public void setSelectedMember(Member member) {

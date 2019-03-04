@@ -6,6 +6,11 @@ import java.util.Objects;
 
 import seedu.address.model.Item;
 
+/**
+ * Represents a Person in the restaurant book.
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
+
 public abstract class Person implements Item {
 
     private static int idCounter = 0;

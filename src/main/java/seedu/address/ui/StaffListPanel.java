@@ -1,11 +1,11 @@
 package seedu.address.ui;
 
+import java.util.function.Consumer;
+
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListCell;
 import seedu.address.model.person.Staff;
-
-import java.util.function.Consumer;
 
 /**
  * Panel containing the list of staff.
