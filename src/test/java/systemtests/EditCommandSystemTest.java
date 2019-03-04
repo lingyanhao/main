@@ -16,7 +16,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ITEMS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MEMBER;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MEMBER;
@@ -91,12 +90,11 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
         editedMember = new MemberBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
         assertCommandSuccess(command, index, editedMember);
 
-        /* Case: clear tags -> cleared */
+        /* Case: edit with invalid tag argument -> rejected */
         index = INDEX_FIRST_MEMBER;
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
-        Member memberToEdit = getModel().getFilteredItemList(Member.class).get(index.getZeroBased());
-        editedMember = new MemberBuilder(memberToEdit).build();
-        assertCommandSuccess(command, index, editedMember);
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + "t/";
+        assertCommandFailure(command,
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
@@ -105,7 +103,7 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
         index = INDEX_FIRST_MEMBER;
         assertTrue(index.getZeroBased() < getModel().getFilteredItemList(Member.class).size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
-        memberToEdit = getModel().getFilteredItemList(Member.class).get(index.getZeroBased());
+        Member memberToEdit = getModel().getFilteredItemList(Member.class).get(index.getZeroBased());
         editedMember = new MemberBuilder(memberToEdit).withName(VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedMember);
 
