@@ -24,8 +24,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyRestaurantBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.RestaurantBook;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.person.Member;
+import seedu.address.testutil.MemberBuilder;
 
 public class AddCommandTest {
 
@@ -37,38 +37,38 @@ public class AddCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullMember_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         new AddCommand(null);
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+    public void execute_memberAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingMemberAdded modelStub = new ModelStubAcceptingMemberAdded();
+        Member validMember = new MemberBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddCommand(validMember).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS_PERSON, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS_MEMBER, validMember), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validMember), modelStub.membersAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+    public void execute_duplicateMember_throwsCommandException() throws Exception {
+        Member validMember = new MemberBuilder().build();
+        AddCommand addCommand = new AddCommand(validMember);
+        ModelStub modelStub = new ModelStubWithMember(validMember);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
+        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_MEMBER);
         addCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
+        Member alice = new MemberBuilder().withName("Alice").build();
+        Member bob = new MemberBuilder().withName("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 
@@ -85,7 +85,7 @@ public class AddCommandTest {
         // null -> returns false
         assertFalse(addAliceCommand.equals(null));
 
-        // different person -> returns false
+        // different member -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
@@ -124,7 +124,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addItem(Item person) {
+        public void addItem(Item member) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -139,7 +139,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasItem(Item person) {
+        public boolean hasItem(Item member) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -149,7 +149,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setItem(Item target, Item editedPerson) {
+        public void setItem(Item target, Item editedMember) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -206,39 +206,39 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single member.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+    private class ModelStubWithMember extends ModelStub {
+        private final Member member;
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithMember(Member member) {
+            requireNonNull(member);
+            this.member = member;
         }
 
         @Override
         public boolean hasItem(Item item) {
             requireNonNull(item);
-            return this.person.isSameItem(item);
+            return this.member.isSameItem(item);
         }
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the member being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingMemberAdded extends ModelStub {
+        final ArrayList<Member> membersAdded = new ArrayList<>();
 
         @Override
         public boolean hasItem(Item item) {
             requireNonNull(item);
-            return personsAdded.stream().anyMatch(item::isSameItem);
+            return membersAdded.stream().anyMatch(item::isSameItem);
         }
 
         @Override
         public void addItem(Item item) {
             requireNonNull(item);
-            personsAdded.add((Person) item); // temporary fix
+            membersAdded.add((Member) item); // temporary fix
         }
 
         @Override

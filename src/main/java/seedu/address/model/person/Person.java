@@ -7,36 +7,36 @@ import java.util.Objects;
 import seedu.address.model.Item;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Person in the restaurant book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Person implements Item {
+
+public abstract class Person implements Item {
 
     private static int idCounter = 0;
 
     // Identity fields
-    private final Name name;
-    private final Phone phone;
-    private final Email email;
-    private final int id;
+    protected final Name name;
+    protected final Phone phone;
+    protected final Email email;
+    protected final int id;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email) {
+    public Person(Name name, Phone phone, Email email, int id) {
         requireAllNonNull(name, phone, email);
         this.name = name;
         this.phone = phone;
         this.email = email;
-        id = idCounter;
-        idCounter++;
+        this.id = id;
     }
 
     /**
-     * Creates a new person with the same ID as another person.
-     * Used for editing a person's details so that the system can track that it is the same person.
+     * Creates a new member with the same ID as another member.
+     * Used for editing a member's details so that the system can track that it is the same member.
      */
-    public Person(Name name, Phone phone, Email email, Person other) {
+    public Person(Name name, Phone phone, Email email, Member other) {
         requireAllNonNull(name, phone, email, other);
         this.name = name;
         this.phone = phone;
@@ -57,45 +57,8 @@ public class Person implements Item {
         return email;
     }
 
-    /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
-     */
-    public boolean isSamePerson(Person otherPerson) {
-        if (otherPerson == this) {
-            return true;
-        }
-
-        return otherPerson != null
-                && otherPerson.getName().equals(getName())
-                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
-    }
-
-    public boolean isSameItem(Object otherItem) {
-        return otherItem instanceof Person && isSamePerson((Person) otherItem);
-    }
-
-    public boolean hasSameId(Person other) {
+    public boolean hasSameId(Member other) {
         return id == other.id;
-    }
-    /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
-     */
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        if (!(other instanceof Person)) {
-            return false;
-        }
-
-        Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(getName())
-                && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getEmail().equals(getEmail());
     }
 
     @Override

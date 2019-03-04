@@ -1,9 +1,10 @@
 {
-  "persons": [ {
+  "members": [ {
     "name": "Hans Muster",
     "phone": "9482424",
     "email": "invalid@email!3e"
   } ],
-  "ingredients" : [ ]
+  "ingredients" : [ ],
+  "staff" : [ ]
 }
 

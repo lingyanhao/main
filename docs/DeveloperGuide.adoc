@@ -858,17 +858,45 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `RestaurantBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add member
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to add member
+2.  RestaurantBook adds the member
+3.  RestaurantBook shows a list of members
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The member already exists.
++
+[none]
+** 3a1. RestaurantBook shows an error message.
++
+Use case resumes at step 1.
+
+* 3a. The member data is given in the wrong format.
++
+[none]
+** 3a1. RestaurantBook shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Delete member
+
+*MSS*
+
+1.  User requests to list members
+2.  RestaurantBook shows a list of members
+3.  User requests to delete a specific member in the list
+4.  RestaurantBook deletes the member
 +
 Use case ends.
 
@@ -882,7 +910,135 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. RestaurantBook shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Find member
+
+*MSS*
+
+1.  User requests to find members and gives a list of words
+2.  RestaurantBook shows a list of members whose name contains any of the words given
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list of words given is empty
++
+[none]
+** 3a1. RestaurantBook shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Add booking
+
+*MSS*
+
+1.  User requests to add booking
+2.  RestaurantBook adds the booking
+3.  RestaurantBook shows a list of bookings
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The booking already exists.
++
+[none]
+** 3a1. RestaurantBook shows an error message.
++
+Use case resumes at step 1.
+
+* 3a. The booking data is given in the wrong format.
++
+[none]
+** 3a1. RestaurantBook shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Delete booking
+
+*MSS*
+
+1.  User requests to list bookings
+2.  RestaurantBook shows a list of bookings
+3.  User requests to delete a specific booking in the list
+4.  RestaurantBook deletes the booking
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. RestaurantBook shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Add ingredient
+
+*MSS*
+
+1.  User requests to add ingredient
+2.  RestaurantBook adds the ingredient
+3.  RestaurantBook shows a list of ingredients
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The ingredient already exists.
++
+[none]
+** 3a1. RestaurantBook shows an error message.
++
+Use case resumes at step 1.
+
+* 3a. The ingredient data is given in the wrong format.
++
+[none]
+** 3a1. RestaurantBook shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Delete ingredient
+
+*MSS*
+
+1.  User requests to list ingredients
+2.  RestaurantBook shows a list of ingredients
+3.  User requests to delete a specific ingredient in the list
+4.  RestaurantBook deletes the ingredient
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. RestaurantBook shows an error message.
 +
 Use case resumes at step 2.
 

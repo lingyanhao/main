@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT;
@@ -10,7 +10,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NUMBER_PERSONS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -18,33 +17,29 @@ import seedu.address.model.Item;
 import seedu.address.model.Model;
 import seedu.address.model.booking.Booking;
 import seedu.address.model.ingredient.Ingredient;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Member;
+import seedu.address.model.person.Staff;
 
 /**
  * Adds an item to the restaurant book.
  */
 public class AddCommand extends Command {
 
-    public static final String COMMAND_WORD_PERSON = "addperson"; // make sure that this is in lower case
-    public static final String COMMAND_ALIAS_PERSON = "ap";
+    public static final String COMMAND_WORD_MEMBER = "addmember"; // make sure that this is in lower case
+    public static final String COMMAND_ALIAS_MEMBER = "am";
 
-    public static final String MESSAGE_USAGE_PERSON = COMMAND_WORD_PERSON + ": Adds a person to the address book. "
+    public static final String MESSAGE_USAGE_MEMBER = COMMAND_WORD_MEMBER + ": Adds a member to the address book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
-            + PREFIX_EMAIL + "EMAIL "
-            + PREFIX_ADDRESS + "ADDRESS "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD_PERSON + " "
+            + PREFIX_EMAIL + "EMAIL\n"
+            + "Example: " + COMMAND_WORD_MEMBER + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
-            + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_EMAIL + "johnd@example.com ";
 
-    public static final String MESSAGE_SUCCESS_PERSON = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_SUCCESS_MEMBER = "New member added: %1$s";
+    public static final String MESSAGE_DUPLICATE_MEMBER = "This member already exists in the address book";
 
     public static final String COMMAND_WORD_BOOKING = "addbooking"; // make sure that this is in lower case
     public static final String COMMAND_ALIAS_BOOKING = "ab";
@@ -76,25 +71,46 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS_INGREDIENT = "New ingredient added: %1$s";
     public static final String MESSAGE_DUPLICATE_INGREDIENT = "This ingredient already exists in the book";
 
+    public static final String COMMAND_WORD_STAFF = "addstaff";
+    public static final String COMMAND_ALIAS_STAFF = "sa";
+
+    public static final String MESSAGE_USAGE_STAFF = COMMAND_WORD_STAFF + ": Adds a staff to the restaurant. "
+            + "Parameters: "
+            + PREFIX_NAME + "NAME "
+            + PREFIX_PHONE + "PHONE "
+            + PREFIX_EMAIL + "EMAIL "
+            + PREFIX_APPOINTMENT + "APPOINTMENT\n"
+            + "Example: " + COMMAND_WORD_STAFF + " "
+            + PREFIX_NAME + "Jane Smith "
+            + PREFIX_PHONE + "91234567 "
+            + PREFIX_EMAIL + "jsmith@example.com "
+            + PREFIX_APPOINTMENT + "Server";
+
+    public static final String MESSAGE_SUCCESS_STAFF = "New staff added: %1$s";
+    public static final String MESSAGE_DUPLICATE_STAFF = "This staff already exists in the restaurant!";
+
     private final String messageDuplicate;
     private final String messageSuccess;
 
     private final Item toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code Item}
      */
     public AddCommand(Item item) {
         requireNonNull(item);
-        if (item instanceof Person) {
-            messageDuplicate = MESSAGE_DUPLICATE_PERSON;
-            messageSuccess = MESSAGE_SUCCESS_PERSON;
+        if (item instanceof Member) {
+            messageDuplicate = MESSAGE_DUPLICATE_MEMBER;
+            messageSuccess = MESSAGE_SUCCESS_MEMBER;
         } else if (item instanceof Booking) {
             messageDuplicate = MESSAGE_DUPLICATE_BOOKING;
             messageSuccess = MESSAGE_SUCCESS_BOOKING;
         } else if (item instanceof Ingredient) {
             messageDuplicate = MESSAGE_DUPLICATE_INGREDIENT;
             messageSuccess = MESSAGE_SUCCESS_INGREDIENT;
+        } else if (item instanceof Staff) {
+            messageDuplicate = MESSAGE_DUPLICATE_STAFF;
+            messageSuccess = MESSAGE_SUCCESS_STAFF;
         } else {
             throw new RuntimeException();
         }

@@ -48,9 +48,9 @@ public class RestaurantBookParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD_PERSON:
-        case AddCommand.COMMAND_ALIAS_PERSON:
-            return new AddPersonCommandParser().parse(arguments);
+        case AddCommand.COMMAND_WORD_MEMBER:
+        case AddCommand.COMMAND_ALIAS_MEMBER:
+            return new AddMemberCommandParser().parse(arguments);
 
         case AddCommand.COMMAND_WORD_BOOKING:
         case AddCommand.COMMAND_ALIAS_BOOKING:
@@ -59,6 +59,10 @@ public class RestaurantBookParser {
         case AddCommand.COMMAND_WORD_INGREDIENT:
         case AddCommand.COMMAND_ALIAS_INGREDIENT:
             return new AddIngredientCommandParser().parse(arguments);
+
+        case AddCommand.COMMAND_WORD_STAFF:
+        case AddCommand.COMMAND_ALIAS_STAFF:
+            return new AddStaffCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
         case EditCommand.COMMAND_ALIAS:

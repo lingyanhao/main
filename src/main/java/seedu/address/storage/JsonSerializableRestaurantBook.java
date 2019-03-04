@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import static seedu.address.logic.commands.AddCommand.MESSAGE_DUPLICATE_INGREDIENT;
+import static seedu.address.logic.commands.AddCommand.MESSAGE_DUPLICATE_STAFF;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ReadOnlyRestaurantBook;
 import seedu.address.model.RestaurantBook;
 import seedu.address.model.ingredient.Ingredient;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Member;
+import seedu.address.model.person.Staff;
 
 /**
  * An Immutable RestaurantBook that is serializable to JSON format.
@@ -22,19 +24,23 @@ import seedu.address.model.person.Person;
 @JsonRootName(value = "addressbook")
 class JsonSerializableRestaurantBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_MEMBER = "Members list contains duplicate member(s).";
 
-    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedMember> members = new ArrayList<>();
     private final List<JsonAdaptedIngredient> ingredients = new ArrayList<>();
+    private final List<JsonAdaptedStaff> staff = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableRestaurantBook} with the given persons.
+     * Constructs a {@code JsonSerializableRestaurantBook} with the given members.
      */
     @JsonCreator
-    public JsonSerializableRestaurantBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
-                                          @JsonProperty("ingredients") List<JsonAdaptedIngredient> ingredients) {
-        this.persons.addAll(persons);
+    public JsonSerializableRestaurantBook(@JsonProperty("members") List<JsonAdaptedMember> members,
+                                          @JsonProperty("ingredients") List<JsonAdaptedIngredient> ingredients,
+                                          @JsonProperty("staff") List<JsonAdaptedStaff> staff) {
+
+        this.members.addAll(members);
         this.ingredients.addAll(ingredients);
+        this.staff.addAll(staff);
     }
 
     /**
@@ -43,11 +49,13 @@ class JsonSerializableRestaurantBook {
      * @param source future changes to this will not affect the created {@code JsonSerializableRestaurantBook}.
      */
     public JsonSerializableRestaurantBook(ReadOnlyRestaurantBook source) {
-        persons.addAll(source.getItemList(Person.class).stream()
-                .map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+
+        members.addAll(source.getItemList(Member.class).stream()
+                .map(JsonAdaptedMember::new).collect(Collectors.toList()));
         ingredients.addAll(source.getItemList(Ingredient.class).stream()
                 .map(JsonAdaptedIngredient::new).collect(Collectors.toList()));
-
+        staff.addAll(source.getItemList(Staff.class).stream()
+                .map(JsonAdaptedStaff::new).collect(Collectors.toList()));
 
     }
 
@@ -58,12 +66,12 @@ class JsonSerializableRestaurantBook {
      */
     public RestaurantBook toModelType() throws IllegalValueException {
         RestaurantBook restaurantBook = new RestaurantBook();
-        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Person person = jsonAdaptedPerson.toModelType();
-            if (restaurantBook.hasItem(person)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+        for (JsonAdaptedMember jsonAdaptedMember : members) {
+            Member member = jsonAdaptedMember.toModelType();
+            if (restaurantBook.hasItem(member)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_MEMBER);
             }
-            restaurantBook.addItem(person);
+            restaurantBook.addItem(member);
         }
 
 
@@ -75,6 +83,13 @@ class JsonSerializableRestaurantBook {
             restaurantBook.addItem(ingredient);
         }
 
+        for (JsonAdaptedStaff jsonAdaptedStaff : staff) {
+            Staff staff = jsonAdaptedStaff.toModelType();
+            if (restaurantBook.hasItem(staff)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_STAFF);
+            }
+            restaurantBook.addItem(staff);
+        }
 
         return restaurantBook;
     }

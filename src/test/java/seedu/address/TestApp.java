@@ -14,7 +14,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyRestaurantBook;
 import seedu.address.model.RestaurantBook;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Member;
 import seedu.address.storage.JsonRestaurantBookStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.testutil.TestUtil;
@@ -94,7 +94,7 @@ public class TestApp extends MainApp {
      */
     public Model getModel() {
         Model copy = new ModelManager((model.getRestaurantBook()), new UserPrefs());
-        ModelHelper.setFilteredList(copy, model.getFilteredItemList(Person.class));
+        ModelHelper.setFilteredList(copy, model.getFilteredItemList(Member.class));
         return copy;
     }
 

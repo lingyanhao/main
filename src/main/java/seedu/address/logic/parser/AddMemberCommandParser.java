@@ -8,14 +8,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Member;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 
 /**
  * Parses input arguments and creates a new AddCommand object.
  */
-public class AddPersonCommandParser implements Parser<AddCommand> {
+public class AddMemberCommandParser implements Parser<AddCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
@@ -28,15 +28,15 @@ public class AddPersonCommandParser implements Parser<AddCommand> {
 
         if (!argMultimap.arePrefixesPresent(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE_PERSON));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE_MEMBER));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
 
-        Person person = new Person(name, phone, email);
+        Member member = new Member(name, phone, email);
 
-        return new AddCommand(person);
+        return new AddCommand(member);
     }
 }

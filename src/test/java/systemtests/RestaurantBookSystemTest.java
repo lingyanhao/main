@@ -20,7 +20,7 @@ import org.junit.ClassRule;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
-import guitests.guihandles.PersonListPanelHandle;
+import guitests.guihandles.MemberListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.TestApp;
@@ -31,8 +31,8 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.Model;
 import seedu.address.model.RestaurantBook;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.TypicalPersons;
+import seedu.address.model.person.Member;
+import seedu.address.testutil.TypicalMembers;
 import seedu.address.ui.CommandBox;
 
 /**
@@ -74,7 +74,7 @@ public abstract class RestaurantBookSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected RestaurantBook getInitialData() {
-        return TypicalPersons.getTypicalAddressBook();
+        return TypicalMembers.getTypicalAddressBook();
     }
 
     /**
@@ -92,8 +92,8 @@ public abstract class RestaurantBookSystemTest {
         return mainWindowHandle.getCommandBox();
     }
 
-    public PersonListPanelHandle getPersonListPanel() {
-        return mainWindowHandle.getPersonListPanel();
+    public MemberListPanelHandle getMemberListPanel() {
+        return mainWindowHandle.getMemberListPanel();
     }
 
     public MainMenuHandle getMainMenu() {
@@ -122,85 +122,85 @@ public abstract class RestaurantBookSystemTest {
     }
 
     /**
-     * Displays all persons in the address book.
+     * Displays all members in the address book.
      */
-    protected void showAllPersons() {
+    protected void showAllMembers() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getRestaurantBook().getItemList(Person.class).size(),
-                getModel().getFilteredItemList(Person.class).size());
+        assertEquals(getModel().getRestaurantBook().getItemList(Member.class).size(),
+                getModel().getFilteredItemList(Member.class).size());
     }
 
     /**
-     * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
+     * Displays all members with any parts of their names matching {@code keyword} (case-insensitive).
      */
-    protected void showPersonsWithName(String keyword) {
+    protected void showMembersWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredItemList(Person.class).size()
-                < getModel().getRestaurantBook().getItemList(Person.class).size());
+        assertTrue(getModel().getFilteredItemList(Member.class).size()
+                < getModel().getRestaurantBook().getItemList(Member.class).size());
     }
 
     /**
-     * Selects the person at {@code index} of the displayed list.
+     * Selects the member at {@code index} of the displayed list.
      */
-    protected void selectPerson(Index index) {
+    protected void selectMember(Index index) {
         executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
-        assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+        assertEquals(index.getZeroBased(), getMemberListPanel().getSelectedCardIndex());
     }
 
     /**
-     * Deletes all persons in the address book.
+     * Deletes all members in the address book.
      */
-    protected void deleteAllPersons() {
+    protected void deleteAllMembers() {
         executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getRestaurantBook().getItemList(Person.class).size());
+        assertEquals(0, getModel().getRestaurantBook().getItemList(Member.class).size());
     }
 
     /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
-     * {@code expectedResultMessage}, the storage contains the same person objects as {@code expectedModel}
-     * and the person list panel displays the persons in the model correctly.
+     * {@code expectedResultMessage}, the storage contains the same member objects as {@code expectedModel}
+     * and the member list panel displays the members in the model correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
                                                      Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new RestaurantBook(expectedModel.getRestaurantBook()), testApp.readStorageAddressBook());
-        assertListMatching(getPersonListPanel(), expectedModel.getFilteredItemList(Person.class));
+        assertListMatching(getMemberListPanel(), expectedModel.getFilteredItemList(Member.class));
     }
 
     /**
-     * Calls {@code PersonListPanelHandle} and {@code StatusBarFooterHandle} to remember
+     * Calls {@code MemberListPanelHandle} and {@code StatusBarFooterHandle} to remember
      * their current state.
      */
     private void rememberStates() {
         StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
-        getPersonListPanel().rememberSelectedPersonCard();
+        getMemberListPanel().rememberSelectedMemberCard();
     }
 
     /**
      * Asserts that the previously selected card is now deselected
      */
     protected void assertSelectedCardDeselected() {
-        assertFalse(getPersonListPanel().isAnyCardSelected());
+        assertFalse(getMemberListPanel().isAnyCardSelected());
     }
 
     /**
      * Asserts that only the card at {@code expectedSelectedCardIndex} is selected.
-     * @see PersonListPanelHandle#isSelectedPersonCardChanged()
+     * @see MemberListPanelHandle#isSelectedMemberCardChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
-        getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
-        assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+        getMemberListPanel().navigateToCard(getMemberListPanel().getSelectedCardIndex());
+        assertEquals(expectedSelectedCardIndex.getZeroBased(), getMemberListPanel().getSelectedCardIndex());
     }
 
     /**
-     * Asserts that the selected card in the person list panel remain unchanged.
-     * @see PersonListPanelHandle#isSelectedPersonCardChanged()
+     * Asserts that the selected card in the member list panel remain unchanged.
+     * @see MemberListPanelHandle#isSelectedMemberCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
-        assertFalse(getPersonListPanel().isSelectedPersonCardChanged());
+        assertFalse(getMemberListPanel().isSelectedMemberCardChanged());
     }
 
     /**
@@ -244,7 +244,7 @@ public abstract class RestaurantBookSystemTest {
     private void assertApplicationStartingStateIsCorrect() {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
-        assertListMatching(getPersonListPanel(), getModel().getFilteredItemList(Person.class));
+        assertListMatching(getMemberListPanel(), getModel().getFilteredItemList(Member.class));
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());

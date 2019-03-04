@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalMembers.getTypicalAddressBook;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,8 +11,8 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.person.Member;
+import seedu.address.testutil.MemberBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
@@ -28,22 +28,22 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
-    public void execute_newPerson_success() {
-        Person validPerson = new PersonBuilder().build();
+    public void execute_newMember_success() {
+        Member validMember = new MemberBuilder().build();
 
         Model expectedModel = new ModelManager(model.getRestaurantBook(), new UserPrefs());
-        expectedModel.addItem(validPerson);
+        expectedModel.addItem(validMember);
         expectedModel.commitRestaurantBook();
 
-        assertCommandSuccess(new AddCommand(validPerson), model, commandHistory,
-                String.format(AddCommand.MESSAGE_SUCCESS_PERSON, validPerson), expectedModel);
+        assertCommandSuccess(new AddCommand(validMember), model, commandHistory,
+                String.format(AddCommand.MESSAGE_SUCCESS_MEMBER, validMember), expectedModel);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Person personInList = model.getRestaurantBook().getItemList(Person.class).get(0);
-        assertCommandFailure(new AddCommand(personInList), model, commandHistory,
-                AddCommand.MESSAGE_DUPLICATE_PERSON);
+    public void execute_duplicateMember_throwsCommandException() {
+        Member memberInList = model.getRestaurantBook().getItemList(Member.class).get(0);
+        assertCommandFailure(new AddCommand(memberInList), model, commandHistory,
+                AddCommand.MESSAGE_DUPLICATE_MEMBER);
     }
 
 }
