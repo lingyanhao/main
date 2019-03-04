@@ -14,8 +14,9 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::lingyanhao.png[width="150", align="left"]
 {empty}[https://github.com/lingyanhao[github]] [<<johndoe#, portfolio>>]
 
-Role: (undecided) +
-Responsibilities: (undecided)
+Role: Team Lead +
+Responsibilities: Deliverables and deadlines, Scheduling and Tracking, in charge of Model component
+Working on: booking management feature
 
 '''
 
@@ -23,8 +24,9 @@ Responsibilities: (undecided)
 image::zj-cs2103.png[width="150", align="left"]
 {empty}[http://github.com/zj-cs2103[github]] [<<johndoe#, portfolio>>]
 
-Role: (undecided) +
-Responsibilities: (undecided)
+Role: Testing +
+Responsibilities: Integration, in charge of Logic component
+Working on: staff management feature
 
 '''
 
@@ -32,8 +34,9 @@ Responsibilities: (undecided)
 image::limli.png[width="150", align="left"]
 {empty}[http://github.com/limli[github]] [<<johndoe#, portfolio>>]
 
-Role: (undecided) +
-Responsibilities: (undecided)
+Role: Code quality +
+Responsibilities: JavaFX expert, in charge of UI component
+Working on: restaurant customer management feature
 
 '''
 
@@ -41,7 +44,8 @@ Responsibilities: (undecided)
 image::hiyingnn.png[width="150", align="left"]
 {empty}[http://github.com/hiyingnn[github]] [<<johndoe#, portfolio>>]
 
-Role: (undecided) +
-Responsibilities: (undecided)
+Role: Documentation +
+Responsibilities: In charge of Storage component
+Working on: ingredient management feature
 
 '''
