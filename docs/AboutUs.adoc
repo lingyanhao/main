@@ -36,7 +36,7 @@ image::limli.png[width="150", align="left"]
 
 Role: Code quality +
 Responsibilities: JavaFX expert, in charge of UI component +
-Working on: restaurant customer management feature
+Working on: customer management feature
 
 '''
 
