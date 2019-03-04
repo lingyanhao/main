@@ -21,8 +21,11 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.testutil.TypicalStaff.AMY;
+import static seedu.address.testutil.TypicalStaff.BOB;
 
 import org.junit.Test;
+
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.person.Appointment;
 import seedu.address.model.person.Email;
@@ -34,6 +37,39 @@ import seedu.address.testutil.StaffBuilder;
 
 public class AddStaffCommandParserTest {
     private AddStaffCommandParser parser = new AddStaffCommandParser();
+
+    @Test
+    public void parse_allFieldsPresent_success() {
+        Staff expectedStaff = new StaffBuilder(AMY).build();
+
+        // whitespace only preamble
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
+                + APPOINTMENT_DESC_AMY, new AddCommand(expectedStaff));
+
+        // multiple names - last name accepted
+        assertParseSuccess(parser, NAME_DESC_BOB + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
+                + APPOINTMENT_DESC_AMY, new AddCommand(expectedStaff));
+
+        // multiple phones - last phone accepted
+        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY
+                + APPOINTMENT_DESC_AMY, new AddCommand(expectedStaff));
+
+        // multiple emails - last email accepted
+        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_BOB + EMAIL_DESC_AMY
+                + APPOINTMENT_DESC_AMY, new AddCommand(expectedStaff));
+
+        // multiple appointments - last appointment accepted
+        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_BOB + EMAIL_DESC_AMY
+                + APPOINTMENT_DESC_BOB + APPOINTMENT_DESC_AMY, new AddCommand(expectedStaff));
+    }
+
+    @Test
+    public void parse_optionalFieldsMissing_success() {
+        // zero tags
+        Staff expectedStaff = new StaffBuilder(BOB).build();
+        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + APPOINTMENT_DESC_BOB,
+                new AddCommand(expectedStaff));
+    }
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {

@@ -29,7 +29,7 @@ public class StaffBuilder {
     }
 
     /**
-     * Initializes the MemberBuilder with the data of {@code staffToCopy}.
+     * Initializes the StaffBuilder with the data of {@code staffToCopy}.
      */
     public StaffBuilder(Staff staffToCopy) {
         name = staffToCopy.getName();
@@ -66,7 +66,7 @@ public class StaffBuilder {
      * Sets the {@code Appointment} of the {@code Staff} that we are building.
      */
     public StaffBuilder withAppointment(String appointment) {
-        this.email = new Email(appointment);
+        this.appointment = new Appointment(appointment);
         return this;
     }
 
