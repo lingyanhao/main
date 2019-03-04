@@ -9,5 +9,6 @@
     "email": "pauline@example.com"
   } ],
   "ingredients" : [ ],
-  "staff" : [ ]
+  "staff" : [ ],
+  "bookings" : [ ]
 }
