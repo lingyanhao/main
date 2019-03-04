@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import static seedu.address.logic.commands.AddCommand.MESSAGE_DUPLICATE_INGREDIENT;
+import static seedu.address.logic.commands.AddCommand.MESSAGE_DUPLICATE_STAFF;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ import seedu.address.model.ReadOnlyRestaurantBook;
 import seedu.address.model.RestaurantBook;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Member;
+import seedu.address.model.person.Staff;
 
 /**
  * An Immutable RestaurantBook that is serializable to JSON format.
@@ -26,17 +28,19 @@ class JsonSerializableRestaurantBook {
 
     private final List<JsonAdaptedMember> members = new ArrayList<>();
     private final List<JsonAdaptedIngredient> ingredients = new ArrayList<>();
+    private final List<JsonAdaptedStaff> staff = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableRestaurantBook} with the given members.
      */
     @JsonCreator
     public JsonSerializableRestaurantBook(@JsonProperty("members") List<JsonAdaptedMember> members,
-                                          @JsonProperty("ingredients") List<JsonAdaptedIngredient> ingredients) {
+                                          @JsonProperty("ingredients") List<JsonAdaptedIngredient> ingredients,
+                                          @JsonProperty("staff") List<JsonAdaptedStaff> staff) {
 
         this.members.addAll(members);
         this.ingredients.addAll(ingredients);
-
+        this.staff.addAll(staff);
     }
 
     /**
@@ -50,7 +54,8 @@ class JsonSerializableRestaurantBook {
                 .map(JsonAdaptedMember::new).collect(Collectors.toList()));
         ingredients.addAll(source.getItemList(Ingredient.class).stream()
                 .map(JsonAdaptedIngredient::new).collect(Collectors.toList()));
-
+        staff.addAll(source.getItemList(Staff.class).stream()
+                .map(JsonAdaptedStaff::new).collect(Collectors.toList()));
 
     }
 
@@ -78,6 +83,13 @@ class JsonSerializableRestaurantBook {
             restaurantBook.addItem(ingredient);
         }
 
+        for (JsonAdaptedStaff jsonAdaptedStaff : staff) {
+            Staff staff = jsonAdaptedStaff.toModelType();
+            if (restaurantBook.hasItem(staff)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_STAFF);
+            }
+            restaurantBook.addItem(staff);
+        }
 
         return restaurantBook;
     }
