@@ -213,7 +213,7 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
      * @param toEdit the index of the current model's filtered list.
      * @see EditCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
      */
-    private void  assertCommandSuccess(String command, Index toEdit, Member editedMember,
+    private void assertCommandSuccess(String command, Index toEdit, Member editedMember,
             Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
         expectedModel.setItem(expectedModel.getFilteredItemList(Member.class).get(toEdit.getZeroBased()), editedMember);
