@@ -16,7 +16,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ITEMS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MEMBER;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MEMBER;
@@ -91,9 +90,9 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
         editedMember = new MemberBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
         assertCommandSuccess(command, index, editedMember);
 
-        /* Case: clear tags -> cleared */
+        /* Case: edit with number and no arguments */
         index = INDEX_FIRST_MEMBER;
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased();
         Member memberToEdit = getModel().getFilteredItemList(Member.class).get(index.getZeroBased());
         editedMember = new MemberBuilder(memberToEdit).build();
         assertCommandSuccess(command, index, editedMember);
@@ -214,7 +213,7 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
      * @param toEdit the index of the current model's filtered list.
      * @see EditCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
      */
-    private void assertCommandSuccess(String command, Index toEdit, Member editedMember,
+    private void  assertCommandSuccess(String command, Index toEdit, Member editedMember,
             Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
         expectedModel.setItem(expectedModel.getFilteredItemList(Member.class).get(toEdit.getZeroBased()), editedMember);

@@ -36,8 +36,6 @@ public class MemberCard extends UiPart<Region> {
     private Label address;
     @FXML
     private Label email;
-    @FXML
-    private FlowPane tags;
 
     public MemberCard(Member member, int displayedIndex) {
         super(FXML);

@@ -173,10 +173,6 @@ public class EditCommand extends Command {
             this.address = address;
         }
 
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
-        }
-
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -194,8 +190,7 @@ public class EditCommand extends Command {
 
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress());
+                    && getEmail().equals(e.getEmail());
         }
     }
 }

@@ -44,7 +44,7 @@ public class AddCommandSystemTest extends RestaurantBookSystemTest {
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        /* Case: add a member without tags to a non-empty address book, command with leading spaces and trailing spaces
+        /* Case: add a member to a non-empty address book, command with leading spaces and trailing spaces
          * -> added
          */
         Member toAdd = AMY;
@@ -79,12 +79,12 @@ public class AddCommandSystemTest extends RestaurantBookSystemTest {
         deleteAllMembers();
         assertCommandSuccess(ALICE);
 
-        /* Case: add a member with tags, command with parameters in random order -> added */
+        /* Case: add a member, command with parameters in random order -> added */
         toAdd = BOB;
         command = AddCommand.COMMAND_WORD_MEMBER + PHONE_DESC_BOB + NAME_DESC_BOB + EMAIL_DESC_BOB;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a member, missing tags -> added */
+        /* Case: add a member -> added */
         assertCommandSuccess(HOON);
 
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */

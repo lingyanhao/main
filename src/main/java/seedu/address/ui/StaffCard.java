@@ -38,8 +38,6 @@ public class StaffCard extends UiPart<Region> {
     private Label email;
     @FXML
     private Label appointment;
-    @FXML
-    private FlowPane tags;
 
     public StaffCard(Staff staff, int displayedIndex) {
         super(FXML);
