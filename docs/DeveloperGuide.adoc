@@ -815,9 +815,9 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* is reasonably comfortable using <<cli, CLI>> apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage records faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -1048,13 +1048,19 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 <<restaurant-records, restaurant records>> without a noticeable sluggishness in performance for typical usage.
+.  Should be able to respond to every command in less than 3 seconds on any mainstream OS.
+.  System should be able to start up in less than 10 seconds on any mainstream OS.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should be able to retain and recover restaurant records in the event of a program crash or forced shut-down.
+.  Should still work even without internet access.
 
-_{More to be added}_
 
 [appendix]
 == Glossary
+
+[[cli]] Command-Line-Interface::
+Text-based interface where the user is required to issue commands to the program in the form of successive lines of text.
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
@@ -1103,16 +1109,16 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting a member
 
-. Deleting a person while all persons are listed
+. Deleting a member while all members are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
+.. Prerequisites: List all members using the `listMembers` command. Multiple members in the list.
+.. Test case: `deleteMember 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
+.. Test case: `deleteMember 0` +
    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `deleteMember`, `deleteMember x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
 _{ more test cases ... }_
