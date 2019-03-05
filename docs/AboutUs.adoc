@@ -15,7 +15,7 @@ image::lingyanhao.png[width="150", align="left"]
 {empty}[https://github.com/lingyanhao[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: Deliverables and deadlines, Scheduling and Tracking, in charge of Model component +
+Responsibilities: Deliverables and deadlines, Scheduling and tracking, in charge of Model component +
 Working on: booking management feature
 
 '''

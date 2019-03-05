@@ -12,7 +12,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/cs2103-ay1819S2-w11-2/main
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
@@ -69,7 +69,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items with `...` after them can be used multiple times including zero times
     ** e.g. `addRecipe r/RECIPE_NAME n/NUMBER_OF_INGREDIENTS 1/INGREDIENT_1&AMOUNT_IN_UNITS 2/INGREDIENT_2&AMOUNT_IN_UNITS ...`
 * Parameters can be in any order
-
+* All parameters involving time should be specified in `yyyy-MM-dd HH:mm` format, e.g. `2019-02-23 13:00`. If the date is unspecified, the current date will be used. In that situation, `HH:mm` format should be used, e.g. `13:00`.
+*
 
 ====
 
@@ -394,7 +395,7 @@ Format: `viewBooking [ts/TIME_START] [te/TIME_END]`
 
 Example:
 
-* `viewBooking ts/1200 te/1530`
+* `viewBooking ts/2019-03-01 12:00 te/2019-03-04 15:00`
 
 ==== Update Restaurant Capacity: `updateCapacity`
 
@@ -404,7 +405,7 @@ Format: `updateCapacity NUMBER`
 
 
 ****
-• If the capacity is full, the restaurant will not accept new bookings (refer to <<Create New Booking: `addBooking`, addBooking command >>). If this command causes the number of bookings to exceed the capacity, the `updateCapacity` command will not be allowed to be executed, instead some of the bookings must be cancelled.
+• If the capacity is full, the restaurant will not accept new bookings (refer to <<Create New Booking: `addBooking`, addBooking command >>). If this command causes the number of bookings to exceed the capacity, the `updateCapacity` command will not be executed and an error will be displayed.
 ****
 
 Example:
@@ -417,25 +418,21 @@ This updates the restaurants to cater for a capacity for 50 customers
 
 Creates a new booking.
 
-Format: `addBooking [c/CUSTOMER_ID] n/NUMBER OF PERSONS t/TIME [d/DATE]`
+Format: `addBooking c/CUSTOMER_INDEX n/NUMBER OF MEMBERS ts/START_TIME`
 
 ****
-• If the restaurant is full (as determined by the `updateCapacity` command), a message will appear telling the user that the restaurant is fully booked: “Restaurant is fully booked at (date) and (time). Please choose another time.”
+• If the restaurant is full (as determined by the `updateCapacity` command), a message will appear telling the user that the restaurant is fully booked.
 
-• Date argument is optional, will be set to today’s date if not specified. All bookings will last for 1 hour.
+• All bookings will last for 1 hour.
 
-• Customer ID refers to the index of the customer as displayed by the list. Leave the field blank the customer requesting the booking is a non-member. No loyalty points will be added to this customer.
+• Customer INDEX refers to the index of the customer as displayed by the list.
 ****
 
 Example:
 
-* `addBooking 1 1300 25 Feb`
+* `addBooking c/1 n/5 ts/2019-02-23 14:30`
 
-Adds a booking for customer id 1 on 25 Feb, at 1300 hrs
-
-* `addBooking 2 1530`
-
-Adds a booking for customer id 2, at 1300 hrs today
+Adds a booking for the first customer on the current list, on 23 Feb, at 1430 hrs
 
 ==== Cancel Booking: `cancelBooking`
 Cancels a booking permanently.
@@ -504,7 +501,7 @@ Format: `setShift s/STAFF_ID ts/TIME_START te/TIME_END`
 
 Example:
 
-* setShift `1 1200 1530`
+* `setShift s/1 ts/2019-02-23 09:30 ts/2019-02-23 17:30`
 
 === Overall
 
