@@ -478,7 +478,7 @@ Example:
 
 * `addStaff n/John Doe p/91234567 e/john@example.com a/Waiter`
 
-Adds a new staff with name John Doe, phone number 91234567, email john@example.com and appointment Waiter to the Restaurant Book.
+Adds a new staff with name John Doe, phone number 91234567, email john@example.com and appointment Waiter to the restaurant.
 
 ==== Delete Staff: `deleteStaff`
 
