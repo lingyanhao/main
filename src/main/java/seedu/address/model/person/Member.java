@@ -27,6 +27,7 @@ public class Member extends Person {
     public Member(Name name, Phone phone, Email email, Member other) {
         super(name, phone, email, other.id);
         // Take note: do not increment idCounter here, this is intentional
+        this.loyaltyPoints = new LoyaltyPoints(0);
     }
 
     public LoyaltyPoints getLoyaltyPoints() {
