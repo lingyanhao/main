@@ -70,7 +70,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
     ** e.g. `addRecipe r/RECIPE_NAME n/NUMBER_OF_INGREDIENTS 1/INGREDIENT_1&AMOUNT_IN_UNITS 2/INGREDIENT_2&AMOUNT_IN_UNITS ...`
 * Parameters can be in any order
 * All parameters involving time should be specified in `yyyy-MM-dd HH:mm` format, e.g. `2019-02-23 13:00`. If the date is unspecified, the current date will be used. In that situation, `HH:mm` format should be used, e.g. `13:00`.
-* 
+*
 
 ====
 
