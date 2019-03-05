@@ -28,7 +28,7 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD_MEMBER = "addmember"; // make sure that this is in lower case
     public static final String COMMAND_ALIAS_MEMBER = "am";
 
-    public static final String MESSAGE_USAGE_MEMBER = COMMAND_WORD_MEMBER + ": Adds a member to the address book. "
+    public static final String MESSAGE_USAGE_MEMBER = COMMAND_WORD_MEMBER + ": Adds a member to the restaurant book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
@@ -39,7 +39,7 @@ public class AddCommand extends Command {
             + PREFIX_EMAIL + "johnd@example.com ";
 
     public static final String MESSAGE_SUCCESS_MEMBER = "New member added: %1$s";
-    public static final String MESSAGE_DUPLICATE_MEMBER = "This member already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_MEMBER = "This member already exists in the restaurant book";
 
     public static final String COMMAND_WORD_BOOKING = "addbooking"; // make sure that this is in lower case
     public static final String COMMAND_ALIAS_BOOKING = "ab";
