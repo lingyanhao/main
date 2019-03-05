@@ -35,6 +35,8 @@ public class MemberCard extends UiPart<Region> {
     private Label address;
     @FXML
     private Label email;
+    @FXML
+    private Label points;
 
     public MemberCard(Member member, int displayedIndex) {
         super(FXML);
@@ -43,6 +45,7 @@ public class MemberCard extends UiPart<Region> {
         name.setText(member.getName().fullName);
         phone.setText(member.getPhone().value);
         email.setText(member.getEmail().value);
+        points.setText(Integer.toString(member.getLoyaltyPoints().value));
     }
 
     @Override
