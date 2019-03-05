@@ -9,7 +9,7 @@ import java.util.Objects;
 public class Member extends Person {
 
     private static int idCounter = 0;
-    LoyaltyPoints loyaltyPoints;
+    private LoyaltyPoints loyaltyPoints;
 
     /**
      * Every field must be present and not null.
@@ -20,14 +20,6 @@ public class Member extends Person {
         this.loyaltyPoints = new LoyaltyPoints(0);
     }
 
-    public LoyaltyPoints getLoyaltyPoints() {
-        return loyaltyPoints;
-    }
-
-    public void setLoyaltyPoints(LoyaltyPoints loyaltyPoints) {
-        this.loyaltyPoints = loyaltyPoints;
-    }
-
     /**
      * Creates a new member with the same ID as another member.
      * Used for editing a member's details so that the system can track that it is the same member.
@@ -35,6 +27,14 @@ public class Member extends Person {
     public Member(Name name, Phone phone, Email email, Member other) {
         super(name, phone, email, other.id);
         // Take note: do not increment idCounter here, this is intentional
+    }
+
+    public LoyaltyPoints getLoyaltyPoints() {
+        return loyaltyPoints;
+    }
+
+    public void setLoyaltyPoints(LoyaltyPoints loyaltyPoints) {
+        this.loyaltyPoints = loyaltyPoints;
     }
 
     /**
