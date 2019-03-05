@@ -228,7 +228,7 @@ public class AddStaffCommandTest {
     }
 
     /**
-     * A Model stub that always accept the ingredient being added.
+     * A Model stub that always accept the staff being added.
      */
     private class ModelStubAcceptingStaffAdded extends ModelStub {
         final ArrayList<Staff> staffAdded = new ArrayList<>();
