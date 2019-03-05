@@ -405,7 +405,7 @@ Format: `updateCapacity NUMBER`
 
 
 ****
-• If the capacity is full, the restaurant will not accept new bookings (refer to <<Create New Booking: `addBooking`, addBooking command >>). If this command causes the number of bookings to exceed the capacity, the `updateCapacity` command will not be executed and an error will be displayed., instead some of the bookings must be cancelled.
+• If the capacity is full, the restaurant will not accept new bookings (refer to <<Create New Booking: `addBooking`, addBooking command >>). If this command causes the number of bookings to exceed the capacity, the `updateCapacity` command will not be executed and an error will be displayed.
 ****
 
 Example:
