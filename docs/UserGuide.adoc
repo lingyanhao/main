@@ -144,7 +144,7 @@ Deletes the 2nd person in the address book.
 
 Deletes the 1st person in the results of the listMember command.
 
-==== Notify Via Email: `notifyEmail`
+==== Notify Via Email: `notifyEmail` `[coming in v2.0]`
 
 Notifies all members with at least a minimum amount of loyalty points and with the specified email subscription settings.
 
@@ -162,7 +162,7 @@ Example:
 
 * `notifyEmail l/100 se/true`
 
-==== Notify Via SMS: `notifySMS`
+==== Notify Via SMS: `notifySMS` `[coming in v2.0]`
 
 Notifies all members with at least a minimum amount of loyalty points and with the specified SMS subscription settings.
 
