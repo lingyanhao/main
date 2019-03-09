@@ -12,6 +12,6 @@ public interface ReadOnlyRestaurantBook extends Observable {
      * Returns an unmodifiable view of the item list.
      * This list will not contain any duplicate items.
      */
-    <T extends Item> ObservableList<T> getItemList(Class<T> clazz); // TODO: merge these two methods
+    <T extends Item> ObservableList<T> getItemList(Class<T> clazz);
 
 }
