@@ -181,7 +181,6 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
             // When a member is deleted, all associated bookings are also deleted.
             Predicate<Booking> isValidBooking = b -> !b.getCustomer().equals(key);
             ObservableList<Booking> bookingObservableList = bookings.asUnmodifiableObservableList();
-            List<Booking> temp = bookingObservableList.stream().filter(isValidBooking).collect(Collectors.toList());
             setBooking(bookingObservableList.stream().filter(isValidBooking).collect(Collectors.toList()));
         } else if (key instanceof Booking) {
             bookings.remove(key);

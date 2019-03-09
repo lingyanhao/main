@@ -158,7 +158,7 @@ public class ModelManager implements Model {
         } else if (clazz.equals(Staff.class)) {
             return (ObservableList<T>) filteredStaff;
         } else {
-            throw new RuntimeException(); // this should not happen
+            throw new IllegalArgumentException("Item type not recognised.");
         }
     }
 
@@ -260,7 +260,7 @@ public class ModelManager implements Model {
             }
             selectedStaff.setValue((Staff) item);
         } else {
-            throw new RuntimeException();
+            throw new IllegalArgumentException("Item type not recognised.");
         }
     }
 
