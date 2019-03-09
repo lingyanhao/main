@@ -8,28 +8,20 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalStaff.AMY;
 import static seedu.address.testutil.TypicalStaff.BOB;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.function.Predicate;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import javafx.beans.property.ReadOnlyProperty;
-import javafx.collections.ObservableList;
-
-import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ModelStub;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Item;
-import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyRestaurantBook;
-import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.RestaurantBook;
 import seedu.address.model.person.Staff;
 import seedu.address.testutil.StaffBuilder;
