@@ -14,4 +14,8 @@ public interface ReadOnlyRestaurantBook extends Observable {
      */
     <T extends Item> ObservableList<T> getItemList(Class<T> clazz);
 
+    /**
+     * Returns the capacity of the restaurant.
+     */
+    int getCapacity();
 }

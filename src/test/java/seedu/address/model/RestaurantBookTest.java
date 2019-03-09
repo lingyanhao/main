@@ -141,6 +141,11 @@ public class RestaurantBookTest {
         public void removeListener(InvalidationListener listener) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public int getCapacity() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
 }

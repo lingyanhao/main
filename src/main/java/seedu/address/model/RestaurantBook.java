@@ -27,6 +27,7 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
     private final UniqueItemList<Ingredient> ingredients;
     private final UniqueItemList<Staff> staff;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
+    private int capacity = 200;
 
         /*
         * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -192,6 +193,21 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
             throw new IllegalArgumentException("Item type not recognised.");
         }
         indicateModified();
+    }
+
+    /**
+     * Returns the capacity of the restaurant.
+     */
+    @Override
+    public int getCapacity() {
+        return capacity;
+    }
+
+    /**
+     * Sets the capacity of the restaurant.
+     */
+    public void setCapacity(int newCapacity) {
+        capacity = newCapacity; // TODO : check that this does not cause size to be too small
     }
 
     @Override

@@ -140,6 +140,22 @@ public class ModelManager implements Model {
     }
 
 
+    /**
+     * Gets the capacity of the restaurant.
+     */
+    @Override
+    public int getCapacity() {
+        return versionedRestaurantBook.getCapacity();
+    }
+
+    /**
+     * Sets the capacity of the restaurant.
+     */
+    @Override
+    public void setCapacity(int newCapacity) {
+        versionedRestaurantBook.setCapacity(newCapacity);
+    }
+
     //=========== Filtered Member List Accessors =============================================================
 
     /**
