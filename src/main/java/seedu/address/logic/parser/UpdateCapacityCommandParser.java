@@ -5,6 +5,9 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.logic.commands.UpdateCapacityCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses input arguments and creates a new UpdateCapacityCommand object.
+ */
 public class UpdateCapacityCommandParser implements Parser<UpdateCapacityCommand> {
 
 
