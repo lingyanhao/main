@@ -317,7 +317,7 @@ Format: `addIngredient in/INGREDIENT_NAME u/INGREDIENT_UNIT [a/AMOUNT] [w/INGRED
 • Units are chosen based on the units that the stock was bought. Amount of ingredients for each dish should be converted by the user himself before `addRecipe` is called.
 
 • `w/INGREDIENT_WARNING_AMOUNT` User inputs warning amount that indicates a need for restock. Calling `listIngredients w/TRUE` will display all ingredients that fall below the minimum value.
-****	
+****
 
 Example:
 
