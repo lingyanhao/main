@@ -77,7 +77,7 @@ public class AddBookingCommandSystemTest extends RestaurantBookSystemTest {
             assertEquals(model.getFilteredItemList(Booking.class), expectedBookingList);
 
             String deleteAliceCommandString = " 1";
-            Command deleteAliceCommand  = new DeleteCommandParser().parse(deleteAliceCommandString);
+            Command deleteAliceCommand = new DeleteCommandParser().parse(deleteAliceCommandString);
             deleteAliceCommand.execute(model, commandHistory);
             expectedBookingList = Collections.emptyList();
 
