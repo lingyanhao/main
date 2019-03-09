@@ -40,7 +40,7 @@ class JsonSerializableRestaurantBook {
     public JsonSerializableRestaurantBook(@JsonProperty("members") List<JsonAdaptedMember> members,
                                           @JsonProperty("ingredients") List<JsonAdaptedIngredient> ingredients,
                                           @JsonProperty("staff") List<JsonAdaptedStaff> staff,
-                                          @JsonProperty("bookings") List<JsonAdaptedBooking> bookings) {
+                                          @JsonProperty("booking") List<JsonAdaptedBooking> bookings) {
 
         this.members.addAll(members);
         this.ingredients.addAll(ingredients);

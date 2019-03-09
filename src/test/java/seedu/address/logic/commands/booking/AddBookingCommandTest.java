@@ -254,7 +254,7 @@ public class AddBookingCommandTest {
      * A Model stub that always accept the booking being added.
      */
     private class ModelStubAcceptingBookingAdded extends ModelStub {
-        final ArrayList<Booking> bookingsAdded = new ArrayList<>();
+        private final ArrayList<Booking> bookingsAdded = new ArrayList<>();
 
         @Override
         public boolean hasItem(Item item) {
