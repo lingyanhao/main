@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.testutil.TypicalMembers.ALICE;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddBookingCommandParser;
+import seedu.address.logic.parser.DeleteCommandParser;
 import seedu.address.logic.parser.EditCommandParser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -72,6 +74,14 @@ public class AddBookingCommandSystemTest extends RestaurantBookSystemTest {
             expectedBookingList = Arrays.asList(modifiedAlice1400, modifiedAliceBooking);
 
             // Modify Alice's phone number, booking list should be updated accordingly
+            assertEquals(model.getFilteredItemList(Booking.class), expectedBookingList);
+
+            String deleteAliceCommandString = " 1";
+            Command deleteAliceCommand  = new DeleteCommandParser().parse(deleteAliceCommandString);
+            deleteAliceCommand.execute(model, commandHistory);
+            expectedBookingList = Collections.emptyList();
+
+            // All bookings should be removed once member is deleted
             assertEquals(model.getFilteredItemList(Booking.class), expectedBookingList);
 
         } catch (ParseException e) {
