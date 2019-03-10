@@ -4,6 +4,8 @@ import java.util.function.Consumer;
 
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import seedu.address.model.person.Staff;
 
@@ -12,9 +14,14 @@ import seedu.address.model.person.Staff;
  */
 public class StaffListPanel extends ItemListPanel<Staff> {
 
+
+    @FXML
+    private Label title;
+
     public StaffListPanel(ObservableList<Staff> memberList, ObservableValue<Staff> selectedMember,
                            Consumer<Staff> onSelectedMemberChange) {
         super(memberList, selectedMember, onSelectedMemberChange, listview -> new StaffListViewCell());
+        title.setText("Staff");
     }
 }
 
