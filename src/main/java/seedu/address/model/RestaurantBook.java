@@ -22,13 +22,14 @@ import seedu.address.model.person.Staff;
  */
 public class RestaurantBook implements ReadOnlyRestaurantBook {
 
+    private static final int DEFAULT_CAPACITY = 200;
+
     private final UniqueItemList<Member> members;
     private final UniqueItemList<Booking> bookings;
     private final UniqueItemList<Ingredient> ingredients;
     private final UniqueItemList<Staff> staff;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
-    private static final int DEFAULT_CAPACITY = 200;
     private int capacity = DEFAULT_CAPACITY;
 
         /*

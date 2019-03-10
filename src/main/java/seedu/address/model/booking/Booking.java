@@ -10,10 +10,12 @@ import seedu.address.model.person.Member;
  * A class to represent restaurant bookings.
  */
 public class Booking implements Item, Comparable<Booking> {
+    public static final int MAX_BOOKING_SIZE = 100;
+
     private Date startTime; // TODO: make sure the member card displays the right things
     private Member customer;
     private int numMembers;
-    public static final int MAX_BOOKING_SIZE = 100;
+
 
     public Booking(Date startTime, Member customer, int numMembers) {
         this.startTime = startTime;

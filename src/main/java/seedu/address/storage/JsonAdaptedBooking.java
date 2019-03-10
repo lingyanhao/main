@@ -78,8 +78,8 @@ public class JsonAdaptedBooking {
         }
 
         if (numPersons <= 0 || numPersons > MAX_BOOKING_SIZE) {
-            throw new IllegalValueException("Number of persons must be a positive integer at most " +
-                    MAX_BOOKING_SIZE + ".");
+            throw new IllegalValueException("Number of persons must be a positive integer at most "
+                    + MAX_BOOKING_SIZE + ".");
         }
         return new Booking(modelStartTime, modelCustomer, numPersons);
     }
