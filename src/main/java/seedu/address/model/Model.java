@@ -128,4 +128,15 @@ public interface Model {
      */
     <T extends Item> void setSelectedItem(T item, Class<T> clazz);
 
+    /**
+     * Gets the capacity of the restaurant.
+     */
+    int getCapacity();
+
+    /**
+     * Sets the capacity of the restaurant.
+     */
+    void setCapacity(int newCapacity);
+
+
 }

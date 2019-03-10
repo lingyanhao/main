@@ -112,7 +112,7 @@ public class AddCommand extends Command {
             messageDuplicate = MESSAGE_DUPLICATE_STAFF;
             messageSuccess = MESSAGE_SUCCESS_STAFF;
         } else {
-            throw new RuntimeException();
+            throw new IllegalArgumentException("Item type not recognised.");
         }
         toAdd = item;
     }
