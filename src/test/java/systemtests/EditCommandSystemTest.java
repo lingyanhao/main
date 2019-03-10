@@ -3,19 +3,19 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_EMAIL_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_EMAIL_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_INVALID_EMAIL_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_INVALID_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_INVALID_PHONE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_NAME_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_NAME_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_PHONE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_PHONE_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_EMAIL_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_NAME_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_PHONE_AMY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ITEMS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MEMBER;
@@ -51,8 +51,8 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
          * -> edited
          */
         Index index = INDEX_FIRST_MEMBER;
-        String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
-                + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB;
+        String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + MEMBER_NAME_DESC_BOB
+                + "  " + MEMBER_PHONE_DESC_BOB + " " + MEMBER_EMAIL_DESC_BOB;
         Member editedMember = new MemberBuilder(BOB).build();
         assertCommandSuccess(command, index, editedMember);
 
@@ -69,26 +69,27 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: edit a member with new values same as existing values -> edited */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + MEMBER_NAME_DESC_BOB + MEMBER_PHONE_DESC_BOB
+                + MEMBER_EMAIL_DESC_BOB;
         assertCommandSuccess(command, index, BOB);
 
         /* Case: edit a member with new values same as another member's values but with different name -> edited */
         assertTrue(getModel().getRestaurantBook().getItemList(Member.class).contains(BOB));
         index = INDEX_SECOND_MEMBER;
         assertNotEquals(getModel().getFilteredItemList(Member.class).get(index.getZeroBased()), BOB);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB;
-        editedMember = new MemberBuilder(BOB).withName(VALID_NAME_AMY).build();
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + MEMBER_NAME_DESC_AMY + MEMBER_PHONE_DESC_BOB
+                + MEMBER_EMAIL_DESC_BOB;
+        editedMember = new MemberBuilder(BOB).withName(MEMBER_VALID_NAME_AMY).build();
         assertCommandSuccess(command, index, editedMember);
 
         /* Case: edit a member with new values same as another member's values but with different phone and email
          * -> edited
          */
         index = INDEX_SECOND_MEMBER;
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY
-                + EMAIL_DESC_AMY;
-        editedMember = new MemberBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + MEMBER_NAME_DESC_BOB + MEMBER_PHONE_DESC_AMY
+                + MEMBER_EMAIL_DESC_AMY;
+        editedMember = new MemberBuilder(BOB).withPhone(MEMBER_VALID_PHONE_AMY)
+                .withEmail(MEMBER_VALID_EMAIL_AMY).build();
         assertCommandSuccess(command, index, editedMember);
 
         /* Case: clear tags -> cleared */
@@ -104,9 +105,9 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
         showMembersWithName(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_MEMBER;
         assertTrue(index.getZeroBased() < getModel().getFilteredItemList(Member.class).size());
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + MEMBER_NAME_DESC_BOB;
         memberToEdit = getModel().getFilteredItemList(Member.class).get(index.getZeroBased());
-        editedMember = new MemberBuilder(memberToEdit).withName(VALID_NAME_BOB).build();
+        editedMember = new MemberBuilder(memberToEdit).withName(MEMBER_VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedMember);
 
         /* Case: filtered member list, edit index within bounds of address book but out of bounds of member list
@@ -114,7 +115,7 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
          */
         showMembersWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getRestaurantBook().getItemList(Member.class).size();
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + MEMBER_NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_MEMBER_DISPLAYED_INDEX);
 
         /* --------------------- Performing edit operation while a member card is selected -------------------------- */
@@ -125,8 +126,8 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
         showAllMembers();
         index = INDEX_FIRST_MEMBER;
         selectMember(index);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_AMY
-                + EMAIL_DESC_AMY;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + MEMBER_NAME_DESC_AMY + MEMBER_PHONE_DESC_AMY
+                + MEMBER_EMAIL_DESC_AMY;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new member's name
         assertCommandSuccess(command, index, AMY, index);
@@ -134,20 +135,20 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
 
         /* Case: invalid index (0) -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " 0" + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " 0" + MEMBER_NAME_DESC_BOB,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (-1) -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " -1" + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " -1" + MEMBER_NAME_DESC_BOB,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (size + 1) -> rejected */
         invalidIndex = getModel().getFilteredItemList(Member.class).size() + 1;
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + MEMBER_NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_MEMBER_DISPLAYED_INDEX);
 
         /* Case: missing index -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + MEMBER_NAME_DESC_BOB,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: missing all fields -> rejected */
@@ -155,15 +156,18 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
                 EditCommand.MESSAGE_NOT_EDITED);
 
         /* Case: invalid name -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_MEMBER.getOneBased() + INVALID_NAME_DESC,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " "
+                        + INDEX_FIRST_MEMBER.getOneBased() + MEMBER_INVALID_NAME_DESC,
                 Name.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_MEMBER.getOneBased() + INVALID_PHONE_DESC,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " "
+                        + INDEX_FIRST_MEMBER.getOneBased() + MEMBER_INVALID_PHONE_DESC,
                 Phone.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_MEMBER.getOneBased() + INVALID_EMAIL_DESC,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " "
+                        + INDEX_FIRST_MEMBER.getOneBased() + MEMBER_INVALID_EMAIL_DESC,
                 Email.MESSAGE_CONSTRAINTS);
 
         /* Case: edit a member with new values same as another member's values -> rejected */
@@ -171,28 +175,28 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
         assertTrue(getModel().getRestaurantBook().getItemList(Member.class).contains(BOB));
         index = INDEX_FIRST_MEMBER;
         assertFalse(getModel().getFilteredItemList(Member.class).get(index.getZeroBased()).equals(BOB));
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + MEMBER_NAME_DESC_BOB + MEMBER_PHONE_DESC_BOB
+                + MEMBER_EMAIL_DESC_BOB;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_MEMBER);
 
         /* Case: edit a member with new values same as another member's values but with different tags -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + MEMBER_NAME_DESC_BOB + MEMBER_PHONE_DESC_BOB
+                + MEMBER_EMAIL_DESC_BOB;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_MEMBER);
 
         /* Case: edit a member with new values same as another member's values but with different address -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + MEMBER_NAME_DESC_BOB + MEMBER_PHONE_DESC_BOB
+                + MEMBER_EMAIL_DESC_BOB;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_MEMBER);
 
         /* Case: edit a member with new values same as another member's values but with different phone -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY
-                + EMAIL_DESC_BOB;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + MEMBER_NAME_DESC_BOB + MEMBER_PHONE_DESC_AMY
+                + MEMBER_EMAIL_DESC_BOB;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_MEMBER);
 
         /* Case: edit a member with new values same as another member's values but with different email -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
-                + EMAIL_DESC_AMY;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + MEMBER_NAME_DESC_BOB + MEMBER_PHONE_DESC_BOB
+                + MEMBER_EMAIL_DESC_AMY;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_MEMBER);
     }
 
