@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import static seedu.address.model.booking.Booking.MAX_BOOKING_SIZE;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -75,8 +77,9 @@ public class JsonAdaptedBooking {
             throw new IllegalValueException(e.getMessage());
         }
 
-        if (numPersons <= 0 || numPersons > 100) {
-            throw new IllegalValueException("Number of persons must be a positive integer at most 100.");
+        if (numPersons <= 0 || numPersons > MAX_BOOKING_SIZE) {
+            throw new IllegalValueException("Number of persons must be a positive integer at most " +
+                    MAX_BOOKING_SIZE + ".");
         }
         return new Booking(modelStartTime, modelCustomer, numPersons);
     }

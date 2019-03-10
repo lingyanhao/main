@@ -13,11 +13,13 @@ public class Booking implements Item, Comparable<Booking> {
     private Date startTime; // TODO: make sure the member card displays the right things
     private Member customer;
     private int numMembers;
+    public static final int MAX_BOOKING_SIZE = 100;
 
     public Booking(Date startTime, Member customer, int numMembers) {
         this.startTime = startTime;
         this.customer = customer;
         this.numMembers = numMembers;
+        assert(numMembers <= MAX_BOOKING_SIZE && numMembers >= 0);
     }
 
     /**

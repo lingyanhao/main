@@ -27,7 +27,9 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
     private final UniqueItemList<Ingredient> ingredients;
     private final UniqueItemList<Staff> staff;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
-    private int capacity = 200;
+
+    private static final int DEFAULT_CAPACITY = 200;
+    private int capacity = DEFAULT_CAPACITY;
 
         /*
         * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
