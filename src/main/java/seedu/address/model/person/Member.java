@@ -89,7 +89,9 @@ public class Member extends Person {
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Email: ")
-                .append(getEmail());
+                .append(getEmail())
+                .append(" Loyalty Points: ")
+                .append(getLoyaltyPoints());
         return builder.toString();
     }
 

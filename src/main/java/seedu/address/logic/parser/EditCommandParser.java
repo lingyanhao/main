@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LOYALTY_POINTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
@@ -24,7 +25,7 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_LOYALTY_POINTS);
 
         Index index;
 
@@ -43,6 +44,9 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
         if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
             editMemberDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
+        }
+        if(argMultimap.getValue(PREFIX_LOYALTY_POINTS).isPresent()) {
+            editMemberDescriptor.setLoyaltyPoints(ParserUtil.parseLoyaltyPoints(argMultimap.getValue(PREFIX_LOYALTY_POINTS).get()));
         }
         if (!editMemberDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
