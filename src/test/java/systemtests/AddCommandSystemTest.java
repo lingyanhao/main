@@ -84,8 +84,8 @@ public class AddCommandSystemTest extends RestaurantBookSystemTest {
 
         /* Case: add a member, command with parameters in random order -> added */
         toAdd = BOB;
-        command = AddCommand.COMMAND_WORD_MEMBER + LOYALTY_POINTS_DESC_BOB + MEMBER_PHONE_DESC_BOB +
-                MEMBER_NAME_DESC_BOB + MEMBER_EMAIL_DESC_BOB;
+        command = AddCommand.COMMAND_WORD_MEMBER + LOYALTY_POINTS_DESC_BOB + MEMBER_PHONE_DESC_BOB
+                + MEMBER_NAME_DESC_BOB + MEMBER_EMAIL_DESC_BOB;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a member -> added */
