@@ -3,6 +3,7 @@ package seedu.address.logic.commands.ingredient;
 import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static seedu.address.testutil.TypicalIngredients.CHEESE;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ public class AddIngredientCommandTest {
 
     @Test
     public void execute_duplicateIngredient_throwsCommandException() throws Exception {
-        Ingredient validIngredient = new IngredientBuilder().build();
+        Ingredient validIngredient = new IngredientBuilder(CHEESE).build();
         AddCommand addCommand = new AddCommand(validIngredient);
         ModelStub modelStub = new ModelStubWithIngredient(validIngredient);
 
