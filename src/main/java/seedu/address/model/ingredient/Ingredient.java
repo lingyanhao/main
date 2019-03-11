@@ -113,7 +113,7 @@ public class Ingredient implements Item {
         final StringBuilder builder = new StringBuilder();
         builder.append("Ingredient: ")
                 .append(getIngredientName())
-                .append("Quantity: ")
+                .append(" Quantity: ")
                 .append(getIngredientQuantity())
                 .append(" Standard-Unit: ")
                 .append(getIngredientUnit());
