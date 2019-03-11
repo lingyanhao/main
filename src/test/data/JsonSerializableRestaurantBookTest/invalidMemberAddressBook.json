@@ -5,6 +5,7 @@
     "email": "invalid@email!3e"
   } ],
   "ingredients" : [ ],
-  "staff" : [ ]
+  "staff" : [ ],
+  "bookings" : [ ]
 }
 

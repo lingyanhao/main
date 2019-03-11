@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Staff;
@@ -38,8 +37,6 @@ public class StaffCard extends UiPart<Region> {
     private Label email;
     @FXML
     private Label appointment;
-    @FXML
-    private FlowPane tags;
 
     public StaffCard(Staff staff, int displayedIndex) {
         super(FXML);

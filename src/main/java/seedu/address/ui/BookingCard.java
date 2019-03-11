@@ -43,7 +43,7 @@ public class BookingCard extends UiPart<Region> {
         this.booking = booking;
         id.setText(displayedIndex + ". ");
         name.setText(booking.getCustomer().getName().toString());
-        numMembers.setText("(" + booking.getNumMembers() + " member(s))");
+        numMembers.setText("(" + booking.getNumMembers() + " person(s))");
         phone.setText(booking.getCustomer().getPhone().toString());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         date.setText(sdf.format(booking.getStartTime()));

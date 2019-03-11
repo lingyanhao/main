@@ -30,14 +30,14 @@ public class IngredientCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label data;
+    private Label unit;
 
     public IngredientCard(Ingredient ingredient, int displayedIndex) {
         super(FXML);
         this.ingredient = ingredient;
         id.setText(displayedIndex + ". ");
-        name.setText("Temp name (ingredient)");
-        data.setText(ingredient.toString());
+        name.setText(ingredient.getIngredientName());
+        unit.setText("Standard unit: " + ingredient.getQuantity());
     }
 
     @Override

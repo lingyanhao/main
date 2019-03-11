@@ -12,6 +12,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_ADDRESS = new Prefix("a/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_INGREDIENT_NAME = new Prefix("in/");
+
     public static final Prefix PREFIX_INGREDIENT_UNIT = new Prefix("u/");
     public static final Prefix PREFIX_START_TIME = new Prefix("ts/");
     public static final Prefix PREFIX_CUSTOMER = new Prefix("c/");

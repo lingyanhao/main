@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_UNIT;
@@ -62,6 +63,7 @@ public class CommandTestUtil {
             + "1"; // integers not allowed in ingredientName
     public static final String INGREDIENT_INVALID_UNIT_DESC = " " + PREFIX_INGREDIENT_UNIT
             + "potato"; // characters not allowed in names
+
 
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";

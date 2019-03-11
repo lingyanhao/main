@@ -30,5 +30,6 @@
     "email" : "anna@example.com"
   } ],
   "ingredients" : [ ],
-  "staff" : [ ]
+  "staff" : [ ],
+  "bookings" : [ ]
 }
