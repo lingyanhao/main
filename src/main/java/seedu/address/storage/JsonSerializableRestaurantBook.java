@@ -32,6 +32,7 @@ class JsonSerializableRestaurantBook {
     private final List<JsonAdaptedIngredient> ingredients = new ArrayList<>();
     private final List<JsonAdaptedStaff> staff = new ArrayList<>();
     private final List<JsonAdaptedBooking> bookings = new ArrayList<>();
+    private final int capacity;
 
     /**
      * Constructs a {@code JsonSerializableRestaurantBook} with the given members.
@@ -40,12 +41,14 @@ class JsonSerializableRestaurantBook {
     public JsonSerializableRestaurantBook(@JsonProperty("members") List<JsonAdaptedMember> members,
                                           @JsonProperty("ingredients") List<JsonAdaptedIngredient> ingredients,
                                           @JsonProperty("staff") List<JsonAdaptedStaff> staff,
-                                          @JsonProperty("bookings") List<JsonAdaptedBooking> bookings) {
+                                          @JsonProperty("bookings") List<JsonAdaptedBooking> bookings,
+                                          @JsonProperty("capacity") int capacity) {
 
         this.members.addAll(members);
         this.ingredients.addAll(ingredients);
         this.staff.addAll(staff);
         this.bookings.addAll(bookings);
+        this.capacity = capacity;
     }
 
     /**
@@ -63,6 +66,7 @@ class JsonSerializableRestaurantBook {
                 .map(JsonAdaptedStaff::new).collect(Collectors.toList()));
         bookings.addAll(source.getItemList(Booking.class).stream()
                 .map(JsonAdaptedBooking::new).collect(Collectors.toList()));
+        capacity = source.getCapacity();
 
     }
 
@@ -105,6 +109,8 @@ class JsonSerializableRestaurantBook {
             }
             restaurantBook.addItem(booking);
         }
+
+        restaurantBook.setCapacity(capacity);
 
         return restaurantBook;
     }

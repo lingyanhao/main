@@ -104,6 +104,7 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
         setBooking(newData.getItemList(Booking.class));
         setIngredients(newData.getItemList(Ingredient.class));
         setStaff(newData.getItemList(Staff.class));
+        capacity = newData.getCapacity();
     }
 
     //// item-level operations
