@@ -140,16 +140,29 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code int ingredientUnit} into an {@code int}.
+     * Parses a {@code int ingredientQuantity} into an {@code int}.
      *
      */
 
-    public static int parseIngredientUnit(String unit) throws ParseException {
+    public static int parseIngredientQuantity(String quantity) throws ParseException {
+        requireNonNull(quantity);
+        if (!Ingredient.isValidIngredientQuantity(quantity)) {
+            throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS_INGREDIENTQUANTITY);
+        }
+        return Integer.parseInt(quantity);
+    }
+
+    /**
+     * Parses a {@code String ingredientUnit} into an {@code String}.
+     *
+     */
+
+    public static String parseIngredientUnit(String unit) throws ParseException {
         requireNonNull(unit);
-        if (!StringUtil.isNonZeroUnsignedInteger(unit)) {
+        if (!Ingredient.isValidIngredientUnit(unit)) {
             throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS_INGREDIENTUNIT);
         }
-        return Integer.parseInt(unit);
+        return unit;
     }
 
     /**

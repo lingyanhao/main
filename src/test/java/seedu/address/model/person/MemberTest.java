@@ -2,9 +2,9 @@ package seedu.address.model.person;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_PHONE_BOB;
 import static seedu.address.testutil.TypicalMembers.ALICE;
 import static seedu.address.testutil.TypicalMembers.BOB;
 
@@ -27,19 +27,20 @@ public class MemberTest {
         assertFalse(ALICE.isSameMember(null));
 
         // different phone and email -> returns false
-        Member editedAlice = new MemberBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
+        Member editedAlice =
+                new MemberBuilder(ALICE).withPhone(MEMBER_VALID_PHONE_BOB).withEmail(MEMBER_VALID_EMAIL_BOB).build();
         assertFalse(ALICE.isSameMember(editedAlice));
 
         // different name -> returns false
-        editedAlice = new MemberBuilder(ALICE).withName(VALID_NAME_BOB).build();
+        editedAlice = new MemberBuilder(ALICE).withName(MEMBER_VALID_NAME_BOB).build();
         assertFalse(ALICE.isSameMember(editedAlice));
 
         // same name, same phone, different attributes -> returns true
-        editedAlice = new MemberBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
+        editedAlice = new MemberBuilder(ALICE).withEmail(MEMBER_VALID_EMAIL_BOB).build();
         assertTrue(ALICE.isSameMember(editedAlice));
 
         // same name, same email, different attributes -> returns true
-        editedAlice = new MemberBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
+        editedAlice = new MemberBuilder(ALICE).withPhone(MEMBER_VALID_PHONE_BOB).build();
         assertTrue(ALICE.isSameMember(editedAlice));
 
         // same name, same phone, same email, different attributes -> returns true
@@ -66,15 +67,15 @@ public class MemberTest {
         assertFalse(ALICE.equals(BOB));
 
         // different name -> returns false
-        Member editedAlice = new MemberBuilder(ALICE).withName(VALID_NAME_BOB).build();
+        Member editedAlice = new MemberBuilder(ALICE).withName(MEMBER_VALID_NAME_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different phone -> returns false
-        editedAlice = new MemberBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
+        editedAlice = new MemberBuilder(ALICE).withPhone(MEMBER_VALID_PHONE_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different email -> returns false
-        editedAlice = new MemberBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
+        editedAlice = new MemberBuilder(ALICE).withEmail(MEMBER_VALID_EMAIL_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
     }
 }

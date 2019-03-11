@@ -4,6 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_UNIT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOYALTY_POINTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -26,46 +29,81 @@ import seedu.address.testutil.EditMemberDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    public static final String VALID_NAME_AMY = "Amy Bee";
-    public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_PHONE_AMY = "11111111";
-    public static final String VALID_PHONE_BOB = "22222222";
+    public static final String MEMBER_VALID_NAME_AMY = "Amy Bee";
+    public static final String MEMBER_VALID_NAME_BOB = "Bob Choo";
+    public static final String MEMBER_VALID_PHONE_AMY = "11111111";
+    public static final String MEMBER_VALID_PHONE_BOB = "22222222";
     public static final int VALID_LOYALTY_POINTS_AMY = 11;
     public static final int VALID_LOYALTY_POINTS_BOB = 22;
-    public static final String VALID_EMAIL_AMY = "amy@example.com";
-    public static final String VALID_EMAIL_BOB = "bob@example.com";
-    public static final String VALID_APPOINTMENT_AMY = "Server";
-    public static final String VALID_APPOINTMENT_BOB = "Cook";
+    public static final String MEMBER_VALID_EMAIL_AMY = "amy@example.com";
+    public static final String MEMBER_VALID_EMAIL_BOB = "bob@example.com";
+    public static final String STAFF_VALID_APPOINTMENT_AMY = "Server";
+    public static final String STAFF_VALID_APPOINTMENT_BOB = "Cook";
 
-    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
-    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
-    public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
-    public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
-    public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
-    public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
+    public static final String MEMBER_NAME_DESC_AMY = " " + PREFIX_NAME + MEMBER_VALID_NAME_AMY;
+    public static final String MEMBER_NAME_DESC_BOB = " " + PREFIX_NAME + MEMBER_VALID_NAME_BOB;
+    public static final String MEMBER_PHONE_DESC_AMY = " " + PREFIX_PHONE + MEMBER_VALID_PHONE_AMY;
+    public static final String MEMBER_PHONE_DESC_BOB = " " + PREFIX_PHONE + MEMBER_VALID_PHONE_BOB;
+    public static final String MEMBER_EMAIL_DESC_AMY = " " + PREFIX_EMAIL + MEMBER_VALID_EMAIL_AMY;
+    public static final String MEMBER_EMAIL_DESC_BOB = " " + PREFIX_EMAIL + MEMBER_VALID_EMAIL_BOB;
     public static final String LOYALTY_POINTS_DESC_AMY = " " + PREFIX_LOYALTY_POINTS + VALID_LOYALTY_POINTS_AMY;
     public static final String LOYALTY_POINTS_DESC_BOB = " " + PREFIX_LOYALTY_POINTS + VALID_LOYALTY_POINTS_BOB;
-    public static final String APPOINTMENT_DESC_AMY = " " + PREFIX_APPOINTMENT + VALID_APPOINTMENT_AMY;
-    public static final String APPOINTMENT_DESC_BOB = " " + PREFIX_APPOINTMENT + VALID_APPOINTMENT_BOB;
+    public static final String STAFF_APPOINTMENT_DESC_AMY = " " + PREFIX_APPOINTMENT + STAFF_VALID_APPOINTMENT_AMY;
+    public static final String STAFF_APPOINTMENT_DESC_BOB = " " + PREFIX_APPOINTMENT + STAFF_VALID_APPOINTMENT_BOB;
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
-    public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_APPOINTMENT_DESC = " " + PREFIX_APPOINTMENT + "amaz!ngC00k"; // ! not allowed
+
+    public static final String MEMBER_INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
+    public static final String MEMBER_INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
+    public static final String MEMBER_INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
+    public static final String STAFF_INVALID_APPOINTMENT_DESC = " " + PREFIX_APPOINTMENT
+            + "amaz!ngC00k"; // ! not allowed
     public static final String INVALID_LOYALTY_POINTS_DESC = " " + PREFIX_LOYALTY_POINTS+ "26.0"; // . not allowed
+
+    public static final String INGREDIENT_VALID_NAME_CHEESE = "cheese";
+    public static final String INGREDIENT_VALID_NAME_TOMATO = "tomato";
+    public static final String INGREDIENT_VALID_QUANTITY_CHEESE = "4";
+    public static final String INGREDIENT_VALID_QUANTITY_TOMATO = "5";
+    public static final String INGREDIENT_VALID_UNIT_CHEESE = "pounds";
+    public static final String INGREDIENT_VALID_UNIT_TOMATO = "pieces";
+
+
+
+
+    public static final String INGREDIENT_NAME_DESC_CHEESE =
+            " " + PREFIX_INGREDIENT_NAME + INGREDIENT_VALID_NAME_CHEESE;
+    public static final String INGREDIENT_QUANTITY_DESC_CHEESE =
+            " " + PREFIX_INGREDIENT_QUANTITY + INGREDIENT_VALID_QUANTITY_CHEESE;
+    public static final String INGREDIENT_UNIT_DESC_CHEESE =
+            " " + PREFIX_INGREDIENT_UNIT + INGREDIENT_VALID_UNIT_CHEESE;
+    public static final String INGREDIENT_NAME_DESC_TOMATO =
+            " " + PREFIX_INGREDIENT_NAME + INGREDIENT_VALID_NAME_TOMATO;
+    public static final String INGREDIENT_QUANTITY_DESC_TOMATO =
+            " " + PREFIX_INGREDIENT_QUANTITY + INGREDIENT_VALID_QUANTITY_TOMATO;
+    public static final String INGREDIENT_UNIT_DESC_TOMATO =
+            " " + PREFIX_INGREDIENT_UNIT + INGREDIENT_VALID_UNIT_TOMATO;
+
+
+    public static final String INGREDIENT_INVALID_NAME_DESC = " " + PREFIX_INGREDIENT_NAME
+            + "1"; // integers not allowed in ingredientName
+    public static final String INGREDIENT_INVALID_QUANTITY_NONINTEGER_DESC = " " + PREFIX_INGREDIENT_QUANTITY
+            + "potato"; // non-integers not allowed in IngredientQuantity
+    public static final String INGREDIENT_INVALID_QUANTITY_NEGATIVES_DESC = " " + PREFIX_INGREDIENT_QUANTITY
+            + "-1"; // negative values not allowed in IngredientQuantity
+    public static final String INGREDIENT_INVALID_UNIT_DESC = " " + PREFIX_INGREDIENT_UNIT
+            + "3@"; // symbols not allowed
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditMemberDescriptor DESC_AMY;
-    public static final EditCommand.EditMemberDescriptor DESC_BOB;
+    public static final EditCommand.EditMemberDescriptor MEMBER_DESC_AMY;
+    public static final EditCommand.EditMemberDescriptor MEMBER_DESC_BOB;
 
     static {
-        DESC_AMY = new EditMemberDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
+        MEMBER_DESC_AMY = new EditMemberDescriptorBuilder().withName(MEMBER_VALID_NAME_AMY)
+                .withPhone(MEMBER_VALID_PHONE_AMY).withEmail(MEMBER_VALID_EMAIL_AMY)
                 .withLoyaltyPoints(VALID_LOYALTY_POINTS_AMY).build();
-        DESC_BOB = new EditMemberDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
+        MEMBER_DESC_BOB = new EditMemberDescriptorBuilder().withName(MEMBER_VALID_NAME_BOB)
+                .withPhone(MEMBER_VALID_PHONE_BOB).withEmail(MEMBER_VALID_EMAIL_BOB)
                 .withLoyaltyPoints(VALID_LOYALTY_POINTS_BOB).build();
     }
 

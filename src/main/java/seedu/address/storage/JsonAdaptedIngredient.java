@@ -15,6 +15,7 @@ public class JsonAdaptedIngredient {
 
     private final String ingredientName;
     private final int ingredientQuantity;
+    private final String ingredientUnit;
 
     /**
      * Constructs a {@code JsonAdaptedIngredient} with the given ingredient details.
@@ -23,9 +24,11 @@ public class JsonAdaptedIngredient {
      */
     @JsonCreator
     public JsonAdaptedIngredient (@JsonProperty("ingredientName") String name,
-                                  @JsonProperty("ingredientUnit") int unit) {
+                                  @JsonProperty("ingredientQuantity") int quantity,
+                                  @JsonProperty("ingredientUnit") String unit) {
         this.ingredientName = name;
-        this.ingredientQuantity = unit;
+        this.ingredientQuantity = quantity;
+        this.ingredientUnit = unit;
     }
 
     /**
@@ -33,7 +36,8 @@ public class JsonAdaptedIngredient {
      */
     public JsonAdaptedIngredient(Ingredient source) {
         ingredientName = source.getIngredientName();
-        ingredientQuantity = source.getQuantity();
+        ingredientQuantity = source.getIngredientQuantity();
+        ingredientUnit = source.getIngredientUnit();
     }
 
     /**
@@ -51,11 +55,15 @@ public class JsonAdaptedIngredient {
             throw new IllegalValueException(Ingredient.MESSAGE_CONSTRAINTS_INGREDIENTNAME);
         }
 
-        if (!Ingredient.isValidIngredientUnit(Integer.toString(ingredientQuantity))) {
+        if (!Ingredient.isValidIngredientUnit(ingredientUnit)) {
             throw new IllegalValueException(Ingredient.MESSAGE_CONSTRAINTS_INGREDIENTUNIT);
         }
 
-        return new Ingredient(ingredientName, ingredientQuantity);
+        if (!Ingredient.isValidIngredientQuantity(Integer.toString(ingredientQuantity))) {
+            throw new IllegalValueException(Ingredient.MESSAGE_CONSTRAINTS_INGREDIENTQUANTITY);
+        }
+
+        return new Ingredient(ingredientName, ingredientQuantity, ingredientUnit);
     }
 
 }
