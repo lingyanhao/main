@@ -64,6 +64,18 @@ public class Ingredient implements Item {
     }
 
     @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof Ingredient)) {
+            return false;
+        }
+        return this.getIngredientName().equals(((Ingredient) other).getIngredientName())
+                && this.getQuantity() == ((Ingredient) other).getQuantity();
+    }
+
+    @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(ingredientName, unit);
