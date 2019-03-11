@@ -56,7 +56,6 @@ public class ModelManager implements Model {
         filteredMembers.addListener(this::ensureSelectedMemberIsValid);
 
         filteredBookings = new FilteredList<>(versionedRestaurantBook.getItemList(Booking.class));
-        //filteredBookings.addListener(this::ensureSelectedMemberIsValid); TODO: get this to work
 
         filteredIngredients = new FilteredList<>(versionedRestaurantBook.getItemList(Ingredient.class));
 
@@ -141,6 +140,22 @@ public class ModelManager implements Model {
     }
 
 
+    /**
+     * Gets the capacity of the restaurant.
+     */
+    @Override
+    public int getCapacity() {
+        return versionedRestaurantBook.getCapacity();
+    }
+
+    /**
+     * Sets the capacity of the restaurant.
+     */
+    @Override
+    public void setCapacity(int newCapacity) {
+        versionedRestaurantBook.setCapacity(newCapacity);
+    }
+
     //=========== Filtered Member List Accessors =============================================================
 
     /**
@@ -158,7 +173,7 @@ public class ModelManager implements Model {
         } else if (clazz.equals(Staff.class)) {
             return (ObservableList<T>) filteredStaff;
         } else {
-            throw new RuntimeException(); // this should not happen
+            throw new IllegalArgumentException("Item type not recognised.");
         }
     }
 
@@ -174,7 +189,7 @@ public class ModelManager implements Model {
         } else if (clazz == Staff.class) {
             filteredStaff.setPredicate((Predicate<Staff>) predicate);
         } else {
-            throw new RuntimeException(); // this should not happen
+            throw new IllegalArgumentException("Item type not recognised.");
         }
     }
 
@@ -218,7 +233,7 @@ public class ModelManager implements Model {
         } else if (clazz == Staff.class) {
             return (ReadOnlyProperty<T>) selectedStaff;
         } else {
-            throw new RuntimeException();
+            throw new IllegalArgumentException("Item type not recognised.");
         }
     }
 
@@ -233,7 +248,7 @@ public class ModelManager implements Model {
         } else if (clazz == Staff.class) {
             return (T) selectedStaff.getValue();
         } else {
-            throw new RuntimeException();
+            throw new IllegalArgumentException("Item type not recognised.");
         }
     }
 
@@ -260,7 +275,7 @@ public class ModelManager implements Model {
             }
             selectedStaff.setValue((Staff) item);
         } else {
-            throw new RuntimeException();
+            throw new IllegalArgumentException("Item type not recognised.");
         }
     }
 
@@ -289,38 +304,6 @@ public class ModelManager implements Model {
                 // Select the member that came before it in the list,
                 // or clear the selection if there is no such member.
                 selectedMember.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
-            }
-        }
-    }
-
-    //=========== Selected booking ===========================================================================
-
-    /**
-     * Ensures {@code selectedBooking} is a valid booking in {@code filteredBookings}.
-     */
-    private void ensureSelectedBookingIsValid(ListChangeListener.Change<? extends Booking> change) {
-        while (change.next()) {
-            if (selectedBooking.getValue() == null) {
-                // null is always a valid selected booking, so we do not need to check that it is valid anymore.
-                return;
-            }
-
-            boolean wasSelectedBookingReplaced =
-                    change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedBooking.getValue());
-            if (wasSelectedBookingReplaced) {
-                // Update selectedBooking to its new value.
-                int index = change.getRemoved().indexOf(selectedBooking.getValue());
-                selectedBooking.setValue(change.getAddedSubList().get(index));
-                continue;
-            }
-
-            boolean wasSelectedBookingRemoved = change.getRemoved().stream()
-                    .anyMatch(removedBooking -> selectedBooking.getValue().isSameItem(removedBooking));
-            if (wasSelectedBookingRemoved) {
-                // Select the booking that came before it in the list,
-                // or clear the selection if there is no such booking.
-                selectedBooking.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
     }

@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import static seedu.address.logic.commands.AddCommand.MESSAGE_DUPLICATE_BOOKING;
 import static seedu.address.logic.commands.AddCommand.MESSAGE_DUPLICATE_INGREDIENT;
 import static seedu.address.logic.commands.AddCommand.MESSAGE_DUPLICATE_STAFF;
 
@@ -14,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ReadOnlyRestaurantBook;
 import seedu.address.model.RestaurantBook;
+import seedu.address.model.booking.Booking;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Member;
 import seedu.address.model.person.Staff;
@@ -29,6 +31,7 @@ class JsonSerializableRestaurantBook {
     private final List<JsonAdaptedMember> members = new ArrayList<>();
     private final List<JsonAdaptedIngredient> ingredients = new ArrayList<>();
     private final List<JsonAdaptedStaff> staff = new ArrayList<>();
+    private final List<JsonAdaptedBooking> bookings = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableRestaurantBook} with the given members.
@@ -36,11 +39,13 @@ class JsonSerializableRestaurantBook {
     @JsonCreator
     public JsonSerializableRestaurantBook(@JsonProperty("members") List<JsonAdaptedMember> members,
                                           @JsonProperty("ingredients") List<JsonAdaptedIngredient> ingredients,
-                                          @JsonProperty("staff") List<JsonAdaptedStaff> staff) {
+                                          @JsonProperty("staff") List<JsonAdaptedStaff> staff,
+                                          @JsonProperty("bookings") List<JsonAdaptedBooking> bookings) {
 
         this.members.addAll(members);
         this.ingredients.addAll(ingredients);
         this.staff.addAll(staff);
+        this.bookings.addAll(bookings);
     }
 
     /**
@@ -56,6 +61,8 @@ class JsonSerializableRestaurantBook {
                 .map(JsonAdaptedIngredient::new).collect(Collectors.toList()));
         staff.addAll(source.getItemList(Staff.class).stream()
                 .map(JsonAdaptedStaff::new).collect(Collectors.toList()));
+        bookings.addAll(source.getItemList(Booking.class).stream()
+                .map(JsonAdaptedBooking::new).collect(Collectors.toList()));
 
     }
 
@@ -89,6 +96,14 @@ class JsonSerializableRestaurantBook {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_STAFF);
             }
             restaurantBook.addItem(staff);
+        }
+
+        for (JsonAdaptedBooking jsonAdaptedBooking : bookings) {
+            Booking booking = jsonAdaptedBooking.toModelType();
+            if (restaurantBook.hasItem(booking)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_BOOKING);
+            }
+            restaurantBook.addItem(booking);
         }
 
         return restaurantBook;

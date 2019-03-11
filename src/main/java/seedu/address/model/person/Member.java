@@ -9,6 +9,7 @@ import java.util.Objects;
 public class Member extends Person {
 
     private static int idCounter = 0;
+    private LoyaltyPoints loyaltyPoints;
 
     /**
      * Every field must be present and not null.
@@ -16,6 +17,7 @@ public class Member extends Person {
     public Member(Name name, Phone phone, Email email) {
         super(name, phone, email, idCounter);
         idCounter++;
+        this.loyaltyPoints = new LoyaltyPoints(0);
     }
 
     /**
@@ -25,6 +27,15 @@ public class Member extends Person {
     public Member(Name name, Phone phone, Email email, Member other) {
         super(name, phone, email, other.id);
         // Take note: do not increment idCounter here, this is intentional
+        this.loyaltyPoints = new LoyaltyPoints(0);
+    }
+
+    public LoyaltyPoints getLoyaltyPoints() {
+        return loyaltyPoints;
+    }
+
+    public void setLoyaltyPoints(LoyaltyPoints loyaltyPoints) {
+        this.loyaltyPoints = loyaltyPoints;
     }
 
     /**

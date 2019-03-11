@@ -12,9 +12,9 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/cs2103-ay1819S2-w11-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W11-2`      Since: `Jan 2019`      Licence: `MIT`
 
 == Introduction
 
@@ -69,7 +69,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items with `...` after them can be used multiple times including zero times
     ** e.g. `addRecipe r/RECIPE_NAME n/NUMBER_OF_INGREDIENTS 1/INGREDIENT_1&AMOUNT_IN_UNITS 2/INGREDIENT_2&AMOUNT_IN_UNITS ...`
 * Parameters can be in any order
-
+* All parameters involving time should be specified in `yyyy-MM-dd HH:mm` format, e.g. `2019-02-23 13:00`. If the date is unspecified, the current date will be used. In that situation, `HH:mm` format should be used, e.g. `13:00`. Users should take note that REM is not timezone-aware. We do not see the need to implement such features as it will rarely be the case that your restaurant needs to move to a different time zone.
+* Only dates between year 2000 and 3000 are supported.
 
 ====
 
@@ -90,12 +91,10 @@ Format: `exit`
 
 Adds a customer who signs up for membership.
 
-Format: `addMember n/CUSTOMER_NAME e/EMAIL p/PHONE_NUMBER [l/LOYALTY_POINTS] [se/EMAIL_SUBSCRIPTION_BOOLEAN] [ss/SMS_SUBSCRIPTION_BOOLEAN]`
+Format: `addMember n/CUSTOMER_NAME e/EMAIL p/PHONE_NUMBER [l/LOYALTY_POINTS]`
 
 ****
 • If loyalty points is not specified, it will be taken to be 0.
-
-• If subscription settings is not specified, it will be assumed that the user is by default subscribed to the system.
 
 • Email of all members must be unique.
 ****
@@ -107,13 +106,13 @@ Example:
 ==== List Members: `listMembers`
 Lists all members who matches all the equations given.
 
-Format: `listMembers [n/NAME_REGEX] [e/EMAIL_REGEX] [l/LOYALTY_POINTS_EQUATION] [se/TRUE_FALSE] [ss/TRUE_FALSE]`
+Format: `listMembers [n/NAME_REGEX] [e/EMAIL_REGEX] [l/LOYALTY_POINTS_EQUATION]`
 
 Example:
 
-* `listMembers l/>10 se/true`
+* `listMembers l/>10`
 
-Lists all members with greater than 10 loyalty points and with email subscription turned on.
+Lists all members with greater than 10 loyalty points.
 
 * `listMembers`
 
@@ -121,9 +120,10 @@ All the members will be listed.
 
 ==== Delete Members: `deleteMember`
 
-Deletes the specified member from the management system. This command is irreversible.
+Deletes the specified member from the management system. This command is irreversible. Note that this action also deletes all bookings made by the member.
 
 Format: `deleteMember INDEX`
+
 
 ****
 • Deletes the person at the specified `INDEX`. The index refers to the index number shown in the most recent listing.
@@ -143,7 +143,7 @@ Deletes the 2nd person in the address book.
 
 Deletes the 1st person in the results of the listMember command.
 
-==== Notify Via Email: `notifyEmail`
+==== Notify Via Email: `notifyEmail` `[coming in v2.0]`
 
 Notifies all members with at least a minimum amount of loyalty points and with the specified email subscription settings.
 
@@ -161,7 +161,7 @@ Example:
 
 * `notifyEmail l/100 se/true`
 
-==== Notify Via SMS: `notifySMS`
+==== Notify Via SMS: `notifySMS` `[coming in v2.0]`
 
 Notifies all members with at least a minimum amount of loyalty points and with the specified SMS subscription settings.
 
@@ -224,7 +224,7 @@ Format: `addRecipe r/RECIPE_NAME n/NUMBER_OF_INGREDIENTS 1/INGREDIENT_1&AMOUNT_I
 
 • Each ingredient input should have the format `1/INGREDIENT_1&AMOUNT_IN_UNITS` where ingredient and amount in standardised units are separated by `&`.
 
-• `AMOUNT_IN_UNITS` is allowed to take on a decimal and is in the units specified in  listIngredients.
+• `AMOUNT_IN_UNITS` is allowed to take on a decimal and is in the units specified in listIngredients.
 
 • Number of ingredient inputs should correspond to `n/NUMBER_OF_INGREDIENTS`. If it does not, a message will appear to say incorrect number of inputs.
 ****
@@ -394,7 +394,7 @@ Format: `viewBooking [ts/TIME_START] [te/TIME_END]`
 
 Example:
 
-* `viewBooking ts/1200 te/1530`
+* `viewBooking ts/2019-03-01 12:00 te/2019-03-04 15:00`
 
 ==== Update Restaurant Capacity: `updateCapacity`
 
@@ -404,38 +404,37 @@ Format: `updateCapacity NUMBER`
 
 
 ****
-• If the capacity is full, the restaurant will not accept new bookings (refer to <<Create New Booking: `addBooking`, addBooking command >>). If this command causes the number of bookings to exceed the capacity, the `updateCapacity` command will not be allowed to be executed, instead some of the bookings must be cancelled.
+• The default capacity of the restaurant is 200.
+• If the capacity is full, the restaurant will not accept new bookings (refer to <<Create New Booking: `addBooking`, addBooking command >>). If this command causes the number of bookings to exceed the capacity, the `updateCapacity` command will not be executed and an error will be displayed.
 ****
 
 Example:
 
 * `updateCapacity 50`
 
-This updates the restaurants to cater for a capacity for 50 customers
+This updates the restaurants to cater for a capacity for 50 customers.
 
 ==== Create New Booking: `addBooking`
 
 Creates a new booking.
 
-Format: `addBooking [c/CUSTOMER_ID] n/NUMBER OF MEMBERS t/TIME [d/DATE]`
+Format: `addBooking c/CUSTOMER_INDEX n/NUMBER OF MEMBERS ts/START_TIME`
 
 ****
-• If the restaurant is full (as determined by the `updateCapacity` command), a message will appear telling the user that the restaurant is fully booked: “Restaurant is fully booked at (date) and (time). Please choose another time.”
+• If the restaurant is full (as determined by the `updateCapacity` command), a message will appear telling the user that the restaurant is fully booked.
 
-• Date argument is optional, will be set to today’s date if not specified. All bookings will last for 1 hour.
+• All bookings will last for 1 hour.
 
-• Customer ID refers to the index of the customer as displayed by the list. Leave the field blank the customer requesting the booking is a non-member. No loyalty points will be added to this customer.
+• Customer INDEX refers to the index of the customer as displayed by the list.
+
+• Bookings are a privileged feature restricted only to members. Thus we do not allow non-members to make bookings.
 ****
 
 Example:
 
-* `addBooking 1 1300 25 Feb`
+* `addBooking c/1 n/5 ts/2019-02-23 14:30`
 
-Adds a booking for customer id 1 on 25 Feb, at 1300 hrs
-
-* `addBooking 2 1530`
-
-Adds a booking for customer id 2, at 1300 hrs today
+Adds a booking for the first customer on the current list, on 23 Feb, at 1430 hrs
 
 ==== Cancel Booking: `cancelBooking`
 Cancels a booking permanently.
@@ -472,11 +471,13 @@ Format: `viewStaff`
 
 Add a new staff member to the list of all staff.
 
-Format: `addStaff n/STAFF_NAME c/CONTACT_NUMBER a/APPOINTMENT`
+Format: `addStaff n/NAME p/PHONE e/EMAIL a/APPOINTMENT`
 
 Example:
 
-* `addStaff n/John Doe c/91234567 a/Waiter`
+* `addStaff n/John Doe p/91234567 e/john@example.com a/Waiter`
+
+Adds a new staff with name John Doe, phone number 91234567, email john@example.com and appointment Waiter to the restaurant.
 
 ==== Delete Staff: `deleteStaff`
 
@@ -502,7 +503,7 @@ Format: `setShift s/STAFF_ID ts/TIME_START te/TIME_END`
 
 Example:
 
-* setShift `1 1200 1530`
+* `setShift s/1 ts/2019-02-23 09:30 ts/2019-02-23 17:30`
 
 === Overall
 

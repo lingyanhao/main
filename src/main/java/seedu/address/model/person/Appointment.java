@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Member's name in the restaurant book.
+ * Represents a Staff's appointment in the restaurant book.
  *
  * Guarantees: immutable; is valid as declared in {@link #isValidAppointmentName(String)}
  */
@@ -48,7 +48,7 @@ public class Appointment {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Name // instanceof handles nulls
+                || (other instanceof Appointment // instanceof handles nulls
                 && appointmentName.equals(((Appointment) other).appointmentName)); // state check
     }
 

@@ -13,7 +13,7 @@ import seedu.address.logic.commands.add.AddBookingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new AddCommand object.
+ * Parses input arguments and creates a new AddBookingCommand object.
  */
 public class AddBookingCommandParser {
     /**
@@ -36,10 +36,10 @@ public class AddBookingCommandParser {
         try {
             numMembers = Integer.parseInt(argMultimap.getValue(PREFIX_NUMBER_PERSONS).get());
         } catch (NumberFormatException e) {
-            throw new ParseException("Number of members needs to be a positive integer.");
+            throw new ParseException("Number of members must be a positive integer not more than 100.");
         }
-        if (numMembers <= 0) {
-            throw new ParseException("Number of members needs to be a positive integer.");
+        if (numMembers <= 0 || numMembers > 100) { // TODO: un-hardcode this string
+            throw new ParseException("Number of members must be a positive integer not more than 100.");
         }
 
         return new AddBookingCommand(startTime, memberIndex, numMembers);

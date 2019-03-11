@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Member;
@@ -37,7 +36,7 @@ public class MemberCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
-    private FlowPane tags;
+    private Label points;
 
     public MemberCard(Member member, int displayedIndex) {
         super(FXML);
@@ -46,6 +45,7 @@ public class MemberCard extends UiPart<Region> {
         name.setText(member.getName().fullName);
         phone.setText(member.getPhone().value);
         email.setText(member.getEmail().value);
+        points.setText(Integer.toString(member.getLoyaltyPoints().value));
     }
 
     @Override
