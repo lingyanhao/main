@@ -125,19 +125,36 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code int ingredientUnit} into an {@code int}.
+     * Parses a {@code int ingredientQuantity} into an {@code int}.
+     *
      */
-    public static int parseIngredientUnit(String unit) throws ParseException {
+
+    public static int parseIngredientQuantity(String quantity) throws ParseException {
+        requireNonNull(quantity);
+        if (!Ingredient.isValidIngredientQuantity(quantity)) {
+            throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS_INGREDIENTQUANTITY);
+        }
+        return Integer.parseInt(quantity);
+    }
+
+    /**
+     * Parses a {@code String ingredientUnit} into an {@code String}.
+     *
+     */
+
+    public static String parseIngredientUnit(String unit) throws ParseException {
         requireNonNull(unit);
-        if (!StringUtil.isNonZeroUnsignedInteger(unit)) {
+        if (!Ingredient.isValidIngredientUnit(unit)) {
             throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS_INGREDIENTUNIT);
         }
-        return Integer.parseInt(unit);
+        return unit;
     }
 
     /**
      * Creates a new Date object that parses the time. Uses the yyyy-MM-dd HH:mm format.
      * For example, 2011-12-03 10:15
+     * @param time
+     * @return
      */
     public static Date parseTime(String time) throws ParseException {
         try {
@@ -161,6 +178,4 @@ public class ParserUtil {
             throw new ParseException(BookingWindow.MESSAGE_CONSTRAINTS);
         }
     }
-
-
 }

@@ -2,8 +2,8 @@ package seedu.address.logic.commands.ingredient;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotEquals;
+import static seedu.address.testutil.TypicalIngredients.CHEESE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,7 +50,7 @@ public class AddIngredientCommandTest {
 
     @Test
     public void execute_duplicateIngredient_throwsCommandException() throws Exception {
-        Ingredient validIngredient = new IngredientBuilder().build();
+        Ingredient validIngredient = new IngredientBuilder(CHEESE).build();
         AddCommand addCommand = new AddCommand(validIngredient);
         ModelStub modelStub = new ModelStubWithIngredient(validIngredient);
 
@@ -61,26 +61,32 @@ public class AddIngredientCommandTest {
 
     @Test
     public void equals() {
-        Ingredient cheese = new IngredientBuilder().withIngredient("cheese", 4).build();
-        Ingredient tomato = new IngredientBuilder().withIngredient("tomato", 5).build();
+        Ingredient cheese = new IngredientBuilder().withIngredient("cheese", 4, "pounds").build();
+        Ingredient tomato = new IngredientBuilder().withIngredient("tomato", 5, "pieces").build();
+        Ingredient modifiedCheeseUnit = new IngredientBuilder().withIngredient("cheese", 6, "pounds").build();
+
         AddCommand addCheeseCommand = new AddCommand(cheese);
         AddCommand addTomatoCommand = new AddCommand(tomato);
 
         // same object -> returns true
-        assertTrue(addCheeseCommand.equals(addCheeseCommand));
+        assertEquals(addCheeseCommand, addCheeseCommand);
 
-        // same values -> returns true
+        // same ingredient name and unit-> returns true
         AddCommand addCheeseCommandCopy = new AddCommand(cheese);
-        assertTrue(addCheeseCommand.equals(addCheeseCommandCopy));
+        assertEquals(addCheeseCommandCopy, addCheeseCommand);
+
+        //same ingredient name but different unit -> returns false
+        AddCommand addCheeseCommandModified = new AddCommand(modifiedCheeseUnit);
+        assertNotEquals(addCheeseCommand, addCheeseCommandModified);
 
         // different types -> returns false
-        assertFalse(addCheeseCommand.equals(1));
+        assertNotEquals(addCheeseCommand, 1);
 
         // null -> returns false
-        assertFalse(addCheeseCommand.equals(null));
+        assertNotEquals(addCheeseCommand, null);
 
         // different ingredient -> returns false
-        assertFalse(addCheeseCommand.equals(addTomatoCommand));
+        assertNotEquals(addCheeseCommand, addTomatoCommand);
     }
 
     /**

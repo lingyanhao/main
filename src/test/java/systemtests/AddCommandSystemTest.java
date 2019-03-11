@@ -1,18 +1,18 @@
 package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_EMAIL_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_EMAIL_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_INVALID_EMAIL_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_INVALID_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_INVALID_PHONE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_NAME_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_NAME_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_PHONE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_PHONE_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_PHONE_BOB;
 import static seedu.address.testutil.TypicalMembers.ALICE;
 import static seedu.address.testutil.TypicalMembers.AMY;
 import static seedu.address.testutil.TypicalMembers.BOB;
@@ -48,8 +48,8 @@ public class AddCommandSystemTest extends RestaurantBookSystemTest {
          * -> added
          */
         Member toAdd = AMY;
-        String command = "   " + AddCommand.COMMAND_WORD_MEMBER + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
-                + EMAIL_DESC_AMY;
+        String command = "   " + AddCommand.COMMAND_WORD_MEMBER + "  " + MEMBER_NAME_DESC_AMY + "  "
+                + MEMBER_PHONE_DESC_AMY + " " + MEMBER_EMAIL_DESC_AMY;
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Amy to the list -> Amy deleted */
@@ -64,14 +64,14 @@ public class AddCommandSystemTest extends RestaurantBookSystemTest {
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: add a member with all fields same as another member in the address book except name -> added */
-        toAdd = new MemberBuilder(AMY).withName(VALID_NAME_BOB).build();
-        command = AddCommand.COMMAND_WORD_MEMBER + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY;
+        toAdd = new MemberBuilder(AMY).withName(MEMBER_VALID_NAME_BOB).build();
+        command = AddCommand.COMMAND_WORD_MEMBER + MEMBER_NAME_DESC_BOB + MEMBER_PHONE_DESC_AMY + MEMBER_EMAIL_DESC_AMY;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a member with all fields same as another member in the address book except phone and email
          * -> added
          */
-        toAdd = new MemberBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
+        toAdd = new MemberBuilder(AMY).withPhone(MEMBER_VALID_PHONE_BOB).withEmail(MEMBER_VALID_EMAIL_BOB).build();
         command = MemberUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
@@ -81,7 +81,7 @@ public class AddCommandSystemTest extends RestaurantBookSystemTest {
 
         /* Case: add a member, command with parameters in random order -> added */
         toAdd = BOB;
-        command = AddCommand.COMMAND_WORD_MEMBER + PHONE_DESC_BOB + NAME_DESC_BOB + EMAIL_DESC_BOB;
+        command = AddCommand.COMMAND_WORD_MEMBER + MEMBER_PHONE_DESC_BOB + MEMBER_NAME_DESC_BOB + MEMBER_EMAIL_DESC_BOB;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a member -> added */
@@ -106,25 +106,25 @@ public class AddCommandSystemTest extends RestaurantBookSystemTest {
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_MEMBER);
 
         /* Case: add a duplicate member except with different phone -> rejected */
-        toAdd = new MemberBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
+        toAdd = new MemberBuilder(HOON).withPhone(MEMBER_VALID_PHONE_BOB).build();
         command = MemberUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_MEMBER);
 
         /* Case: add a duplicate member except with different email -> rejected */
-        toAdd = new MemberBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
+        toAdd = new MemberBuilder(HOON).withEmail(MEMBER_VALID_EMAIL_BOB).build();
         command = MemberUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_MEMBER);
 
         /* Case: missing name -> rejected */
-        command = AddCommand.COMMAND_WORD_MEMBER + PHONE_DESC_AMY + EMAIL_DESC_AMY;
+        command = AddCommand.COMMAND_WORD_MEMBER + MEMBER_PHONE_DESC_AMY + MEMBER_EMAIL_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE_MEMBER));
 
         /* Case: missing phone -> rejected */
-        command = AddCommand.COMMAND_WORD_MEMBER + NAME_DESC_AMY + EMAIL_DESC_AMY;
+        command = AddCommand.COMMAND_WORD_MEMBER + MEMBER_NAME_DESC_AMY + MEMBER_EMAIL_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE_MEMBER));
 
         /* Case: missing email -> rejected */
-        command = AddCommand.COMMAND_WORD_MEMBER + NAME_DESC_AMY + PHONE_DESC_AMY;
+        command = AddCommand.COMMAND_WORD_MEMBER + MEMBER_NAME_DESC_AMY + MEMBER_PHONE_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE_MEMBER));
 
         /* Case: invalid keyword -> rejected */
@@ -132,15 +132,18 @@ public class AddCommandSystemTest extends RestaurantBookSystemTest {
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
-        command = AddCommand.COMMAND_WORD_MEMBER + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY;
+        command = AddCommand.COMMAND_WORD_MEMBER + MEMBER_INVALID_NAME_DESC
+                + MEMBER_PHONE_DESC_AMY + MEMBER_EMAIL_DESC_AMY;
         assertCommandFailure(command, Name.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
-        command = AddCommand.COMMAND_WORD_MEMBER + NAME_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY;
+        command = AddCommand.COMMAND_WORD_MEMBER + MEMBER_NAME_DESC_AMY
+                + MEMBER_INVALID_PHONE_DESC + MEMBER_EMAIL_DESC_AMY;
         assertCommandFailure(command, Phone.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
-        command = AddCommand.COMMAND_WORD_MEMBER + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC;
+        command = AddCommand.COMMAND_WORD_MEMBER + MEMBER_NAME_DESC_AMY
+                + MEMBER_PHONE_DESC_AMY + MEMBER_INVALID_EMAIL_DESC;
         assertCommandFailure(command, Email.MESSAGE_CONSTRAINTS);
     }
 

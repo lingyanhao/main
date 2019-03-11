@@ -1,20 +1,20 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_EMAIL_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_EMAIL_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_INVALID_EMAIL_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_INVALID_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_INVALID_PHONE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_NAME_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_NAME_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_PHONE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_PHONE_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalMembers.AMY;
@@ -37,19 +37,23 @@ public class AddMemberCommandParserTest {
         Member expectedMember = new MemberBuilder(BOB).build();
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB,
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + MEMBER_NAME_DESC_BOB
+                        + MEMBER_PHONE_DESC_BOB + MEMBER_EMAIL_DESC_BOB,
                 new AddCommand(expectedMember));
 
         // multiple names - last name accepted
-        assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB,
+        assertParseSuccess(parser, MEMBER_NAME_DESC_AMY + MEMBER_NAME_DESC_BOB
+                        + MEMBER_PHONE_DESC_BOB + MEMBER_EMAIL_DESC_BOB,
                 new AddCommand(expectedMember));
 
         // multiple phones - last phone accepted
-        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB,
+        assertParseSuccess(parser, MEMBER_NAME_DESC_BOB + MEMBER_PHONE_DESC_AMY
+                        + MEMBER_PHONE_DESC_BOB + MEMBER_EMAIL_DESC_BOB,
                 new AddCommand(expectedMember));
 
         // multiple emails - last email accepted
-        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB,
+        assertParseSuccess(parser, MEMBER_NAME_DESC_BOB + MEMBER_PHONE_DESC_BOB
+                        + MEMBER_EMAIL_DESC_AMY + MEMBER_EMAIL_DESC_BOB,
                 new AddCommand(expectedMember));
     }
 
@@ -57,7 +61,7 @@ public class AddMemberCommandParserTest {
     public void parse_optionalFieldsMissing_success() {
         // zero tags
         Member expectedMember = new MemberBuilder(AMY).build();
-        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY,
+        assertParseSuccess(parser, MEMBER_NAME_DESC_AMY + MEMBER_PHONE_DESC_AMY + MEMBER_EMAIL_DESC_AMY,
                 new AddCommand(expectedMember));
     }
 
@@ -66,42 +70,43 @@ public class AddMemberCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE_MEMBER);
 
         // missing name prefix
-        assertParseFailure(parser, VALID_NAME_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB,
+        assertParseFailure(parser, MEMBER_VALID_NAME_BOB + MEMBER_PHONE_DESC_BOB + MEMBER_EMAIL_DESC_BOB,
                 expectedMessage);
 
         // missing phone prefix
-        assertParseFailure(parser, NAME_DESC_BOB + VALID_PHONE_BOB + EMAIL_DESC_BOB,
+        assertParseFailure(parser, MEMBER_NAME_DESC_BOB + MEMBER_VALID_PHONE_BOB + MEMBER_EMAIL_DESC_BOB,
                 expectedMessage);
 
         // missing email prefix
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + VALID_EMAIL_BOB,
+        assertParseFailure(parser, MEMBER_NAME_DESC_BOB + MEMBER_PHONE_DESC_BOB + MEMBER_VALID_EMAIL_BOB,
                 expectedMessage);
 
         // all prefixes missing
-        assertParseFailure(parser, VALID_NAME_BOB + VALID_PHONE_BOB + VALID_EMAIL_BOB,
+        assertParseFailure(parser, MEMBER_VALID_NAME_BOB + MEMBER_VALID_PHONE_BOB + MEMBER_VALID_EMAIL_BOB,
                 expectedMessage);
     }
 
     @Test
     public void parse_invalidValue_failure() {
         // invalid name
-        assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB,
+        assertParseFailure(parser, MEMBER_INVALID_NAME_DESC + MEMBER_PHONE_DESC_BOB + MEMBER_EMAIL_DESC_BOB,
                 Name.MESSAGE_CONSTRAINTS);
 
         // invalid phone
-        assertParseFailure(parser, NAME_DESC_BOB + INVALID_PHONE_DESC + EMAIL_DESC_BOB,
+        assertParseFailure(parser, MEMBER_NAME_DESC_BOB + MEMBER_INVALID_PHONE_DESC + MEMBER_EMAIL_DESC_BOB,
                 Phone.MESSAGE_CONSTRAINTS);
 
         // invalid email
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC,
+        assertParseFailure(parser, MEMBER_NAME_DESC_BOB + MEMBER_PHONE_DESC_BOB + MEMBER_INVALID_EMAIL_DESC,
                 Email.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB,
+        assertParseFailure(parser, MEMBER_INVALID_NAME_DESC + MEMBER_PHONE_DESC_BOB + MEMBER_EMAIL_DESC_BOB,
                 Name.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB,
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + MEMBER_NAME_DESC_BOB
+                        + MEMBER_PHONE_DESC_BOB + MEMBER_EMAIL_DESC_BOB,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE_MEMBER));
     }
 }
