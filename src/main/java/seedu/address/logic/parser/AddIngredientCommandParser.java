@@ -19,6 +19,7 @@ public class AddIngredientCommandParser implements Parser<AddCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
 
+    @Override
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_INGREDIENT_NAME,

@@ -2,7 +2,8 @@ package seedu.address.logic.parser.ingredient;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.INGREDIENT_INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INGREDIENT_INVALID_QUANTITY_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INGREDIENT_INVALID_QUANTITY_NEGATIVES_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INGREDIENT_INVALID_QUANTITY_NONINTEGER_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INGREDIENT_INVALID_UNIT_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INGREDIENT_NAME_DESC_CHEESE;
 import static seedu.address.logic.commands.CommandTestUtil.INGREDIENT_NAME_DESC_TOMATO;
@@ -98,11 +99,15 @@ public class AddIngredientCommandParserTest {
                 Ingredient.MESSAGE_CONSTRAINTS_INGREDIENTNAME);
 
 
-        // invalid ingredientQuantity
+        // invalid ingredientQuantity, quantity is non-numerical
         assertParseFailure(parser, INGREDIENT_NAME_DESC_CHEESE
-                        + INGREDIENT_INVALID_QUANTITY_DESC + INGREDIENT_UNIT_DESC_CHEESE,
+                        + INGREDIENT_INVALID_QUANTITY_NONINTEGER_DESC + INGREDIENT_UNIT_DESC_CHEESE,
                 Ingredient.MESSAGE_CONSTRAINTS_INGREDIENTQUANTITY);
 
+        // invalid ingredientQuantity, quantity is non-positive
+        assertParseFailure(parser, INGREDIENT_NAME_DESC_CHEESE
+                        + INGREDIENT_INVALID_QUANTITY_NEGATIVES_DESC + INGREDIENT_UNIT_DESC_CHEESE,
+                Ingredient.MESSAGE_CONSTRAINTS_INGREDIENTQUANTITY);
 
         // invalid ingredientUnit
         assertParseFailure(parser, INGREDIENT_NAME_DESC_CHEESE

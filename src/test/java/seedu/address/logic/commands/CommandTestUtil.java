@@ -79,8 +79,10 @@ public class CommandTestUtil {
 
     public static final String INGREDIENT_INVALID_NAME_DESC = " " + PREFIX_INGREDIENT_NAME
             + "1"; // integers not allowed in ingredientName
-    public static final String INGREDIENT_INVALID_QUANTITY_DESC = " " + PREFIX_INGREDIENT_QUANTITY
-            + "potato"; // characters not allowed in IngredientQuantity
+    public static final String INGREDIENT_INVALID_QUANTITY_NONINTEGER_DESC = " " + PREFIX_INGREDIENT_QUANTITY
+            + "potato"; // non-integers not allowed in IngredientQuantity
+    public static final String INGREDIENT_INVALID_QUANTITY_NEGATIVES_DESC = " " + PREFIX_INGREDIENT_QUANTITY
+            + "-1"; // negative values not allowed in IngredientQuantity
     public static final String INGREDIENT_INVALID_UNIT_DESC = " " + PREFIX_INGREDIENT_UNIT
             + "3@"; // symbols not allowed
 
