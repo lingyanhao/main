@@ -57,7 +57,7 @@ public class CommandTestUtil {
     public static final String MEMBER_INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String STAFF_INVALID_APPOINTMENT_DESC = " " + PREFIX_APPOINTMENT
             + "amaz!ngC00k"; // ! not allowed
-    public static final String INVALID_LOYALTY_POINTS_DESC = " " + PREFIX_LOYALTY_POINTS+ "26.0"; // . not allowed
+    public static final String INVALID_LOYALTY_POINTS_DESC = " " + PREFIX_LOYALTY_POINTS + "26.0"; // . not allowed
 
     public static final String INGREDIENT_VALID_NAME_CHEESE = "cheese";
     public static final String INGREDIENT_VALID_NAME_TOMATO = "tomato";
