@@ -75,7 +75,7 @@ class JsonAdaptedMember {
         }
         final Email modelEmail = new Email(email);
         if (!LoyaltyPoints.isValidLoyaltyPoints(loyaltyPoints)) {
-            throw new IllegalValueException(LoyaltyPoints.MESSAGE_CONSTRAINTS + "hihi");
+            throw new IllegalValueException(LoyaltyPoints.MESSAGE_CONSTRAINTS);
         }
         final LoyaltyPoints modelLoyaltyPoints = new LoyaltyPoints(loyaltyPoints);
 
