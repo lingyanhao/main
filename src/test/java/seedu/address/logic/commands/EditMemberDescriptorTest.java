@@ -2,11 +2,11 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_PHONE_BOB;
 
 import org.junit.Test;
 
@@ -18,32 +18,33 @@ public class EditMemberDescriptorTest {
     @Test
     public void equals() {
         // same values -> returns true
-        EditMemberDescriptor descriptorWithSameValues = new EditMemberDescriptor(DESC_AMY);
-        assertTrue(DESC_AMY.equals(descriptorWithSameValues));
+        EditMemberDescriptor descriptorWithSameValues = new EditMemberDescriptor(MEMBER_DESC_AMY);
+        assertTrue(MEMBER_DESC_AMY.equals(descriptorWithSameValues));
 
         // same object -> returns true
-        assertTrue(DESC_AMY.equals(DESC_AMY));
+        assertTrue(MEMBER_DESC_AMY.equals(MEMBER_DESC_AMY));
 
         // null -> returns false
-        assertFalse(DESC_AMY.equals(null));
+        assertFalse(MEMBER_DESC_AMY.equals(null));
 
         // different types -> returns false
-        assertFalse(DESC_AMY.equals(5));
+        assertFalse(MEMBER_DESC_AMY.equals(5));
 
         // different values -> returns false
-        assertFalse(DESC_AMY.equals(DESC_BOB));
+        assertFalse(MEMBER_DESC_AMY.equals(MEMBER_DESC_BOB));
 
         // different name -> returns false
-        EditMemberDescriptor editedAmy = new EditMemberDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        EditMemberDescriptor editedAmy =
+                new EditMemberDescriptorBuilder(MEMBER_DESC_AMY).withName(MEMBER_VALID_NAME_BOB).build();
+        assertFalse(MEMBER_DESC_AMY.equals(editedAmy));
 
         // different phone -> returns false
-        editedAmy = new EditMemberDescriptorBuilder(DESC_AMY).withPhone(VALID_PHONE_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedAmy = new EditMemberDescriptorBuilder(MEMBER_DESC_AMY).withPhone(MEMBER_VALID_PHONE_BOB).build();
+        assertFalse(MEMBER_DESC_AMY.equals(editedAmy));
 
         // different email -> returns false
-        editedAmy = new EditMemberDescriptorBuilder(DESC_AMY).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedAmy = new EditMemberDescriptorBuilder(MEMBER_DESC_AMY).withEmail(MEMBER_VALID_EMAIL_BOB).build();
+        assertFalse(MEMBER_DESC_AMY.equals(editedAmy));
 
     }
 }
