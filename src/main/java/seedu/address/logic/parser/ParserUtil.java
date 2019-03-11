@@ -8,6 +8,7 @@ import java.util.Date;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.booking.BookingWindow;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Appointment;
@@ -125,9 +126,7 @@ public class ParserUtil {
 
     /**
      * Parses a {@code int ingredientUnit} into an {@code int}.
-     *
      */
-
     public static int parseIngredientUnit(String unit) throws ParseException {
         requireNonNull(unit);
         if (!StringUtil.isNonZeroUnsignedInteger(unit)) {
@@ -139,8 +138,6 @@ public class ParserUtil {
     /**
      * Creates a new Date object that parses the time. Uses the yyyy-MM-dd HH:mm format.
      * For example, 2011-12-03 10:15
-     * @param time
-     * @return
      */
     public static Date parseTime(String time) throws ParseException {
         try {
@@ -150,4 +147,20 @@ public class ParserUtil {
             throw new ParseException("Please follow the time format of yyyy-MM-dd HH:mm");
         }
     }
+
+    /**
+     * Creates a new BookingWindow object that parses the time. Uses the yyyy-MM-dd HH:mm format.
+     * For example, 2011-12-03 10:15
+     */
+    public static BookingWindow parseBookingWindow(String time) throws ParseException {
+        requireNonNull(time);
+        String trimmedTime = time.trim();
+        try {
+            return new BookingWindow(trimmedTime);
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(BookingWindow.MESSAGE_CONSTRAINTS);
+        }
+    }
+
+
 }

@@ -3,7 +3,6 @@ package seedu.address.storage;
 import static seedu.address.model.booking.Booking.MAX_BOOKING_SIZE;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,6 +11,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.booking.Booking;
+import seedu.address.model.booking.BookingWindow;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Member;
@@ -70,9 +70,10 @@ public class JsonAdaptedBooking {
 
         Member modelCustomer = new Member(modelName, modelPhone, modelEmail);
 
-        Date modelStartTime;
+        BookingWindow modelBookingWindow;
+
         try {
-            modelStartTime = ParserUtil.parseTime(startTime);
+            modelBookingWindow = ParserUtil.parseBookingWindow(startTime);
         } catch (ParseException e) {
             throw new IllegalValueException(e.getMessage());
         }
@@ -81,7 +82,7 @@ public class JsonAdaptedBooking {
             throw new IllegalValueException("Number of persons must be a positive integer at most "
                     + MAX_BOOKING_SIZE + ".");
         }
-        return new Booking(modelStartTime, modelCustomer, numPersons);
+        return new Booking(modelBookingWindow, modelCustomer, numPersons);
     }
 
     /**
