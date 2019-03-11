@@ -3,6 +3,9 @@ package seedu.address.model.booking;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * A booking window that represents the start and end times of a booking.
+ */
 public class BookingWindow implements Comparable<BookingWindow> {
 
 
@@ -14,11 +17,10 @@ public class BookingWindow implements Comparable<BookingWindow> {
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
     public final Date startTime;
     //public final Date endTime; TODO: implement this
-
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
     /**
      * Constructs a {@code Name}.
