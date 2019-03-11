@@ -15,7 +15,6 @@ import guitests.guihandles.MemberListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.LoyaltyPoints;
 import seedu.address.model.person.Member;
