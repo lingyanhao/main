@@ -8,7 +8,7 @@ import seedu.address.model.ingredient.Ingredient;
 
 public class IngredientBuilder {
 
-    public static final String DEFAULT_INGREDIENT = "Cheese";
+    public static final String DEFAULT_INGREDIENT = "cheese";
     public static final int DEFAULT_INGREDIENT_UNIT = 8;
 
     private Ingredient ingredient;
@@ -24,6 +24,7 @@ public class IngredientBuilder {
      * Initializes the IngredientBuilder with the data of {@code ingredientToCopy}.
      */
     public IngredientBuilder(Ingredient ingredientToCopy) {
+        ingredient = ingredientToCopy;
         ingredientName = ingredientToCopy.getIngredientName();
         ingredientUnit = ingredientToCopy.getQuantity();
     }
@@ -32,11 +33,12 @@ public class IngredientBuilder {
      * Sets the {@code name, unit} of the {@code Ingredient} that we are building.
      */
     public IngredientBuilder withIngredient(String name, int unit) {
-        this.ingredient = new Ingredient(name, unit);
+        ingredientName = name;
+        ingredientUnit = unit;
         return this;
     }
 
     public Ingredient build() {
-        return new Ingredient(DEFAULT_INGREDIENT, DEFAULT_INGREDIENT_UNIT);
+        return new Ingredient(ingredientName, ingredientUnit);
     }
 }

@@ -44,13 +44,19 @@ public class CommandTestUtil {
     public static final String MEMBER_INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String MEMBER_INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
 
-    public static final String INGREDIENT_VALID_NAME_CHEESE = "Cheese";
-    public static final String INGREDIENT_VALID_UNIT_CHEESE = "5";
+    public static final String INGREDIENT_VALID_NAME_CHEESE = "cheese";
+    public static final String INGREDIENT_VALID_NAME_TOMATO = "tomato";
+    public static final String INGREDIENT_VALID_UNIT_CHEESE = "4";
+    public static final String INGREDIENT_VALID_UNIT_TOMATO = "5";
 
     public static final String INGREDIENT_NAME_DESC_CHEESE =
             " " + PREFIX_INGREDIENT_NAME + INGREDIENT_VALID_NAME_CHEESE;
     public static final String INGREDIENT_UNIT_DESC_CHEESE =
             " " + PREFIX_INGREDIENT_UNIT + INGREDIENT_VALID_UNIT_CHEESE;
+    public static final String INGREDIENT_NAME_DESC_TOMATO =
+            " " + PREFIX_INGREDIENT_NAME + INGREDIENT_VALID_NAME_TOMATO;
+    public static final String INGREDIENT_UNIT_DESC_TOMATO =
+            " " + PREFIX_INGREDIENT_UNIT + INGREDIENT_VALID_UNIT_TOMATO;
 
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";

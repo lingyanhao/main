@@ -32,8 +32,8 @@ public class AddIngredientCommandParser implements Parser<AddCommand> {
         int ingredientUnit =
                 ParserUtil.parseIngredientUnit(argMultimap.getValue(PREFIX_INGREDIENT_UNIT).get());
 
-        String ingredientNameLowerCase = ingredientName.toLowerCase();
-        Ingredient ingredient = new Ingredient(ingredientNameLowerCase, ingredientUnit);
+        //String ingredientNameLowerCase = ingredientName.toLowerCase();
+        Ingredient ingredient = new Ingredient(ingredientName, ingredientUnit);
 
         return new AddCommand(ingredient);
     }
