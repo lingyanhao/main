@@ -26,6 +26,21 @@ public class LoyaltyPoints {
         this.value = points;
     }
 
+    public static boolean isValidLoyaltyPoints(int points) {
+        return 0 <= points; //TODO might want to set upper bound
+    }
+
+    public static boolean isValidLoyaltyPoints(String points) {
+        int integerPoints = 0;
+        try {
+            integerPoints = Integer.parseInt(points);
+        }
+        catch(NumberFormatException e) {
+            return false;
+        }
+        return integerPoints >= 0;
+    }
+
     @Override
     public String toString() {
         return Integer.toString(value);

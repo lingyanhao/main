@@ -15,4 +15,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_CUSTOMER = new Prefix("c/");
     public static final Prefix PREFIX_NUMBER_PERSONS = new Prefix("n/");
     public static final Prefix PREFIX_APPOINTMENT = new Prefix("a/");
+    public static final Prefix PREFIX_LOYALTY_POINTS = new Prefix("l/");
 }

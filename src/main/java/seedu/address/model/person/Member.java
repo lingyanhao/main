@@ -14,20 +14,20 @@ public class Member extends Person {
     /**
      * Every field must be present and not null.
      */
-    public Member(Name name, Phone phone, Email email) {
+    public Member(Name name, Phone phone, Email email, LoyaltyPoints loyaltyPoints) {
         super(name, phone, email, idCounter);
         idCounter++;
-        this.loyaltyPoints = new LoyaltyPoints(0);
+        this.loyaltyPoints = loyaltyPoints;
     }
 
     /**
      * Creates a new member with the same ID as another member.
      * Used for editing a member's details so that the system can track that it is the same member.
      */
-    public Member(Name name, Phone phone, Email email, Member other) {
+    public Member(Name name, Phone phone, Email email, LoyaltyPoints loyaltyPoints, Member other) {
         super(name, phone, email, other.id);
         // Take note: do not increment idCounter here, this is intentional
-        this.loyaltyPoints = new LoyaltyPoints(0);
+        this.loyaltyPoints = loyaltyPoints;
     }
 
     public LoyaltyPoints getLoyaltyPoints() {

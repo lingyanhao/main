@@ -65,7 +65,7 @@ public class AddBookingCommandSystemTest extends RestaurantBookSystemTest {
             // Add booking at different time, booking should be added
             assertCommandSuccess(commandString, model, commandHistory, expectedBookingList);
 
-            Member modifiedAlice = new Member(ALICE.getName(), new Phone("12345678"), ALICE.getEmail());
+            Member modifiedAlice = new Member(ALICE.getName(), new Phone("12345678"), ALICE.getEmail(), ALICE.getLoyaltyPoints());
             String editCommandString = " 1 " + PREFIX_PHONE + modifiedAlice.getPhone().toString();
             Command editCommand = new EditCommandParser().parse(editCommandString);
             editCommand.execute(model, commandHistory);
