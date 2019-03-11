@@ -33,6 +33,8 @@ public class CommandTestUtil {
     public static final String MEMBER_VALID_PHONE_BOB = "22222222";
     public static final String MEMBER_VALID_EMAIL_AMY = "amy@example.com";
     public static final String MEMBER_VALID_EMAIL_BOB = "bob@example.com";
+    public static final String STAFF_VALID_APPOINTMENT_AMY = "Server";
+    public static final String STAFF_VALID_APPOINTMENT_BOB = "Cook";
 
     public static final String MEMBER_NAME_DESC_AMY = " " + PREFIX_NAME + MEMBER_VALID_NAME_AMY;
     public static final String MEMBER_NAME_DESC_BOB = " " + PREFIX_NAME + MEMBER_VALID_NAME_BOB;
@@ -40,10 +42,15 @@ public class CommandTestUtil {
     public static final String MEMBER_PHONE_DESC_BOB = " " + PREFIX_PHONE + MEMBER_VALID_PHONE_BOB;
     public static final String MEMBER_EMAIL_DESC_AMY = " " + PREFIX_EMAIL + MEMBER_VALID_EMAIL_AMY;
     public static final String MEMBER_EMAIL_DESC_BOB = " " + PREFIX_EMAIL + MEMBER_VALID_EMAIL_BOB;
+    public static final String STAFF_APPOINTMENT_DESC_AMY = " " + PREFIX_APPOINTMENT + STAFF_VALID_APPOINTMENT_AMY;
+    public static final String STAFF_APPOINTMENT_DESC_BOB = " " + PREFIX_APPOINTMENT + STAFF_VALID_APPOINTMENT_BOB;
+
 
     public static final String MEMBER_INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String MEMBER_INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String MEMBER_INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
+    public static final String STAFF_INVALID_APPOINTMENT_DESC = " " + PREFIX_APPOINTMENT
+            + "amaz!ngC00k"; // ! not allowed
 
     public static final String INGREDIENT_VALID_NAME_CHEESE = "cheese";
     public static final String INGREDIENT_VALID_NAME_TOMATO = "tomato";
