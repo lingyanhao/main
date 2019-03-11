@@ -61,9 +61,9 @@ public class AddIngredientCommandTest {
 
     @Test
     public void equals() {
-        Ingredient cheese = new IngredientBuilder().withIngredient("cheese", 4).build();
-        Ingredient tomato = new IngredientBuilder().withIngredient("tomato", 5).build();
-        Ingredient modifiedCheeseUnit = new IngredientBuilder().withIngredient("cheese", 6).build();
+        Ingredient cheese = new IngredientBuilder().withIngredient("cheese", 4, "pounds").build();
+        Ingredient tomato = new IngredientBuilder().withIngredient("tomato", 5, "pieces").build();
+        Ingredient modifiedCheeseUnit = new IngredientBuilder().withIngredient("cheese", 6, "pounds").build();
 
         AddCommand addCheeseCommand = new AddCommand(cheese);
         AddCommand addTomatoCommand = new AddCommand(tomato);

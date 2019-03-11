@@ -13,8 +13,8 @@ import seedu.address.model.ingredient.Ingredient;
 
 public class TypicalIngredients {
 
-    public static final Ingredient CHEESE = new IngredientBuilder().withIngredient("cheese", 4).build();
-    public static final Ingredient TOMATO = new IngredientBuilder().withIngredient("tomato", 5).build();
+    public static final Ingredient CHEESE = new IngredientBuilder().withIngredient("cheese", 4, "pounds").build();
+    public static final Ingredient TOMATO = new IngredientBuilder().withIngredient("tomato", 5, "pieces").build();
 
     private TypicalIngredients() {} // prevents instantiation
 

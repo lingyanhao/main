@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_UNIT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -54,23 +55,34 @@ public class CommandTestUtil {
 
     public static final String INGREDIENT_VALID_NAME_CHEESE = "cheese";
     public static final String INGREDIENT_VALID_NAME_TOMATO = "tomato";
-    public static final String INGREDIENT_VALID_UNIT_CHEESE = "4";
-    public static final String INGREDIENT_VALID_UNIT_TOMATO = "5";
+    public static final String INGREDIENT_VALID_QUANTITY_CHEESE = "4";
+    public static final String INGREDIENT_VALID_QUANTITY_TOMATO = "5";
+    public static final String INGREDIENT_VALID_UNIT_CHEESE = "pounds";
+    public static final String INGREDIENT_VALID_UNIT_TOMATO = "pieces";
+
+
+
 
     public static final String INGREDIENT_NAME_DESC_CHEESE =
             " " + PREFIX_INGREDIENT_NAME + INGREDIENT_VALID_NAME_CHEESE;
+    public static final String INGREDIENT_QUANTITY_DESC_CHEESE =
+            " " + PREFIX_INGREDIENT_QUANTITY + INGREDIENT_VALID_QUANTITY_CHEESE;
     public static final String INGREDIENT_UNIT_DESC_CHEESE =
             " " + PREFIX_INGREDIENT_UNIT + INGREDIENT_VALID_UNIT_CHEESE;
     public static final String INGREDIENT_NAME_DESC_TOMATO =
             " " + PREFIX_INGREDIENT_NAME + INGREDIENT_VALID_NAME_TOMATO;
+    public static final String INGREDIENT_QUANTITY_DESC_TOMATO =
+            " " + PREFIX_INGREDIENT_QUANTITY + INGREDIENT_VALID_QUANTITY_TOMATO;
     public static final String INGREDIENT_UNIT_DESC_TOMATO =
             " " + PREFIX_INGREDIENT_UNIT + INGREDIENT_VALID_UNIT_TOMATO;
 
+
     public static final String INGREDIENT_INVALID_NAME_DESC = " " + PREFIX_INGREDIENT_NAME
             + "1"; // integers not allowed in ingredientName
+    public static final String INGREDIENT_INVALID_QUANTITY_DESC = " " + PREFIX_INGREDIENT_QUANTITY
+            + "potato"; // characters not allowed in IngredientQuantity
     public static final String INGREDIENT_INVALID_UNIT_DESC = " " + PREFIX_INGREDIENT_UNIT
-            + "potato"; // characters not allowed in names
-
+            + "3@"; // symbols not allowed
 
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
