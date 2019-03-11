@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_UNIT;
 
 import seedu.address.logic.commands.AddCommand;
@@ -20,20 +21,23 @@ public class AddIngredientCommandParser implements Parser<AddCommand> {
 
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_INGREDIENT_NAME, PREFIX_INGREDIENT_UNIT);
+                ArgumentTokenizer.tokenize(args, PREFIX_INGREDIENT_NAME,
+                        PREFIX_INGREDIENT_QUANTITY, PREFIX_INGREDIENT_UNIT);
 
-        if (!argMultimap.arePrefixesPresent(PREFIX_INGREDIENT_NAME, PREFIX_INGREDIENT_UNIT)
+        if (!argMultimap.arePrefixesPresent(PREFIX_INGREDIENT_NAME, PREFIX_INGREDIENT_QUANTITY, PREFIX_INGREDIENT_UNIT)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddCommand.MESSAGE_USAGE_INGREDIENT));
         }
 
         String ingredientName = ParserUtil.parseIngredient(argMultimap.getValue(PREFIX_INGREDIENT_NAME).get());
-        int ingredientUnit =
+        int ingredientQuantity =
+                ParserUtil.parseIngredientQuantity(argMultimap.getValue(PREFIX_INGREDIENT_QUANTITY).get());
+        String ingredientUnit =
                 ParserUtil.parseIngredientUnit(argMultimap.getValue(PREFIX_INGREDIENT_UNIT).get());
 
         //String ingredientNameLowerCase = ingredientName.toLowerCase();
-        Ingredient ingredient = new Ingredient(ingredientName, ingredientUnit);
+        Ingredient ingredient = new Ingredient(ingredientName, ingredientQuantity, ingredientUnit);
 
         return new AddCommand(ingredient);
     }

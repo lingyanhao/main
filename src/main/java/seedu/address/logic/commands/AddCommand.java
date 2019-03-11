@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_UNIT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NUMBER_PERSONS;
@@ -63,10 +64,12 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE_INGREDIENT = COMMAND_WORD_INGREDIENT + ": Adds an ingredient to the book. "
             + "Parameters: "
             + PREFIX_INGREDIENT_NAME + "INGREDIENT "
-            + PREFIX_INGREDIENT_UNIT + "STANDARD UNIT "
+            + PREFIX_INGREDIENT_QUANTITY + "QUANTITY "
+            + PREFIX_INGREDIENT_UNIT + "STANDARD_UNIT "
             + "Example: " + COMMAND_WORD_INGREDIENT + " "
             + PREFIX_INGREDIENT_NAME + "cheese "
-            + PREFIX_INGREDIENT_UNIT + "8&Pounds";
+            + PREFIX_INGREDIENT_QUANTITY + "8 "
+            + PREFIX_INGREDIENT_UNIT + "pounds";
 
     public static final String MESSAGE_SUCCESS_INGREDIENT = "New ingredient added: %1$s";
     public static final String MESSAGE_DUPLICATE_INGREDIENT = "This ingredient already exists in the book";
