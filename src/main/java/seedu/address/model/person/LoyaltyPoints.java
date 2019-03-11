@@ -37,7 +37,7 @@ public class LoyaltyPoints {
      * Returns true if a given string is a valid loyalty points.
      */
     public static boolean isValidLoyaltyPoints(String points) {
-        int integerPoints = 0;
+        int integerPoints;
         try {
             integerPoints = Integer.parseInt(points);
         } catch (NumberFormatException e) {
