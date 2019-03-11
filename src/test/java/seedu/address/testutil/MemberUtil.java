@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LOYALTY_POINTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
@@ -35,6 +36,7 @@ public class MemberUtil {
         sb.append(PREFIX_NAME + member.getName().fullName + " ");
         sb.append(PREFIX_PHONE + member.getPhone().value + " ");
         sb.append(PREFIX_EMAIL + member.getEmail().value + " ");
+        sb.append(PREFIX_LOYALTY_POINTS + Integer.toString(member.getLoyaltyPoints().value) + " ");
         return sb.toString();
     }
 
@@ -46,6 +48,8 @@ public class MemberUtil {
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
+        descriptor.getLoyaltyPoints().ifPresent(
+                loyaltyPoints -> sb.append(PREFIX_LOYALTY_POINTS).append(loyaltyPoints.value).append(" "));
         return sb.toString();
     }
 }
