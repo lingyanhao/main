@@ -1,6 +1,8 @@
 package seedu.address.logic.parser.ingredient;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.INGREDIENT_INVALID_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INGREDIENT_INVALID_UNIT_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INGREDIENT_NAME_DESC_CHEESE;
 import static seedu.address.logic.commands.CommandTestUtil.INGREDIENT_NAME_DESC_TOMATO;
 import static seedu.address.logic.commands.CommandTestUtil.INGREDIENT_UNIT_DESC_CHEESE;
@@ -62,4 +64,16 @@ public class AddIngredientCommandParserTest {
 
     }
 
+    @Test
+    public void parse_invalidValue_failure() {
+
+        // invalid ingredientName
+        assertParseFailure(parser, INGREDIENT_INVALID_NAME_DESC + INGREDIENT_UNIT_DESC_CHEESE,
+                Ingredient.MESSAGE_CONSTRAINTS_INGREDIENTNAME);
+
+        // invalid ingredientUnit
+        assertParseFailure(parser, INGREDIENT_NAME_DESC_CHEESE + INGREDIENT_INVALID_UNIT_DESC,
+                Ingredient.MESSAGE_CONSTRAINTS_INGREDIENTUNIT);
+
+    }
 }

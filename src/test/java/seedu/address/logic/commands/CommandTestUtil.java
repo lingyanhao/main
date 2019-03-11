@@ -58,6 +58,11 @@ public class CommandTestUtil {
     public static final String INGREDIENT_UNIT_DESC_TOMATO =
             " " + PREFIX_INGREDIENT_UNIT + INGREDIENT_VALID_UNIT_TOMATO;
 
+    public static final String INGREDIENT_INVALID_NAME_DESC = " " + PREFIX_INGREDIENT_NAME
+            + "1"; // integers not allowed in ingredientName
+    public static final String INGREDIENT_INVALID_UNIT_DESC = " " + PREFIX_INGREDIENT_UNIT
+            + "potato"; // characters not allowed in names
+
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
