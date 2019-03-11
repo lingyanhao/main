@@ -45,8 +45,9 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
             editMemberDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
         }
-        if(argMultimap.getValue(PREFIX_LOYALTY_POINTS).isPresent()) {
-            editMemberDescriptor.setLoyaltyPoints(ParserUtil.parseLoyaltyPoints(argMultimap.getValue(PREFIX_LOYALTY_POINTS).get()));
+        if (argMultimap.getValue(PREFIX_LOYALTY_POINTS).isPresent()) {
+            editMemberDescriptor.setLoyaltyPoints(ParserUtil.parseLoyaltyPoints(
+                    argMultimap.getValue(PREFIX_LOYALTY_POINTS).get()));
         }
         if (!editMemberDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
