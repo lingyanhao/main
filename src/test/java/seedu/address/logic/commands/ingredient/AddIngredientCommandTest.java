@@ -2,30 +2,23 @@ package seedu.address.logic.commands.ingredient;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotEquals;
+import static seedu.address.testutil.TypicalIngredients.CHEESE;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.function.Predicate;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import javafx.beans.property.ReadOnlyProperty;
-import javafx.collections.ObservableList;
-
-import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ModelStub;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Item;
-import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyRestaurantBook;
-import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.RestaurantBook;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.testutil.IngredientBuilder;
@@ -57,7 +50,7 @@ public class AddIngredientCommandTest {
 
     @Test
     public void execute_duplicateIngredient_throwsCommandException() throws Exception {
-        Ingredient validIngredient = new IngredientBuilder().build();
+        Ingredient validIngredient = new IngredientBuilder(CHEESE).build();
         AddCommand addCommand = new AddCommand(validIngredient);
         ModelStub modelStub = new ModelStubWithIngredient(validIngredient);
 
@@ -68,141 +61,32 @@ public class AddIngredientCommandTest {
 
     @Test
     public void equals() {
-        Ingredient cheese = new IngredientBuilder().withIngredient("cheese", 4).build();
-        Ingredient tomato = new IngredientBuilder().withIngredient("tomato", 5).build();
+        Ingredient cheese = new IngredientBuilder().withIngredient("cheese", 4, "pounds").build();
+        Ingredient tomato = new IngredientBuilder().withIngredient("tomato", 5, "pieces").build();
+        Ingredient modifiedCheeseUnit = new IngredientBuilder().withIngredient("cheese", 6, "pounds").build();
+
         AddCommand addCheeseCommand = new AddCommand(cheese);
         AddCommand addTomatoCommand = new AddCommand(tomato);
 
         // same object -> returns true
-        assertTrue(addCheeseCommand.equals(addCheeseCommand));
+        assertEquals(addCheeseCommand, addCheeseCommand);
 
-        // same values -> returns true
+        // same ingredient name and unit-> returns true
         AddCommand addCheeseCommandCopy = new AddCommand(cheese);
-        assertTrue(addCheeseCommand.equals(addCheeseCommandCopy));
+        assertEquals(addCheeseCommandCopy, addCheeseCommand);
+
+        //same ingredient name but different unit -> returns false
+        AddCommand addCheeseCommandModified = new AddCommand(modifiedCheeseUnit);
+        assertNotEquals(addCheeseCommand, addCheeseCommandModified);
 
         // different types -> returns false
-        assertFalse(addCheeseCommand.equals(1));
+        assertNotEquals(addCheeseCommand, 1);
 
         // null -> returns false
-        assertFalse(addCheeseCommand.equals(null));
+        assertNotEquals(addCheeseCommand, null);
 
         // different ingredient -> returns false
-        assertFalse(addCheeseCommand.equals(addTomatoCommand));
-    }
-
-    /**
-     * A default model stub that have all of the methods failing.
-     */
-    private class ModelStub implements Model {
-        @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public GuiSettings getGuiSettings() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setGuiSettings(GuiSettings guiSettings) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Path getRestaurantBookFilePath() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setRestaurantBookFilePath(Path restaurantBookFilePath) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addItem(Item item) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setRestaurantBook(ReadOnlyRestaurantBook newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyRestaurantBook getRestaurantBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasItem(Item item) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteItem(Item target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setItem(Item target, Item editedItem) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public <T extends Item> ObservableList<T> getFilteredItemList(Class<T> clazz) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public <T extends Item> void updateFilteredItemList(Predicate<? super T> predicate, Class<T> clazz) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean canUndoRestaurantBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean canRedoRestaurantBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void undoRestaurantBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void redoRestaurantBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void commitRestaurantBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public <T extends Item> ReadOnlyProperty<T> selectedItemProperty(Class<T> clazz) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public <T extends Item> T getSelectedItem(Class<T> clazz) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public <T extends Item> void setSelectedItem(T item, Class<T> clazz) {
-            throw new AssertionError("This method should not be called.");
-        }
+        assertNotEquals(addCheeseCommand, addTomatoCommand);
     }
 
     /**

@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import static seedu.address.model.booking.Booking.MAX_BOOKING_SIZE;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -62,29 +64,9 @@ public class JsonAdaptedBooking {
      * @throws IllegalValueException if there were any data constraints violated in the adapted booking.
      */
     public Booking toModelType() throws IllegalValueException {
-        if (customerName == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
-        }
-        if (!Name.isValidName(customerName)) {
-            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
-        }
-        final Name modelName = new Name(customerName);
-
-        if (customerPhone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
-        }
-        if (!Phone.isValidPhone(customerPhone)) {
-            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
-        }
-        final Phone modelPhone = new Phone(customerPhone);
-
-        if (customerEmail == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
-        }
-        if (!Email.isValidEmail(customerEmail)) {
-            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
-        }
-        final Email modelEmail = new Email(customerEmail);
+        final Name modelName = parseName();
+        final Phone modelPhone = parsePhone();
+        final Email modelEmail = parseEmail();
 
         Member modelCustomer = new Member(modelName, modelPhone, modelEmail);
 
@@ -95,10 +77,51 @@ public class JsonAdaptedBooking {
             throw new IllegalValueException(e.getMessage());
         }
 
-        if (numPersons <= 0) {
-            throw new IllegalValueException("Number of persons must be a positive integer.");
+        if (numPersons <= 0 || numPersons > MAX_BOOKING_SIZE) {
+            throw new IllegalValueException("Number of persons must be a positive integer at most "
+                    + MAX_BOOKING_SIZE + ".");
         }
         return new Booking(modelStartTime, modelCustomer, numPersons);
+    }
+
+    /**
+     * Parses the name and converts into a Name object
+     */
+    private Name parseName() throws IllegalValueException {
+        if (customerName == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+        }
+        if (!Name.isValidName(customerName)) {
+            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+        }
+        return new Name(customerName);
+    }
+
+
+    /**
+     * Parses the phone and converts into a Phone object
+     */
+    private Phone parsePhone() throws IllegalValueException {
+        if (customerPhone == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
+        }
+        if (!Phone.isValidPhone(customerPhone)) {
+            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+        }
+        return new Phone(customerPhone);
+    }
+
+    /**
+     * Parses the email and converts into a Email object
+     */
+    private Email parseEmail() throws IllegalValueException {
+        if (customerEmail == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
+        }
+        if (!Email.isValidEmail(customerEmail)) {
+            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
+        }
+        return new Email(customerEmail);
     }
 }
 

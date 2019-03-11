@@ -30,6 +30,8 @@ public class IngredientCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
+    private Label quantity;
+    @FXML
     private Label unit;
 
     public IngredientCard(Ingredient ingredient, int displayedIndex) {
@@ -37,7 +39,8 @@ public class IngredientCard extends UiPart<Region> {
         this.ingredient = ingredient;
         id.setText(displayedIndex + ". ");
         name.setText(ingredient.getIngredientName());
-        unit.setText("Standard unit: " + ingredient.getQuantity());
+        quantity.setText("Quantity: " + Integer.toString(ingredient.getIngredientQuantity()));
+        unit.setText("Standard unit: " + ingredient.getIngredientUnit());
     }
 
     @Override
