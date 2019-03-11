@@ -35,6 +35,7 @@ public class MemberBuilder {
         name = memberToCopy.getName();
         phone = memberToCopy.getPhone();
         email = memberToCopy.getEmail();
+        loyaltyPoints = memberToCopy.getLoyaltyPoints();
     }
 
     /**
@@ -58,6 +59,14 @@ public class MemberBuilder {
      */
     public MemberBuilder withEmail(String email) {
         this.email = new Email(email);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Email} of the {@code Member} that we are building.
+     */
+    public MemberBuilder withLoyaltyPoints(int loyaltyPoints) {
+        this.loyaltyPoints = new LoyaltyPoints(loyaltyPoints);
         return this;
     }
 

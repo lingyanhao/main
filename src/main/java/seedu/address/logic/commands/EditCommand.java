@@ -206,7 +206,7 @@ public class EditCommand extends Command {
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
-                    && loyaltyPoints.equals(e.getLoyaltyPoints());
+                    && getLoyaltyPoints().equals(e.getLoyaltyPoints());
         }
     }
 }

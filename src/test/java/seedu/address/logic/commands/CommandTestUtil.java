@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LOYALTY_POINTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
@@ -29,6 +30,8 @@ public class CommandTestUtil {
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PHONE_AMY = "11111111";
     public static final String VALID_PHONE_BOB = "22222222";
+    public static final int VALID_LOYALTY_POINTS_AMY = 11;
+    public static final int VALID_LOYALTY_POINTS_BOB = 22;
     public static final String VALID_EMAIL_AMY = "amy@example.com";
     public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_APPOINTMENT_AMY = "Server";
@@ -40,6 +43,8 @@ public class CommandTestUtil {
     public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
     public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
+    public static final String LOYALTY_POINTS_DESC_AMY = " " + PREFIX_LOYALTY_POINTS + VALID_LOYALTY_POINTS_AMY;
+    public static final String LOYALTY_POINTS_DESC_BOB = " " + PREFIX_LOYALTY_POINTS + VALID_LOYALTY_POINTS_BOB;
     public static final String APPOINTMENT_DESC_AMY = " " + PREFIX_APPOINTMENT + VALID_APPOINTMENT_AMY;
     public static final String APPOINTMENT_DESC_BOB = " " + PREFIX_APPOINTMENT + VALID_APPOINTMENT_BOB;
 
@@ -47,6 +52,7 @@ public class CommandTestUtil {
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_APPOINTMENT_DESC = " " + PREFIX_APPOINTMENT + "amaz!ngC00k"; // ! not allowed
+    public static final String INVALID_LOYALTY_POINTS_DESC = " " + PREFIX_LOYALTY_POINTS+ "26.0"; // . not allowed
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -56,9 +62,11 @@ public class CommandTestUtil {
 
     static {
         DESC_AMY = new EditMemberDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
+                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
+                .withLoyaltyPoints(VALID_LOYALTY_POINTS_AMY).build();
         DESC_BOB = new EditMemberDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
+                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
+                .withLoyaltyPoints(VALID_LOYALTY_POINTS_BOB).build();
     }
 
     /**

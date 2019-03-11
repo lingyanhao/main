@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LOYALTY_POINTS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -57,10 +58,11 @@ public class EditCommandTest {
         Member lastMember = model.getFilteredItemList(Member.class).get(indexLastMember.getZeroBased());
 
         MemberBuilder memberInList = new MemberBuilder(lastMember);
-        Member editedMember = memberInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB).build();
+        Member editedMember = memberInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
+                .withLoyaltyPoints(VALID_LOYALTY_POINTS_BOB).build();
 
         EditMemberDescriptor descriptor = new EditMemberDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).build();
+                .withPhone(VALID_PHONE_BOB).withLoyaltyPoints(VALID_LOYALTY_POINTS_BOB).build();
         EditCommand editCommand = new EditCommand(indexLastMember, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEMBER_SUCCESS, editedMember);
@@ -225,6 +227,8 @@ public class EditCommandTest {
 
         // same values -> returns true
         EditMemberDescriptor copyDescriptor = new EditMemberDescriptor(DESC_AMY);
+        assertTrue(copyDescriptor.equals(DESC_AMY));
+
         EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_MEMBER, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
