@@ -1,10 +1,14 @@
 package seedu.address.logic.parser.ingredient;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.INGREDIENT_NAME_DESC_CHEESE;
 import static seedu.address.logic.commands.CommandTestUtil.INGREDIENT_NAME_DESC_TOMATO;
 import static seedu.address.logic.commands.CommandTestUtil.INGREDIENT_UNIT_DESC_CHEESE;
 import static seedu.address.logic.commands.CommandTestUtil.INGREDIENT_UNIT_DESC_TOMATO;
+import static seedu.address.logic.commands.CommandTestUtil.INGREDIENT_VALID_NAME_CHEESE;
+import static seedu.address.logic.commands.CommandTestUtil.INGREDIENT_VALID_UNIT_CHEESE;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIngredients.CHEESE;
 
@@ -31,10 +35,30 @@ public class AddIngredientCommandParserTest {
                         + INGREDIENT_NAME_DESC_CHEESE + INGREDIENT_UNIT_DESC_CHEESE,
                 new AddCommand(expectedIngredient));
 
-        //multiple ingredient units last ingredient unit recorded
+        // multiple ingredient units last ingredient unit recorded
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + INGREDIENT_NAME_DESC_CHEESE
                         + INGREDIENT_UNIT_DESC_TOMATO + INGREDIENT_UNIT_DESC_CHEESE,
                 new AddCommand(expectedIngredient));
+
+    }
+
+    @Test
+    public void parse_compulsoryFieldMissing_failure() {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE_INGREDIENT);
+
+        // missing ingredientName
+        assertParseFailure(parser, INGREDIENT_UNIT_DESC_CHEESE, expectedMessage);
+
+        // missing ingredientName prefix
+        assertParseFailure(parser, INGREDIENT_VALID_NAME_CHEESE + INGREDIENT_UNIT_DESC_CHEESE,
+                expectedMessage);
+
+        // missing ingredientUnit
+        assertParseFailure(parser, INGREDIENT_NAME_DESC_CHEESE, expectedMessage);
+
+        // missing ingredientUnit prefix
+        assertParseFailure(parser, INGREDIENT_NAME_DESC_CHEESE + INGREDIENT_VALID_UNIT_CHEESE,
+                expectedMessage);
 
     }
 
