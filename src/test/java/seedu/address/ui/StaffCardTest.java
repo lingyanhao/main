@@ -34,7 +34,7 @@ public class StaffCardTest extends GuiUnitTest {
         assertTrue(staffCard.equals(staffCard));
 
         // null -> returns false
-        assertFalse(staffCard.equals(null));
+        assertFalse(staffCard == null);
 
         // different types -> returns false
         assertFalse(staffCard.equals(0));

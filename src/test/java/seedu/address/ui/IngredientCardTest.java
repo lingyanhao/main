@@ -34,7 +34,7 @@ public class IngredientCardTest extends GuiUnitTest {
         assertTrue(ingredientCard.equals(ingredientCard));
 
         // null -> returns false
-        assertFalse(ingredientCard.equals(null));
+        assertFalse(ingredientCard == null);
 
         // different types -> returns false
         assertFalse(ingredientCard.equals(0));
