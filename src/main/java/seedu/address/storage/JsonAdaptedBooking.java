@@ -2,7 +2,6 @@ package seedu.address.storage;
 
 import static seedu.address.model.booking.Booking.MAX_BOOKING_SIZE;
 
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 

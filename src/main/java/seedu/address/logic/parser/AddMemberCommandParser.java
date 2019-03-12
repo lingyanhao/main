@@ -42,8 +42,7 @@ public class AddMemberCommandParser implements Parser<AddCommand> {
         LoyaltyPoints loyaltyPoints;
         if (loyaltyPointsField.isPresent()) {
             loyaltyPoints = ParserUtil.parseLoyaltyPoints(loyaltyPointsField.get());
-        }
-        else {
+        } else {
             loyaltyPoints = new LoyaltyPoints(0);
         }
 
