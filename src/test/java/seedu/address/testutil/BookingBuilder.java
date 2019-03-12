@@ -12,7 +12,7 @@ import seedu.address.model.person.Member;
 public class BookingBuilder {
 
     public static final Member DEFAULT_CUSTOMER = new MemberBuilder().build();
-    public static final String DEFAULT_START_TIME = "2019-02-23 14:30";
+    public static final String DEFAULT_START_TIME = "2019-02-23T14:30";
     public static final int DEFAULT_NUM_PERSONS = 5;
 
     private Member customer;
