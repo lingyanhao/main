@@ -42,10 +42,10 @@ public class AddBookingCommandSystemTest extends RestaurantBookSystemTest {
          * -> added
          */
         try {
-            final String startTimeString1430 = "2019-02-23 14:30";
+            final String startTimeString1430 = "2019-02-23T14:30";
             final BookingWindow startTime1430 = ParserUtil.parseBookingWindow(startTimeString1430);
 
-            final String startTimeString1400 = "2019-02-23 14:00";
+            final String startTimeString1400 = "2019-02-23T14:00";
             final BookingWindow startTime1400 = ParserUtil.parseBookingWindow(startTimeString1400);
 
             String commandString = BookingUtil.getAddBookingCommand(startTimeString1430, Index.fromOneBased(1), 5);
@@ -58,7 +58,7 @@ public class AddBookingCommandSystemTest extends RestaurantBookSystemTest {
             // Add duplicate booking, should fail
             assertCommandFailure(commandString, model, commandHistory);
 
-            commandString = BookingUtil.getAddBookingCommand("2019-02-23 14:00", Index.fromOneBased(1), 5);
+            commandString = BookingUtil.getAddBookingCommand("2019-02-23T14:00", Index.fromOneBased(1), 5);
             Booking alice1400 = new Booking(startTime1400, ALICE, 5);
             expectedBookingList = Arrays.asList(alice1400, aliceBooking);
 

@@ -1,7 +1,7 @@
 package seedu.address.model.booking;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
 
 /**
  * A booking window that represents the start and end times of a booking.
@@ -9,18 +9,11 @@ import java.util.Date;
 public class BookingWindow implements Comparable<BookingWindow> {
 
 
-    public static final String MESSAGE_CONSTRAINTS = "Please follow the time format of yyyy-MM-dd HH:mm";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Please follow the time format of yyyy-MM-ddTHH:mm or yyyy-MM-ddTHH:mm:SS, e.g. 2019-03-12T12:00";
 
-    /*
-
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-
-    public final Date startTime;
-    //public final Date endTime; TODO: implement this
+    public final LocalDateTime startTime;
+    public final LocalDateTime endTime;
 
     /**
      * Constructs a {@code Name}.
@@ -29,20 +22,20 @@ public class BookingWindow implements Comparable<BookingWindow> {
      */
     public BookingWindow(String startTimeString) {
         try {
-            startTime = sdf.parse(startTimeString);
-            // TODO: implement ending time to reflect the 1 hour booking
-        } catch (java.text.ParseException e) {
+            startTime = LocalDateTime.parse(startTimeString);
+            endTime = startTime.plusHours(1); // booking lasts for 1 hour
+        } catch (DateTimeException e) {
             throw new IllegalArgumentException(MESSAGE_CONSTRAINTS);
         }
     }
 
-    public Date getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
     @Override
     public String toString() {
-        return sdf.format(startTime);
+        return startTime.toString();
     }
 
     @Override

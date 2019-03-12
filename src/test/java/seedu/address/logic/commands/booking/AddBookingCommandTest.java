@@ -78,7 +78,7 @@ public class AddBookingCommandTest {
             AddCommand modifiedEmailBookingCommand =
                     new AddCommand(new BookingBuilder().withCustomer(modifiedEmailAlice).build());
             AddCommand changeDateBookingCommand =
-                    new AddCommand(new BookingBuilder().withDate("2019-02-24 14:30").build());
+                    new AddCommand(new BookingBuilder().withDate("2019-02-24T14:30").build());
             AddCommand changeNumPersonsBookingCommand = new AddCommand(new BookingBuilder().withNumPersons(2).build());
 
             // same object -> equal

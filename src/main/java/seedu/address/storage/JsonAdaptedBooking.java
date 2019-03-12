@@ -2,8 +2,6 @@ package seedu.address.storage;
 
 import static seedu.address.model.booking.Booking.MAX_BOOKING_SIZE;
 
-import java.text.SimpleDateFormat;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -58,8 +56,9 @@ public class JsonAdaptedBooking {
         customerName = source.getCustomer().getName().fullName;
         customerPhone = source.getCustomer().getPhone().value;
         customerEmail = source.getCustomer().getEmail().value;
+
         customerLoyaltyPoints = source.getCustomer().getLoyaltyPoints().value;
-        startTime = new SimpleDateFormat("yyyy-MM-dd HH:ss").format(source.getStartTime());
+        startTime = source.getStartTimeString();
         this.numPersons = source.getNumMembers();
     }
 
