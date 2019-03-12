@@ -336,13 +336,13 @@ Adds 10 full chickens into inventory and when amount falls below 2, `listIngredi
 Restock ingredient from inventory based on specified `INDEX` via `listIngredients`.
 Previously existing in inventory before.
 
-Format: `restockIngredient i/INGREDIENT_INDEX a/AMOUNT`
+Format: `restockIngredient i/INGREDIENT_INDEX q/INGREDIENT_QUANTITY`
 
 Example:
 
 * `listIngredients` (returns chicken as 3rd index)
 +
-`restock i/3 a/10`
+`restock i/3 q/10`
 
 Adds 10 full chickens into inventory
 

@@ -15,6 +15,14 @@ public class TypicalIngredients {
 
     public static final Ingredient CHEESE = new IngredientBuilder().withIngredient("cheese", 4, "pounds").build();
     public static final Ingredient TOMATO = new IngredientBuilder().withIngredient("tomato", 5, "pieces").build();
+    public static final Ingredient COFFEE = new IngredientBuilder().withIngredient("coffee", 10, "sacks").build();
+    public static final Ingredient CHICKEN = new IngredientBuilder().withIngredient("chicken",
+            100, "full chickens").build();
+    public static final Ingredient RICE = new IngredientBuilder().withIngredient("rice", 20, "sacks").build();
+    public static final Ingredient JUICE = new IngredientBuilder().withIngredient("juice", 5, "bottles").build();
+
+    public static final int TYPICAL_RESTOCK_AMOUNT = 1;
+
 
     private TypicalIngredients() {} // prevents instantiation
 
@@ -30,6 +38,6 @@ public class TypicalIngredients {
     }
 
     public static List<Ingredient> getTypicalIngredients() {
-        return new ArrayList<>(Arrays.asList(CHEESE, TOMATO));
+        return new ArrayList<>(Arrays.asList(CHEESE, TOMATO, COFFEE, CHICKEN, RICE, JUICE));
     }
 }

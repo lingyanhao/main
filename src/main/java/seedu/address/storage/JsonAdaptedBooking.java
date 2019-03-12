@@ -13,6 +13,7 @@ import seedu.address.model.booking.Booking;
 import seedu.address.model.booking.BookingWindow;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.LoyaltyPoints;
 import seedu.address.model.person.Member;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
@@ -27,6 +28,7 @@ public class JsonAdaptedBooking {
     private final String customerName;
     private final String customerPhone;
     private final String customerEmail;
+    private final int customerLoyaltyPoints;
     private final String startTime;
     private final int numPersons;
 
@@ -35,13 +37,15 @@ public class JsonAdaptedBooking {
      */
     @JsonCreator
     public JsonAdaptedBooking (@JsonProperty("customerName") String customerName,
-                                  @JsonProperty("customerPhone") String customerPhone,
-                                  @JsonProperty("customerEmail") String customerEmail,
-                                  @JsonProperty("startTime") String startTime,
-                                  @JsonProperty("numPersons") int numPersons) {
+                               @JsonProperty("customerPhone") String customerPhone,
+                               @JsonProperty("customerEmail") String customerEmail,
+                               @JsonProperty("customerLoyaltyPoints") int customerLoyaltyPoints,
+                               @JsonProperty("startTime") String startTime,
+                               @JsonProperty("numPersons") int numPersons) {
         this.customerName = customerName;
         this.customerPhone = customerPhone;
         this.customerEmail = customerEmail;
+        this.customerLoyaltyPoints = customerLoyaltyPoints;
         this.startTime = startTime;
         this.numPersons = numPersons;
     }
@@ -53,6 +57,8 @@ public class JsonAdaptedBooking {
         customerName = source.getCustomer().getName().fullName;
         customerPhone = source.getCustomer().getPhone().value;
         customerEmail = source.getCustomer().getEmail().value;
+
+        customerLoyaltyPoints = source.getCustomer().getLoyaltyPoints().value;
         startTime = source.getStartTimeString();
         this.numPersons = source.getNumMembers();
     }
@@ -66,8 +72,9 @@ public class JsonAdaptedBooking {
         final Name modelName = parseName();
         final Phone modelPhone = parsePhone();
         final Email modelEmail = parseEmail();
+        final LoyaltyPoints loyaltyPoints = parseLoyaltyPoints();
 
-        Member modelCustomer = new Member(modelName, modelPhone, modelEmail);
+        Member modelCustomer = new Member(modelName, modelPhone, modelEmail, loyaltyPoints);
 
         BookingWindow modelBookingWindow;
 
@@ -122,6 +129,16 @@ public class JsonAdaptedBooking {
             throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(customerEmail);
+    }
+
+    /**
+     * Parses the loyalty points and converts into a LoyaltyPoints object
+     */
+    private LoyaltyPoints parseLoyaltyPoints() throws IllegalValueException {
+        if (!LoyaltyPoints.isValidLoyaltyPoints(customerLoyaltyPoints)) {
+            throw new IllegalValueException(LoyaltyPoints.MESSAGE_CONSTRAINTS);
+        }
+        return new LoyaltyPoints(customerLoyaltyPoints);
     }
 }
 
