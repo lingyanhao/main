@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import seedu.address.logic.commands.EditCommand.EditMemberDescriptor;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.LoyaltyPoints;
 import seedu.address.model.person.Member;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
@@ -52,6 +53,14 @@ public class EditMemberDescriptorBuilder {
      */
     public EditMemberDescriptorBuilder withEmail(String email) {
         descriptor.setEmail(new Email(email));
+        return this;
+    }
+
+    /**
+     * Sets the {@code LoyaltyPoints} of the {@code EditMemberDescriptor} that we are building.
+     */
+    public EditMemberDescriptorBuilder withLoyaltyPoints(int loyaltyPoints) {
+        descriptor.setLoyaltyPoints(new LoyaltyPoints(loyaltyPoints));
         return this;
     }
 

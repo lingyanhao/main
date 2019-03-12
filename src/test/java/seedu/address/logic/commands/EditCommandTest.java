@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.MEMBER_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LOYALTY_POINTS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showMemberAtIndex;
@@ -57,10 +58,11 @@ public class EditCommandTest {
         Member lastMember = model.getFilteredItemList(Member.class).get(indexLastMember.getZeroBased());
 
         MemberBuilder memberInList = new MemberBuilder(lastMember);
-        Member editedMember = memberInList.withName(MEMBER_VALID_NAME_BOB).withPhone(MEMBER_VALID_PHONE_BOB).build();
+        Member editedMember = memberInList.withName(MEMBER_VALID_NAME_BOB).withPhone(MEMBER_VALID_PHONE_BOB)
+                .withLoyaltyPoints(VALID_LOYALTY_POINTS_BOB).build();
 
         EditMemberDescriptor descriptor = new EditMemberDescriptorBuilder().withName(MEMBER_VALID_NAME_BOB)
-                .withPhone(MEMBER_VALID_PHONE_BOB).build();
+                .withPhone(MEMBER_VALID_PHONE_BOB).withLoyaltyPoints(VALID_LOYALTY_POINTS_BOB).build();
         EditCommand editCommand = new EditCommand(indexLastMember, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEMBER_SUCCESS, editedMember);
@@ -224,6 +226,7 @@ public class EditCommandTest {
         final EditCommand standardCommand = new EditCommand(INDEX_FIRST_MEMBER, MEMBER_DESC_AMY);
 
         // same values -> returns true
+
         EditMemberDescriptor copyDescriptor = new EditMemberDescriptor(MEMBER_DESC_AMY);
         EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_MEMBER, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));

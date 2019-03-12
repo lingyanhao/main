@@ -12,6 +12,7 @@ import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Appointment;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.LoyaltyPoints;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 
@@ -108,6 +109,21 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String loyaltyPoints} into an {@code LoyaltyPoints}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code loyaltyPoints} is invalid.
+     */
+    public static LoyaltyPoints parseLoyaltyPoints(String loyaltyPoints) throws ParseException {
+        requireNonNull(loyaltyPoints);
+        String trimmedLoyaltyPoints = loyaltyPoints.trim();
+        if (!LoyaltyPoints.isValidLoyaltyPoints(trimmedLoyaltyPoints)) {
+            throw new ParseException(LoyaltyPoints.MESSAGE_CONSTRAINTS);
+        }
+        return new LoyaltyPoints(Integer.parseInt(loyaltyPoints));
     }
 
     /**
