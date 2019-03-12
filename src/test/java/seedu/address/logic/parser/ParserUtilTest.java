@@ -10,6 +10,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.LoyaltyPoints;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.testutil.Assert;
@@ -18,10 +19,13 @@ public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_EMAIL = "example.com";
+    private static final String INVALID_LOYALTY_POINTS = "-123";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
     private static final String VALID_EMAIL = "rachel@example.com";
+    private static final String VALID_LOYALTY_POINTS = "1234";
+    private static final int VALID_LOYALTY_POINTS_INT = 1234;
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -117,5 +121,23 @@ public class ParserUtilTest {
         String emailWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
         Email expectedEmail = new Email(VALID_EMAIL);
         assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
+    }
+
+    @Test
+    public void parseLoyaltyPoints_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseLoyaltyPoints(INVALID_LOYALTY_POINTS));
+    }
+
+    @Test
+    public void parseLoyaltyPoints_validValueWithoutWhitespace_returnsLoyaltyPoints() throws Exception {
+        LoyaltyPoints expectedLoyaltyPoints = new LoyaltyPoints(VALID_LOYALTY_POINTS_INT);
+        assertEquals(expectedLoyaltyPoints, ParserUtil.parseLoyaltyPoints(VALID_LOYALTY_POINTS));
+    }
+
+    @Test
+    public void parseLoyaltyPoints_validValueWithWhitespace_returnsLoyaltyPoints() throws Exception {
+        String loyaltyPointsWithWhitespace = WHITESPACE + VALID_LOYALTY_POINTS + WHITESPACE;
+        LoyaltyPoints expectedLoyaltyPoints = new LoyaltyPoints(VALID_LOYALTY_POINTS_INT);
+        assertEquals(expectedLoyaltyPoints, ParserUtil.parseLoyaltyPoints(loyaltyPointsWithWhitespace));
     }
 }

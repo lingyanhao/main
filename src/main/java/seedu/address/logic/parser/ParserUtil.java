@@ -108,7 +108,7 @@ public class ParserUtil {
         if (!LoyaltyPoints.isValidLoyaltyPoints(trimmedLoyaltyPoints)) {
             throw new ParseException(LoyaltyPoints.MESSAGE_CONSTRAINTS);
         }
-        return new LoyaltyPoints(Integer.parseInt(loyaltyPoints));
+        return new LoyaltyPoints(Integer.parseInt(trimmedLoyaltyPoints));
     }
 
     /**
