@@ -10,7 +10,6 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.booking.BookingWindow;
 import seedu.address.model.ingredient.Ingredient;
-import seedu.address.model.person.Address;
 import seedu.address.model.person.Appointment;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.LoyaltyPoints;
@@ -68,21 +67,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String address} into an {@code Address}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code address} is invalid.
-     */
-    public static Address parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
-        }
-        return new Address(trimmedAddress);
-    }
-
-    /**
      * Parses a {@code String appointment} into a {@code Appointment}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -124,7 +108,7 @@ public class ParserUtil {
         if (!LoyaltyPoints.isValidLoyaltyPoints(trimmedLoyaltyPoints)) {
             throw new ParseException(LoyaltyPoints.MESSAGE_CONSTRAINTS);
         }
-        return new LoyaltyPoints(Integer.parseInt(loyaltyPoints));
+        return new LoyaltyPoints(Integer.parseInt(trimmedLoyaltyPoints));
     }
 
     /**
