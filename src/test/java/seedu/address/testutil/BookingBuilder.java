@@ -1,10 +1,9 @@
 package seedu.address.testutil;
 
-import java.util.Date;
-
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.booking.Booking;
+import seedu.address.model.booking.BookingWindow;
 import seedu.address.model.person.Member;
 
 /**
@@ -17,13 +16,13 @@ public class BookingBuilder {
     public static final int DEFAULT_NUM_PERSONS = 5;
 
     private Member customer;
-    private Date startTime;
+    private BookingWindow bookingWindow;
     private int numPersons;
 
     public BookingBuilder() {
         customer = DEFAULT_CUSTOMER;
         try {
-            startTime = ParserUtil.parseTime(DEFAULT_START_TIME);
+            bookingWindow = ParserUtil.parseBookingWindow(DEFAULT_START_TIME);
         } catch (ParseException e) {
             throw new AssertionError("This should not happen.");
         }
@@ -41,8 +40,8 @@ public class BookingBuilder {
     /**
      * Sets the {@code Date} of the {@code Booking} that we are building.
      */
-    public BookingBuilder withDate(String dateString) throws ParseException {
-        this.startTime = ParserUtil.parseTime(dateString);
+    public BookingBuilder withDate(String startTimeString) throws ParseException {
+        this.bookingWindow = ParserUtil.parseBookingWindow(startTimeString);
         return this;
     }
 
@@ -55,7 +54,7 @@ public class BookingBuilder {
     }
 
     public Booking build() {
-        return new Booking(startTime, customer, numPersons);
+        return new Booking(bookingWindow, customer, numPersons);
     }
 
 }

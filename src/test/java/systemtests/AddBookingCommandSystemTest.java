@@ -7,7 +7,6 @@ import static seedu.address.testutil.TypicalMembers.ALICE;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -23,6 +22,7 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.booking.Booking;
+import seedu.address.model.booking.BookingWindow;
 import seedu.address.model.person.Member;
 import seedu.address.model.person.Phone;
 import seedu.address.testutil.BookingUtil;
@@ -43,10 +43,10 @@ public class AddBookingCommandSystemTest extends RestaurantBookSystemTest {
          */
         try {
             final String startTimeString1430 = "2019-02-23 14:30";
-            final Date startTime1430 = ParserUtil.parseTime(startTimeString1430);
+            final BookingWindow startTime1430 = ParserUtil.parseBookingWindow(startTimeString1430);
 
             final String startTimeString1400 = "2019-02-23 14:00";
-            final Date startTime1400 = ParserUtil.parseTime(startTimeString1400);
+            final BookingWindow startTime1400 = ParserUtil.parseBookingWindow(startTimeString1400);
 
             String commandString = BookingUtil.getAddBookingCommand(startTimeString1430, Index.fromOneBased(1), 5);
             Booking aliceBooking = new Booking(startTime1430, ALICE, 5);

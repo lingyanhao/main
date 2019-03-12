@@ -24,6 +24,7 @@ public class UpdateCapacityCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         model.setCapacity(capacity);
+        model.commitRestaurantBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, capacity));
     }
 }

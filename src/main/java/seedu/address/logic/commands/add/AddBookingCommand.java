@@ -2,7 +2,6 @@ package seedu.address.logic.commands.add;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Date;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
@@ -14,6 +13,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.booking.Booking;
+import seedu.address.model.booking.BookingWindow;
 import seedu.address.model.person.Member;
 
 /**
@@ -24,12 +24,12 @@ import seedu.address.model.person.Member;
  */
 public class AddBookingCommand extends Command {
 
-    private final Date startTime;
+    private final BookingWindow bookingWindow;
     private final Index memberIndex;
     private int numMembers;
 
-    public AddBookingCommand(Date startTime, Index memberIndex, int numMembers) {
-        this.startTime = startTime;
+    public AddBookingCommand(BookingWindow bookingWindow, Index memberIndex, int numMembers) {
+        this.bookingWindow = bookingWindow;
         this.memberIndex = memberIndex;
         this.numMembers = numMembers;
     }
@@ -43,7 +43,7 @@ public class AddBookingCommand extends Command {
         }
 
         Member customer = lastShownList.get(memberIndex.getZeroBased());
-        Booking toAdd = new Booking(startTime, customer, numMembers);
+        Booking toAdd = new Booking(bookingWindow, customer, numMembers);
         return new AddCommand(toAdd).execute(model, commandHistory);
     }
 }
