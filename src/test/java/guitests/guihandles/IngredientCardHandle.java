@@ -44,7 +44,7 @@ public class IngredientCardHandle extends NodeHandle<Node> {
     }
 
     /**
-     * Returns true if this handle contains {@code staff}.
+     * Returns true if this handle contains {@code ingredient}.
      */
     public boolean equals(Ingredient ingredient) {
         return getName().equals(ingredient.getIngredientName())

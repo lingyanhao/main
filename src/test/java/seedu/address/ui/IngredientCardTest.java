@@ -34,7 +34,7 @@ public class IngredientCardTest extends GuiUnitTest {
         assertTrue(ingredientCard.equals(ingredientCard));
 
         // null -> returns false
-        assertFalse(ingredientCard == null);
+        assertFalse(ingredientCard.equals(null));
 
         // different types -> returns false
         assertFalse(ingredientCard.equals(0));
@@ -49,7 +49,7 @@ public class IngredientCardTest extends GuiUnitTest {
     }
 
     /**
-     * Asserts that {@code staffCard} displays the details of {@code expectedIngredient} correctly and matches
+     * Asserts that {@code ingredientCard} displays the details of {@code expectedIngredient} correctly and matches
      * {@code expectedId}.
      */
     private void assertCardDisplay(IngredientCard ingredientCard, Ingredient expectedIngredient, int expectedId) {
@@ -60,7 +60,7 @@ public class IngredientCardTest extends GuiUnitTest {
         // verify id is displayed correctly
         assertEquals(Integer.toString(expectedId) + ". ", ingredientCardHandle.getId());
 
-        // verify staff details are displayed correctly
+        // verify ingredient details are displayed correctly
         assertCardDisplaysIngredient(expectedIngredient, ingredientCardHandle);
     }
 }
