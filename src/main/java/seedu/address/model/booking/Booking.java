@@ -1,7 +1,6 @@
 package seedu.address.model.booking;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import seedu.address.model.Item;
 import seedu.address.model.person.Member;
@@ -12,7 +11,7 @@ import seedu.address.model.person.Member;
 public class Booking implements Item, Comparable<Booking> {
     public static final int MAX_BOOKING_SIZE = 100;
 
-    private BookingWindow bookingWindow; // TODO: make sure the member card displays the right things
+    private BookingWindow bookingWindow;
     private Member customer;
     private int numMembers;
 
@@ -36,8 +35,12 @@ public class Booking implements Item, Comparable<Booking> {
         return customer;
     }
 
-    public Date getStartTime() {
+    public LocalDateTime getStartTime() {
         return bookingWindow.getStartTime();
+    }
+
+    public String getStartTimeString() {
+        return bookingWindow.getStartTime().toString();
     }
 
     public int getNumMembers() {
@@ -63,9 +66,8 @@ public class Booking implements Item, Comparable<Booking> {
 
     @Override
     public String toString() {
-        SimpleDateFormat sdf = new SimpleDateFormat("EEE yyyy-MM-dd HH:mm");
-        return "Customer: " + customer.getName().toString() + " " + customer.getPhone().toString() + " Time: "
-                + bookingWindow.toString() + " Members: " + numMembers;
+        return "Customer: " + customer.getName().toString() + " " + customer.getPhone().toString() + "  Start Time: "
+                + getStartTimeString() + " Members: " + numMembers;
     }
 
     @Override

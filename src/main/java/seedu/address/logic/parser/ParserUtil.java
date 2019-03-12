@@ -2,9 +2,6 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -148,21 +145,6 @@ public class ParserUtil {
             throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS_INGREDIENTUNIT);
         }
         return unit;
-    }
-
-    /**
-     * Creates a new Date object that parses the time. Uses the yyyy-MM-dd HH:mm format.
-     * For example, 2011-12-03 10:15
-     * @param time
-     * @return
-     */
-    public static Date parseTime(String time) throws ParseException {
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-            return sdf.parse(time);
-        } catch (java.text.ParseException e) {
-            throw new ParseException("Please follow the time format of yyyy-MM-dd HH:mm");
-        }
     }
 
     /**
