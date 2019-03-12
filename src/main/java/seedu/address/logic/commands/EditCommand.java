@@ -16,7 +16,6 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.LoyaltyPoints;
 import seedu.address.model.person.Member;
@@ -128,7 +127,6 @@ public class EditCommand extends Command {
         private Name name;
         private Phone phone;
         private Email email;
-        private Address address;
         private LoyaltyPoints loyaltyPoints;
 
         public EditMemberDescriptor() {}
@@ -141,7 +139,6 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
-            setAddress(toCopy.address);
             setLoyaltyPoints(toCopy.loyaltyPoints);
         }
 
@@ -149,7 +146,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, loyaltyPoints);
+            return CollectionUtil.isAnyNonNull(name, phone, email, loyaltyPoints);
         }
 
         public void setName(Name name) {
@@ -182,10 +179,6 @@ public class EditCommand extends Command {
 
         public Optional<LoyaltyPoints> getLoyaltyPoints() {
             return Optional.ofNullable(loyaltyPoints);
-        }
-
-        public void setAddress(Address address) {
-            this.address = address;
         }
 
         @Override
