@@ -73,7 +73,7 @@ public class GuiTestAssert {
     public static void assertCardDisplaysIngredient(Ingredient expectedIngredient, IngredientCardHandle actualCard) {
         assertEquals(expectedIngredient.getIngredientName(), actualCard.getName());
         assertEquals(expectedIngredient.getIngredientUnit(), actualCard.getUnit());
-        assertEquals(expectedIngredient.getIngredientQuantity(), actualCard.getQuantity());
+        assertEquals(Integer.toString(expectedIngredient.getIngredientQuantity()), actualCard.getQuantity());
     }
 
     /**
