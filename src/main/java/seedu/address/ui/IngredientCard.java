@@ -39,8 +39,8 @@ public class IngredientCard extends UiPart<Region> {
         this.ingredient = ingredient;
         id.setText(displayedIndex + ". ");
         name.setText(ingredient.getIngredientName());
-        quantity.setText("Quantity: " + Integer.toString(ingredient.getIngredientQuantity()));
-        unit.setText("Standard unit: " + ingredient.getIngredientUnit());
+        quantity.setText(Integer.toString(ingredient.getIngredientQuantity()));
+        unit.setText(ingredient.getIngredientUnit());
     }
 
     @Override
