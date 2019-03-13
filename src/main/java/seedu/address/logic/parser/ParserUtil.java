@@ -169,7 +169,7 @@ public class ParserUtil {
         requireNonNull(bookingSize);
         String trimmedBookingSize = bookingSize.trim();
         try {
-            return new BookingSize(bookingSize);
+            return new BookingSize(trimmedBookingSize);
         } catch (IllegalArgumentException e) {
             throw new ParseException(BookingSize.MESSAGE_CONSTRAINTS);
         }
