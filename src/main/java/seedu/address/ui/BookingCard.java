@@ -41,7 +41,7 @@ public class BookingCard extends UiPart<Region> {
         this.booking = booking;
         id.setText(displayedIndex + ". ");
         name.setText(booking.getCustomer().getName().toString());
-        numMembers.setText("(" + booking.getNumMembers() + " person(s))");
+        numMembers.setText("(" + booking.getNumMembers().getSize() + " person(s))");
         phone.setText(booking.getCustomer().getPhone().toString());
         date.setText(booking.getStartTimeString());
     }

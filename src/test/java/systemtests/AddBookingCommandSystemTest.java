@@ -22,6 +22,7 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.booking.Booking;
+import seedu.address.model.booking.BookingSize;
 import seedu.address.model.booking.BookingWindow;
 import seedu.address.model.person.Member;
 import seedu.address.model.person.Phone;
@@ -49,7 +50,7 @@ public class AddBookingCommandSystemTest extends RestaurantBookSystemTest {
             final BookingWindow startTime1400 = ParserUtil.parseBookingWindow(startTimeString1400);
 
             String commandString = BookingUtil.getAddBookingCommand(startTimeString1430, Index.fromOneBased(1), 5);
-            Booking aliceBooking = new Booking(startTime1430, ALICE, 5);
+            Booking aliceBooking = new Booking(startTime1430, ALICE, new BookingSize(5));
             expectedBookingList = Arrays.asList(aliceBooking);
 
             // Add first booking, should pass
@@ -59,7 +60,7 @@ public class AddBookingCommandSystemTest extends RestaurantBookSystemTest {
             assertCommandFailure(commandString, model, commandHistory);
 
             commandString = BookingUtil.getAddBookingCommand("2019-02-23T14:00", Index.fromOneBased(1), 5);
-            Booking alice1400 = new Booking(startTime1400, ALICE, 5);
+            Booking alice1400 = new Booking(startTime1400, ALICE, new BookingSize(5));
             expectedBookingList = Arrays.asList(alice1400, aliceBooking);
 
             // Add booking at different time, booking should be added
@@ -70,8 +71,8 @@ public class AddBookingCommandSystemTest extends RestaurantBookSystemTest {
             String editCommandString = " 1 " + PREFIX_PHONE + modifiedAlice.getPhone().toString();
             Command editCommand = new EditCommandParser().parse(editCommandString);
             editCommand.execute(model, commandHistory);
-            Booking modifiedAlice1400 = new Booking(startTime1400, modifiedAlice, 5);
-            Booking modifiedAliceBooking = new Booking(startTime1430, modifiedAlice, 5);
+            Booking modifiedAlice1400 = new Booking(startTime1400, modifiedAlice, new BookingSize(5));
+            Booking modifiedAliceBooking = new Booking(startTime1430, modifiedAlice, new BookingSize(5));
             expectedBookingList = Arrays.asList(modifiedAlice1400, modifiedAliceBooking);
 
             // Modify Alice's phone number, booking list should be updated accordingly
