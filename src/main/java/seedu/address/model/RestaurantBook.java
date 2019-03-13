@@ -22,7 +22,7 @@ import seedu.address.model.person.Staff;
  */
 public class RestaurantBook implements ReadOnlyRestaurantBook {
 
-    private static final int DEFAULT_CAPACITY = 200;
+    private static final Capacity DEFAULT_CAPACITY = new Capacity(200);
 
     private final UniqueItemList<Member> members;
     private final UniqueItemList<Booking> bookings;
@@ -30,7 +30,7 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
     private final UniqueItemList<Staff> staff;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
-    private int capacity = DEFAULT_CAPACITY;
+    private Capacity capacity = DEFAULT_CAPACITY;
 
         /*
         * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -203,14 +203,14 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
      * Returns the capacity of the restaurant.
      */
     @Override
-    public int getCapacity() {
+    public Capacity getCapacity() {
         return capacity;
     }
 
     /**
      * Sets the capacity of the restaurant.
      */
-    public void setCapacity(int newCapacity) {
+    public void setCapacity(Capacity newCapacity) {
         capacity = newCapacity; // TODO : check that this does not cause size to be too small
     }
 

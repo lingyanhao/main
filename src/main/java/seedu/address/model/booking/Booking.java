@@ -65,7 +65,7 @@ public class Booking implements Item, Comparable<Booking> {
     @Override
     public String toString() {
         return "Customer: " + customer.getName().toString() + " " + customer.getPhone().toString() + "  Start Time: "
-                + getStartTimeString() + " Members: " + numMembers;
+                + getStartTimeString() + " Members: " + numMembers.getSize();
     }
 
     @Override

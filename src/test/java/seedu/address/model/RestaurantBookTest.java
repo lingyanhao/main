@@ -143,7 +143,7 @@ public class RestaurantBookTest {
         }
 
         @Override
-        public int getCapacity() {
+        public Capacity getCapacity() {
             throw new AssertionError("This method should not be called.");
         }
     }

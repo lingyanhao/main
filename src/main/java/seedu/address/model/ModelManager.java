@@ -144,7 +144,7 @@ public class ModelManager implements Model {
      * Gets the capacity of the restaurant.
      */
     @Override
-    public int getCapacity() {
+    public Capacity getCapacity() {
         return versionedRestaurantBook.getCapacity();
     }
 
@@ -152,7 +152,7 @@ public class ModelManager implements Model {
      * Sets the capacity of the restaurant.
      */
     @Override
-    public void setCapacity(int newCapacity) {
+    public void setCapacity(Capacity newCapacity) {
         versionedRestaurantBook.setCapacity(newCapacity);
     }
 

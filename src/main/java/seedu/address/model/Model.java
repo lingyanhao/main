@@ -131,12 +131,12 @@ public interface Model {
     /**
      * Gets the capacity of the restaurant.
      */
-    int getCapacity();
+    Capacity getCapacity();
 
     /**
      * Sets the capacity of the restaurant.
      */
-    void setCapacity(int newCapacity);
+    void setCapacity(Capacity newCapacity);
 
 
 }
