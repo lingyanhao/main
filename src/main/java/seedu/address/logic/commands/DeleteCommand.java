@@ -42,7 +42,7 @@ public class DeleteCommand extends Command {
         }
 
         Member memberToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteItem(memberToDelete);
+        model.deleteMember(memberToDelete);
         model.commitRestaurantBook();
         return new CommandResult(String.format(MESSAGE_DELETE_MEMBER_SUCCESS, memberToDelete));
     }

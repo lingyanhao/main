@@ -37,7 +37,7 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_MEMBER_SUCCESS, memberToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getRestaurantBook(), new UserPrefs());
-        expectedModel.deleteItem(memberToDelete);
+        expectedModel.deleteMember(memberToDelete);
         expectedModel.commitRestaurantBook();
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -61,7 +61,7 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_MEMBER_SUCCESS, memberToDelete);
 
         Model expectedModel = new ModelManager(model.getRestaurantBook(), new UserPrefs());
-        expectedModel.deleteItem(memberToDelete);
+        expectedModel.deleteMember(memberToDelete);
         expectedModel.commitRestaurantBook();
         showNoMember(expectedModel);
 
@@ -86,7 +86,7 @@ public class DeleteCommandTest {
         Member memberToDelete = model.getFilteredItemList(Member.class).get(INDEX_FIRST_MEMBER.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_MEMBER);
         Model expectedModel = new ModelManager(model.getRestaurantBook(), new UserPrefs());
-        expectedModel.deleteItem(memberToDelete);
+        expectedModel.deleteMember(memberToDelete);
         expectedModel.commitRestaurantBook();
 
         // delete -> first member deleted
@@ -128,7 +128,7 @@ public class DeleteCommandTest {
 
         showMemberAtIndex(model, INDEX_SECOND_MEMBER);
         Member memberToDelete = model.getFilteredItemList(Member.class).get(INDEX_FIRST_MEMBER.getZeroBased());
-        expectedModel.deleteItem(memberToDelete);
+        expectedModel.deleteMember(memberToDelete);
         expectedModel.commitRestaurantBook();
 
         // delete -> deletes second member in unfiltered member list / first member in filtered member list

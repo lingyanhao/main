@@ -106,7 +106,7 @@ public class ModelManagerTest {
     public void deleteMember_memberIsSelectedAndFirstMemberInFilteredMemberList_selectionCleared() {
         modelManager.addItem(ALICE);
         modelManager.setSelectedItem(ALICE, Member.class);
-        modelManager.deleteItem(ALICE);
+        modelManager.deleteMember(ALICE);
         assertEquals(null, modelManager.getSelectedItem(Member.class));
     }
 
@@ -116,7 +116,7 @@ public class ModelManagerTest {
         modelManager.addItem(BOB);
         assertEquals(Arrays.asList(ALICE, BOB), modelManager.getFilteredItemList(Member.class));
         modelManager.setSelectedItem(BOB, Member.class);
-        modelManager.deleteItem(BOB);
+        modelManager.deleteMember(BOB);
         assertEquals(ALICE, modelManager.getSelectedItem(Member.class));
     }
 

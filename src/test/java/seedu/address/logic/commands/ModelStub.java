@@ -86,7 +86,22 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void deleteItem(Item target) {
+    public void deleteMember(Member target) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteBooking(Booking target) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteIngredient(Ingredient target) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteStaff(Staff target) {
         throw new AssertionError("This method should not be called.");
     }
 

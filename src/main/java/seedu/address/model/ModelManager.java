@@ -138,7 +138,25 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deleteItem(Item target) {
+    public void deleteMember(Member target) {
+        requireNonNull(target);
+        versionedRestaurantBook.removeItem(target);
+    }
+
+    @Override
+    public void deleteBooking(Booking target) {
+        requireNonNull(target);
+        versionedRestaurantBook.removeItem(target);
+    }
+
+    @Override
+    public void deleteIngredient(Ingredient target) {
+        requireNonNull(target);
+        versionedRestaurantBook.removeItem(target);
+    }
+
+    @Override
+    public void deleteStaff(Staff target) {
         requireNonNull(target);
         versionedRestaurantBook.removeItem(target);
     }

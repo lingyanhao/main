@@ -7,4 +7,10 @@ public interface BookingModel {
      * Returns true if a booking with the same identity as {@code booking} exists in the restaurant book.
      */
     boolean hasBooking(Booking booking);
+
+    /**
+     * Deletes the given item.
+     * The item must exist in the restaurant book.
+     */
+    void deleteBooking(Booking target);
 }

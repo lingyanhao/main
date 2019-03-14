@@ -113,7 +113,7 @@ public class DeleteCommandSystemTest extends RestaurantBookSystemTest {
      */
     private Member removeMember(Model model, Index index) {
         Member targetMember = getMember(model, index);
-        model.deleteItem(targetMember);
+        model.deleteMember(targetMember);
         return targetMember;
     }
 

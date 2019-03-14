@@ -184,7 +184,7 @@ public class CommandTestUtil {
      */
     public static void deleteFirstMember(Model model) {
         Member firstMember = model.getFilteredItemList(Member.class).get(0);
-        model.deleteItem(firstMember);
+        model.deleteMember(firstMember);
         model.commitRestaurantBook();
     }
 

@@ -107,7 +107,7 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
         capacity = newData.getCapacity();
     }
 
-    //// member-level operations
+    //// item-level operations
 
     /**
      * Returns true if a member with the same identity as {@code member} exists in the restaurant book.

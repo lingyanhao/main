@@ -56,12 +56,7 @@ public class AddBookingCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory commandHistory) throws CommandException {
         Booking toAdd = getBooking(model);
-        if (model.hasBooking(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_BOOKING);
-        }
-        model.addItem(toAdd);
-        model.commitRestaurantBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS_BOOKING, toAdd));
+        return new ProcessedAddBookingCommand(toAdd).execute(model, commandHistory);
     }
 
     private Booking getBooking(Model model) throws CommandException {
