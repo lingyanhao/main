@@ -12,10 +12,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.add.AddBookingCommand;
-import seedu.address.logic.commands.add.ProcessedAddBookingCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ModelStub;
+import seedu.address.logic.commands.add.AddBookingCommand;
+import seedu.address.logic.commands.add.ProcessedAddBookingCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyRestaurantBook;
