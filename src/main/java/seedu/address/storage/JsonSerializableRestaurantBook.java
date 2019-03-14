@@ -59,13 +59,13 @@ class JsonSerializableRestaurantBook {
      */
     public JsonSerializableRestaurantBook(ReadOnlyRestaurantBook source) {
 
-        members.addAll(source.getItemList(Member.class).stream()
+        members.addAll(source.getMemberList().stream()
                 .map(JsonAdaptedMember::new).collect(Collectors.toList()));
-        ingredients.addAll(source.getItemList(Ingredient.class).stream()
+        ingredients.addAll(source.getIngredientList().stream()
                 .map(JsonAdaptedIngredient::new).collect(Collectors.toList()));
-        staff.addAll(source.getItemList(Staff.class).stream()
+        staff.addAll(source.getStaffList().stream()
                 .map(JsonAdaptedStaff::new).collect(Collectors.toList()));
-        bookings.addAll(source.getItemList(Booking.class).stream()
+        bookings.addAll(source.getBookingList().stream()
                 .map(JsonAdaptedBooking::new).collect(Collectors.toList()));
         intCapacity = source.getCapacity().getValue();
 

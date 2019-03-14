@@ -41,7 +41,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicateMember_throwsCommandException() {
-        Member memberInList = model.getRestaurantBook().getItemList(Member.class).get(0);
+        Member memberInList = model.getRestaurantBook().getMemberList().get(0);
         assertCommandFailure(new AddCommand(memberInList), model, commandHistory,
                 AddCommand.MESSAGE_DUPLICATE_MEMBER);
     }

@@ -20,7 +20,9 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.booking.Booking;
+import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Member;
+import seedu.address.model.person.Staff;
 import seedu.address.model.person.exceptions.DuplicateItemException;
 import seedu.address.testutil.MemberBuilder;
 
@@ -33,7 +35,7 @@ public class RestaurantBookTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), restaurantBook.getItemList(Member.class));
+        assertEquals(Collections.emptyList(), restaurantBook.getMemberList());
     }
 
     @Test
@@ -87,7 +89,7 @@ public class RestaurantBookTest {
     @Test
     public void getMemberList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        restaurantBook.getItemList(Member.class).remove(0);
+        restaurantBook.getMemberList().remove(0);
     }
 
     @Test
@@ -114,22 +116,29 @@ public class RestaurantBookTest {
      */
     private static class RestaurantBookStub implements ReadOnlyRestaurantBook {
         private final ObservableList<Member> members = FXCollections.observableArrayList();
-        private final ObservableList<Booking> bookings = FXCollections.observableArrayList();
 
         RestaurantBookStub(Collection<Member> members) {
             this.members.setAll(members);
         }
 
         @Override
-        public <T extends Item> ObservableList<T> getItemList(Class<T> clazz) {
+        public ObservableList<Member> getMemberList() {
+            return members;
+        }
 
-            if (clazz == Member.class) {
-                return (ObservableList<T>) members;
-            } else if (clazz == Booking.class) {
-                return (ObservableList<T>) bookings;
-            } else {
-                throw new AssertionError("This should not happen.");
-            }
+        @Override
+        public ObservableList<Booking> getBookingList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Ingredient> getIngredientList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Staff> getStaffList() {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override

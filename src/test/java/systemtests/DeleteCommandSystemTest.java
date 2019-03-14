@@ -67,7 +67,7 @@ public class DeleteCommandSystemTest extends RestaurantBookSystemTest {
          * -> rejected
          */
         showMembersWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getRestaurantBook().getItemList(Member.class).size();
+        int invalidIndex = getModel().getRestaurantBook().getMemberList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_MEMBER_DISPLAYED_INDEX);
 
@@ -96,7 +96,7 @@ public class DeleteCommandSystemTest extends RestaurantBookSystemTest {
 
         /* Case: invalid index (size + 1) -> rejected */
         Index outOfBoundsIndex = Index.fromOneBased(
-                getModel().getRestaurantBook().getItemList(Member.class).size() + 1);
+                getModel().getRestaurantBook().getMemberList().size() + 1);
         command = DeleteCommand.COMMAND_WORD + " " + outOfBoundsIndex.getOneBased();
         assertCommandFailure(command, MESSAGE_INVALID_MEMBER_DISPLAYED_INDEX);
 

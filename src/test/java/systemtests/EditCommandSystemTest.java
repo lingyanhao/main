@@ -76,7 +76,7 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
         assertCommandSuccess(command, index, BOB);
 
         /* Case: edit a member with new values same as another member's values but with different name -> edited */
-        assertTrue(getModel().getRestaurantBook().getItemList(Member.class).contains(BOB));
+        assertTrue(getModel().getRestaurantBook().getMemberList().contains(BOB));
         index = INDEX_SECOND_MEMBER;
         assertNotEquals(getModel().getFilteredItemList(Member.class).get(index.getZeroBased()), BOB);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + MEMBER_NAME_DESC_AMY + MEMBER_PHONE_DESC_BOB
@@ -116,7 +116,7 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
          * -> rejected
          */
         showMembersWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getRestaurantBook().getItemList(Member.class).size();
+        int invalidIndex = getModel().getRestaurantBook().getMemberList().size();
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + MEMBER_NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_MEMBER_DISPLAYED_INDEX);
 
@@ -174,7 +174,7 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
 
         /* Case: edit a member with new values same as another member's values -> rejected */
         executeCommand(MemberUtil.getAddCommand(BOB));
-        assertTrue(getModel().getRestaurantBook().getItemList(Member.class).contains(BOB));
+        assertTrue(getModel().getRestaurantBook().getMemberList().contains(BOB));
         index = INDEX_FIRST_MEMBER;
         assertFalse(getModel().getFilteredItemList(Member.class).get(index.getZeroBased()).equals(BOB));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + MEMBER_NAME_DESC_BOB + MEMBER_PHONE_DESC_BOB

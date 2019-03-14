@@ -120,7 +120,7 @@ public class EditCommandTest {
 
         // edit member in filtered list into a duplicate in address book
         Member memberInList =
-                model.getRestaurantBook().getItemList(Member.class).get(INDEX_SECOND_MEMBER.getZeroBased());
+                model.getRestaurantBook().getMemberList().get(INDEX_SECOND_MEMBER.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_MEMBER,
                 new EditMemberDescriptorBuilder(memberInList).build());
 
@@ -145,7 +145,7 @@ public class EditCommandTest {
         showMemberAtIndex(model, INDEX_FIRST_MEMBER);
         Index outOfBoundIndex = INDEX_SECOND_MEMBER;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getRestaurantBook().getItemList(Member.class).size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getRestaurantBook().getMemberList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditMemberDescriptorBuilder().withName(MEMBER_VALID_NAME_BOB).build());

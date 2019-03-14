@@ -52,14 +52,14 @@ public class ModelManager implements Model {
 
         versionedRestaurantBook = new VersionedRestaurantBook(restaurantBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredMembers = new FilteredList<>(versionedRestaurantBook.getItemList(Member.class));
+        filteredMembers = new FilteredList<>(versionedRestaurantBook.getMemberList());
         filteredMembers.addListener(this::ensureSelectedMemberIsValid);
 
-        filteredBookings = new FilteredList<>(versionedRestaurantBook.getItemList(Booking.class));
+        filteredBookings = new FilteredList<>(versionedRestaurantBook.getBookingList());
 
-        filteredIngredients = new FilteredList<>(versionedRestaurantBook.getItemList(Ingredient.class));
+        filteredIngredients = new FilteredList<>(versionedRestaurantBook.getIngredientList());
 
-        filteredStaff = new FilteredList<>(versionedRestaurantBook.getItemList(Staff.class));
+        filteredStaff = new FilteredList<>(versionedRestaurantBook.getStaffList());
     }
 
     public ModelManager() {

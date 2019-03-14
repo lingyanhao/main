@@ -78,7 +78,7 @@ public class FindCommandSystemTest extends RestaurantBookSystemTest {
 
         /* Case: find same members in address book after deleting 1 of them -> 1 member found */
         executeCommand(DeleteCommand.COMMAND_WORD + " 1");
-        assertFalse(getModel().getRestaurantBook().getItemList(Member.class).contains(BENSON));
+        assertFalse(getModel().getRestaurantBook().getMemberList().contains(BENSON));
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
         expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, DANIEL);

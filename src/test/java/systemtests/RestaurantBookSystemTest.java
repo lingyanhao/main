@@ -126,7 +126,7 @@ public abstract class RestaurantBookSystemTest {
      */
     protected void showAllMembers() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getRestaurantBook().getItemList(Member.class).size(),
+        assertEquals(getModel().getRestaurantBook().getMemberList().size(),
                 getModel().getFilteredItemList(Member.class).size());
     }
 
@@ -136,7 +136,7 @@ public abstract class RestaurantBookSystemTest {
     protected void showMembersWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
         assertTrue(getModel().getFilteredItemList(Member.class).size()
-                < getModel().getRestaurantBook().getItemList(Member.class).size());
+                < getModel().getRestaurantBook().getMemberList().size());
     }
 
     /**
@@ -152,7 +152,7 @@ public abstract class RestaurantBookSystemTest {
      */
     protected void deleteAllMembers() {
         executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getRestaurantBook().getItemList(Member.class).size());
+        assertEquals(0, getModel().getRestaurantBook().getMemberList().size());
     }
 
     /**

@@ -100,10 +100,10 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
     public void resetData(ReadOnlyRestaurantBook newData) {
         requireNonNull(newData);
 
-        setMembers(newData.getItemList(Member.class));
-        setBooking(newData.getItemList(Booking.class));
-        setIngredients(newData.getItemList(Ingredient.class));
-        setStaff(newData.getItemList(Staff.class));
+        setMembers(newData.getMemberList());
+        setBooking(newData.getBookingList());
+        setIngredients(newData.getIngredientList());
+        setStaff(newData.getStaffList());
         capacity = newData.getCapacity();
     }
 
@@ -240,18 +240,23 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
     }
 
     @Override
-    public <T extends Item> ObservableList<T> getItemList(Class<T> clazz) {
-        if (clazz == Member.class) {
-            return (ObservableList<T>) members.asUnmodifiableObservableList();
-        } else if (clazz == Booking.class) {
-            return (ObservableList<T>) bookings.asUnmodifiableObservableList();
-        } else if (clazz == Ingredient.class) {
-            return (ObservableList<T>) ingredients.asUnmodifiableObservableList();
-        } else if (clazz == Staff.class) {
-            return (ObservableList<T>) staff.asUnmodifiableObservableList();
-        } else {
-            throw new IllegalArgumentException("Item type not recognised.");
-        }
+    public ObservableList<Member> getMemberList() {
+        return members.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Booking> getBookingList() {
+        return bookings.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Ingredient> getIngredientList() {
+        return ingredients.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Staff> getStaffList() {
+        return staff.asUnmodifiableObservableList();
     }
 
     @Override
