@@ -12,10 +12,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.add.AddBookingCommand;
 import seedu.address.logic.commands.add.ProcessedAddBookingCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ModelStub;
-import seedu.address.logic.commands.add.AddBookingCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyRestaurantBook;
@@ -70,16 +70,20 @@ public class ProcessedAddBookingCommandTest {
         Member modifiedEmailAlice = new MemberBuilder().withEmail("modified@example.com").build();
         Member bob = new MemberBuilder().withName("Bob").build();
         try {
-            ProcessedAddBookingCommand defaultBookingCommand = new ProcessedAddBookingCommand(new BookingBuilder().build());
-            ProcessedAddBookingCommand duplicateDefaultBookingCommand = new ProcessedAddBookingCommand(new BookingBuilder().build());
-            ProcessedAddBookingCommand bobBookingCommand = new ProcessedAddBookingCommand(new BookingBuilder().withCustomer(bob).build());
+            ProcessedAddBookingCommand defaultBookingCommand =
+                    new ProcessedAddBookingCommand(new BookingBuilder().build());
+            ProcessedAddBookingCommand duplicateDefaultBookingCommand =
+                    new ProcessedAddBookingCommand(new BookingBuilder().build());
+            ProcessedAddBookingCommand bobBookingCommand =
+                    new ProcessedAddBookingCommand(new BookingBuilder().withCustomer(bob).build());
             ProcessedAddBookingCommand modifiedPhoneBookingCommand =
                     new ProcessedAddBookingCommand(new BookingBuilder().withCustomer(modifiedPhoneAlice).build());
             ProcessedAddBookingCommand modifiedEmailBookingCommand =
                     new ProcessedAddBookingCommand(new BookingBuilder().withCustomer(modifiedEmailAlice).build());
             ProcessedAddBookingCommand changeDateBookingCommand =
                     new ProcessedAddBookingCommand(new BookingBuilder().withDate("2019-02-24T14:30").build());
-            ProcessedAddBookingCommand changeNumPersonsBookingCommand = new ProcessedAddBookingCommand(new BookingBuilder().withNumPersons(2).build());
+            ProcessedAddBookingCommand changeNumPersonsBookingCommand =
+                    new ProcessedAddBookingCommand(new BookingBuilder().withNumPersons(2).build());
 
             // same object -> equal
             assertEquals(defaultBookingCommand, defaultBookingCommand);

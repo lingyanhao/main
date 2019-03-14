@@ -17,7 +17,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ModelStub;
 import seedu.address.logic.commands.add.AddIngredientCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Item;
 import seedu.address.model.ReadOnlyRestaurantBook;
 import seedu.address.model.RestaurantBook;
 import seedu.address.model.ingredient.Ingredient;
