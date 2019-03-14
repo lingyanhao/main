@@ -13,20 +13,20 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Member;
 
 public class AddMemberCommand extends Command {
-    public static final String COMMAND_WORD_MEMBER = "addmember"; // make sure that this is in lower case
-    public static final String COMMAND_ALIAS_MEMBER = "am";
+    public static final String COMMAND_WORD = "addmember"; // make sure that this is in lower case
+    public static final String COMMAND_ALIAS = "am";
 
-    public static final String MESSAGE_USAGE_MEMBER = COMMAND_WORD_MEMBER + ": Adds a member to the restaurant book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a member to the restaurant book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL\n"
-            + "Example: " + COMMAND_WORD_MEMBER + " "
+            + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com ";
 
-    public static final String MESSAGE_SUCCESS_MEMBER = "New member added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New member added: %1$s";
     public static final String MESSAGE_DUPLICATE_MEMBER = "This member already exists in the restaurant book";
 
     private Member toAdd;
@@ -47,7 +47,7 @@ public class AddMemberCommand extends Command {
 
         model.addMember(toAdd);
         model.commitRestaurantBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS_MEMBER, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     @Override

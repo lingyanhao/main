@@ -18,7 +18,6 @@ import seedu.address.logic.commands.ModelStub;
 import seedu.address.logic.commands.add.AddBookingCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Item;
 import seedu.address.model.ReadOnlyRestaurantBook;
 import seedu.address.model.RestaurantBook;
 import seedu.address.model.booking.Booking;
@@ -48,7 +47,7 @@ public class ProcessedAddBookingCommandTest {
 
         CommandResult commandResult = new ProcessedAddBookingCommand(validBooking).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddBookingCommand.MESSAGE_SUCCESS_BOOKING, validBooking),
+        assertEquals(String.format(AddBookingCommand.MESSAGE_SUCCESS, validBooking),
                 commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validBooking), modelStub.bookingsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
@@ -61,7 +60,7 @@ public class ProcessedAddBookingCommandTest {
         ModelStub modelStub = new ModelStubWithBooking(validBooking);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddBookingCommand.MESSAGE_DUPLICATE_BOOKING);
+        thrown.expectMessage(AddBookingCommand.MESSAGE_DUPLICATE);
         processedAddBookingCommand.execute(modelStub, commandHistory);
     }
 

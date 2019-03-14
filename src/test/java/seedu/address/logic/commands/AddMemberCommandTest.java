@@ -15,7 +15,6 @@ import org.junit.rules.ExpectedException;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.add.AddMemberCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Item;
 import seedu.address.model.ReadOnlyRestaurantBook;
 import seedu.address.model.RestaurantBook;
 import seedu.address.model.person.Member;
@@ -43,7 +42,7 @@ public class AddMemberCommandTest {
 
         CommandResult commandResult = new AddMemberCommand(validMember).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddMemberCommand.MESSAGE_SUCCESS_MEMBER, validMember), commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddMemberCommand.MESSAGE_SUCCESS, validMember), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validMember), modelStub.membersAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }

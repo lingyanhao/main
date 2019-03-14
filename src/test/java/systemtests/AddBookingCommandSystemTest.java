@@ -1,7 +1,7 @@
 package systemtests;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.logic.commands.add.AddBookingCommand.MESSAGE_DUPLICATE_BOOKING;
+import static seedu.address.logic.commands.add.AddBookingCommand.MESSAGE_DUPLICATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.testutil.TypicalMembers.ALICE;
 
@@ -121,7 +121,7 @@ public class AddBookingCommandSystemTest extends RestaurantBookSystemTest {
             command.execute(model, commandHistory);
             throw new AssertionError("Execution should throw CommandException.");
         } catch (CommandException e) {
-            assertEquals(MESSAGE_DUPLICATE_BOOKING, e.getMessage());
+            assertEquals(MESSAGE_DUPLICATE, e.getMessage());
         } catch (ParseException e) {
             throw new AssertionError("Parsing should not fail.");
         }

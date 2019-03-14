@@ -18,14 +18,14 @@ public class StaffUtil {
      * Returns an add command string for adding the {@code staff}.
      */
     public static String getAddCommand(Staff staff) {
-        return AddStaffCommand.COMMAND_WORD_STAFF + " " + getStaffDetails(staff);
+        return AddStaffCommand.COMMAND_WORD + " " + getStaffDetails(staff);
     }
 
     /**
      * Returns an add command string for adding the {@code staff}, using the command alias.
      */
     public static String getAddCommandAlias(Staff staff) {
-        return AddStaffCommand.COMMAND_ALIAS_STAFF + " " + getStaffDetails(staff);
+        return AddStaffCommand.COMMAND_ALIAS + " " + getStaffDetails(staff);
     }
 
     /**

@@ -20,28 +20,26 @@ import seedu.address.model.booking.BookingWindow;
 import seedu.address.model.person.Member;
 
 /**
- * A command that stores the details of adding a booking.
- * As the Booking object depends on the model to extract the customer, it
- * cannot be stored in the same way as the ProcessedAddBookingCommand class with the item completely constructed
- * before execution.
+ * A command that adds a booking to the restaurant book.
+ * This command is used when only the customer's index but not the full details are known.
  */
 public class AddBookingCommand extends Command {
 
-    public static final String COMMAND_WORD_BOOKING = "addbooking"; // make sure that this is in lower case
-    public static final String COMMAND_ALIAS_BOOKING = "ab";
+    public static final String COMMAND_WORD = "addbooking"; // make sure that this is in lower case
+    public static final String COMMAND_ALIAS = "ab";
 
-    public static final String MESSAGE_USAGE_BOOKING = COMMAND_WORD_BOOKING + ": Adds a booking to the restaurant."
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a booking to the restaurant."
             + "Parameters: "
             + PREFIX_CUSTOMER + "CUSTOMER "
             + PREFIX_START_TIME + "START_TIME "
             + PREFIX_NUMBER_PERSONS + "NUMBER_OF_PERSONS\n"
-            + "Example: " + COMMAND_WORD_BOOKING + " "
+            + "Example: " + COMMAND_WORD + " "
             + PREFIX_CUSTOMER + "1 "
             + PREFIX_START_TIME + "2019-02-23T14:30 "
             + PREFIX_NUMBER_PERSONS + "3";
 
-    public static final String MESSAGE_SUCCESS_BOOKING = "New booking added: %1$s";
-    public static final String MESSAGE_DUPLICATE_BOOKING = "Booking has already been made.";
+    public static final String MESSAGE_SUCCESS = "New booking added: %1$s";
+    public static final String MESSAGE_DUPLICATE = "Booking has already been made.";
 
     private final BookingWindow bookingWindow;
     private final Index memberIndex;

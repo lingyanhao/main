@@ -37,7 +37,7 @@ public class AddCommandIntegrationTest {
         expectedModel.commitRestaurantBook();
 
         assertCommandSuccess(new AddMemberCommand(validMember), model, commandHistory,
-                String.format(AddMemberCommand.MESSAGE_SUCCESS_MEMBER, validMember), expectedModel);
+                String.format(AddMemberCommand.MESSAGE_SUCCESS, validMember), expectedModel);
     }
 
     @Test

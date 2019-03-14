@@ -1,8 +1,8 @@
 package seedu.address.logic.commands.add;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.commands.add.AddBookingCommand.MESSAGE_DUPLICATE_BOOKING;
-import static seedu.address.logic.commands.add.AddBookingCommand.MESSAGE_SUCCESS_BOOKING;
+import static seedu.address.logic.commands.add.AddBookingCommand.MESSAGE_DUPLICATE;
+import static seedu.address.logic.commands.add.AddBookingCommand.MESSAGE_SUCCESS;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
@@ -12,7 +12,8 @@ import seedu.address.model.Model;
 import seedu.address.model.booking.Booking;
 
 /**
- * Adds an item to the restaurant book.
+ * Adds a booking with the booking already constructed.
+ * This command is used when the full details of the booking is known.
  */
 public class ProcessedAddBookingCommand extends Command {
 
@@ -31,12 +32,12 @@ public class ProcessedAddBookingCommand extends Command {
         requireNonNull(model);
 
         if (model.hasBooking(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_BOOKING);
+            throw new CommandException(MESSAGE_DUPLICATE);
         }
 
         model.addBooking(toAdd);
         model.commitRestaurantBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS_BOOKING, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     @Override

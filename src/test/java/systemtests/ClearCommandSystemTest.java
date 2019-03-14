@@ -54,7 +54,7 @@ public class ClearCommandSystemTest extends RestaurantBookSystemTest {
 
     /**
      * Executes {@code command} and verifies that the command box displays an empty string, the result display box
-     * displays {@code ClearCommand#MESSAGE_SUCCESS_MEMBER} and the model related components equal to an empty model.
+     * displays {@code ClearCommand#MESSAGE_SUCCESS} and the model related components equal to an empty model.
      * These verifications are done by
      * {@code RestaurantBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * Also verifies that the command box has the default style class and the status bar's sync status changes.

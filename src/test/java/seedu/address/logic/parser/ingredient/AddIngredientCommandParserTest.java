@@ -60,7 +60,7 @@ public class AddIngredientCommandParserTest {
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddIngredientCommand.MESSAGE_USAGE_INGREDIENT);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddIngredientCommand.MESSAGE_USAGE);
 
         // missing ingredientName
         assertParseFailure(parser, INGREDIENT_QUANTITY_DESC_CHEESE

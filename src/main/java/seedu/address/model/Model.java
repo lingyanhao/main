@@ -121,5 +121,4 @@ public interface Model extends MemberModel, BookingModel, IngredientModel, Staff
      */
     void setCapacity(Capacity newCapacity);
 
-
 }

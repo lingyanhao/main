@@ -18,14 +18,14 @@ public class MemberUtil {
      * Returns an add command string for adding the {@code member}.
      */
     public static String getAddCommand(Member member) {
-        return AddMemberCommand.COMMAND_WORD_MEMBER + " " + getMemberDetails(member);
+        return AddMemberCommand.COMMAND_WORD + " " + getMemberDetails(member);
     }
 
     /**
      * Returns an add command string for adding the {@code member}, using the command alias.
      */
     public static String getAddCommandAlias(Member member) {
-        return AddMemberCommand.COMMAND_ALIAS_MEMBER + " " + getMemberDetails(member);
+        return AddMemberCommand.COMMAND_ALIAS + " " + getMemberDetails(member);
     }
 
     /**

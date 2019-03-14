@@ -67,7 +67,7 @@ public class AddMemberCommandParserTest {
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMemberCommand.MESSAGE_USAGE_MEMBER);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMemberCommand.MESSAGE_USAGE);
 
         // missing name prefix
         assertParseFailure(parser, MEMBER_VALID_NAME_BOB + MEMBER_PHONE_DESC_BOB + MEMBER_EMAIL_DESC_BOB,
@@ -107,6 +107,6 @@ public class AddMemberCommandParserTest {
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + MEMBER_NAME_DESC_BOB
                         + MEMBER_PHONE_DESC_BOB + MEMBER_EMAIL_DESC_BOB,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMemberCommand.MESSAGE_USAGE_MEMBER));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMemberCommand.MESSAGE_USAGE));
     }
 }

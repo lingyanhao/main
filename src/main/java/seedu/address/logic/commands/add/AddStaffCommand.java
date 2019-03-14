@@ -14,16 +14,16 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Staff;
 
 public class AddStaffCommand extends Command {
-    public static final String COMMAND_WORD_STAFF = "addstaff";
-    public static final String COMMAND_ALIAS_STAFF = "sa";
+    public static final String COMMAND_WORD = "addstaff";
+    public static final String COMMAND_ALIAS = "sa";
 
-    public static final String MESSAGE_USAGE_STAFF = COMMAND_WORD_STAFF + ": Adds a staff to the restaurant. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a staff to the restaurant. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_APPOINTMENT + "APPOINTMENT\n"
-            + "Example: " + COMMAND_WORD_STAFF + " "
+            + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Jane Smith "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "jsmith@example.com "

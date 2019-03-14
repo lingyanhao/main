@@ -12,16 +12,19 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ingredient.Ingredient;
 
+/**
+ * A
+ */
 public class AddIngredientCommand extends Command {
-    public static final String COMMAND_WORD_INGREDIENT = "addingredient";
-    public static final String COMMAND_ALIAS_INGREDIENT = "ia";
+    public static final String COMMAND_WORD = "addingredient";
+    public static final String COMMAND_ALIAS = "ia";
 
-    public static final String MESSAGE_USAGE_INGREDIENT = COMMAND_WORD_INGREDIENT + ": Adds an ingredient to the book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an ingredient to the book. "
             + "Parameters: "
             + PREFIX_INGREDIENT_NAME + "INGREDIENT "
             + PREFIX_INGREDIENT_QUANTITY + "QUANTITY "
             + PREFIX_INGREDIENT_UNIT + "STANDARD_UNIT "
-            + "Example: " + COMMAND_WORD_INGREDIENT + " "
+            + "Example: " + COMMAND_WORD + " "
             + PREFIX_INGREDIENT_NAME + "cheese "
             + PREFIX_INGREDIENT_QUANTITY + "8 "
             + PREFIX_INGREDIENT_UNIT + "pounds";
