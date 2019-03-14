@@ -9,6 +9,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.add.AddBookingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.booking.BookingSize;
 import seedu.address.model.booking.BookingWindow;
 
 /**
@@ -31,15 +32,7 @@ public class AddBookingCommandParser {
 
         BookingWindow bookingWindow = ParserUtil.parseBookingWindow(argMultimap.getValue(PREFIX_START_TIME).get());
         Index memberIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_CUSTOMER).get());
-        int numMembers;
-        try {
-            numMembers = Integer.parseInt(argMultimap.getValue(PREFIX_NUMBER_PERSONS).get());
-        } catch (NumberFormatException e) {
-            throw new ParseException("Number of members must be a positive integer not more than 100.");
-        }
-        if (numMembers <= 0 || numMembers > 100) { // TODO: un-hardcode this string
-            throw new ParseException("Number of members must be a positive integer not more than 100.");
-        }
+        BookingSize numMembers = ParserUtil.parseBookingSize(argMultimap.getValue(PREFIX_NUMBER_PERSONS).get());
 
         return new AddBookingCommand(bookingWindow, memberIndex, numMembers);
     }

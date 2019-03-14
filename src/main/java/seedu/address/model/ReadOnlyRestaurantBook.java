@@ -17,5 +17,5 @@ public interface ReadOnlyRestaurantBook extends Observable {
     /**
      * Returns the capacity of the restaurant.
      */
-    int getCapacity();
+    Capacity getCapacity();
 }

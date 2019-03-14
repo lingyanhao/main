@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.Capacity;
 import seedu.address.model.ReadOnlyRestaurantBook;
 import seedu.address.model.RestaurantBook;
 import seedu.address.model.booking.Booking;
@@ -32,7 +33,7 @@ class JsonSerializableRestaurantBook {
     private final List<JsonAdaptedIngredient> ingredients = new ArrayList<>();
     private final List<JsonAdaptedStaff> staff = new ArrayList<>();
     private final List<JsonAdaptedBooking> bookings = new ArrayList<>();
-    private final int capacity;
+    private final int intCapacity;
 
     /**
      * Constructs a {@code JsonSerializableRestaurantBook} with the given members.
@@ -42,13 +43,13 @@ class JsonSerializableRestaurantBook {
                                           @JsonProperty("ingredients") List<JsonAdaptedIngredient> ingredients,
                                           @JsonProperty("staff") List<JsonAdaptedStaff> staff,
                                           @JsonProperty("bookings") List<JsonAdaptedBooking> bookings,
-                                          @JsonProperty("capacity") int capacity) {
+                                          @JsonProperty("capacity") int intCapacity) {
 
         this.members.addAll(members);
         this.ingredients.addAll(ingredients);
         this.staff.addAll(staff);
         this.bookings.addAll(bookings);
-        this.capacity = capacity;
+        this.intCapacity = intCapacity;
     }
 
     /**
@@ -66,7 +67,7 @@ class JsonSerializableRestaurantBook {
                 .map(JsonAdaptedStaff::new).collect(Collectors.toList()));
         bookings.addAll(source.getItemList(Booking.class).stream()
                 .map(JsonAdaptedBooking::new).collect(Collectors.toList()));
-        capacity = source.getCapacity();
+        intCapacity = source.getCapacity().getValue();
 
     }
 
@@ -110,7 +111,12 @@ class JsonSerializableRestaurantBook {
             restaurantBook.addItem(booking);
         }
 
-        restaurantBook.setCapacity(capacity);
+        try {
+            Capacity capacity = new Capacity(intCapacity);
+            restaurantBook.setCapacity(capacity);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(Capacity.MESSAGE_CONSTRAINTS);
+        }
 
         return restaurantBook;
     }

@@ -13,6 +13,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.booking.Booking;
+import seedu.address.model.booking.BookingSize;
 import seedu.address.model.booking.BookingWindow;
 import seedu.address.model.person.Member;
 
@@ -26,9 +27,9 @@ public class AddBookingCommand extends Command {
 
     private final BookingWindow bookingWindow;
     private final Index memberIndex;
-    private int numMembers;
+    private final BookingSize numMembers;
 
-    public AddBookingCommand(BookingWindow bookingWindow, Index memberIndex, int numMembers) {
+    public AddBookingCommand(BookingWindow bookingWindow, Index memberIndex, BookingSize numMembers) {
         this.bookingWindow = bookingWindow;
         this.memberIndex = memberIndex;
         this.numMembers = numMembers;

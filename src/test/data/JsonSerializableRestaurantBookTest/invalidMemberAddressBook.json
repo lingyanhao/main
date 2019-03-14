@@ -6,6 +6,7 @@
   } ],
   "ingredients" : [ ],
   "staff" : [ ],
-  "bookings" : [ ]
+  "bookings" : [ ],
+  "intCapacity" : 200
 }
 

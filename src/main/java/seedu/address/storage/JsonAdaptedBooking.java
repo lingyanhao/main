@@ -1,7 +1,5 @@
 package seedu.address.storage;
 
-import static seedu.address.model.booking.Booking.MAX_BOOKING_SIZE;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -9,8 +7,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.booking.Booking;
+import seedu.address.model.booking.BookingSize;
 import seedu.address.model.booking.BookingWindow;
-import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.LoyaltyPoints;
 import seedu.address.model.person.Member;
@@ -18,7 +16,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 
 /**
- * Jackson-friendly version of {@link Ingredient}.
+ * Jackson-friendly version of {@link Booking}.
  */
 
 public class JsonAdaptedBooking {
@@ -59,7 +57,7 @@ public class JsonAdaptedBooking {
 
         customerLoyaltyPoints = source.getCustomer().getLoyaltyPoints().value;
         startTime = source.getStartTimeString();
-        this.numPersons = source.getNumMembers();
+        this.numPersons = source.getNumMembers().getSize();
     }
 
     /**
@@ -73,25 +71,23 @@ public class JsonAdaptedBooking {
         final Email modelEmail = parseEmail();
         final LoyaltyPoints loyaltyPoints = parseLoyaltyPoints();
 
-        Member modelCustomer = new Member(modelName, modelPhone, modelEmail, loyaltyPoints);
+        final Member modelCustomer = new Member(modelName, modelPhone, modelEmail, loyaltyPoints);
 
-        BookingWindow modelBookingWindow;
+        final BookingWindow modelBookingWindow;
+        final BookingSize modelBookingSize;
 
         try {
             modelBookingWindow = ParserUtil.parseBookingWindow(startTime);
+            modelBookingSize = ParserUtil.parseBookingSize(Integer.toString(numPersons));
         } catch (ParseException e) {
             throw new IllegalValueException(e.getMessage());
         }
 
-        if (numPersons <= 0 || numPersons > MAX_BOOKING_SIZE) {
-            throw new IllegalValueException("Number of persons must be a positive integer at most "
-                    + MAX_BOOKING_SIZE + ".");
-        }
-        return new Booking(modelBookingWindow, modelCustomer, numPersons);
+        return new Booking(modelBookingWindow, modelCustomer, modelBookingSize);
     }
 
     /**
-     * Parses the name and converts into a Name object
+     * Parses the name and converts into a Name object.
      */
     private Name parseName() throws IllegalValueException {
         if (customerName == null) {
@@ -105,7 +101,7 @@ public class JsonAdaptedBooking {
 
 
     /**
-     * Parses the phone and converts into a Phone object
+     * Parses the phone and converts into a Phone object.
      */
     private Phone parsePhone() throws IllegalValueException {
         if (customerPhone == null) {
@@ -118,7 +114,7 @@ public class JsonAdaptedBooking {
     }
 
     /**
-     * Parses the email and converts into a Email object
+     * Parses the email and converts into a Email object.
      */
     private Email parseEmail() throws IllegalValueException {
         if (customerEmail == null) {
@@ -131,7 +127,7 @@ public class JsonAdaptedBooking {
     }
 
     /**
-     * Parses the loyalty points and converts into a LoyaltyPoints object
+     * Parses the loyalty points and converts into a LoyaltyPoints object.
      */
     private LoyaltyPoints parseLoyaltyPoints() throws IllegalValueException {
         if (!LoyaltyPoints.isValidLoyaltyPoints(customerLoyaltyPoints)) {

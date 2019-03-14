@@ -9,18 +9,16 @@ import seedu.address.model.person.Member;
  * A class to represent restaurant bookings.
  */
 public class Booking implements Item, Comparable<Booking> {
-    public static final int MAX_BOOKING_SIZE = 100;
 
     private BookingWindow bookingWindow;
     private Member customer;
-    private int numMembers;
+    private BookingSize numMembers;
 
 
-    public Booking(BookingWindow bookingWindow, Member customer, int numMembers) {
+    public Booking(BookingWindow bookingWindow, Member customer, BookingSize numMembers) {
         this.bookingWindow = bookingWindow;
         this.customer = customer;
         this.numMembers = numMembers;
-        assert(numMembers <= MAX_BOOKING_SIZE && numMembers >= 0);
     }
 
     /**
@@ -43,7 +41,7 @@ public class Booking implements Item, Comparable<Booking> {
         return bookingWindow.getStartTime().toString();
     }
 
-    public int getNumMembers() {
+    public BookingSize getNumMembers() {
         return numMembers;
     }
 
@@ -67,7 +65,7 @@ public class Booking implements Item, Comparable<Booking> {
     @Override
     public String toString() {
         return "Customer: " + customer.getName().toString() + " " + customer.getPhone().toString() + "  Start Time: "
-                + getStartTimeString() + " Members: " + numMembers;
+                + getStartTimeString() + " Members: " + numMembers.getSize();
     }
 
     @Override
@@ -76,6 +74,6 @@ public class Booking implements Item, Comparable<Booking> {
                 || (other instanceof Booking // instanceof handles nulls
                 && customer.equals(((Booking) other).customer)
                 && bookingWindow.equals(((Booking) other).bookingWindow)
-                && numMembers == ((Booking) other).numMembers);
+                && numMembers.equals(((Booking) other).numMembers));
     }
 }

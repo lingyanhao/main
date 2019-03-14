@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.Capacity;
 import seedu.address.model.Item;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyRestaurantBook;
@@ -126,12 +127,12 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public int getCapacity() {
+    public Capacity getCapacity() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void setCapacity(int newCapacity) {
+    public void setCapacity(Capacity newCapacity) {
         throw new AssertionError("This method should not be called.");
     }
 }

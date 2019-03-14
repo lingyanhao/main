@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.booking.BookingSize;
 import seedu.address.model.booking.BookingWindow;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Appointment;
@@ -158,6 +159,19 @@ public class ParserUtil {
             return new BookingWindow(trimmedTime);
         } catch (IllegalArgumentException e) {
             throw new ParseException(BookingWindow.MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    /**
+     * Parses a {@code String bookingSize} into a {@code BookingSize}.
+     */
+    public static BookingSize parseBookingSize(String bookingSize) throws ParseException {
+        requireNonNull(bookingSize);
+        String trimmedBookingSize = bookingSize.trim();
+        try {
+            return new BookingSize(trimmedBookingSize);
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(BookingSize.MESSAGE_CONSTRAINTS);
         }
     }
 }
