@@ -22,6 +22,7 @@ import static seedu.address.testutil.TypicalIngredients.CHEESE;
 import org.junit.Test;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.add.AddIngredientCommand;
 import seedu.address.logic.parser.AddIngredientCommandParser;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.testutil.IngredientBuilder;
@@ -36,31 +37,31 @@ public class AddIngredientCommandParserTest {
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + INGREDIENT_NAME_DESC_CHEESE
                         + INGREDIENT_QUANTITY_DESC_CHEESE + INGREDIENT_UNIT_DESC_CHEESE,
-                new AddCommand(expectedIngredient));
+                new AddIngredientCommand(expectedIngredient));
 
         // multiple ingredient names last ingredient name recorded
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + INGREDIENT_NAME_DESC_TOMATO
                         + INGREDIENT_NAME_DESC_CHEESE + INGREDIENT_QUANTITY_DESC_CHEESE
                         + INGREDIENT_UNIT_DESC_CHEESE,
-                new AddCommand(expectedIngredient));
+                new AddIngredientCommand(expectedIngredient));
 
         // multiple ingredient quantities last ingredient quantity recorded
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + INGREDIENT_NAME_DESC_CHEESE
                         + INGREDIENT_QUANTITY_DESC_TOMATO + INGREDIENT_QUANTITY_DESC_CHEESE
                         + INGREDIENT_UNIT_DESC_CHEESE,
-                new AddCommand(expectedIngredient));
+                new AddIngredientCommand(expectedIngredient));
 
         // multiple ingredient units last ingredient unit recorded
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + INGREDIENT_NAME_DESC_CHEESE
                         + INGREDIENT_QUANTITY_DESC_CHEESE + INGREDIENT_UNIT_DESC_TOMATO
                         + INGREDIENT_UNIT_DESC_CHEESE,
-                new AddCommand(expectedIngredient));
+                new AddIngredientCommand(expectedIngredient));
 
     }
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE_INGREDIENT);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddIngredientCommand.MESSAGE_USAGE_INGREDIENT);
 
         // missing ingredientName
         assertParseFailure(parser, INGREDIENT_QUANTITY_DESC_CHEESE

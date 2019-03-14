@@ -15,6 +15,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ModelStub;
+import seedu.address.logic.commands.add.AddBookingCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Item;
@@ -47,7 +48,7 @@ public class AddBookingCommandTest {
 
         CommandResult commandResult = new AddCommand(validBooking).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS_BOOKING, validBooking),
+        assertEquals(String.format(AddBookingCommand.MESSAGE_SUCCESS_BOOKING, validBooking),
                 commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validBooking), modelStub.bookingsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
@@ -60,7 +61,7 @@ public class AddBookingCommandTest {
         ModelStub modelStub = new ModelStubWithBooking(validBooking);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_BOOKING);
+        thrown.expectMessage(AddBookingCommand.MESSAGE_DUPLICATE_BOOKING);
         addCommand.execute(modelStub, commandHistory);
     }
 
@@ -122,9 +123,9 @@ public class AddBookingCommandTest {
         }
 
         @Override
-        public boolean hasItem(Item item) {
-            requireNonNull(item);
-            return this.booking.isSameItem(item);
+        public boolean hasBooking(Booking booking) {
+            requireNonNull(booking);
+            return this.booking.isSameItem(booking);
         }
     }
 
@@ -135,9 +136,9 @@ public class AddBookingCommandTest {
         private final ArrayList<Booking> bookingsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasItem(Item item) {
-            requireNonNull(item);
-            return bookingsAdded.stream().anyMatch(item::isSameItem);
+        public boolean hasBooking(Booking booking) {
+            requireNonNull(booking);
+            return bookingsAdded.stream().anyMatch(booking::isSameItem);
         }
 
         @Override

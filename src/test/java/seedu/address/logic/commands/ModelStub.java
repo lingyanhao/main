@@ -11,6 +11,10 @@ import seedu.address.model.Item;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyRestaurantBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.booking.Booking;
+import seedu.address.model.ingredient.Ingredient;
+import seedu.address.model.person.Member;
+import seedu.address.model.person.Staff;
 
 /**
  * A default model stub that have all of the methods failing.
@@ -62,7 +66,22 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public boolean hasItem(Item member) {
+    public boolean hasMember(Member member) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasBooking(Booking booking) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasIngredient(Ingredient ingredient) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasStaff(Staff staff) {
         throw new AssertionError("This method should not be called.");
     }
 

@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditMemberDescriptor;
+import seedu.address.logic.commands.add.AddMemberCommand;
 import seedu.address.model.person.Member;
 
 /**
@@ -18,14 +19,14 @@ public class MemberUtil {
      * Returns an add command string for adding the {@code member}.
      */
     public static String getAddCommand(Member member) {
-        return AddCommand.COMMAND_WORD_MEMBER + " " + getMemberDetails(member);
+        return AddMemberCommand.COMMAND_WORD_MEMBER + " " + getMemberDetails(member);
     }
 
     /**
      * Returns an add command string for adding the {@code member}, using the command alias.
      */
     public static String getAddCommandAlias(Member member) {
-        return AddCommand.COMMAND_ALIAS_MEMBER + " " + getMemberDetails(member);
+        return AddMemberCommand.COMMAND_ALIAS_MEMBER + " " + getMemberDetails(member);
     }
 
     /**

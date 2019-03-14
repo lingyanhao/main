@@ -27,7 +27,7 @@ public class AddBookingCommandParser {
 
         if (!argMultimap.arePrefixesPresent(PREFIX_START_TIME, PREFIX_CUSTOMER, PREFIX_NUMBER_PERSONS)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE_BOOKING));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddBookingCommand.MESSAGE_USAGE_BOOKING));
         }
 
         BookingWindow bookingWindow = ParserUtil.parseBookingWindow(argMultimap.getValue(PREFIX_START_TIME).get());

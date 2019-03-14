@@ -1,9 +1,5 @@
 package seedu.address.storage;
 
-import static seedu.address.logic.commands.AddCommand.MESSAGE_DUPLICATE_BOOKING;
-import static seedu.address.logic.commands.AddCommand.MESSAGE_DUPLICATE_INGREDIENT;
-import static seedu.address.logic.commands.AddCommand.MESSAGE_DUPLICATE_STAFF;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,6 +24,10 @@ import seedu.address.model.person.Staff;
 class JsonSerializableRestaurantBook {
 
     public static final String MESSAGE_DUPLICATE_MEMBER = "Members list contains duplicate member(s).";
+    public static final String MESSAGE_DUPLICATE_BOOKING = "Bookings list contains duplicate booking(s).";
+    public static final String MESSAGE_DUPLICATE_INGREDIENT = "Ingredient list contains duplicate ingredient(s).";
+    public static final String MESSAGE_DUPLICATE_STAFF = "Staff list contains duplicate staff(s).";
+
 
     private final List<JsonAdaptedMember> members = new ArrayList<>();
     private final List<JsonAdaptedIngredient> ingredients = new ArrayList<>();
@@ -80,7 +80,7 @@ class JsonSerializableRestaurantBook {
         RestaurantBook restaurantBook = new RestaurantBook();
         for (JsonAdaptedMember jsonAdaptedMember : members) {
             Member member = jsonAdaptedMember.toModelType();
-            if (restaurantBook.hasItem(member)) {
+            if (restaurantBook.hasMember(member)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_MEMBER);
             }
             restaurantBook.addItem(member);
@@ -89,7 +89,7 @@ class JsonSerializableRestaurantBook {
 
         for (JsonAdaptedIngredient jsonAdaptedIngredient : ingredients) {
             Ingredient ingredient = jsonAdaptedIngredient.toModelType();
-            if (restaurantBook.hasItem(ingredient)) {
+            if (restaurantBook.hasIngredient(ingredient)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_INGREDIENT);
             }
             restaurantBook.addItem(ingredient);
@@ -97,7 +97,7 @@ class JsonSerializableRestaurantBook {
 
         for (JsonAdaptedStaff jsonAdaptedStaff : staff) {
             Staff staff = jsonAdaptedStaff.toModelType();
-            if (restaurantBook.hasItem(staff)) {
+            if (restaurantBook.hasStaff(staff)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_STAFF);
             }
             restaurantBook.addItem(staff);
@@ -105,7 +105,7 @@ class JsonSerializableRestaurantBook {
 
         for (JsonAdaptedBooking jsonAdaptedBooking : bookings) {
             Booking booking = jsonAdaptedBooking.toModelType();
-            if (restaurantBook.hasItem(booking)) {
+            if (restaurantBook.hasBooking(booking)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_BOOKING);
             }
             restaurantBook.addItem(booking);

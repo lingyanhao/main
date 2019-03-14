@@ -21,6 +21,10 @@ import seedu.address.logic.commands.RestockIngredientCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UpdateCapacityCommand;
+import seedu.address.logic.commands.add.AddBookingCommand;
+import seedu.address.logic.commands.add.AddIngredientCommand;
+import seedu.address.logic.commands.add.AddMemberCommand;
+import seedu.address.logic.commands.add.AddStaffCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -50,20 +54,20 @@ public class RestaurantBookParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD_MEMBER:
-        case AddCommand.COMMAND_ALIAS_MEMBER:
+        case AddMemberCommand.COMMAND_WORD_MEMBER:
+        case AddMemberCommand.COMMAND_ALIAS_MEMBER:
             return new AddMemberCommandParser().parse(arguments);
 
-        case AddCommand.COMMAND_WORD_BOOKING:
-        case AddCommand.COMMAND_ALIAS_BOOKING:
+        case AddBookingCommand.COMMAND_WORD_BOOKING:
+        case AddBookingCommand.COMMAND_ALIAS_BOOKING:
             return new AddBookingCommandParser().parse(arguments);
 
-        case AddCommand.COMMAND_WORD_INGREDIENT:
-        case AddCommand.COMMAND_ALIAS_INGREDIENT:
+        case AddIngredientCommand.COMMAND_WORD_INGREDIENT:
+        case AddIngredientCommand.COMMAND_ALIAS_INGREDIENT:
             return new AddIngredientCommandParser().parse(arguments);
 
-        case AddCommand.COMMAND_WORD_STAFF:
-        case AddCommand.COMMAND_ALIAS_STAFF:
+        case AddStaffCommand.COMMAND_WORD_STAFF:
+        case AddStaffCommand.COMMAND_ALIAS_STAFF:
             return new AddStaffCommandParser().parse(arguments);
 
         case UpdateCapacityCommand.COMMAND_WORD:

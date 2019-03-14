@@ -114,9 +114,27 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasItem(Item item) {
-        requireNonNull(item);
-        return versionedRestaurantBook.hasItem(item);
+    public boolean hasMember(Member member) {
+        requireNonNull(member);
+        return versionedRestaurantBook.hasMember(member);
+    }
+
+    @Override
+    public boolean hasBooking(Booking booking) {
+        requireNonNull(booking);
+        return versionedRestaurantBook.hasBooking(booking);
+    }
+
+    @Override
+    public boolean hasIngredient(Ingredient ingredient) {
+        requireNonNull(ingredient);
+        return versionedRestaurantBook.hasIngredient(ingredient);
+    }
+
+    @Override
+    public boolean hasStaff(Staff staff) {
+        requireNonNull(staff);
+        return versionedRestaurantBook.hasStaff(staff);
     }
 
     @Override

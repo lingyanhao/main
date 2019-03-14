@@ -1,6 +1,9 @@
 package seedu.address.logic.commands.add;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NUMBER_PERSONS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 
 import java.util.List;
 
@@ -25,6 +28,22 @@ import seedu.address.model.person.Member;
  */
 public class AddBookingCommand extends Command {
 
+    public static final String COMMAND_WORD_BOOKING = "addbooking"; // make sure that this is in lower case
+    public static final String COMMAND_ALIAS_BOOKING = "ab";
+
+    public static final String MESSAGE_USAGE_BOOKING = COMMAND_WORD_BOOKING + ": Adds a booking to the restaurant."
+            + "Parameters: "
+            + PREFIX_CUSTOMER + "CUSTOMER "
+            + PREFIX_START_TIME + "START_TIME "
+            + PREFIX_NUMBER_PERSONS + "NUMBER_OF_PERSONS\n"
+            + "Example: " + COMMAND_WORD_BOOKING + " "
+            + PREFIX_CUSTOMER + "1 "
+            + PREFIX_START_TIME + "2019-02-23T14:30 "
+            + PREFIX_NUMBER_PERSONS + "3";
+
+    public static final String MESSAGE_SUCCESS_BOOKING = "New booking added: %1$s";
+    public static final String MESSAGE_DUPLICATE_BOOKING = "Booking has already been made.";
+
     private final BookingWindow bookingWindow;
     private final Index memberIndex;
     private final BookingSize numMembers;
@@ -37,14 +56,22 @@ public class AddBookingCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory commandHistory) throws CommandException {
+        Booking toAdd = getBooking(model);
+        if (model.hasBooking(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_BOOKING);
+        }
+        model.addItem(toAdd);
+        model.commitRestaurantBook();
+        return new CommandResult(String.format(MESSAGE_SUCCESS_BOOKING, toAdd));
+    }
+
+    private Booking getBooking(Model model) throws CommandException {
         requireNonNull(model);
         List<Member> lastShownList = model.getFilteredItemList(Member.class);
         if (memberIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_MEMBER_DISPLAYED_INDEX);
         }
-
         Member customer = lastShownList.get(memberIndex.getZeroBased());
-        Booking toAdd = new Booking(bookingWindow, customer, numMembers);
-        return new AddCommand(toAdd).execute(model, commandHistory);
+        return new Booking(bookingWindow, customer, numMembers);
     }
 }

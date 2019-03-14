@@ -29,6 +29,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.add.AddMemberCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Member;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
@@ -45,10 +46,10 @@ public class RestaurantBookParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         Member member = new MemberBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(MemberUtil.getAddCommand(member));
-        assertEquals(new AddCommand(member), command);
-        command = (AddCommand) parser.parseCommand(MemberUtil.getAddCommandAlias(member));
-        assertEquals(new AddCommand(member), command);
+        AddMemberCommand command = (AddMemberCommand) parser.parseCommand(MemberUtil.getAddCommand(member));
+        assertEquals(new AddMemberCommand(member), command);
+        command = (AddMemberCommand) parser.parseCommand(MemberUtil.getAddCommandAlias(member));
+        assertEquals(new AddMemberCommand(member), command);
     }
 
     @Test
@@ -176,7 +177,7 @@ public class RestaurantBookParserTest {
         Member member = new MemberBuilder().build();
         Command command = parser.parseCommand("aDdmEmBEr" + " "
                 + MemberUtil.getMemberDetails(member));
-        assertEquals(new AddCommand(member), command);
+        assertEquals(new AddMemberCommand(member), command);
 
         command = parser.parseCommand("DELETE 1");
         assertEquals(new DeleteCommand(Index.fromOneBased(1)), command);

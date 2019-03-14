@@ -21,6 +21,7 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.add.AddMemberCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -86,7 +87,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD_MEMBER + MEMBER_NAME_DESC_AMY
+        String addCommand = AddMemberCommand.COMMAND_WORD_MEMBER + MEMBER_NAME_DESC_AMY
                 + MEMBER_PHONE_DESC_AMY + MEMBER_EMAIL_DESC_AMY;
         Member expectedMember = new MemberBuilder(AMY).build();
         ModelManager expectedModel = new ModelManager();

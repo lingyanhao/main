@@ -23,6 +23,7 @@ import static seedu.address.testutil.TypicalMembers.BOB;
 import org.junit.Test;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.add.AddMemberCommand;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Member;
 import seedu.address.model.person.Name;
@@ -39,22 +40,22 @@ public class AddMemberCommandParserTest {
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + MEMBER_NAME_DESC_BOB
                         + MEMBER_PHONE_DESC_BOB + MEMBER_EMAIL_DESC_BOB,
-                new AddCommand(expectedMember));
+                new AddMemberCommand(expectedMember));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, MEMBER_NAME_DESC_AMY + MEMBER_NAME_DESC_BOB
                         + MEMBER_PHONE_DESC_BOB + MEMBER_EMAIL_DESC_BOB,
-                new AddCommand(expectedMember));
+                new AddMemberCommand(expectedMember));
 
         // multiple phones - last phone accepted
         assertParseSuccess(parser, MEMBER_NAME_DESC_BOB + MEMBER_PHONE_DESC_AMY
                         + MEMBER_PHONE_DESC_BOB + MEMBER_EMAIL_DESC_BOB,
-                new AddCommand(expectedMember));
+                new AddMemberCommand(expectedMember));
 
         // multiple emails - last email accepted
         assertParseSuccess(parser, MEMBER_NAME_DESC_BOB + MEMBER_PHONE_DESC_BOB
                         + MEMBER_EMAIL_DESC_AMY + MEMBER_EMAIL_DESC_BOB,
-                new AddCommand(expectedMember));
+                new AddMemberCommand(expectedMember));
     }
 
     @Test
@@ -62,12 +63,12 @@ public class AddMemberCommandParserTest {
         // zero tags
         Member expectedMember = new MemberBuilder(AMY).build();
         assertParseSuccess(parser, MEMBER_NAME_DESC_AMY + MEMBER_PHONE_DESC_AMY + MEMBER_EMAIL_DESC_AMY,
-                new AddCommand(expectedMember));
+                new AddMemberCommand(expectedMember));
     }
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE_MEMBER);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMemberCommand.MESSAGE_USAGE_MEMBER);
 
         // missing name prefix
         assertParseFailure(parser, MEMBER_VALID_NAME_BOB + MEMBER_PHONE_DESC_BOB + MEMBER_EMAIL_DESC_BOB,
@@ -107,6 +108,6 @@ public class AddMemberCommandParserTest {
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + MEMBER_NAME_DESC_BOB
                         + MEMBER_PHONE_DESC_BOB + MEMBER_EMAIL_DESC_BOB,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE_MEMBER));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMemberCommand.MESSAGE_USAGE_MEMBER));
     }
 }

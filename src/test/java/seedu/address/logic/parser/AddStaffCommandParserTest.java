@@ -28,6 +28,7 @@ import static seedu.address.testutil.TypicalStaff.BOB;
 import org.junit.Test;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.add.AddStaffCommand;
 import seedu.address.model.person.Appointment;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -46,27 +47,27 @@ public class AddStaffCommandParserTest {
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + MEMBER_NAME_DESC_AMY
                 + MEMBER_PHONE_DESC_AMY + MEMBER_EMAIL_DESC_AMY
-                + STAFF_APPOINTMENT_DESC_AMY, new AddCommand(expectedStaff));
+                + STAFF_APPOINTMENT_DESC_AMY, new AddStaffCommand(expectedStaff));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, MEMBER_NAME_DESC_BOB + MEMBER_NAME_DESC_AMY
                 + MEMBER_PHONE_DESC_AMY + MEMBER_EMAIL_DESC_AMY
-                + STAFF_APPOINTMENT_DESC_AMY, new AddCommand(expectedStaff));
+                + STAFF_APPOINTMENT_DESC_AMY, new AddStaffCommand(expectedStaff));
 
         // multiple phones - last phone accepted
         assertParseSuccess(parser, MEMBER_NAME_DESC_AMY + MEMBER_PHONE_DESC_BOB
                 + MEMBER_PHONE_DESC_AMY + MEMBER_EMAIL_DESC_AMY
-                + STAFF_APPOINTMENT_DESC_AMY, new AddCommand(expectedStaff));
+                + STAFF_APPOINTMENT_DESC_AMY, new AddStaffCommand(expectedStaff));
 
         // multiple emails - last email accepted
         assertParseSuccess(parser, MEMBER_NAME_DESC_AMY + MEMBER_PHONE_DESC_AMY
                 + MEMBER_EMAIL_DESC_BOB + MEMBER_EMAIL_DESC_AMY
-                + STAFF_APPOINTMENT_DESC_AMY, new AddCommand(expectedStaff));
+                + STAFF_APPOINTMENT_DESC_AMY, new AddStaffCommand(expectedStaff));
 
         // multiple appointments - last appointment accepted
         assertParseSuccess(parser, MEMBER_NAME_DESC_AMY + MEMBER_PHONE_DESC_AMY
                 + MEMBER_EMAIL_DESC_BOB + MEMBER_EMAIL_DESC_AMY
-                + STAFF_APPOINTMENT_DESC_BOB + STAFF_APPOINTMENT_DESC_AMY, new AddCommand(expectedStaff));
+                + STAFF_APPOINTMENT_DESC_BOB + STAFF_APPOINTMENT_DESC_AMY, new AddStaffCommand(expectedStaff));
     }
 
     @Test
@@ -75,12 +76,12 @@ public class AddStaffCommandParserTest {
         Staff expectedStaff = new StaffBuilder(BOB).build();
         assertParseSuccess(parser, MEMBER_NAME_DESC_BOB + MEMBER_PHONE_DESC_BOB
                         + MEMBER_EMAIL_DESC_BOB + STAFF_APPOINTMENT_DESC_BOB,
-                new AddCommand(expectedStaff));
+                new AddStaffCommand(expectedStaff));
     }
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE_STAFF);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddStaffCommand.MESSAGE_USAGE_STAFF);
 
         // missing name prefix
         assertParseFailure(parser, MEMBER_VALID_NAME_BOB + MEMBER_PHONE_DESC_BOB
@@ -139,6 +140,6 @@ public class AddStaffCommandParserTest {
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + MEMBER_NAME_DESC_BOB
                 + MEMBER_PHONE_DESC_BOB + MEMBER_EMAIL_DESC_BOB
                 + STAFF_APPOINTMENT_DESC_BOB, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                AddCommand.MESSAGE_USAGE_STAFF));
+                AddStaffCommand.MESSAGE_USAGE_STAFF));
     }
 }

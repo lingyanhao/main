@@ -19,6 +19,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ModelStub;
+import seedu.address.logic.commands.add.AddStaffCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Item;
 import seedu.address.model.ReadOnlyRestaurantBook;
@@ -44,9 +45,9 @@ public class AddStaffCommandTest {
         ModelStubAcceptingStaffAdded modelStub = new ModelStubAcceptingStaffAdded();
         Staff validStaff = new StaffBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validStaff).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddStaffCommand(validStaff).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS_STAFF, validStaff),
+        assertEquals(String.format(AddStaffCommand.MESSAGE_SUCCESS, validStaff),
                 commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validStaff), modelStub.staffAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
@@ -55,26 +56,26 @@ public class AddStaffCommandTest {
     @Test
     public void execute_duplicateStaff_throwsCommandException() throws Exception {
         Staff validStaff = new StaffBuilder().build();
-        AddCommand addCommand = new AddCommand(validStaff);
+        AddStaffCommand addStaffCommand = new AddStaffCommand(validStaff);
         ModelStub modelStub = new ModelStubWithStaff(validStaff);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_STAFF);
-        addCommand.execute(modelStub, commandHistory);
+        thrown.expectMessage(AddStaffCommand.MESSAGE_DUPLICATE);
+        addStaffCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
         Staff amyStaff = new StaffBuilder(AMY).build();
         Staff bobStaff = new StaffBuilder(BOB).build();
-        AddCommand addAmyCommand = new AddCommand(amyStaff);
-        AddCommand addBobCommand = new AddCommand(bobStaff);
+        AddStaffCommand addAmyCommand = new AddStaffCommand(amyStaff);
+        AddStaffCommand addBobCommand = new AddStaffCommand(bobStaff);
 
         // same object -> returns true
         assertTrue(addAmyCommand.equals(addAmyCommand));
 
         // same values -> returns true
-        AddCommand addBobCommandCopy = new AddCommand(bobStaff);
+        AddStaffCommand addBobCommandCopy = new AddStaffCommand(bobStaff);
         assertTrue(addBobCommand.equals(addBobCommandCopy));
 
         // different types -> returns false
@@ -99,9 +100,9 @@ public class AddStaffCommandTest {
         }
 
         @Override
-        public boolean hasItem(Item item) {
-            requireNonNull(item);
-            return this.staff.isSameItem(item);
+        public boolean hasStaff(Staff staff) {
+            requireNonNull(staff);
+            return this.staff.isSameItem(staff);
         }
     }
 
@@ -112,9 +113,9 @@ public class AddStaffCommandTest {
         final ArrayList<Staff> staffAdded = new ArrayList<>();
 
         @Override
-        public boolean hasItem(Item item) {
-            requireNonNull(item);
-            return staffAdded.stream().anyMatch(item::isSameItem);
+        public boolean hasStaff(Staff staff) {
+            requireNonNull(staff);
+            return staffAdded.stream().anyMatch(staff::isSameItem);
         }
 
         @Override

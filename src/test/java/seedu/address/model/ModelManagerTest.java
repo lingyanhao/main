@@ -88,18 +88,18 @@ public class ModelManagerTest {
     @Test
     public void hasMember_nullMember_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        modelManager.hasItem(null);
+        modelManager.hasMember(null);
     }
 
     @Test
     public void hasMember_memberNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasItem(ALICE));
+        assertFalse(modelManager.hasMember(ALICE));
     }
 
     @Test
     public void hasMember_memberInAddressBook_returnsTrue() {
         modelManager.addItem(ALICE);
-        assertTrue(modelManager.hasItem(ALICE));
+        assertTrue(modelManager.hasMember(ALICE));
     }
 
     @Test

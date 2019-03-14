@@ -107,26 +107,39 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
         capacity = newData.getCapacity();
     }
 
-    //// item-level operations
+    //// member-level operations
 
     /**
-     * Returns true if an item with the same identity as {@code item} exists in the restaurant book.
+     * Returns true if a member with the same identity as {@code member} exists in the restaurant book.
      */
-    public boolean hasItem(Item item) {
-        requireNonNull(item);
-        if (item instanceof Member) {
-            return members.contains(item);
-        } else if (item instanceof Booking) {
-            return bookings.contains(item);
-        } else if (item instanceof Ingredient) {
-            return ingredients.contains(item);
-        } else if (item instanceof Staff) {
-            return staff.contains(item);
-        } else {
-            return false;
-        }
+    public boolean hasMember(Member member) {
+        requireNonNull(member);
+        return members.contains(member);
     }
 
+    /**
+     * Returns true if a booking with the same identity as {@code booking} exists in the restaurant book.
+     */
+    public boolean hasBooking(Booking booking) {
+        requireNonNull(booking);
+        return bookings.contains(booking);
+    }
+
+    /**
+     * Returns true if a ingredient with the same identity as {@code ingredient} exists in the restaurant book.
+     */
+    public boolean hasIngredient(Ingredient ingredient) {
+        requireNonNull(ingredient);
+        return ingredients.contains(ingredient);
+    }
+
+    /**
+     * Returns true if a staff with the same identity as {@code staff} exists in the restaurant book.
+     */
+    public boolean hasStaff(Staff staff) {
+        requireNonNull(staff);
+        return this.staff.contains(staff);
+    }
 
     /**
      * Adds an item to the restaurant book.

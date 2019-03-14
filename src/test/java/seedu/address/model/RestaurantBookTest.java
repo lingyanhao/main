@@ -65,25 +65,25 @@ public class RestaurantBookTest {
     @Test
     public void hasMember_nullMember_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        restaurantBook.hasItem(null);
+        restaurantBook.hasMember(null);
     }
 
     @Test
     public void hasMember_memberNotInAddressBook_returnsFalse() {
-        assertFalse(restaurantBook.hasItem(ALICE));
+        assertFalse(restaurantBook.hasMember(ALICE));
     }
 
     @Test
     public void hasMember_memberInAddressBook_returnsTrue() {
         restaurantBook.addItem(ALICE);
-        assertTrue(restaurantBook.hasItem(ALICE));
+        assertTrue(restaurantBook.hasMember(ALICE));
     }
 
     @Test
     public void hasMember_memberWithSameIdentityFieldsInAddressBook_returnsTrue() {
         restaurantBook.addItem(ALICE);
         Member editedAlice = new MemberBuilder(ALICE).build();
-        assertTrue(restaurantBook.hasItem(editedAlice));
+        assertTrue(restaurantBook.hasMember(editedAlice));
     }
 
     @Test

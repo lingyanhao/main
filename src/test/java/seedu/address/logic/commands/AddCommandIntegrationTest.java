@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.add.AddMemberCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -35,15 +36,15 @@ public class AddCommandIntegrationTest {
         expectedModel.addItem(validMember);
         expectedModel.commitRestaurantBook();
 
-        assertCommandSuccess(new AddCommand(validMember), model, commandHistory,
-                String.format(AddCommand.MESSAGE_SUCCESS_MEMBER, validMember), expectedModel);
+        assertCommandSuccess(new AddMemberCommand(validMember), model, commandHistory,
+                String.format(AddMemberCommand.MESSAGE_SUCCESS_MEMBER, validMember), expectedModel);
     }
 
     @Test
     public void execute_duplicateMember_throwsCommandException() {
         Member memberInList = model.getRestaurantBook().getMemberList().get(0);
-        assertCommandFailure(new AddCommand(memberInList), model, commandHistory,
-                AddCommand.MESSAGE_DUPLICATE_MEMBER);
+        assertCommandFailure(new AddMemberCommand(memberInList), model, commandHistory,
+                AddMemberCommand.MESSAGE_DUPLICATE_MEMBER);
     }
 
 }

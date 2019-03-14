@@ -1,7 +1,7 @@
 package systemtests;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.logic.commands.AddCommand.MESSAGE_DUPLICATE_BOOKING;
+import static seedu.address.logic.commands.add.AddBookingCommand.MESSAGE_DUPLICATE_BOOKING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.testutil.TypicalMembers.ALICE;
 
