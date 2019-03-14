@@ -27,7 +27,6 @@ import static seedu.address.testutil.TypicalStaff.BOB;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.add.AddStaffCommand;
 import seedu.address.model.person.Appointment;
 import seedu.address.model.person.Email;

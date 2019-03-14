@@ -16,7 +16,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ModelStub;
 import seedu.address.logic.commands.add.AddStaffCommand;
@@ -126,7 +125,7 @@ public class AddStaffCommandTest {
 
         @Override
         public void commitRestaurantBook() {
-            // called by {@code AddCommand#execute()}
+            // called by {@code ProcessedAddBookingCommand#execute()}
         }
 
         @Override

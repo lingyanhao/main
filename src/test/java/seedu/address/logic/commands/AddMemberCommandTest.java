@@ -21,7 +21,7 @@ import seedu.address.model.RestaurantBook;
 import seedu.address.model.person.Member;
 import seedu.address.testutil.MemberBuilder;
 
-public class AddCommandTest {
+public class AddMemberCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -33,7 +33,7 @@ public class AddCommandTest {
     @Test
     public void constructor_nullMember_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddCommand(null);
+        new AddMemberCommand(null);
     }
 
     @Test
@@ -122,7 +122,7 @@ public class AddCommandTest {
 
         @Override
         public void commitRestaurantBook() {
-            // called by {@code AddCommand#execute()}
+            // called by {@code ProcessedAddBookingCommand#execute()}
         }
 
         @Override

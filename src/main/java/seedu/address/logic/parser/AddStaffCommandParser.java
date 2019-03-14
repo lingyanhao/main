@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.add.AddStaffCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Appointment;
@@ -20,8 +19,8 @@ import seedu.address.model.person.Staff;
  */
 public class AddStaffCommandParser implements Parser<AddStaffCommand> {
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the ProcessedAddBookingCommand
+     * and returns an ProcessedAddBookingCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddStaffCommand parse(String args) throws ParseException {

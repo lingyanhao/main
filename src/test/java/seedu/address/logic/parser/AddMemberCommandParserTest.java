@@ -22,7 +22,6 @@ import static seedu.address.testutil.TypicalMembers.BOB;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.add.AddMemberCommand;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Member;
