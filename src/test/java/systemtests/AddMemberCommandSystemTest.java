@@ -61,7 +61,7 @@ public class AddMemberCommandSystemTest extends RestaurantBookSystemTest {
 
         /* Case: redo adding Amy to the list -> Amy added again */
         command = RedoCommand.COMMAND_WORD;
-        model.addItem(toAdd);
+        model.addMember(toAdd);
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
@@ -176,7 +176,7 @@ public class AddMemberCommandSystemTest extends RestaurantBookSystemTest {
      */
     private void assertCommandSuccess(String command, Member toAdd) {
         Model expectedModel = getModel();
-        expectedModel.addItem(toAdd);
+        expectedModel.addMember(toAdd);
         String expectedResultMessage = String.format(AddMemberCommand.MESSAGE_SUCCESS_MEMBER, toAdd);
 
         assertCommandSuccess(command, expectedModel, expectedResultMessage);

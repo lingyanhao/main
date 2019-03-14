@@ -120,9 +120,9 @@ public class AddIngredientCommandTest {
         }
 
         @Override
-        public void addItem(Item item) {
-            requireNonNull(item);
-            ingredientsAdded.add((Ingredient) item); // temporary fix
+        public void addIngredient(Ingredient ingredient) {
+            requireNonNull(ingredient);
+            ingredientsAdded.add(ingredient);
         }
 
         @Override

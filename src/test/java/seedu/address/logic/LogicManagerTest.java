@@ -90,7 +90,7 @@ public class LogicManagerTest {
                 + MEMBER_PHONE_DESC_AMY + MEMBER_EMAIL_DESC_AMY;
         Member expectedMember = new MemberBuilder(AMY).build();
         ModelManager expectedModel = new ModelManager();
-        expectedModel.addItem(expectedMember);
+        expectedModel.addMember(expectedMember);
         expectedModel.commitRestaurantBook();
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandBehavior(CommandException.class, addCommand, expectedMessage, expectedModel);

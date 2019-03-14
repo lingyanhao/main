@@ -98,13 +98,13 @@ public class ModelManagerTest {
 
     @Test
     public void hasMember_memberInAddressBook_returnsTrue() {
-        modelManager.addItem(ALICE);
+        modelManager.addMember(ALICE);
         assertTrue(modelManager.hasMember(ALICE));
     }
 
     @Test
     public void deleteMember_memberIsSelectedAndFirstMemberInFilteredMemberList_selectionCleared() {
-        modelManager.addItem(ALICE);
+        modelManager.addMember(ALICE);
         modelManager.setSelectedItem(ALICE, Member.class);
         modelManager.deleteMember(ALICE);
         assertEquals(null, modelManager.getSelectedItem(Member.class));
@@ -112,8 +112,8 @@ public class ModelManagerTest {
 
     @Test
     public void deleteMember_memberIsSelectedAndSecondMemberInFilteredMemberList_firstMemberSelected() {
-        modelManager.addItem(ALICE);
-        modelManager.addItem(BOB);
+        modelManager.addMember(ALICE);
+        modelManager.addMember(BOB);
         assertEquals(Arrays.asList(ALICE, BOB), modelManager.getFilteredItemList(Member.class));
         modelManager.setSelectedItem(BOB, Member.class);
         modelManager.deleteMember(BOB);
@@ -122,7 +122,7 @@ public class ModelManagerTest {
 
     @Test
     public void setMember_memberIsSelected_selectedMemberUpdated() {
-        modelManager.addItem(ALICE);
+        modelManager.addMember(ALICE);
         modelManager.setSelectedItem(ALICE, Member.class);
         Member updatedAlice = new MemberBuilder(ALICE).withEmail(MEMBER_VALID_EMAIL_BOB).build();
         modelManager.setItem(ALICE, updatedAlice);
@@ -143,7 +143,7 @@ public class ModelManagerTest {
 
     @Test
     public void setSelectedMember_memberInFilteredMemberList_setsSelectedMember() {
-        modelManager.addItem(ALICE);
+        modelManager.addMember(ALICE);
         assertEquals(Collections.singletonList(ALICE), modelManager.getFilteredItemList(Member.class));
         modelManager.setSelectedItem(ALICE, Member.class);
         assertEquals(ALICE, modelManager.getSelectedItem(Member.class));

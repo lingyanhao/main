@@ -162,10 +162,31 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addItem(Item item) {
-        requireNonNull(item);
-        versionedRestaurantBook.addItem(item);
-        updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS, item.getClass());
+    public void addMember(Member member) {
+        requireNonNull(member);
+        versionedRestaurantBook.addItem(member);
+        updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS, member.getClass());
+    }
+
+    @Override
+    public void addBooking(Booking booking) {
+        requireNonNull(booking);
+        versionedRestaurantBook.addItem(booking);
+        updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS, booking.getClass());
+    }
+
+    @Override
+    public void addIngredient(Ingredient ingredient) {
+        requireNonNull(ingredient);
+        versionedRestaurantBook.addItem(ingredient);
+        updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS, ingredient.getClass());
+    }
+
+    @Override
+    public void addStaff(Staff staff) {
+        requireNonNull(staff);
+        versionedRestaurantBook.addItem(staff);
+        updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS, staff.getClass());
     }
 
     @Override

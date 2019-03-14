@@ -142,9 +142,9 @@ public class ProcessedAddBookingCommandTest {
         }
 
         @Override
-        public void addItem(Item item) {
-            requireNonNull(item);
-            bookingsAdded.add((Booking) item);
+        public void addBooking(Booking booking) {
+            requireNonNull(booking);
+            bookingsAdded.add(booking);
         }
 
         @Override

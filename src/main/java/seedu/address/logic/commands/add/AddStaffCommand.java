@@ -46,7 +46,7 @@ public class AddStaffCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE);
         }
 
-        model.addItem(toAdd);
+        model.addStaff(toAdd);
         model.commitRestaurantBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

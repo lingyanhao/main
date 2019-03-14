@@ -43,7 +43,7 @@ public class AddIngredientCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE);
         }
 
-        model.addItem(toAdd);
+        model.addIngredient(toAdd);
         model.commitRestaurantBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

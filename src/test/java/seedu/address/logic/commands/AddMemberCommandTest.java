@@ -115,9 +115,9 @@ public class AddMemberCommandTest {
         }
 
         @Override
-        public void addItem(Item item) {
-            requireNonNull(item);
-            membersAdded.add((Member) item); // temporary fix
+        public void addMember(Member member) {
+            requireNonNull(member);
+            membersAdded.add(member);
         }
 
         @Override

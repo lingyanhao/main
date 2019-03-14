@@ -33,7 +33,7 @@ public class AddCommandIntegrationTest {
         Member validMember = new MemberBuilder().build();
 
         Model expectedModel = new ModelManager(model.getRestaurantBook(), new UserPrefs());
-        expectedModel.addItem(validMember);
+        expectedModel.addMember(validMember);
         expectedModel.commitRestaurantBook();
 
         assertCommandSuccess(new AddMemberCommand(validMember), model, commandHistory,

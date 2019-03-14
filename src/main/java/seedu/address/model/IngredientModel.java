@@ -13,4 +13,10 @@ public interface IngredientModel {
      * The ingredient must exist in the restaurant book.
      */
     void deleteIngredient(Ingredient target);
+
+    /**
+     * Adds the given ingredient.
+     * {@code ingredient} must not already exist in the restaurant book.
+     */
+    void addIngredient(Ingredient ingredient);
 }

@@ -53,12 +53,6 @@ public interface Model extends MemberModel, BookingModel, IngredientModel, Staff
     ReadOnlyRestaurantBook getRestaurantBook();
 
     /**
-     * Adds the given item.
-     * {@code member} must not already exist in the restaurant book.
-     */
-    void addItem(Item item);
-
-    /**
      * Replaces the given member {@code target} with {@code editedMember}.
      * {@code target} must exist in the restaurant book.
      * The member identity of {@code editedMember}

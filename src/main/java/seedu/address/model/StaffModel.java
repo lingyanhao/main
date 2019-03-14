@@ -13,4 +13,10 @@ public interface StaffModel {
      * The staff must exist in the restaurant book.
      */
     void deleteStaff(Staff target);
+
+    /**
+     * Adds the given staff.
+     * {@code staff} must not already exist in the restaurant book.
+     */
+    void addStaff(Staff staff);
 }

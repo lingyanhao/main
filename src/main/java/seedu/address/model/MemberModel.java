@@ -13,4 +13,10 @@ public interface MemberModel {
      * The member must exist in the restaurant book.
      */
     void deleteMember(Member target);
+
+    /**
+     * Adds the given member.
+     * {@code member} must not already exist in the restaurant book.
+     */
+    void addMember(Member member);
 }

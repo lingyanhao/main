@@ -118,9 +118,9 @@ public class AddStaffCommandTest {
         }
 
         @Override
-        public void addItem(Item item) {
-            requireNonNull(item);
-            staffAdded.add((Staff) item); // temporary fix
+        public void addStaff(Staff staff) {
+            requireNonNull(staff);
+            staffAdded.add(staff);
         }
 
         @Override

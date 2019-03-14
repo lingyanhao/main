@@ -34,7 +34,7 @@ public class ProcessedAddBookingCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_BOOKING);
         }
 
-        model.addItem(toAdd);
+        model.addBooking(toAdd);
         model.commitRestaurantBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS_BOOKING, toAdd));
     }
