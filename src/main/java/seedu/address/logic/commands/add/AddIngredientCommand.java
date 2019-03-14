@@ -13,7 +13,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ingredient.Ingredient;
 
 /**
- * A
+ * A command that adds an ingredient to the restaurant book.
  */
 public class AddIngredientCommand extends Command {
     public static final String COMMAND_WORD = "addingredient";

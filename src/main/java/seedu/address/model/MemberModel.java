@@ -2,6 +2,9 @@ package seedu.address.model;
 
 import seedu.address.model.person.Member;
 
+/**
+ * The API that stores the member side of the model.
+ */
 public interface MemberModel {
     /**
      * Returns true if a member with the same identity as {@code member} exists in the restaurant book.

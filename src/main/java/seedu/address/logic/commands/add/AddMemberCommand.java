@@ -12,6 +12,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Member;
 
+/**
+ * A command that adds a member to the restaurant book.
+ */
 public class AddMemberCommand extends Command {
     public static final String COMMAND_WORD = "addmember"; // make sure that this is in lower case
     public static final String COMMAND_ALIAS = "am";

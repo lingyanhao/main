@@ -13,6 +13,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Staff;
 
+/**
+ * A command that adds a staff to the restaurant book.
+ */
 public class AddStaffCommand extends Command {
     public static final String COMMAND_WORD = "addstaff";
     public static final String COMMAND_ALIAS = "sa";
