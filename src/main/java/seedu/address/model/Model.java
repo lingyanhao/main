@@ -4,7 +4,6 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
-import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 
 /**
