@@ -7,7 +7,7 @@ import seedu.address.model.Model;
 import seedu.address.model.RestaurantBook;
 
 /**
- * Clears the address book.
+ * Clears the restaurant book.
  */
 public class ClearCommand extends Command {
 

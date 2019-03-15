@@ -20,6 +20,7 @@ import seedu.address.logic.commands.RestockIngredientCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UpdateCapacityCommand;
+import seedu.address.logic.commands.ViewStatsCommand;
 import seedu.address.logic.commands.add.AddBookingCommand;
 import seedu.address.logic.commands.add.AddIngredientCommand;
 import seedu.address.logic.commands.add.AddMemberCommand;
@@ -119,6 +120,9 @@ public class RestaurantBookParser {
         case RestockIngredientCommand.COMMAND_WORD:
         case RestockIngredientCommand.COMMAND_ALIAS:
             return new RestockIngredientCommandParser().parse(arguments);
+
+        case ViewStatsCommand.COMMAND_WORD:
+            return new ViewStatsCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
