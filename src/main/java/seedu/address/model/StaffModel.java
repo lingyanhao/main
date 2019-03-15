@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.util.function.Predicate;
 
+import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Staff;
 
@@ -37,4 +38,10 @@ public interface StaffModel {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredStaffList(Predicate<Staff> predicate);
+
+    /**
+     * Selected staff in the filtered staff list.
+     * null if no staff is selected.
+     */
+    ReadOnlyProperty<Staff> selectedStaffProperty();
 }

@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.util.function.Predicate;
 
+import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.model.booking.Booking;
 
@@ -37,6 +38,12 @@ public interface BookingModel {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredBookingList(Predicate<Booking> predicate);
+
+    /**
+     * Selected booking in the filtered booking list.
+     * null if no booking is selected.
+     */
+    ReadOnlyProperty<Booking> selectedBookingProperty();
 
     /**
      * Gets the capacity of the restaurant.

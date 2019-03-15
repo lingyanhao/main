@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.util.function.Predicate;
 
+import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.model.ingredient.Ingredient;
 
@@ -45,4 +46,10 @@ public interface IngredientModel {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredIngredientList(Predicate<Ingredient> predicate);
+
+    /**
+     * Selected booking in the filtered ingredient list.
+     * null if no ingredient is selected.
+     */
+    ReadOnlyProperty<Ingredient> selectedIngredientProperty();
 }

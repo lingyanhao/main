@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.util.function.Predicate;
 
+import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Member;
 
@@ -45,4 +46,10 @@ public interface MemberModel {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredMemberList(Predicate<Member> predicate);
+
+    /**
+     * Selected member in the filtered member list.
+     * null if no member is selected.
+     */
+    ReadOnlyProperty<Member> selectedMemberProperty();
 }
