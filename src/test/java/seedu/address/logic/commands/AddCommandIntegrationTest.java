@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.add.AddMemberCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -15,7 +16,7 @@ import seedu.address.model.person.Member;
 import seedu.address.testutil.MemberBuilder;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code AddCommand}.
+ * Contains integration tests (interaction with the Model) for {@code ProcessedAddBookingCommand}.
  */
 public class AddCommandIntegrationTest {
 
@@ -32,18 +33,18 @@ public class AddCommandIntegrationTest {
         Member validMember = new MemberBuilder().build();
 
         Model expectedModel = new ModelManager(model.getRestaurantBook(), new UserPrefs());
-        expectedModel.addItem(validMember);
+        expectedModel.addMember(validMember);
         expectedModel.commitRestaurantBook();
 
-        assertCommandSuccess(new AddCommand(validMember), model, commandHistory,
-                String.format(AddCommand.MESSAGE_SUCCESS_MEMBER, validMember), expectedModel);
+        assertCommandSuccess(new AddMemberCommand(validMember), model, commandHistory,
+                String.format(AddMemberCommand.MESSAGE_SUCCESS, validMember), expectedModel);
     }
 
     @Test
     public void execute_duplicateMember_throwsCommandException() {
-        Member memberInList = model.getRestaurantBook().getItemList(Member.class).get(0);
-        assertCommandFailure(new AddCommand(memberInList), model, commandHistory,
-                AddCommand.MESSAGE_DUPLICATE_MEMBER);
+        Member memberInList = model.getRestaurantBook().getMemberList().get(0);
+        assertCommandFailure(new AddMemberCommand(memberInList), model, commandHistory,
+                AddMemberCommand.MESSAGE_DUPLICATE_MEMBER);
     }
 
 }

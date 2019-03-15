@@ -100,33 +100,46 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
     public void resetData(ReadOnlyRestaurantBook newData) {
         requireNonNull(newData);
 
-        setMembers(newData.getItemList(Member.class));
-        setBooking(newData.getItemList(Booking.class));
-        setIngredients(newData.getItemList(Ingredient.class));
-        setStaff(newData.getItemList(Staff.class));
+        setMembers(newData.getMemberList());
+        setBooking(newData.getBookingList());
+        setIngredients(newData.getIngredientList());
+        setStaff(newData.getStaffList());
         capacity = newData.getCapacity();
     }
 
     //// item-level operations
 
     /**
-     * Returns true if an item with the same identity as {@code item} exists in the restaurant book.
+     * Returns true if a member with the same identity as {@code member} exists in the restaurant book.
      */
-    public boolean hasItem(Item item) {
-        requireNonNull(item);
-        if (item instanceof Member) {
-            return members.contains(item);
-        } else if (item instanceof Booking) {
-            return bookings.contains(item);
-        } else if (item instanceof Ingredient) {
-            return ingredients.contains(item);
-        } else if (item instanceof Staff) {
-            return staff.contains(item);
-        } else {
-            return false;
-        }
+    public boolean hasMember(Member member) {
+        requireNonNull(member);
+        return members.contains(member);
     }
 
+    /**
+     * Returns true if a booking with the same identity as {@code booking} exists in the restaurant book.
+     */
+    public boolean hasBooking(Booking booking) {
+        requireNonNull(booking);
+        return bookings.contains(booking);
+    }
+
+    /**
+     * Returns true if a ingredient with the same identity as {@code ingredient} exists in the restaurant book.
+     */
+    public boolean hasIngredient(Ingredient ingredient) {
+        requireNonNull(ingredient);
+        return ingredients.contains(ingredient);
+    }
+
+    /**
+     * Returns true if a staff with the same identity as {@code staff} exists in the restaurant book.
+     */
+    public boolean hasStaff(Staff staff) {
+        requireNonNull(staff);
+        return this.staff.contains(staff);
+    }
 
     /**
      * Adds an item to the restaurant book.
@@ -240,18 +253,23 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
     }
 
     @Override
-    public <T extends Item> ObservableList<T> getItemList(Class<T> clazz) {
-        if (clazz == Member.class) {
-            return (ObservableList<T>) members.asUnmodifiableObservableList();
-        } else if (clazz == Booking.class) {
-            return (ObservableList<T>) bookings.asUnmodifiableObservableList();
-        } else if (clazz == Ingredient.class) {
-            return (ObservableList<T>) ingredients.asUnmodifiableObservableList();
-        } else if (clazz == Staff.class) {
-            return (ObservableList<T>) staff.asUnmodifiableObservableList();
-        } else {
-            throw new IllegalArgumentException("Item type not recognised.");
-        }
+    public ObservableList<Member> getMemberList() {
+        return members.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Booking> getBookingList() {
+        return bookings.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Ingredient> getIngredientList() {
+        return ingredients.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Staff> getStaffList() {
+        return staff.asUnmodifiableObservableList();
     }
 
     @Override

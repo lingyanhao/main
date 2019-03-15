@@ -13,11 +13,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ModelStub;
+import seedu.address.logic.commands.add.AddIngredientCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Item;
 import seedu.address.model.ReadOnlyRestaurantBook;
 import seedu.address.model.RestaurantBook;
 import seedu.address.model.ingredient.Ingredient;
@@ -40,9 +39,9 @@ public class AddIngredientCommandTest {
         ModelStubAcceptingIngredientAdded modelStub = new ModelStubAcceptingIngredientAdded();
         Ingredient validIngredient = new IngredientBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validIngredient).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddIngredientCommand(validIngredient).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS_INGREDIENT, validIngredient),
+        assertEquals(String.format(AddIngredientCommand.MESSAGE_SUCCESS, validIngredient),
                 commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validIngredient), modelStub.ingredientsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
@@ -51,11 +50,11 @@ public class AddIngredientCommandTest {
     @Test
     public void execute_duplicateIngredient_throwsCommandException() throws Exception {
         Ingredient validIngredient = new IngredientBuilder(CHEESE).build();
-        AddCommand addCommand = new AddCommand(validIngredient);
+        AddIngredientCommand addCommand = new AddIngredientCommand(validIngredient);
         ModelStub modelStub = new ModelStubWithIngredient(validIngredient);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_INGREDIENT);
+        thrown.expectMessage(AddIngredientCommand.MESSAGE_DUPLICATE);
         addCommand.execute(modelStub, commandHistory);
     }
 
@@ -65,18 +64,18 @@ public class AddIngredientCommandTest {
         Ingredient tomato = new IngredientBuilder().withIngredient("tomato", 5, "pieces").build();
         Ingredient modifiedCheeseUnit = new IngredientBuilder().withIngredient("cheese", 6, "pounds").build();
 
-        AddCommand addCheeseCommand = new AddCommand(cheese);
-        AddCommand addTomatoCommand = new AddCommand(tomato);
+        AddIngredientCommand addCheeseCommand = new AddIngredientCommand(cheese);
+        AddIngredientCommand addTomatoCommand = new AddIngredientCommand(tomato);
 
         // same object -> returns true
         assertEquals(addCheeseCommand, addCheeseCommand);
 
         // same ingredient name and unit-> returns true
-        AddCommand addCheeseCommandCopy = new AddCommand(cheese);
+        AddIngredientCommand addCheeseCommandCopy = new AddIngredientCommand(cheese);
         assertEquals(addCheeseCommandCopy, addCheeseCommand);
 
         //same ingredient name but different unit -> returns false
-        AddCommand addCheeseCommandModified = new AddCommand(modifiedCheeseUnit);
+        AddIngredientCommand addCheeseCommandModified = new AddIngredientCommand(modifiedCheeseUnit);
         assertNotEquals(addCheeseCommand, addCheeseCommandModified);
 
         // different types -> returns false
@@ -101,9 +100,9 @@ public class AddIngredientCommandTest {
         }
 
         @Override
-        public boolean hasItem(Item item) {
-            requireNonNull(item);
-            return this.ingredient.isSameItem(item);
+        public boolean hasIngredient(Ingredient ingredient) {
+            requireNonNull(ingredient);
+            return this.ingredient.isSameItem(ingredient);
         }
     }
 
@@ -114,20 +113,20 @@ public class AddIngredientCommandTest {
         final ArrayList<Ingredient> ingredientsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasItem(Item item) {
-            requireNonNull(item);
-            return ingredientsAdded.stream().anyMatch(item::isSameItem);
+        public boolean hasIngredient(Ingredient ingredient) {
+            requireNonNull(ingredient);
+            return ingredientsAdded.stream().anyMatch(ingredient::isSameItem);
         }
 
         @Override
-        public void addItem(Item item) {
-            requireNonNull(item);
-            ingredientsAdded.add((Ingredient) item); // temporary fix
+        public void addIngredient(Ingredient ingredient) {
+            requireNonNull(ingredient);
+            ingredientsAdded.add(ingredient);
         }
 
         @Override
         public void commitRestaurantBook() {
-            // called by {@code AddCommand#execute()}
+            // called by {@code ProcessedAddBookingCommand#execute()}
         }
 
         @Override
@@ -137,4 +136,3 @@ public class AddIngredientCommandTest {
     }
 
 }
-

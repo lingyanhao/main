@@ -17,10 +17,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.add.AddMemberCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -86,11 +86,11 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD_MEMBER + MEMBER_NAME_DESC_AMY
+        String addCommand = AddMemberCommand.COMMAND_WORD + MEMBER_NAME_DESC_AMY
                 + MEMBER_PHONE_DESC_AMY + MEMBER_EMAIL_DESC_AMY;
         Member expectedMember = new MemberBuilder(AMY).build();
         ModelManager expectedModel = new ModelManager();
-        expectedModel.addItem(expectedMember);
+        expectedModel.addMember(expectedMember);
         expectedModel.commitRestaurantBook();
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandBehavior(CommandException.class, addCommand, expectedMessage, expectedModel);
@@ -169,7 +169,7 @@ public class LogicManagerTest {
                     HistoryCommand.MESSAGE_SUCCESS, String.join("\n", expectedCommands));
             assertEquals(expectedMessage, result.getFeedbackToUser());
         } catch (ParseException | CommandException e) {
-            throw new AssertionError("Parsing and execution of HistoryCommand.COMMAND_WORD_MEMBER should succeed.", e);
+            throw new AssertionError("Parsing and execution of HistoryCommand.COMMAND_WORD should succeed.", e);
         }
     }
 

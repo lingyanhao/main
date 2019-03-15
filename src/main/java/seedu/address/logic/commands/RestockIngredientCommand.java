@@ -55,7 +55,7 @@ public class RestockIngredientCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Ingredient> lastShownList = model.getFilteredItemList(Ingredient.class);
+        List<Ingredient> lastShownList = model.getFilteredIngredientList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_INGREDIENT_DISPLAYED_INDEX);
@@ -65,7 +65,7 @@ public class RestockIngredientCommand extends Command {
         Ingredient restockedIngredient = createRestockedIngredient(ingredientToRestock, quantityToRestock);
 
         try {
-            model.setItem(ingredientToRestock, restockedIngredient);
+            model.setIngredient(ingredientToRestock, restockedIngredient);
         } catch (DuplicateItemException e) {
             throw new CommandException(MESSAGE_DUPLICATE);
         }

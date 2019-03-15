@@ -46,7 +46,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEMBER_SUCCESS, editedMember);
 
         Model expectedModel = new ModelManager(new RestaurantBook(model.getRestaurantBook()), new UserPrefs());
-        expectedModel.setItem(model.getFilteredItemList(Member.class).get(0), editedMember);
+        expectedModel.setMember(model.getFilteredMemberList().get(0), editedMember);
         expectedModel.commitRestaurantBook();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -54,8 +54,8 @@ public class EditCommandTest {
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        Index indexLastMember = Index.fromOneBased(model.getFilteredItemList(Member.class).size());
-        Member lastMember = model.getFilteredItemList(Member.class).get(indexLastMember.getZeroBased());
+        Index indexLastMember = Index.fromOneBased(model.getFilteredMemberList().size());
+        Member lastMember = model.getFilteredMemberList().get(indexLastMember.getZeroBased());
 
         MemberBuilder memberInList = new MemberBuilder(lastMember);
         Member editedMember = memberInList.withName(MEMBER_VALID_NAME_BOB).withPhone(MEMBER_VALID_PHONE_BOB)
@@ -68,7 +68,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEMBER_SUCCESS, editedMember);
 
         Model expectedModel = new ModelManager(new RestaurantBook(model.getRestaurantBook()), new UserPrefs());
-        expectedModel.setItem(lastMember, editedMember);
+        expectedModel.setMember(lastMember, editedMember);
         expectedModel.commitRestaurantBook();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -77,7 +77,7 @@ public class EditCommandTest {
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_MEMBER, new EditMemberDescriptor());
-        Member editedMember = model.getFilteredItemList(Member.class).get(INDEX_FIRST_MEMBER.getZeroBased());
+        Member editedMember = model.getFilteredMemberList().get(INDEX_FIRST_MEMBER.getZeroBased());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEMBER_SUCCESS, editedMember);
 
@@ -91,7 +91,7 @@ public class EditCommandTest {
     public void execute_filteredList_success() {
         showMemberAtIndex(model, INDEX_FIRST_MEMBER);
 
-        Member memberInFilteredList = model.getFilteredItemList(Member.class).get(INDEX_FIRST_MEMBER.getZeroBased());
+        Member memberInFilteredList = model.getFilteredMemberList().get(INDEX_FIRST_MEMBER.getZeroBased());
         Member editedMember = new MemberBuilder(memberInFilteredList).withName(MEMBER_VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_MEMBER,
                 new EditMemberDescriptorBuilder().withName(MEMBER_VALID_NAME_BOB).build());
@@ -99,7 +99,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEMBER_SUCCESS, editedMember);
 
         Model expectedModel = new ModelManager(new RestaurantBook(model.getRestaurantBook()), new UserPrefs());
-        expectedModel.setItem(model.getFilteredItemList(Member.class).get(0), editedMember);
+        expectedModel.setMember(model.getFilteredMemberList().get(0), editedMember);
         expectedModel.commitRestaurantBook();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -107,7 +107,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_duplicateMemberUnfilteredList_failure() {
-        Member firstMember = model.getFilteredItemList(Member.class).get(INDEX_FIRST_MEMBER.getZeroBased());
+        Member firstMember = model.getFilteredMemberList().get(INDEX_FIRST_MEMBER.getZeroBased());
         EditMemberDescriptor descriptor = new EditMemberDescriptorBuilder(firstMember).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_MEMBER, descriptor);
 
@@ -120,7 +120,7 @@ public class EditCommandTest {
 
         // edit member in filtered list into a duplicate in address book
         Member memberInList =
-                model.getRestaurantBook().getItemList(Member.class).get(INDEX_SECOND_MEMBER.getZeroBased());
+                model.getRestaurantBook().getMemberList().get(INDEX_SECOND_MEMBER.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_MEMBER,
                 new EditMemberDescriptorBuilder(memberInList).build());
 
@@ -129,7 +129,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_invalidMemberIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredItemList(Member.class).size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredMemberList().size() + 1);
         EditMemberDescriptor descriptor = new EditMemberDescriptorBuilder().withName(MEMBER_VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
@@ -145,7 +145,7 @@ public class EditCommandTest {
         showMemberAtIndex(model, INDEX_FIRST_MEMBER);
         Index outOfBoundIndex = INDEX_SECOND_MEMBER;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getRestaurantBook().getItemList(Member.class).size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getRestaurantBook().getMemberList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditMemberDescriptorBuilder().withName(MEMBER_VALID_NAME_BOB).build());
@@ -156,11 +156,11 @@ public class EditCommandTest {
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Member editedMember = new MemberBuilder().build();
-        Member memberToEdit = model.getFilteredItemList(Member.class).get(INDEX_FIRST_MEMBER.getZeroBased());
+        Member memberToEdit = model.getFilteredMemberList().get(INDEX_FIRST_MEMBER.getZeroBased());
         EditMemberDescriptor descriptor = new EditMemberDescriptorBuilder(editedMember).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_MEMBER, descriptor);
         Model expectedModel = new ModelManager(new RestaurantBook(model.getRestaurantBook()), new UserPrefs());
-        expectedModel.setItem(memberToEdit, editedMember);
+        expectedModel.setMember(memberToEdit, editedMember);
         expectedModel.commitRestaurantBook();
 
         // edit -> first member edited
@@ -177,7 +177,7 @@ public class EditCommandTest {
 
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredItemList(Member.class).size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredMemberList().size() + 1);
         EditMemberDescriptor descriptor = new EditMemberDescriptorBuilder().withName(MEMBER_VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
@@ -204,8 +204,8 @@ public class EditCommandTest {
         Model expectedModel = new ModelManager(new RestaurantBook(model.getRestaurantBook()), new UserPrefs());
 
         showMemberAtIndex(model, INDEX_SECOND_MEMBER);
-        Member memberToEdit = model.getFilteredItemList(Member.class).get(INDEX_FIRST_MEMBER.getZeroBased());
-        expectedModel.setItem(memberToEdit, editedMember);
+        Member memberToEdit = model.getFilteredMemberList().get(INDEX_FIRST_MEMBER.getZeroBased());
+        expectedModel.setMember(memberToEdit, editedMember);
         expectedModel.commitRestaurantBook();
 
         // edit -> edits second member in unfiltered member list / first member in filtered member list
@@ -215,7 +215,7 @@ public class EditCommandTest {
         expectedModel.undoRestaurantBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        assertNotEquals(model.getFilteredItemList(Member.class).get(INDEX_FIRST_MEMBER.getZeroBased()), memberToEdit);
+        assertNotEquals(model.getFilteredMemberList().get(INDEX_FIRST_MEMBER.getZeroBased()), memberToEdit);
         // redo -> edits same second member in unfiltered member list
         expectedModel.redoRestaurantBook();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);

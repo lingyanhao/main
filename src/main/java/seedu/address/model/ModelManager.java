@@ -52,14 +52,14 @@ public class ModelManager implements Model {
 
         versionedRestaurantBook = new VersionedRestaurantBook(restaurantBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredMembers = new FilteredList<>(versionedRestaurantBook.getItemList(Member.class));
+        filteredMembers = new FilteredList<>(versionedRestaurantBook.getMemberList());
         filteredMembers.addListener(this::ensureSelectedMemberIsValid);
 
-        filteredBookings = new FilteredList<>(versionedRestaurantBook.getItemList(Booking.class));
+        filteredBookings = new FilteredList<>(versionedRestaurantBook.getBookingList());
 
-        filteredIngredients = new FilteredList<>(versionedRestaurantBook.getItemList(Ingredient.class));
+        filteredIngredients = new FilteredList<>(versionedRestaurantBook.getIngredientList());
 
-        filteredStaff = new FilteredList<>(versionedRestaurantBook.getItemList(Staff.class));
+        filteredStaff = new FilteredList<>(versionedRestaurantBook.getStaffList());
     }
 
     public ModelManager() {
@@ -114,43 +114,98 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasItem(Item item) {
-        requireNonNull(item);
-        return versionedRestaurantBook.hasItem(item);
+    public boolean hasMember(Member member) {
+        requireNonNull(member);
+        return versionedRestaurantBook.hasMember(member);
     }
 
     @Override
-    public void deleteItem(Item target) {
+    public boolean hasBooking(Booking booking) {
+        requireNonNull(booking);
+        return versionedRestaurantBook.hasBooking(booking);
+    }
+
+    @Override
+    public boolean hasIngredient(Ingredient ingredient) {
+        requireNonNull(ingredient);
+        return versionedRestaurantBook.hasIngredient(ingredient);
+    }
+
+    @Override
+    public boolean hasStaff(Staff staff) {
+        requireNonNull(staff);
+        return versionedRestaurantBook.hasStaff(staff);
+    }
+
+    @Override
+    public void deleteMember(Member target) {
         requireNonNull(target);
         versionedRestaurantBook.removeItem(target);
     }
 
     @Override
-    public void addItem(Item item) {
-        requireNonNull(item);
-        versionedRestaurantBook.addItem(item);
-        updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS, item.getClass());
+    public void deleteBooking(Booking target) {
+        requireNonNull(target);
+        versionedRestaurantBook.removeItem(target);
     }
 
     @Override
-    public <T extends Item> void setItem(T target, T editedItem) {
-        requireAllNonNull(target, editedItem);
-
-        versionedRestaurantBook.setItem(target, editedItem);
+    public void deleteIngredient(Ingredient target) {
+        requireNonNull(target);
+        versionedRestaurantBook.removeItem(target);
     }
 
+    @Override
+    public void deleteStaff(Staff target) {
+        requireNonNull(target);
+        versionedRestaurantBook.removeItem(target);
+    }
 
-    /**
-     * Gets the capacity of the restaurant.
-     */
+    @Override
+    public void addMember(Member member) {
+        requireNonNull(member);
+        versionedRestaurantBook.addItem(member);
+        updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS, member.getClass());
+    }
+
+    @Override
+    public void addBooking(Booking booking) {
+        requireNonNull(booking);
+        versionedRestaurantBook.addItem(booking);
+        updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS, booking.getClass());
+    }
+
+    @Override
+    public void addIngredient(Ingredient ingredient) {
+        requireNonNull(ingredient);
+        versionedRestaurantBook.addItem(ingredient);
+        updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS, ingredient.getClass());
+    }
+
+    @Override
+    public void addStaff(Staff staff) {
+        requireNonNull(staff);
+        versionedRestaurantBook.addItem(staff);
+        updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS, staff.getClass());
+    }
+
+    @Override
+    public void setMember(Member target, Member editedMember) {
+        requireAllNonNull(target, editedMember);
+        versionedRestaurantBook.setItem(target, editedMember);
+    }
+
+    @Override
+    public void setIngredient(Ingredient target, Ingredient editedIngredient) {
+        requireAllNonNull(target, editedIngredient);
+        versionedRestaurantBook.setItem(target, editedIngredient);
+    }
+
     @Override
     public Capacity getCapacity() {
         return versionedRestaurantBook.getCapacity();
     }
 
-    /**
-     * Sets the capacity of the restaurant.
-     */
     @Override
     public void setCapacity(Capacity newCapacity) {
         versionedRestaurantBook.setCapacity(newCapacity);
@@ -163,18 +218,23 @@ public class ModelManager implements Model {
      * {@code versionedRestaurantBook}
      */
     @Override
-    public <T extends Item> ObservableList<T> getFilteredItemList(Class<T> clazz) {
-        if (clazz.equals(Member.class)) {
-            return (ObservableList<T>) filteredMembers;
-        } else if (clazz.equals(Booking.class)) {
-            return (ObservableList<T>) filteredBookings;
-        } else if (clazz.equals(Ingredient.class)) {
-            return (ObservableList<T>) filteredIngredients;
-        } else if (clazz.equals(Staff.class)) {
-            return (ObservableList<T>) filteredStaff;
-        } else {
-            throw new IllegalArgumentException("Item type not recognised.");
-        }
+    public ObservableList<Member> getFilteredMemberList() {
+        return filteredMembers;
+    }
+
+    @Override
+    public ObservableList<Booking> getFilteredBookingList() {
+        return filteredBookings;
+    }
+
+    @Override
+    public ObservableList<Ingredient> getFilteredIngredientList() {
+        return filteredIngredients;
+    }
+
+    @Override
+    public ObservableList<Staff> getFilteredStaffList() {
+        return filteredStaff;
     }
 
     @Override

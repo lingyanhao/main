@@ -11,6 +11,10 @@ import seedu.address.model.Item;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyRestaurantBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.booking.Booking;
+import seedu.address.model.ingredient.Ingredient;
+import seedu.address.model.person.Member;
+import seedu.address.model.person.Staff;
 
 /**
  * A default model stub that have all of the methods failing.
@@ -47,7 +51,22 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void addItem(Item member) {
+    public void addMember(Member member) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void addBooking(Booking booking) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void addIngredient(Ingredient ingredient) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void addStaff(Staff staff) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -62,22 +81,72 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public boolean hasItem(Item member) {
+    public boolean hasMember(Member member) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void deleteItem(Item target) {
+    public boolean hasBooking(Booking booking) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void setItem(Item target, Item editedMember) {
+    public boolean hasIngredient(Ingredient ingredient) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public <T extends Item> ObservableList<T> getFilteredItemList(Class<T> clazz) {
+    public boolean hasStaff(Staff staff) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteMember(Member target) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteBooking(Booking target) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteIngredient(Ingredient target) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteStaff(Staff target) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setMember(Member target, Member editedMember) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setIngredient(Ingredient target, Ingredient editedMember) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Member> getFilteredMemberList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Booking> getFilteredBookingList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Ingredient> getFilteredIngredientList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Staff> getFilteredStaffList() {
         throw new AssertionError("This method should not be called.");
     }
 

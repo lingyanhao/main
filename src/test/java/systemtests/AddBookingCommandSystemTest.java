@@ -1,7 +1,7 @@
 package systemtests;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.logic.commands.AddCommand.MESSAGE_DUPLICATE_BOOKING;
+import static seedu.address.logic.commands.add.AddBookingCommand.MESSAGE_DUPLICATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.testutil.TypicalMembers.ALICE;
 
@@ -76,7 +76,7 @@ public class AddBookingCommandSystemTest extends RestaurantBookSystemTest {
             expectedBookingList = Arrays.asList(modifiedAlice1400, modifiedAliceBooking);
 
             // Modify Alice's phone number, booking list should be updated accordingly
-            assertEquals(model.getFilteredItemList(Booking.class), expectedBookingList);
+            assertEquals(model.getFilteredBookingList(), expectedBookingList);
 
             String deleteAliceCommandString = " 1";
             Command deleteAliceCommand = new DeleteCommandParser().parse(deleteAliceCommandString);
@@ -84,7 +84,7 @@ public class AddBookingCommandSystemTest extends RestaurantBookSystemTest {
             expectedBookingList = Collections.emptyList();
 
             // All bookings should be removed once member is deleted
-            assertEquals(model.getFilteredItemList(Booking.class), expectedBookingList);
+            assertEquals(model.getFilteredBookingList(), expectedBookingList);
 
         } catch (ParseException e) {
             throw new AssertionError("Parsing should not fail.");
@@ -103,7 +103,7 @@ public class AddBookingCommandSystemTest extends RestaurantBookSystemTest {
         try {
             Command command = new AddBookingCommandParser().parse(commandString);
             command.execute(model, commandHistory);
-            assertEquals(expectedBookingList, model.getFilteredItemList(Booking.class));
+            assertEquals(expectedBookingList, model.getFilteredBookingList());
         } catch (CommandException e) {
             throw new AssertionError("Command should not fail to execute.");
         } catch (ParseException e) {
@@ -121,7 +121,7 @@ public class AddBookingCommandSystemTest extends RestaurantBookSystemTest {
             command.execute(model, commandHistory);
             throw new AssertionError("Execution should throw CommandException.");
         } catch (CommandException e) {
-            assertEquals(MESSAGE_DUPLICATE_BOOKING, e.getMessage());
+            assertEquals(MESSAGE_DUPLICATE, e.getMessage());
         } catch (ParseException e) {
             throw new AssertionError("Parsing should not fail.");
         }

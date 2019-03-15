@@ -66,7 +66,7 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
         /* Case: redo editing the last member in the list -> last member edited again */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        model.setItem(getModel().getFilteredItemList(Member.class).get(INDEX_FIRST_MEMBER.getZeroBased()),
+        model.setMember(getModel().getFilteredMemberList().get(INDEX_FIRST_MEMBER.getZeroBased()),
                 editedMember);
         assertCommandSuccess(command, model, expectedResultMessage);
 
@@ -76,9 +76,9 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
         assertCommandSuccess(command, index, BOB);
 
         /* Case: edit a member with new values same as another member's values but with different name -> edited */
-        assertTrue(getModel().getRestaurantBook().getItemList(Member.class).contains(BOB));
+        assertTrue(getModel().getRestaurantBook().getMemberList().contains(BOB));
         index = INDEX_SECOND_MEMBER;
-        assertNotEquals(getModel().getFilteredItemList(Member.class).get(index.getZeroBased()), BOB);
+        assertNotEquals(getModel().getFilteredMemberList().get(index.getZeroBased()), BOB);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + MEMBER_NAME_DESC_AMY + MEMBER_PHONE_DESC_BOB
                 + MEMBER_EMAIL_DESC_BOB + " " + LOYALTY_POINTS_DESC_BOB;
         editedMember = new MemberBuilder(BOB).withName(MEMBER_VALID_NAME_AMY).build();
@@ -105,9 +105,9 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
         /* Case: filtered member list, edit index within bounds of address book and member list -> edited */
         showMembersWithName(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_MEMBER;
-        assertTrue(index.getZeroBased() < getModel().getFilteredItemList(Member.class).size());
+        assertTrue(index.getZeroBased() < getModel().getFilteredMemberList().size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + MEMBER_NAME_DESC_BOB;
-        Member memberToEdit = getModel().getFilteredItemList(Member.class).get(index.getZeroBased());
+        Member memberToEdit = getModel().getFilteredMemberList().get(index.getZeroBased());
         editedMember = new MemberBuilder(memberToEdit).withName(MEMBER_VALID_NAME_BOB).build();
 
         assertCommandSuccess(command, index, editedMember);
@@ -116,7 +116,7 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
          * -> rejected
          */
         showMembersWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getRestaurantBook().getItemList(Member.class).size();
+        int invalidIndex = getModel().getRestaurantBook().getMemberList().size();
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + MEMBER_NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_MEMBER_DISPLAYED_INDEX);
 
@@ -145,7 +145,7 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (size + 1) -> rejected */
-        invalidIndex = getModel().getFilteredItemList(Member.class).size() + 1;
+        invalidIndex = getModel().getFilteredMemberList().size() + 1;
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + MEMBER_NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_MEMBER_DISPLAYED_INDEX);
 
@@ -174,9 +174,9 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
 
         /* Case: edit a member with new values same as another member's values -> rejected */
         executeCommand(MemberUtil.getAddCommand(BOB));
-        assertTrue(getModel().getRestaurantBook().getItemList(Member.class).contains(BOB));
+        assertTrue(getModel().getRestaurantBook().getMemberList().contains(BOB));
         index = INDEX_FIRST_MEMBER;
-        assertFalse(getModel().getFilteredItemList(Member.class).get(index.getZeroBased()).equals(BOB));
+        assertFalse(getModel().getFilteredMemberList().get(index.getZeroBased()).equals(BOB));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + MEMBER_NAME_DESC_BOB + MEMBER_PHONE_DESC_BOB
                 + MEMBER_EMAIL_DESC_BOB;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_MEMBER);
@@ -223,7 +223,7 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
     private void assertCommandSuccess(String command, Index toEdit, Member editedMember,
             Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
-        expectedModel.setItem(expectedModel.getFilteredItemList(Member.class).get(toEdit.getZeroBased()), editedMember);
+        expectedModel.setMember(expectedModel.getFilteredMemberList().get(toEdit.getZeroBased()), editedMember);
         expectedModel.updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS, Member.class);
 
         assertCommandSuccess(command, expectedModel,

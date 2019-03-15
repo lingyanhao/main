@@ -27,9 +27,9 @@ import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.add.AddMemberCommand;
 import seedu.address.model.Model;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Member;
@@ -38,7 +38,7 @@ import seedu.address.model.person.Phone;
 import seedu.address.testutil.MemberBuilder;
 import seedu.address.testutil.MemberUtil;
 
-public class AddCommandSystemTest extends RestaurantBookSystemTest {
+public class AddMemberCommandSystemTest extends RestaurantBookSystemTest {
 
     @Test
     public void add() {
@@ -50,7 +50,7 @@ public class AddCommandSystemTest extends RestaurantBookSystemTest {
          * -> added
          */
         Member toAdd = AMY;
-        String command = "   " + AddCommand.COMMAND_WORD_MEMBER + "  " + MEMBER_NAME_DESC_AMY + "  "
+        String command = "   " + AddMemberCommand.COMMAND_WORD + "  " + MEMBER_NAME_DESC_AMY + "  "
                 + MEMBER_PHONE_DESC_AMY + " " + MEMBER_EMAIL_DESC_AMY + " " + LOYALTY_POINTS_DESC_AMY;
         assertCommandSuccess(command, toAdd);
 
@@ -61,13 +61,13 @@ public class AddCommandSystemTest extends RestaurantBookSystemTest {
 
         /* Case: redo adding Amy to the list -> Amy added again */
         command = RedoCommand.COMMAND_WORD;
-        model.addItem(toAdd);
+        model.addMember(toAdd);
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: add a member with all fields same as another member in the address book except name -> added */
         toAdd = new MemberBuilder(AMY).withName(MEMBER_VALID_NAME_BOB).build();
-        command = AddCommand.COMMAND_WORD_MEMBER + MEMBER_NAME_DESC_BOB + MEMBER_PHONE_DESC_AMY + MEMBER_EMAIL_DESC_AMY
+        command = AddMemberCommand.COMMAND_WORD + MEMBER_NAME_DESC_BOB + MEMBER_PHONE_DESC_AMY + MEMBER_EMAIL_DESC_AMY
                 + LOYALTY_POINTS_DESC_AMY;
         assertCommandSuccess(command, toAdd);
 
@@ -84,7 +84,7 @@ public class AddCommandSystemTest extends RestaurantBookSystemTest {
 
         /* Case: add a member, command with parameters in random order -> added */
         toAdd = BOB;
-        command = AddCommand.COMMAND_WORD_MEMBER + LOYALTY_POINTS_DESC_BOB + MEMBER_PHONE_DESC_BOB
+        command = AddMemberCommand.COMMAND_WORD + LOYALTY_POINTS_DESC_BOB + MEMBER_PHONE_DESC_BOB
                 + MEMBER_NAME_DESC_BOB + MEMBER_EMAIL_DESC_BOB;
         assertCommandSuccess(command, toAdd);
 
@@ -107,55 +107,55 @@ public class AddCommandSystemTest extends RestaurantBookSystemTest {
 
         /* Case: add a duplicate member -> rejected */
         command = MemberUtil.getAddCommand(HOON);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_MEMBER);
+        assertCommandFailure(command, AddMemberCommand.MESSAGE_DUPLICATE_MEMBER);
 
         /* Case: add a duplicate member except with different phone -> rejected */
         toAdd = new MemberBuilder(HOON).withPhone(MEMBER_VALID_PHONE_BOB).build();
         command = MemberUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_MEMBER);
+        assertCommandFailure(command, AddMemberCommand.MESSAGE_DUPLICATE_MEMBER);
 
         /* Case: add a duplicate member except with different email -> rejected */
         toAdd = new MemberBuilder(HOON).withEmail(MEMBER_VALID_EMAIL_BOB).build();
         command = MemberUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_MEMBER);
+        assertCommandFailure(command, AddMemberCommand.MESSAGE_DUPLICATE_MEMBER);
 
         /* Case: missing name -> rejected */
-        command = AddCommand.COMMAND_WORD_MEMBER + MEMBER_PHONE_DESC_AMY + MEMBER_EMAIL_DESC_AMY;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE_MEMBER));
+        command = AddMemberCommand.COMMAND_WORD + MEMBER_PHONE_DESC_AMY + MEMBER_EMAIL_DESC_AMY;
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMemberCommand.MESSAGE_USAGE));
 
         /* Case: missing phone -> rejected */
-        command = AddCommand.COMMAND_WORD_MEMBER + MEMBER_NAME_DESC_AMY + MEMBER_EMAIL_DESC_AMY;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE_MEMBER));
+        command = AddMemberCommand.COMMAND_WORD + MEMBER_NAME_DESC_AMY + MEMBER_EMAIL_DESC_AMY;
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMemberCommand.MESSAGE_USAGE));
 
         /* Case: missing email -> rejected */
-        command = AddCommand.COMMAND_WORD_MEMBER + MEMBER_NAME_DESC_AMY + MEMBER_PHONE_DESC_AMY;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE_MEMBER));
+        command = AddMemberCommand.COMMAND_WORD + MEMBER_NAME_DESC_AMY + MEMBER_PHONE_DESC_AMY;
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMemberCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
         command = "adds " + MemberUtil.getMemberDetails(toAdd);
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
-        command = AddCommand.COMMAND_WORD_MEMBER + MEMBER_INVALID_NAME_DESC
+        command = AddMemberCommand.COMMAND_WORD + MEMBER_INVALID_NAME_DESC
                 + MEMBER_PHONE_DESC_AMY + MEMBER_EMAIL_DESC_AMY;
         assertCommandFailure(command, Name.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
-        command = AddCommand.COMMAND_WORD_MEMBER + MEMBER_NAME_DESC_AMY
+        command = AddMemberCommand.COMMAND_WORD + MEMBER_NAME_DESC_AMY
                 + MEMBER_INVALID_PHONE_DESC + MEMBER_EMAIL_DESC_AMY;
         assertCommandFailure(command, Phone.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
-        command = AddCommand.COMMAND_WORD_MEMBER + MEMBER_NAME_DESC_AMY
+        command = AddMemberCommand.COMMAND_WORD + MEMBER_NAME_DESC_AMY
                 + MEMBER_PHONE_DESC_AMY + MEMBER_INVALID_EMAIL_DESC;
         assertCommandFailure(command, Email.MESSAGE_CONSTRAINTS);
     }
 
     /**
-     * Executes the {@code AddCommand} that adds {@code toAdd} to the model and asserts that the,<br>
+     * Executes the {@code AddMemberCommand} that adds {@code toAdd} to the model and asserts that the,<br>
      * 1. Command box displays an empty string.<br>
      * 2. Command box has the default style class.<br>
-     * 3. Result display box displays the success message of executing {@code AddCommand} with the details of
+     * 3. Result display box displays the success message of executing {@code AddMemberCommand} with the details of
      * {@code toAdd}.<br>
      * 4. {@code Storage} and {@code MemberListPanel} equal to the corresponding components in
      * the current model added with {@code toAdd}.<br>
@@ -172,12 +172,12 @@ public class AddCommandSystemTest extends RestaurantBookSystemTest {
     /**
      * Performs the same verification as {@code assertCommandSuccess(Member)}. Executes {@code command}
      * instead.
-     * @see AddCommandSystemTest#assertCommandSuccess(Member)
+     * @see AddMemberCommandSystemTest#assertCommandSuccess(Member)
      */
     private void assertCommandSuccess(String command, Member toAdd) {
         Model expectedModel = getModel();
-        expectedModel.addItem(toAdd);
-        String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS_MEMBER, toAdd);
+        expectedModel.addMember(toAdd);
+        String expectedResultMessage = String.format(AddMemberCommand.MESSAGE_SUCCESS, toAdd);
 
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
     }
@@ -188,7 +188,7 @@ public class AddCommandSystemTest extends RestaurantBookSystemTest {
      * 1. Result display box displays {@code expectedResultMessage}.<br>
      * 2. {@code Storage} and {@code MemberListPanel} equal to the corresponding components in
      * {@code expectedModel}.<br>
-     * @see AddCommandSystemTest#assertCommandSuccess(String, Member)
+     * @see AddMemberCommandSystemTest#assertCommandSuccess(String, Member)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
         executeCommand(command);

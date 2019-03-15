@@ -5,7 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.add.AddStaffCommand;
 import seedu.address.model.person.Staff;
 
 
@@ -18,14 +18,14 @@ public class StaffUtil {
      * Returns an add command string for adding the {@code staff}.
      */
     public static String getAddCommand(Staff staff) {
-        return AddCommand.COMMAND_WORD_MEMBER + " " + getStaffDetails(staff);
+        return AddStaffCommand.COMMAND_WORD + " " + getStaffDetails(staff);
     }
 
     /**
      * Returns an add command string for adding the {@code staff}, using the command alias.
      */
     public static String getAddCommandAlias(Staff staff) {
-        return AddCommand.COMMAND_ALIAS_MEMBER + " " + getStaffDetails(staff);
+        return AddStaffCommand.COMMAND_ALIAS + " " + getStaffDetails(staff);
     }
 
     /**
