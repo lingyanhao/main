@@ -196,7 +196,22 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public <T extends Item> ReadOnlyProperty<T> selectedItemProperty(Class<T> clazz) {
+    public ReadOnlyProperty<Member> selectedMemberProperty() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ReadOnlyProperty<Booking> selectedBookingProperty() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ReadOnlyProperty<Ingredient> selectedIngredientProperty() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ReadOnlyProperty<Staff> selectedStaffProperty() {
         throw new AssertionError("This method should not be called.");
     }
 

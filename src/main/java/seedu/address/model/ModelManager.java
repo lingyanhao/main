@@ -287,18 +287,23 @@ public class ModelManager implements Model {
     //=========== Selected member ===========================================================================
 
     @Override
-    public <T extends Item> ReadOnlyProperty<T> selectedItemProperty(Class<T> clazz) {
-        if (clazz == Member.class) {
-            return (ReadOnlyProperty<T>) selectedMember;
-        } else if (clazz == Booking.class) {
-            return (ReadOnlyProperty<T>) selectedBooking;
-        } else if (clazz == Ingredient.class) {
-            return (ReadOnlyProperty<T>) selectedIngredient;
-        } else if (clazz == Staff.class) {
-            return (ReadOnlyProperty<T>) selectedStaff;
-        } else {
-            throw new IllegalArgumentException("Item type not recognised.");
-        }
+    public ReadOnlyProperty<Member> selectedMemberProperty() {
+        return selectedMember;
+    }
+
+    @Override
+    public ReadOnlyProperty<Booking> selectedBookingProperty() {
+        return selectedBooking;
+    }
+
+    @Override
+    public ReadOnlyProperty<Ingredient> selectedIngredientProperty() {
+        return selectedIngredient;
+    }
+
+    @Override
+    public ReadOnlyProperty<Staff> selectedStaffProperty() {
+        return selectedStaff;
     }
 
     @Override
