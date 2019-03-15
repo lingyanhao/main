@@ -14,7 +14,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyRestaurantBook;
 import seedu.address.model.RestaurantBook;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Member;
 import seedu.address.storage.JsonRestaurantBookStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.testutil.TestUtil;

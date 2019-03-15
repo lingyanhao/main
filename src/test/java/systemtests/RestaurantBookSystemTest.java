@@ -31,7 +31,6 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.Model;
 import seedu.address.model.RestaurantBook;
-import seedu.address.model.person.Member;
 import seedu.address.testutil.TypicalMembers;
 import seedu.address.ui.CommandBox;
 
