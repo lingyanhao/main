@@ -1,7 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ITEMS;
+import static seedu.address.model.MemberModel.PREDICATE_SHOW_ALL_MEMBERS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEMBERS;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -27,7 +28,7 @@ public class UndoCommand extends Command {
         }
 
         model.undoRestaurantBook();
-        model.updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS, Member.class);
+        model.updateFilteredMemberList(PREDICATE_SHOW_ALL_MEMBERS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

@@ -151,7 +151,22 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public <T extends Item> void updateFilteredItemList(Predicate<? super T> predicate, Class<T> clazz) {
+    public void updateFilteredMemberList(Predicate<Member> predicate) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateFilteredBookingList(Predicate<Booking> predicate) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateFilteredIngredientList(Predicate<Ingredient> predicate) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateFilteredStaffList(Predicate<Staff> predicate) {
         throw new AssertionError("This method should not be called.");
     }
 

@@ -5,7 +5,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOYALTY_POINTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ITEMS;
+import static seedu.address.model.MemberModel.PREDICATE_SHOW_ALL_MEMBERS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEMBERS;
 
 import java.util.List;
 import java.util.Optional;
@@ -80,7 +81,7 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_MEMBER);
         }
 
-        model.updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS, Member.class);
+        model.updateFilteredMemberList(PREDICATE_SHOW_ALL_MEMBERS);
         model.commitRestaurantBook();
         return new CommandResult(String.format(MESSAGE_EDIT_MEMBER_SUCCESS, editedMember));
     }
