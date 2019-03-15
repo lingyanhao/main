@@ -34,7 +34,7 @@ public class StatsWindow extends UiPart<Stage> {
 
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
-        final BarChart<String,Number> bc = new BarChart<>(xAxis,yAxis);
+        final BarChart<String, Number> bc = new BarChart<>(xAxis, yAxis);
         bc.setTitle("Country Summary");
         xAxis.setLabel("Country");
         yAxis.setLabel("Value");
@@ -72,6 +72,9 @@ public class StatsWindow extends UiPart<Stage> {
         this(new Stage());
     }
 
+    /**
+     * Shows the stats window.
+     */
     public void show() {
         logger.fine("Showing help page about the application.");
         getRoot().show();
