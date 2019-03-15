@@ -165,28 +165,28 @@ public class ModelManager implements Model {
     public void addMember(Member member) {
         requireNonNull(member);
         versionedRestaurantBook.addItem(member);
-        updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS, member.getClass());
+        updateFilteredMemberList(PREDICATE_SHOW_ALL_MEMBERS);
     }
 
     @Override
     public void addBooking(Booking booking) {
         requireNonNull(booking);
         versionedRestaurantBook.addItem(booking);
-        updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS, booking.getClass());
+        updateFilteredBookingList(PREDICATE_SHOW_ALL_BOOKINGS);
     }
 
     @Override
     public void addIngredient(Ingredient ingredient) {
         requireNonNull(ingredient);
         versionedRestaurantBook.addItem(ingredient);
-        updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS, ingredient.getClass());
+        updateFilteredIngredientList(PREDICATE_SHOW_ALL_INGREDIENTS);
     }
 
     @Override
     public void addStaff(Staff staff) {
         requireNonNull(staff);
         versionedRestaurantBook.addItem(staff);
-        updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS, staff.getClass());
+        updateFilteredStaffList(PREDICATE_SHOW_ALL_STAFF);
     }
 
     @Override
@@ -238,19 +238,23 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public <T extends Item> void updateFilteredItemList(Predicate<? super T> predicate, Class<T> clazz) {
-        requireNonNull(predicate);
-        if (clazz == Member.class) {
-            filteredMembers.setPredicate((Predicate<Member>) predicate);
-        } else if (clazz == Booking.class) {
-            filteredBookings.setPredicate((Predicate<Booking>) predicate);
-        } else if (clazz == Ingredient.class) {
-            filteredIngredients.setPredicate((Predicate<Ingredient>) predicate);
-        } else if (clazz == Staff.class) {
-            filteredStaff.setPredicate((Predicate<Staff>) predicate);
-        } else {
-            throw new IllegalArgumentException("Item type not recognised.");
-        }
+    public void updateFilteredMemberList(Predicate<Member> predicate) {
+        filteredMembers.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredBookingList(Predicate<Booking> predicate) {
+        filteredBookings.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredIngredientList(Predicate<Ingredient> predicate) {
+        filteredIngredients.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredStaffList(Predicate<Staff> predicate) {
+        filteredStaff.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================

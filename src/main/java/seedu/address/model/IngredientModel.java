@@ -9,7 +9,10 @@ import seedu.address.model.ingredient.Ingredient;
  * The API that stores the ingredient side of the model.
  */
 public interface IngredientModel {
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Ingredient> PREDICATE_SHOW_ALL_INGREDIENTS = unused -> true;
     /**
+     *
      * Returns true if a ingredient with the same identity as {@code ingredient} exists in the restaurant book.
      */
     boolean hasIngredient(Ingredient ingredient);

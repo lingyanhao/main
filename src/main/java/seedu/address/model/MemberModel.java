@@ -9,6 +9,9 @@ import seedu.address.model.person.Member;
  * The API that stores the member side of the model.
  */
 public interface MemberModel {
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Member> PREDICATE_SHOW_ALL_MEMBERS = unused -> true;
+
     /**
      * Returns true if a member with the same identity as {@code member} exists in the restaurant book.
      */

@@ -9,6 +9,9 @@ import seedu.address.model.booking.Booking;
  * The API that stores the booking side of the model.
  */
 public interface BookingModel {
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Booking> PREDICATE_SHOW_ALL_BOOKINGS = unused -> true;
+
     /**
      * Returns true if a booking with the same identity as {@code booking} exists in the restaurant book.
      */

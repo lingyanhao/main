@@ -9,6 +9,9 @@ import seedu.address.model.person.Staff;
  * The API that stores the staff side of the model.
  */
 public interface StaffModel {
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Staff> PREDICATE_SHOW_ALL_STAFF = unused -> true;
+
     /**
      * Returns true if a staff with the same identity as {@code staff} exists in the restaurant book.
      */
@@ -33,5 +36,5 @@ public interface StaffModel {
      * Updates the filter of the filtered staff list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredMemberList(Predicate<Staff> predicate);
+    void updateFilteredStaffList(Predicate<Staff> predicate);
 }
