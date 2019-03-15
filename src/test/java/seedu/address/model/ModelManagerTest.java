@@ -114,7 +114,7 @@ public class ModelManagerTest {
     public void deleteMember_memberIsSelectedAndSecondMemberInFilteredMemberList_firstMemberSelected() {
         modelManager.addMember(ALICE);
         modelManager.addMember(BOB);
-        assertEquals(Arrays.asList(ALICE, BOB), modelManager.getFilteredItemList(Member.class));
+        assertEquals(Arrays.asList(ALICE, BOB), modelManager.getFilteredMemberList());
         modelManager.setSelectedItem(BOB, Member.class);
         modelManager.deleteMember(BOB);
         assertEquals(ALICE, modelManager.getSelectedItem(Member.class));
@@ -125,14 +125,14 @@ public class ModelManagerTest {
         modelManager.addMember(ALICE);
         modelManager.setSelectedItem(ALICE, Member.class);
         Member updatedAlice = new MemberBuilder(ALICE).withEmail(MEMBER_VALID_EMAIL_BOB).build();
-        modelManager.setItem(ALICE, updatedAlice);
+        modelManager.setMember(ALICE, updatedAlice);
         assertEquals(updatedAlice, modelManager.getSelectedItem(Member.class));
     }
 
     @Test
     public void getFilteredMemberList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        modelManager.getFilteredItemList(Member.class).remove(0);
+        modelManager.getFilteredMemberList().remove(0);
     }
 
     @Test
@@ -144,7 +144,7 @@ public class ModelManagerTest {
     @Test
     public void setSelectedMember_memberInFilteredMemberList_setsSelectedMember() {
         modelManager.addMember(ALICE);
-        assertEquals(Collections.singletonList(ALICE), modelManager.getFilteredItemList(Member.class));
+        assertEquals(Collections.singletonList(ALICE), modelManager.getFilteredMemberList());
         modelManager.setSelectedItem(ALICE, Member.class);
         assertEquals(ALICE, modelManager.getSelectedItem(Member.class));
     }

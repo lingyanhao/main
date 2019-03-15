@@ -190,24 +190,22 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public <T extends Item> void setItem(T target, T editedItem) {
-        requireAllNonNull(target, editedItem);
-
-        versionedRestaurantBook.setItem(target, editedItem);
+    public void setMember(Member target, Member editedMember) {
+        requireAllNonNull(target, editedMember);
+        versionedRestaurantBook.setItem(target, editedMember);
     }
 
+    @Override
+    public void setIngredient(Ingredient target, Ingredient editedIngredient) {
+        requireAllNonNull(target, editedIngredient);
+        versionedRestaurantBook.setItem(target, editedIngredient);
+    }
 
-    /**
-     * Gets the capacity of the restaurant.
-     */
     @Override
     public Capacity getCapacity() {
         return versionedRestaurantBook.getCapacity();
     }
 
-    /**
-     * Sets the capacity of the restaurant.
-     */
     @Override
     public void setCapacity(Capacity newCapacity) {
         versionedRestaurantBook.setCapacity(newCapacity);
@@ -220,18 +218,23 @@ public class ModelManager implements Model {
      * {@code versionedRestaurantBook}
      */
     @Override
-    public <T extends Item> ObservableList<T> getFilteredItemList(Class<T> clazz) {
-        if (clazz.equals(Member.class)) {
-            return (ObservableList<T>) filteredMembers;
-        } else if (clazz.equals(Booking.class)) {
-            return (ObservableList<T>) filteredBookings;
-        } else if (clazz.equals(Ingredient.class)) {
-            return (ObservableList<T>) filteredIngredients;
-        } else if (clazz.equals(Staff.class)) {
-            return (ObservableList<T>) filteredStaff;
-        } else {
-            throw new IllegalArgumentException("Item type not recognised.");
-        }
+    public ObservableList<Member> getFilteredMemberList() {
+        return filteredMembers;
+    }
+
+    @Override
+    public ObservableList<Booking> getFilteredBookingList() {
+        return filteredBookings;
+    }
+
+    @Override
+    public ObservableList<Ingredient> getFilteredIngredientList() {
+        return filteredIngredients;
+    }
+
+    @Override
+    public ObservableList<Staff> getFilteredStaffList() {
+        return filteredStaff;
     }
 
     @Override

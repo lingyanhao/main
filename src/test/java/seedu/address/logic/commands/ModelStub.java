@@ -121,12 +121,32 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void setItem(Item target, Item editedMember) {
+    public void setMember(Member target, Member editedMember) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public <T extends Item> ObservableList<T> getFilteredItemList(Class<T> clazz) {
+    public void setIngredient(Ingredient target, Ingredient editedMember) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Member> getFilteredMemberList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Booking> getFilteredBookingList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Ingredient> getFilteredIngredientList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Staff> getFilteredStaffList() {
         throw new AssertionError("This method should not be called.");
     }
 

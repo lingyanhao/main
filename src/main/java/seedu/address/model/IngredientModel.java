@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import javafx.collections.ObservableList;
 import seedu.address.model.ingredient.Ingredient;
 
 /**
@@ -22,4 +23,15 @@ public interface IngredientModel {
      * {@code ingredient} must not already exist in the restaurant book.
      */
     void addIngredient(Ingredient ingredient);
+
+    /**
+     * Replaces the given member {@code target} with {@code editedMember}.
+     * {@code target} must exist in the restaurant book.
+     * The member identity of {@code editedMember}
+     * must not be the same as another existing member in the restaurant book.
+     */
+    void setIngredient(Ingredient target, Ingredient editedItem);
+
+    /** Returns an unmodifiable view of the filtered ingredient list */
+    ObservableList<Ingredient> getFilteredIngredientList();
 }

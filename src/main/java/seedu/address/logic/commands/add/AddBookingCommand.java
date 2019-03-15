@@ -59,7 +59,7 @@ public class AddBookingCommand extends Command {
 
     private Booking getBooking(Model model) throws CommandException {
         requireNonNull(model);
-        List<Member> lastShownList = model.getFilteredItemList(Member.class);
+        List<Member> lastShownList = model.getFilteredMemberList();
         if (memberIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_MEMBER_DISPLAYED_INDEX);
         }

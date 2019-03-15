@@ -53,17 +53,6 @@ public interface Model extends MemberModel, BookingModel, IngredientModel, Staff
     ReadOnlyRestaurantBook getRestaurantBook();
 
     /**
-     * Replaces the given member {@code target} with {@code editedMember}.
-     * {@code target} must exist in the restaurant book.
-     * The member identity of {@code editedMember}
-     * must not be the same as another existing member in the restaurant book.
-     */
-    <T extends Item> void setItem(T target, T editedItem);
-
-    /** Returns an unmodifiable view of the filtered item list */
-    <T extends Item> ObservableList<T> getFilteredItemList(Class<T> clazz);
-
-    /**
      * Updates the filter of the filtered member list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
@@ -111,14 +100,5 @@ public interface Model extends MemberModel, BookingModel, IngredientModel, Staff
      */
     <T extends Item> void setSelectedItem(T item, Class<T> clazz);
 
-    /**
-     * Gets the capacity of the restaurant.
-     */
-    Capacity getCapacity();
-
-    /**
-     * Sets the capacity of the restaurant.
-     */
-    void setCapacity(Capacity newCapacity);
 
 }

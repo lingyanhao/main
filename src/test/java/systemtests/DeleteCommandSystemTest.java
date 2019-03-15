@@ -60,7 +60,7 @@ public class DeleteCommandSystemTest extends RestaurantBookSystemTest {
         /* Case: filtered member list, delete index within bounds of address book and member list -> deleted */
         showMembersWithName(KEYWORD_MATCHING_MEIER);
         Index index = INDEX_FIRST_MEMBER;
-        assertTrue(index.getZeroBased() < getModel().getFilteredItemList(Member.class).size());
+        assertTrue(index.getZeroBased() < getModel().getFilteredMemberList().size());
         assertCommandSuccess(index);
 
         /* Case: filtered member list, delete index within bounds of address book but out of bounds of member list

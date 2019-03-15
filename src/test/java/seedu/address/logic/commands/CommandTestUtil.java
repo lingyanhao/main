@@ -148,7 +148,7 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         RestaurantBook expectedRestaurantBook = new RestaurantBook(actualModel.getRestaurantBook());
-        List<Member> expectedFilteredList = new ArrayList<>(actualModel.getFilteredItemList(Member.class));
+        List<Member> expectedFilteredList = new ArrayList<>(actualModel.getFilteredMemberList());
         Member expectedSelectedMember = actualModel.getSelectedItem(Member.class);
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
@@ -159,7 +159,7 @@ public class CommandTestUtil {
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedRestaurantBook, actualModel.getRestaurantBook());
-            assertEquals(expectedFilteredList, actualModel.getFilteredItemList(Member.class));
+            assertEquals(expectedFilteredList, actualModel.getFilteredMemberList());
             assertEquals(expectedSelectedMember, actualModel.getSelectedItem(Member.class));
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
@@ -170,20 +170,20 @@ public class CommandTestUtil {
      * {@code model}'s address book.
      */
     public static void showMemberAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredItemList(Member.class).size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredMemberList().size());
 
-        Member member = model.getFilteredItemList(Member.class).get(targetIndex.getZeroBased());
+        Member member = model.getFilteredMemberList().get(targetIndex.getZeroBased());
         final String[] splitName = member.getName().fullName.split("\\s+");
         model.updateFilteredItemList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])), Member.class);
 
-        assertEquals(1, model.getFilteredItemList(Member.class).size());
+        assertEquals(1, model.getFilteredMemberList().size());
     }
 
     /**
      * Deletes the first member in {@code model}'s filtered list from {@code model}'s address book.
      */
     public static void deleteFirstMember(Model model) {
-        Member firstMember = model.getFilteredItemList(Member.class).get(0);
+        Member firstMember = model.getFilteredMemberList().get(0);
         model.deleteMember(firstMember);
         model.commitRestaurantBook();
     }

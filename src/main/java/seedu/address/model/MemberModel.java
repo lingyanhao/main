@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import javafx.collections.ObservableList;
 import seedu.address.model.person.Member;
 
 /**
@@ -22,4 +23,15 @@ public interface MemberModel {
      * {@code member} must not already exist in the restaurant book.
      */
     void addMember(Member member);
+
+    /**
+     * Replaces the given member {@code target} with {@code editedMember}.
+     * {@code target} must exist in the restaurant book.
+     * The member identity of {@code editedMember}
+     * must not be the same as another existing member in the restaurant book.
+     */
+    void setMember(Member target, Member editedItem);
+
+    /** Returns an unmodifiable view of the filtered member list */
+    ObservableList<Member> getFilteredMemberList();
 }

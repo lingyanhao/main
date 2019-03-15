@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import javafx.collections.ObservableList;
 import seedu.address.model.booking.Booking;
 
 /**
@@ -22,4 +23,17 @@ public interface BookingModel {
      * {@code booking} must not already exist in the restaurant book.
      */
     void addBooking(Booking booking);
+
+    /** Returns an unmodifiable view of the filtered booking list */
+    ObservableList<Booking> getFilteredBookingList();
+
+    /**
+     * Gets the capacity of the restaurant.
+     */
+    Capacity getCapacity();
+
+    /**
+     * Sets the capacity of the restaurant.
+     */
+    void setCapacity(Capacity newCapacity);
 }

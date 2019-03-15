@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import javafx.collections.ObservableList;
 import seedu.address.model.person.Staff;
 
 /**
@@ -22,4 +23,7 @@ public interface StaffModel {
      * {@code staff} must not already exist in the restaurant book.
      */
     void addStaff(Staff staff);
+
+    /** Returns an unmodifiable view of the filtered staff list */
+    ObservableList<Staff> getFilteredStaffList();
 }

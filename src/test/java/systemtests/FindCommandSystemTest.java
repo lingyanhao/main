@@ -147,7 +147,7 @@ public class FindCommandSystemTest extends RestaurantBookSystemTest {
      */
     private void assertCommandSuccess(String command, Model expectedModel) {
         String expectedResultMessage = String.format(
-                MESSAGE_MEMBERS_LISTED_OVERVIEW, expectedModel.getFilteredItemList(Member.class).size());
+                MESSAGE_MEMBERS_LISTED_OVERVIEW, expectedModel.getFilteredMemberList().size());
 
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);

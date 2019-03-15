@@ -34,7 +34,7 @@ public class FindCommand extends Command {
         model.updateFilteredItemList(predicate, Member.class);
         return new CommandResult(
                 String.format(Messages.MESSAGE_MEMBERS_LISTED_OVERVIEW,
-                        model.getFilteredItemList(Member.class).size()));
+                        model.getFilteredMemberList().size()));
     }
 
     @Override

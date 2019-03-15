@@ -127,7 +127,7 @@ public abstract class RestaurantBookSystemTest {
     protected void showAllMembers() {
         executeCommand(ListCommand.COMMAND_WORD);
         assertEquals(getModel().getRestaurantBook().getMemberList().size(),
-                getModel().getFilteredItemList(Member.class).size());
+                getModel().getFilteredMemberList().size());
     }
 
     /**
@@ -135,7 +135,7 @@ public abstract class RestaurantBookSystemTest {
      */
     protected void showMembersWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredItemList(Member.class).size()
+        assertTrue(getModel().getFilteredMemberList().size()
                 < getModel().getRestaurantBook().getMemberList().size());
     }
 
@@ -165,7 +165,7 @@ public abstract class RestaurantBookSystemTest {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new RestaurantBook(expectedModel.getRestaurantBook()), testApp.readStorageAddressBook());
-        assertListMatching(getMemberListPanel(), expectedModel.getFilteredItemList(Member.class));
+        assertListMatching(getMemberListPanel(), expectedModel.getFilteredMemberList());
     }
 
     /**
@@ -244,7 +244,7 @@ public abstract class RestaurantBookSystemTest {
     private void assertApplicationStartingStateIsCorrect() {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
-        assertListMatching(getMemberListPanel(), getModel().getFilteredItemList(Member.class));
+        assertListMatching(getMemberListPanel(), getModel().getFilteredMemberList());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
