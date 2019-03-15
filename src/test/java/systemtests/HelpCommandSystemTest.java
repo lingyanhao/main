@@ -58,7 +58,7 @@ public class HelpCommandSystemTest extends RestaurantBookSystemTest {
         executeCommand(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_MEMBER.getOneBased());
         assertEquals("", getCommandBox().getInput());
         assertCommandBoxShowsDefaultStyle();
-        assertNotEquals(HelpCommand.SHOWING_HELP_MESSAGE, getResultDisplay().getText());
+        assertNotEquals(HelpCommand.MESSAGE_SHOWING_HELP, getResultDisplay().getText());
         assertListMatching(getMemberListPanel(), getModel().getFilteredMemberList());
 
         // assert that the status bar too is updated correctly while the help window is open
