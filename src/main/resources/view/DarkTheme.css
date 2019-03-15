@@ -10,6 +10,24 @@
     -fx-opacity: 0.9;
 }
 
+.chart-title {
+    -fx-text-fill: white;
+    -fx-font-size: 20pt;
+}
+
+.axis-label {
+    -fx-text-fill: white;
+}
+
+.axis {
+    -fx-tick-label-fill: white;
+}
+
+.chart {
+    -fx-font-size: 12pt;
+    //-fx-text-fill: white;
+ }
+
 .label-bright {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
