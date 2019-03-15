@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import java.util.function.Predicate;
+
 import javafx.collections.ObservableList;
 import seedu.address.model.booking.Booking;
 
@@ -26,6 +28,12 @@ public interface BookingModel {
 
     /** Returns an unmodifiable view of the filtered booking list */
     ObservableList<Booking> getFilteredBookingList();
+
+    /**
+     * Updates the filter of the filtered booking list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredBookingList(Predicate<Booking> predicate);
 
     /**
      * Gets the capacity of the restaurant.

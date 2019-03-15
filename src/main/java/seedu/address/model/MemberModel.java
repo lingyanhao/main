@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import java.util.function.Predicate;
+
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Member;
 
@@ -34,4 +36,10 @@ public interface MemberModel {
 
     /** Returns an unmodifiable view of the filtered member list */
     ObservableList<Member> getFilteredMemberList();
+
+    /**
+     * Updates the filter of the filtered member list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredMemberList(Predicate<Member> predicate);
 }

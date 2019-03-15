@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import java.util.function.Predicate;
+
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Staff;
 
@@ -26,4 +28,10 @@ public interface StaffModel {
 
     /** Returns an unmodifiable view of the filtered staff list */
     ObservableList<Staff> getFilteredStaffList();
+
+    /**
+     * Updates the filter of the filtered staff list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredMemberList(Predicate<Staff> predicate);
 }

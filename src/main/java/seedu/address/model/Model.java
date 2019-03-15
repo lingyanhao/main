@@ -52,12 +52,6 @@ public interface Model extends MemberModel, BookingModel, IngredientModel, Staff
     ReadOnlyRestaurantBook getRestaurantBook();
 
     /**
-     * Updates the filter of the filtered member list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    <T extends Item> void updateFilteredItemList(Predicate<? super T> predicate, Class<T> clazz);
-
-    /**
      * Returns true if the model has previous restaurant book states to restore.
      */
     boolean canUndoRestaurantBook();

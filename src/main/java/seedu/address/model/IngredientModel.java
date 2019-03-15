@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import java.util.function.Predicate;
+
 import javafx.collections.ObservableList;
 import seedu.address.model.ingredient.Ingredient;
 
@@ -34,4 +36,10 @@ public interface IngredientModel {
 
     /** Returns an unmodifiable view of the filtered ingredient list */
     ObservableList<Ingredient> getFilteredIngredientList();
+
+    /**
+     * Updates the filter of the filtered ingredient list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredIngredientList(Predicate<Ingredient> predicate);
 }
