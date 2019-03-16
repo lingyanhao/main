@@ -366,7 +366,7 @@ When `RestaurantBook#setMember()` is called, the bookings are replaced with a ne
 ** Pros: This eases the load on the `RestaurantBook` class and does not require special treatment. It is also more efficient as no additional work is done.
 ** Cons: The current `undo` and `redo` commands rely on the immutabilty of the `Member` class to work correctly. Doing so may require a huge change in implementation of `undo` and `redo` commands. Also, allowing mutable variables can potentially be a source of other bugs.
 
-* **Alternative 3:** Assign each `Member` an ID and store the mapping from ID to `Member`s. Instead of storing the full details of the `Member`, the `Booking` object simply stores the `ID` of the member that made the booking. When an update occurs, we simply need to update the ID to `Member` map.
+* **Alternative 3:** Assign each `Member` an ID and store the mapping from ID to `Member`. Instead of storing the full details of the `Member`, the `Booking` object simply stores the `ID` of the member that made the booking. When an update occurs, we simply need to update the ID to `Member` map.
 ** Pros: Provides both lookup efficiency as well as immutability of the `Member` objects.
 ** Cons: Uses additional data structure to store the mappings, potentially making the code more difficult to maintain.
 
