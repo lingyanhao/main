@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.address.model.booking;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
@@ -7,8 +7,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-
-import seedu.address.model.booking.Booking;
 
 /**
  * Used to ensure that all bookings stays within the capacity of the restaurant.

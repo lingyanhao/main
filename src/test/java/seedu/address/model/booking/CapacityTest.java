@@ -14,7 +14,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.model.Capacity;
 import seedu.address.testutil.Assert;
 
 public class CapacityTest {

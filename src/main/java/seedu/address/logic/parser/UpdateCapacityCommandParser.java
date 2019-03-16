@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.commands.UpdateCapacityCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Capacity;
+import seedu.address.model.booking.Capacity;
 
 /**
  * Parses input arguments and creates a new UpdateCapacityCommand object.

@@ -29,9 +29,6 @@ public class BookingWindow implements Comparable<BookingWindow> {
         }
     }
 
-    /**
-     * Constructs a {@code BookingWindow}.
-     */
     public BookingWindow(LocalDateTime startTime) {
         this.startTime = startTime;
         this.endTime = startTime.plusHours(1);
