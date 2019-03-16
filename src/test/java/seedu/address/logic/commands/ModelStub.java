@@ -7,7 +7,6 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.Capacity;
-import seedu.address.model.Item;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyRestaurantBook;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -151,7 +150,22 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public <T extends Item> void updateFilteredItemList(Predicate<? super T> predicate, Class<T> clazz) {
+    public void updateFilteredMemberList(Predicate<Member> predicate) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateFilteredBookingList(Predicate<Booking> predicate) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateFilteredIngredientList(Predicate<Ingredient> predicate) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateFilteredStaffList(Predicate<Staff> predicate) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -181,17 +195,62 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public <T extends Item> ReadOnlyProperty<T> selectedItemProperty(Class<T> clazz) {
+    public ReadOnlyProperty<Member> selectedMemberProperty() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public <T extends Item> T getSelectedItem(Class<T> clazz) {
+    public ReadOnlyProperty<Booking> selectedBookingProperty() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public <T extends Item> void setSelectedItem(T item, Class<T> clazz) {
+    public ReadOnlyProperty<Ingredient> selectedIngredientProperty() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ReadOnlyProperty<Staff> selectedStaffProperty() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Member getSelectedMember() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Booking getSelectedBooking() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Ingredient getSelectedIngredient() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Staff getSelectedStaff() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setSelectedMember(Member member) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setSelectedBooking(Booking booking) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setSelectedIngredient(Ingredient ingredient) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setSelectedStaff(Staff staff) {
         throw new AssertionError("This method should not be called.");
     }
 

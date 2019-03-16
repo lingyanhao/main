@@ -19,7 +19,7 @@ import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_NAME_AMY
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_PHONE_AMY;
 
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ITEMS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEMBERS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MEMBER;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MEMBER;
 import static seedu.address.testutil.TypicalMembers.AMY;
@@ -224,7 +224,7 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
             Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
         expectedModel.setMember(expectedModel.getFilteredMemberList().get(toEdit.getZeroBased()), editedMember);
-        expectedModel.updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS, Member.class);
+        expectedModel.updateFilteredMemberList(PREDICATE_SHOW_ALL_MEMBERS);
 
         assertCommandSuccess(command, expectedModel,
                 String.format(EditCommand.MESSAGE_EDIT_MEMBER_SUCCESS, editedMember), expectedSelectedCardIndex);
@@ -255,7 +255,7 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) {
         executeCommand(command);
-        expectedModel.updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS, Member.class);
+        expectedModel.updateFilteredMemberList(PREDICATE_SHOW_ALL_MEMBERS);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
         if (expectedSelectedCardIndex != null) {
