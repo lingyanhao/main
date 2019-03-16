@@ -15,7 +15,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/cs2103-ay1819S2-w11-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W11-2`      Since: `Jan 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -195,21 +195,16 @@ image::DeletePersonSdForLogic.png[width="800"]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[width="800"]
+image::ModelClassBetterOopDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Restaurant Book data.
+* exposes an unmodifiable `ObservableList<Item>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
 === Storage component
@@ -312,6 +307,19 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
+
+=== Design of the Model component
+
+Following the AB4 structure, the `RestaurantBook` class serves as the main database, holding information of all records in the system. However, the database system required is more complicated than the one in AB4- there are four different kinds of records that need to be stored. The main operations are still largely CRUD (create, read, update, delete) in nature which are very similarly done. However, there are some differences between the types of records:
+
+* Some commands such as `addBooking` needs to keep track of the `Capacity` of the restaurant- we must not allow the restaurant to be overbooked. There is no equivalent of this in the `Member`, `Ingredient` or `Staff` classes.
+* The `editMember` command requires all `Booking`s associated to the `Member` to have an updated copy of all the `Member`'s details. Again, there is no equivalent of this in the other edit-style commands.
+
+==== Current implementation
+
+We created the interface `Item` to represent a record. A `UniqueItemList` was used to handle the bulk of the CRUD logic, much like the way the `UniquePersonList` in the original AB4 was used to handle the CRUD logic. As the `Staff` and `Member` class store common attributes (`Name`, `Phone`, `Email`), an abstract class `Person` was used to capture this. The relation between the types of `Item`s is also captured in the class diagram of Figure 7.
+
+
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
