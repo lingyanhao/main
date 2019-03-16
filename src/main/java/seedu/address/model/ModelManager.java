@@ -307,18 +307,23 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public <T extends Item> T getSelectedItem(Class<T> clazz) {
-        if (clazz == Member.class) {
-            return (T) selectedMember.getValue();
-        } else if (clazz == Booking.class) {
-            return (T) selectedBooking.getValue();
-        } else if (clazz == Ingredient.class) {
-            return (T) selectedIngredient.getValue();
-        } else if (clazz == Staff.class) {
-            return (T) selectedStaff.getValue();
-        } else {
-            throw new IllegalArgumentException("Item type not recognised.");
-        }
+    public Member getSelectedMember() {
+        return selectedMember.getValue();
+    }
+
+    @Override
+    public Booking getSelectedBooking() {
+        return selectedBooking.getValue();
+    }
+
+    @Override
+    public Ingredient getSelectedIngredient() {
+        return selectedIngredient.getValue();
+    }
+
+    @Override
+    public Staff getSelectedStaff() {
+        return selectedStaff.getValue();
     }
 
     @Override

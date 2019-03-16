@@ -36,7 +36,7 @@ public class ModelManagerTest {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new RestaurantBook(), new RestaurantBook(modelManager.getRestaurantBook()));
-        assertEquals(null, modelManager.getSelectedItem(Member.class));
+        assertEquals(null, modelManager.getSelectedMember());
     }
 
     @Test
@@ -107,7 +107,7 @@ public class ModelManagerTest {
         modelManager.addMember(ALICE);
         modelManager.setSelectedItem(ALICE, Member.class);
         modelManager.deleteMember(ALICE);
-        assertEquals(null, modelManager.getSelectedItem(Member.class));
+        assertEquals(null, modelManager.getSelectedMember());
     }
 
     @Test
@@ -117,7 +117,7 @@ public class ModelManagerTest {
         assertEquals(Arrays.asList(ALICE, BOB), modelManager.getFilteredMemberList());
         modelManager.setSelectedItem(BOB, Member.class);
         modelManager.deleteMember(BOB);
-        assertEquals(ALICE, modelManager.getSelectedItem(Member.class));
+        assertEquals(ALICE, modelManager.getSelectedMember());
     }
 
     @Test
@@ -126,7 +126,7 @@ public class ModelManagerTest {
         modelManager.setSelectedItem(ALICE, Member.class);
         Member updatedAlice = new MemberBuilder(ALICE).withEmail(MEMBER_VALID_EMAIL_BOB).build();
         modelManager.setMember(ALICE, updatedAlice);
-        assertEquals(updatedAlice, modelManager.getSelectedItem(Member.class));
+        assertEquals(updatedAlice, modelManager.getSelectedMember());
     }
 
     @Test
@@ -146,7 +146,7 @@ public class ModelManagerTest {
         modelManager.addMember(ALICE);
         assertEquals(Collections.singletonList(ALICE), modelManager.getFilteredMemberList());
         modelManager.setSelectedItem(ALICE, Member.class);
-        assertEquals(ALICE, modelManager.getSelectedItem(Member.class));
+        assertEquals(ALICE, modelManager.getSelectedMember());
     }
 
     @Test
