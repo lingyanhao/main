@@ -236,7 +236,22 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public <T extends Item> void setSelectedItem(T item, Class<T> clazz) {
+    public void setSelectedMember(Member member) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setSelectedBooking(Booking booking) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setSelectedIngredient(Ingredient ingredient) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setSelectedStaff(Staff staff) {
         throw new AssertionError("This method should not be called.");
     }
 

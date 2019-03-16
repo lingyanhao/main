@@ -327,30 +327,35 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public <T extends Item> void setSelectedItem(T item, Class<T> clazz) {
-        if (clazz == Member.class) {
-            if (item != null && !filteredMembers.contains(item)) {
-                throw new ItemNotFoundException();
-            }
-            selectedMember.setValue((Member) item);
-        } else if (clazz == Booking.class) {
-            if (item != null && !filteredBookings.contains(item)) {
-                throw new ItemNotFoundException();
-            }
-            selectedBooking.setValue((Booking) item);
-        } else if (clazz == Ingredient.class) {
-            if (item != null && !filteredIngredients.contains(item)) {
-                throw new ItemNotFoundException();
-            }
-            selectedIngredient.setValue((Ingredient) item);
-        } else if (clazz == Staff.class) {
-            if (item != null && !filteredStaff.contains(item)) {
-                throw new ItemNotFoundException();
-            }
-            selectedStaff.setValue((Staff) item);
-        } else {
-            throw new IllegalArgumentException("Item type not recognised.");
+    public void setSelectedMember(Member member) {
+        if (member != null && !filteredMembers.contains(member)) {
+            throw new ItemNotFoundException();
         }
+        selectedMember.setValue((Member) member);
+    }
+
+    @Override
+    public void setSelectedBooking(Booking booking) {
+        if (booking != null && !filteredBookings.contains(booking)) {
+            throw new ItemNotFoundException();
+        }
+        selectedBooking.setValue((Booking) booking);
+    }
+
+    @Override
+    public void setSelectedIngredient(Ingredient ingredient) {
+        if (ingredient != null && !filteredIngredients.contains(ingredient)) {
+            throw new ItemNotFoundException();
+        }
+        selectedIngredient.setValue((Ingredient) ingredient);
+    }
+
+    @Override
+    public void setSelectedStaff(Staff staff) {
+        if (staff != null && !filteredStaff.contains(staff)) {
+            throw new ItemNotFoundException();
+        }
+        selectedStaff.setValue((Staff) staff);
     }
 
     /**

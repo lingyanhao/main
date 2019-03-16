@@ -136,21 +136,21 @@ public class LogicManager implements Logic {
 
     @Override
     public void setSelectedMember(Member member) {
-        model.setSelectedItem(member, Member.class);
+        model.setSelectedMember(member);
     }
 
     @Override
     public void setSelectedBooking(Booking booking) {
-        model.setSelectedItem(booking, Booking.class);
+        model.setSelectedBooking(booking);
     }
 
     @Override
     public void setSelectedIngredient(Ingredient ingredient) {
-        model.setSelectedItem(ingredient, Ingredient.class);
+        model.setSelectedIngredient(ingredient);
     }
 
     @Override
     public void setSelectedStaff(Staff staff) {
-        model.setSelectedItem(staff, Staff.class);
+        model.setSelectedStaff(staff);
     }
 }

@@ -105,7 +105,7 @@ public class ModelManagerTest {
     @Test
     public void deleteMember_memberIsSelectedAndFirstMemberInFilteredMemberList_selectionCleared() {
         modelManager.addMember(ALICE);
-        modelManager.setSelectedItem(ALICE, Member.class);
+        modelManager.setSelectedMember(ALICE);
         modelManager.deleteMember(ALICE);
         assertEquals(null, modelManager.getSelectedMember());
     }
@@ -115,7 +115,7 @@ public class ModelManagerTest {
         modelManager.addMember(ALICE);
         modelManager.addMember(BOB);
         assertEquals(Arrays.asList(ALICE, BOB), modelManager.getFilteredMemberList());
-        modelManager.setSelectedItem(BOB, Member.class);
+        modelManager.setSelectedMember(BOB);
         modelManager.deleteMember(BOB);
         assertEquals(ALICE, modelManager.getSelectedMember());
     }
@@ -123,7 +123,7 @@ public class ModelManagerTest {
     @Test
     public void setMember_memberIsSelected_selectedMemberUpdated() {
         modelManager.addMember(ALICE);
-        modelManager.setSelectedItem(ALICE, Member.class);
+        modelManager.setSelectedMember(ALICE);
         Member updatedAlice = new MemberBuilder(ALICE).withEmail(MEMBER_VALID_EMAIL_BOB).build();
         modelManager.setMember(ALICE, updatedAlice);
         assertEquals(updatedAlice, modelManager.getSelectedMember());
@@ -138,14 +138,14 @@ public class ModelManagerTest {
     @Test
     public void setSelectedMember_memberNotInFilteredMemberList_throwsMemberNotFoundException() {
         thrown.expect(ItemNotFoundException.class);
-        modelManager.setSelectedItem(ALICE, Member.class);
+        modelManager.setSelectedMember(ALICE);
     }
 
     @Test
     public void setSelectedMember_memberInFilteredMemberList_setsSelectedMember() {
         modelManager.addMember(ALICE);
         assertEquals(Collections.singletonList(ALICE), modelManager.getFilteredMemberList());
-        modelManager.setSelectedItem(ALICE, Member.class);
+        modelManager.setSelectedMember(ALICE);
         assertEquals(ALICE, modelManager.getSelectedMember());
     }
 
