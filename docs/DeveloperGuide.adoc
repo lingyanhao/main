@@ -197,6 +197,9 @@ image::DeletePersonSdForLogic.png[width="800"]
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
 
+.Structure of the Item Interface (split into a separate diagarm for clarity)
+image::ModelItemDiagram.png[width="800"]
+
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
