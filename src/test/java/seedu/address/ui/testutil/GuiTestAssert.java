@@ -93,9 +93,9 @@ public class GuiTestAssert {
      * Asserts that {@code actualCard} displays the details of {@code expectedBooking}.
      */
     public static void assertCardDisplaysBooking(Booking expectedBooking, BookingCardHandle actualCard) {
-        assertEquals(expectedBooking.getCustomer().getName(), actualCard.getName());
-        assertEquals(expectedBooking.getNumMembers(), actualCard.getNumMembers());
-        assertEquals(expectedBooking.getCustomer().getPhone(), actualCard.getPhone());
+        assertEquals(expectedBooking.getCustomer().getName().fullName, actualCard.getName());
+        assertEquals("(" + expectedBooking.getNumMembers() + " person(s))", actualCard.getNumMembers());
+        assertEquals(expectedBooking.getCustomer().getPhone().value, actualCard.getPhone());
         assertEquals(expectedBooking.getStartTimeString(), actualCard.getDate());
     }
 
