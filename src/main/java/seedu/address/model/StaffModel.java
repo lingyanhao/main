@@ -50,4 +50,9 @@ public interface StaffModel {
      * null if no staff is selected.
      */
     Staff getSelectedStaff();
+
+    /**
+     * Sets the selected staff in the filtered staff list.
+     */
+    void setSelectedStaff(Staff staff);
 }

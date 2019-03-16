@@ -58,4 +58,9 @@ public interface IngredientModel {
      * null if no ingredient is selected.
      */
     Ingredient getSelectedIngredient();
+
+    /**
+     * Sets the selected ingredient in the filtered ingredient list.
+     */
+    void setSelectedIngredient(Ingredient ingredient);
 }

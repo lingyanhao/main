@@ -52,6 +52,11 @@ public interface BookingModel {
     Booking getSelectedBooking();
 
     /**
+     * Sets the selected booking in the filtered booking list.
+     */
+    void setSelectedBooking(Booking booking);
+
+    /**
      * Gets the capacity of the restaurant.
      */
     Capacity getCapacity();

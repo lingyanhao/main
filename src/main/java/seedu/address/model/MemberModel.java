@@ -58,4 +58,9 @@ public interface MemberModel {
      * null if no member is selected.
      */
     Member getSelectedMember();
+
+    /**
+     * Sets the selected member in the filtered member list.
+     */
+    void setSelectedMember(Member member);
 }
