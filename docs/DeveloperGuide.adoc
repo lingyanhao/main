@@ -320,7 +320,7 @@ Following the AB4 structure, the `RestaurantBook` (originally `AddressBook`) cla
 
 ==== Current implementation
 
-We created the interface `Item` to represent a record. A `UniqueItemList` was used to handle the bulk of the CRUD logic, much like the way the `UniquePersonList` in the original AB4 was used to handle the CRUD logic. As the `Staff` and `Member` class store common attributes (`Name`, `Phone`, `Email`), an abstract class `Person` was used to capture this. The relation between the types of `Item`s is also captured in the class diagram of Figure 8.
+We created the interface `Item` to represent a record. A `UniqueItemList` was used to handle the bulk of the CRUD logic, much like the way the `UniquePersonList` in the original AB4 was used to handle the CRUD logic. As the `Staff` and `Member` class store common attributes (`Name`, `Phone`, `Email`), an abstract class `Person` was used to capture this. The relation between the types of `Item`s is also captured in the class diagram of Figure 8. However, in the `Model` interface, the methods are kept separate (using methods like `addMember`, `addBooking` instead of having a more generic `addItem` method).
 
 ==== Design Considerations
 
@@ -335,6 +335,16 @@ We created the interface `Item` to represent a record. A `UniqueItemList` was us
 
 * Decision: Alternative 1 was adopted as the differences between the operations are relatively minor and can be done at the `RestaurantBook` level without creating too much confusion.
 
+===== Aspect: Implementation of the model interface
+* **Alternative 1 (current choice):** Maintain separate methods for the similar-looking CRUD-style methods
+** Pros: Easier to implement.
+** Cons: More code duplication, the `Model` API now contains many methods.
+
+* **Alternative 2:** Make the methods generic, so only one `addItem` method.
+** Pros: Reduces the overall amount of code needed with less duplication. The `Model` API looks simpler on the surface with less methods.
+** Cons: Violates Separation of Concerns principle, due to the differences across the similar-looking methods. Since the implementation of various `add` commands are slightly different (`addBooking` needs to check the restaurant capacity first), many if-else statements will be required in the control flow of `RestaurantBook#addItem` method, potentially using `instanceof` checks. These `instanceof` checks can potentially violate type safety. 
+
+* Decision: Alternative 1 was adopted as we value simplicity over the potential problems that might arise with the generic methods.
 === The `editMember` command
 
 When a `Member`'s details (`Name`, `Phone`, or `Email`) is changed, the `Booking` object must reflect the change. This requires an internal modification to the `Booking` list. 
