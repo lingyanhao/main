@@ -44,4 +44,10 @@ public interface StaffModel {
      * null if no staff is selected.
      */
     ReadOnlyProperty<Staff> selectedStaffProperty();
+
+    /**
+     * Returns the selected staff in the filtered staff list.
+     * null if no staff is selected.
+     */
+    Staff getSelectedStaff();
 }

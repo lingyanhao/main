@@ -46,6 +46,12 @@ public interface BookingModel {
     ReadOnlyProperty<Booking> selectedBookingProperty();
 
     /**
+     * Returns the selected booking in the filtered booking list.
+     * null if no booking is selected.
+     */
+    Booking getSelectedBooking();
+
+    /**
      * Gets the capacity of the restaurant.
      */
     Capacity getCapacity();

@@ -52,4 +52,10 @@ public interface IngredientModel {
      * null if no ingredient is selected.
      */
     ReadOnlyProperty<Ingredient> selectedIngredientProperty();
+
+    /**
+     * Returns the selected ingredient in the filtered ingredient list.
+     * null if no ingredient is selected.
+     */
+    Ingredient getSelectedIngredient();
 }

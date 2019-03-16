@@ -74,12 +74,6 @@ public interface Model extends MemberModel, BookingModel, IngredientModel, Staff
     void commitRestaurantBook();
 
     /**
-     * Returns the selected member in the filtered member list.
-     * null if no member is selected.
-     */
-    <T extends Item> T getSelectedItem(Class<T> clazz);
-
-    /**
      * Sets the selected member in the filtered member list.
      */
     <T extends Item> void setSelectedItem(T item, Class<T> clazz);

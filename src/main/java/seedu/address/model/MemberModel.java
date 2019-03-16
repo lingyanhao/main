@@ -52,4 +52,10 @@ public interface MemberModel {
      * null if no member is selected.
      */
     ReadOnlyProperty<Member> selectedMemberProperty();
+
+    /**
+     * Returns the selected member in the filtered member list.
+     * null if no member is selected.
+     */
+    Member getSelectedMember();
 }
