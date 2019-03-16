@@ -126,6 +126,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean canAccommodate(Booking booking) {
+        requireNonNull(booking);
+        return versionedRestaurantBook.canAccommodate(booking);
+    }
+
+    @Override
     public boolean hasIngredient(Ingredient ingredient) {
         requireNonNull(ingredient);
         return versionedRestaurantBook.hasIngredient(ingredient);

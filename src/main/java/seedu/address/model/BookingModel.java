@@ -13,7 +13,12 @@ public interface BookingModel {
     boolean hasBooking(Booking booking);
 
     /**
-     * Deletes the given item.
+     * Returns true if {@code booking} can be added to the restaurant without exceeding capacity.
+     */
+    boolean canAccommodate(Booking booking);
+
+    /**
+     * Deletes the given booking.
      * The item must exist in the restaurant book.
      */
     void deleteBooking(Booking target);
