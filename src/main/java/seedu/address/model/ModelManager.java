@@ -331,7 +331,7 @@ public class ModelManager implements Model {
         if (member != null && !filteredMembers.contains(member)) {
             throw new ItemNotFoundException();
         }
-        selectedMember.setValue((Member) member);
+        selectedMember.setValue(member);
     }
 
     @Override
@@ -339,7 +339,7 @@ public class ModelManager implements Model {
         if (booking != null && !filteredBookings.contains(booking)) {
             throw new ItemNotFoundException();
         }
-        selectedBooking.setValue((Booking) booking);
+        selectedBooking.setValue(booking);
     }
 
     @Override
@@ -347,7 +347,7 @@ public class ModelManager implements Model {
         if (ingredient != null && !filteredIngredients.contains(ingredient)) {
             throw new ItemNotFoundException();
         }
-        selectedIngredient.setValue((Ingredient) ingredient);
+        selectedIngredient.setValue(ingredient);
     }
 
     @Override
@@ -355,7 +355,7 @@ public class ModelManager implements Model {
         if (staff != null && !filteredStaff.contains(staff)) {
             throw new ItemNotFoundException();
         }
-        selectedStaff.setValue((Staff) staff);
+        selectedStaff.setValue(staff);
     }
 
     /**
