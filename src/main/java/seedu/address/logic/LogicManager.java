@@ -76,22 +76,22 @@ public class LogicManager implements Logic {
 
     @Override
     public ObservableList<Member> getFilteredMemberList() {
-        return model.getFilteredItemList(Member.class);
+        return model.getFilteredMemberList();
     }
 
     @Override
     public ObservableList<Booking> getFilteredBookingList() {
-        return model.getFilteredItemList(Booking.class);
+        return model.getFilteredBookingList();
     }
 
     @Override
     public ObservableList<Ingredient> getFilteredIngredientList() {
-        return model.getFilteredItemList(Ingredient.class);
+        return model.getFilteredIngredientList();
     }
 
     @Override
     public ObservableList<Staff> getFilteredStaffList() {
-        return model.getFilteredItemList(Staff.class);
+        return model.getFilteredStaffList();
     }
 
     @Override
@@ -116,41 +116,41 @@ public class LogicManager implements Logic {
 
     @Override
     public ReadOnlyProperty<Member> selectedMemberProperty() {
-        return model.selectedItemProperty(Member.class);
+        return model.selectedMemberProperty();
     }
 
     @Override
     public ReadOnlyProperty<Booking> selectedBookingProperty() {
-        return model.selectedItemProperty(Booking.class);
+        return model.selectedBookingProperty();
     }
 
     @Override
     public ReadOnlyProperty<Ingredient> selectedIngredientProperty() {
-        return model.selectedItemProperty(Ingredient.class);
+        return model.selectedIngredientProperty();
     }
 
     @Override
     public ReadOnlyProperty<Staff> selectedStaffProperty() {
-        return model.selectedItemProperty(Staff.class);
+        return model.selectedStaffProperty();
     }
 
     @Override
     public void setSelectedMember(Member member) {
-        model.setSelectedItem(member, Member.class);
+        model.setSelectedMember(member);
     }
 
     @Override
     public void setSelectedBooking(Booking booking) {
-        model.setSelectedItem(booking, Booking.class);
+        model.setSelectedBooking(booking);
     }
 
     @Override
     public void setSelectedIngredient(Ingredient ingredient) {
-        model.setSelectedItem(ingredient, Ingredient.class);
+        model.setSelectedIngredient(ingredient);
     }
 
     @Override
     public void setSelectedStaff(Staff staff) {
-        model.setSelectedItem(staff, Staff.class);
+        model.setSelectedStaff(staff);
     }
 }

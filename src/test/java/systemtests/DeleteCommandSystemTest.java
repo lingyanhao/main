@@ -60,14 +60,14 @@ public class DeleteCommandSystemTest extends RestaurantBookSystemTest {
         /* Case: filtered member list, delete index within bounds of address book and member list -> deleted */
         showMembersWithName(KEYWORD_MATCHING_MEIER);
         Index index = INDEX_FIRST_MEMBER;
-        assertTrue(index.getZeroBased() < getModel().getFilteredItemList(Member.class).size());
+        assertTrue(index.getZeroBased() < getModel().getFilteredMemberList().size());
         assertCommandSuccess(index);
 
         /* Case: filtered member list, delete index within bounds of address book but out of bounds of member list
          * -> rejected
          */
         showMembersWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getRestaurantBook().getItemList(Member.class).size();
+        int invalidIndex = getModel().getRestaurantBook().getMemberList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_MEMBER_DISPLAYED_INDEX);
 
@@ -96,7 +96,7 @@ public class DeleteCommandSystemTest extends RestaurantBookSystemTest {
 
         /* Case: invalid index (size + 1) -> rejected */
         Index outOfBoundsIndex = Index.fromOneBased(
-                getModel().getRestaurantBook().getItemList(Member.class).size() + 1);
+                getModel().getRestaurantBook().getMemberList().size() + 1);
         command = DeleteCommand.COMMAND_WORD + " " + outOfBoundsIndex.getOneBased();
         assertCommandFailure(command, MESSAGE_INVALID_MEMBER_DISPLAYED_INDEX);
 
@@ -113,7 +113,7 @@ public class DeleteCommandSystemTest extends RestaurantBookSystemTest {
      */
     private Member removeMember(Model model, Index index) {
         Member targetMember = getMember(model, index);
-        model.deleteItem(targetMember);
+        model.deleteMember(targetMember);
         return targetMember;
     }
 

@@ -2,16 +2,15 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.booking.BookingSize;
+import seedu.address.model.booking.BookingWindow;
 import seedu.address.model.ingredient.Ingredient;
-import seedu.address.model.person.Address;
 import seedu.address.model.person.Appointment;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.LoyaltyPoints;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 
@@ -66,21 +65,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String address} into an {@code Address}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code address} is invalid.
-     */
-    public static Address parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
-        }
-        return new Address(trimmedAddress);
-    }
-
-    /**
      * Parses a {@code String appointment} into a {@code Appointment}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -108,6 +92,21 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String loyaltyPoints} into an {@code LoyaltyPoints}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code loyaltyPoints} is invalid.
+     */
+    public static LoyaltyPoints parseLoyaltyPoints(String loyaltyPoints) throws ParseException {
+        requireNonNull(loyaltyPoints);
+        String trimmedLoyaltyPoints = loyaltyPoints.trim();
+        if (!LoyaltyPoints.isValidLoyaltyPoints(trimmedLoyaltyPoints)) {
+            throw new ParseException(LoyaltyPoints.MESSAGE_CONSTRAINTS);
+        }
+        return new LoyaltyPoints(Integer.parseInt(trimmedLoyaltyPoints));
     }
 
     /**
@@ -150,17 +149,29 @@ public class ParserUtil {
     }
 
     /**
-     * Creates a new Date object that parses the time. Uses the yyyy-MM-dd HH:mm format.
+     * Creates a new BookingWindow object that parses the time. Uses the yyyy-MM-dd HH:mm format.
      * For example, 2011-12-03 10:15
-     * @param time
-     * @return
      */
-    public static Date parseTime(String time) throws ParseException {
+    public static BookingWindow parseBookingWindow(String time) throws ParseException {
+        requireNonNull(time);
+        String trimmedTime = time.trim();
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-            return sdf.parse(time);
-        } catch (java.text.ParseException e) {
-            throw new ParseException("Please follow the time format of yyyy-MM-dd HH:mm");
+            return new BookingWindow(trimmedTime);
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(BookingWindow.MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    /**
+     * Parses a {@code String bookingSize} into a {@code BookingSize}.
+     */
+    public static BookingSize parseBookingSize(String bookingSize) throws ParseException {
+        requireNonNull(bookingSize);
+        String trimmedBookingSize = bookingSize.trim();
+        try {
+            return new BookingSize(trimmedBookingSize);
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(BookingSize.MESSAGE_CONSTRAINTS);
         }
     }
 }

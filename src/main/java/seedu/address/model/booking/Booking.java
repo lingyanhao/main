@@ -1,7 +1,6 @@
 package seedu.address.model.booking;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import seedu.address.model.Item;
 import seedu.address.model.person.Member;
@@ -10,18 +9,16 @@ import seedu.address.model.person.Member;
  * A class to represent restaurant bookings.
  */
 public class Booking implements Item, Comparable<Booking> {
-    public static final int MAX_BOOKING_SIZE = 100;
 
-    private Date startTime; // TODO: make sure the member card displays the right things
+    private BookingWindow bookingWindow;
     private Member customer;
-    private int numMembers;
+    private BookingSize numMembers;
 
 
-    public Booking(Date startTime, Member customer, int numMembers) {
-        this.startTime = startTime;
+    public Booking(BookingWindow bookingWindow, Member customer, BookingSize numMembers) {
+        this.bookingWindow = bookingWindow;
         this.customer = customer;
         this.numMembers = numMembers;
-        assert(numMembers <= MAX_BOOKING_SIZE && numMembers >= 0);
     }
 
     /**
@@ -29,18 +26,22 @@ public class Booking implements Item, Comparable<Booking> {
      * so that the customer details can change.
      */
     public Booking editContacts(Member editedCustomer) {
-        return new Booking(startTime, editedCustomer, numMembers);
+        return new Booking(bookingWindow, editedCustomer, numMembers);
     }
 
     public Member getCustomer() {
         return customer;
     }
 
-    public Date getStartTime() {
-        return startTime;
+    public LocalDateTime getStartTime() {
+        return bookingWindow.getStartTime();
     }
 
-    public int getNumMembers() {
+    public String getStartTimeString() {
+        return bookingWindow.getStartTime().toString();
+    }
+
+    public BookingSize getNumMembers() {
         return numMembers;
     }
 
@@ -49,7 +50,8 @@ public class Booking implements Item, Comparable<Booking> {
         if (other instanceof Booking) {
             // take note, the .equals() instead of .isSameItem() from Customer class is being used here
             // as the isSameItem() method from Customer class is not transitive
-            return startTime.equals(((Booking) other).startTime) && customer.equals(((Booking) other).customer);
+            return bookingWindow.equals(((Booking) other).bookingWindow)
+                    && customer.equals(((Booking) other).customer);
         } else {
             return false;
         }
@@ -57,14 +59,13 @@ public class Booking implements Item, Comparable<Booking> {
 
     @Override
     public int compareTo(Booking other) {
-        return startTime.compareTo(other.startTime);
+        return bookingWindow.compareTo(other.bookingWindow);
     }
 
     @Override
     public String toString() {
-        SimpleDateFormat sdf = new SimpleDateFormat("EEE yyyy-MM-dd HH:mm");
-        return "Customer: " + customer.getName().toString() + " " + customer.getPhone().toString() + " Time: "
-                + sdf.format(startTime) + " Members: " + numMembers;
+        return "Customer: " + customer.getName().toString() + " " + customer.getPhone().toString() + "  Start Time: "
+                + getStartTimeString() + " Members: " + numMembers.getSize();
     }
 
     @Override
@@ -72,7 +73,7 @@ public class Booking implements Item, Comparable<Booking> {
         return other == this // short circuit if same object
                 || (other instanceof Booking // instanceof handles nulls
                 && customer.equals(((Booking) other).customer)
-                && startTime.equals(((Booking) other).startTime)
-                && numMembers == ((Booking) other).numMembers);
+                && bookingWindow.equals(((Booking) other).bookingWindow)
+                && numMembers.equals(((Booking) other).numMembers));
     }
 }

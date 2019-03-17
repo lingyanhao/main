@@ -16,7 +16,6 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
-import seedu.address.model.person.Member;
 
 public class SelectCommandSystemTest extends RestaurantBookSystemTest {
     @Test
@@ -58,12 +57,12 @@ public class SelectCommandSystemTest extends RestaurantBookSystemTest {
          * -> rejected
          */
         showMembersWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getRestaurantBook().getItemList(Member.class).size();
+        int invalidIndex = getModel().getRestaurantBook().getMemberList().size();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_MEMBER_DISPLAYED_INDEX);
 
         /* Case: filtered member list, select index within bounds of address book and member list -> selected */
         Index validIndex = Index.fromOneBased(1);
-        assertTrue(validIndex.getZeroBased() < getModel().getFilteredItemList(Member.class).size());
+        assertTrue(validIndex.getZeroBased() < getModel().getFilteredMemberList().size());
         command = SelectCommand.COMMAND_WORD + " " + validIndex.getOneBased();
         assertCommandSuccess(command, validIndex);
 
@@ -78,7 +77,7 @@ public class SelectCommandSystemTest extends RestaurantBookSystemTest {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (size + 1) -> rejected */
-        invalidIndex = getModel().getFilteredItemList(Member.class).size() + 1;
+        invalidIndex = getModel().getFilteredMemberList().size() + 1;
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_MEMBER_DISPLAYED_INDEX);
 
         /* Case: invalid arguments (alphabets) -> rejected */

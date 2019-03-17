@@ -1,7 +1,5 @@
 package seedu.address.ui;
 
-import java.text.SimpleDateFormat;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -43,10 +41,9 @@ public class BookingCard extends UiPart<Region> {
         this.booking = booking;
         id.setText(displayedIndex + ". ");
         name.setText(booking.getCustomer().getName().toString());
-        numMembers.setText("(" + booking.getNumMembers() + " person(s))");
+        numMembers.setText("(" + booking.getNumMembers().getSize() + " person(s))");
         phone.setText(booking.getCustomer().getPhone().toString());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        date.setText(sdf.format(booking.getStartTime()));
+        date.setText(booking.getStartTimeString());
     }
 
     @Override
@@ -66,4 +63,5 @@ public class BookingCard extends UiPart<Region> {
         return id.getText().equals(card.id.getText())
                 && booking.equals(card.booking);
     }
+
 }

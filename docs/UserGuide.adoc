@@ -69,8 +69,13 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items with `...` after them can be used multiple times including zero times
     ** e.g. `addRecipe r/RECIPE_NAME n/NUMBER_OF_INGREDIENTS 1/INGREDIENT_1&AMOUNT_IN_UNITS 2/INGREDIENT_2&AMOUNT_IN_UNITS ...`
 * Parameters can be in any order
-* All parameters involving time should be specified in `yyyy-MM-dd HH:mm` format, e.g. `2019-02-23 13:00`. If the date is unspecified, the current date will be used. In that situation, `HH:mm` format should be used, e.g. `13:00`. Users should take note that REM is not timezone-aware. We do not see the need to implement such features as it will rarely be the case that your restaurant needs to move to a different time zone.
-* Only dates between year 2000 and 3000 are supported.
+====
+*Date and Time Format*
+
+* All parameters labelled as DATE_TIME should follow the yyyy-MM-ddTHH:mm format, (e.g. `2019-02-23T13:00` means 23 Feb 2019, 1300 hrs). yyyy-MM-ddTHH:mm:SS format is also accepted.
+* For the exact specification of what date and time formats are allowed, please refer to the `LocalDateTime` class in Java.
+* We also accept specifying a time without a date, in which case the current date will be used. In that situation, `HH:mm` (e.g. `13:00`) format should be used.
+* Users should take note that REM is not timezone-aware. We do not see the need to implement such features as it will rarely be the case that your restaurant needs to move to a different time zone.
 
 ====
 

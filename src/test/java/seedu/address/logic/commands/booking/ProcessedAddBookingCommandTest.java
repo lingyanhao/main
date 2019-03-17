@@ -12,12 +12,12 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ModelStub;
+import seedu.address.logic.commands.add.AddBookingCommand;
+import seedu.address.logic.commands.add.ProcessedAddBookingCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Item;
 import seedu.address.model.ReadOnlyRestaurantBook;
 import seedu.address.model.RestaurantBook;
 import seedu.address.model.booking.Booking;
@@ -25,7 +25,7 @@ import seedu.address.model.person.Member;
 import seedu.address.testutil.BookingBuilder;
 import seedu.address.testutil.MemberBuilder;
 
-public class AddBookingCommandTest {
+public class ProcessedAddBookingCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -37,7 +37,7 @@ public class AddBookingCommandTest {
     @Test
     public void constructor_nullBooking_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddCommand(null);
+        new ProcessedAddBookingCommand(null);
     }
 
     @Test
@@ -45,9 +45,9 @@ public class AddBookingCommandTest {
         ModelStubAcceptingBookingAdded modelStub = new ModelStubAcceptingBookingAdded();
         Booking validBooking = new BookingBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validBooking).execute(modelStub, commandHistory);
+        CommandResult commandResult = new ProcessedAddBookingCommand(validBooking).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS_BOOKING, validBooking),
+        assertEquals(String.format(AddBookingCommand.MESSAGE_SUCCESS, validBooking),
                 commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validBooking), modelStub.bookingsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
@@ -56,12 +56,12 @@ public class AddBookingCommandTest {
     @Test
     public void execute_duplicateBooking_throwsCommandException() throws Exception {
         Booking validBooking = new BookingBuilder().build();
-        AddCommand addCommand = new AddCommand(validBooking);
+        ProcessedAddBookingCommand processedAddBookingCommand = new ProcessedAddBookingCommand(validBooking);
         ModelStub modelStub = new ModelStubWithBooking(validBooking);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_BOOKING);
-        addCommand.execute(modelStub, commandHistory);
+        thrown.expectMessage(AddBookingCommand.MESSAGE_DUPLICATE);
+        processedAddBookingCommand.execute(modelStub, commandHistory);
     }
 
     @Test
@@ -70,16 +70,20 @@ public class AddBookingCommandTest {
         Member modifiedEmailAlice = new MemberBuilder().withEmail("modified@example.com").build();
         Member bob = new MemberBuilder().withName("Bob").build();
         try {
-            AddCommand defaultBookingCommand = new AddCommand(new BookingBuilder().build());
-            AddCommand duplicateDefaultBookingCommand = new AddCommand(new BookingBuilder().build());
-            AddCommand bobBookingCommand = new AddCommand(new BookingBuilder().withCustomer(bob).build());
-            AddCommand modifiedPhoneBookingCommand =
-                    new AddCommand(new BookingBuilder().withCustomer(modifiedPhoneAlice).build());
-            AddCommand modifiedEmailBookingCommand =
-                    new AddCommand(new BookingBuilder().withCustomer(modifiedEmailAlice).build());
-            AddCommand changeDateBookingCommand =
-                    new AddCommand(new BookingBuilder().withDate("2019-02-24 14:30").build());
-            AddCommand changeNumPersonsBookingCommand = new AddCommand(new BookingBuilder().withNumPersons(2).build());
+            ProcessedAddBookingCommand defaultBookingCommand =
+                    new ProcessedAddBookingCommand(new BookingBuilder().build());
+            ProcessedAddBookingCommand duplicateDefaultBookingCommand =
+                    new ProcessedAddBookingCommand(new BookingBuilder().build());
+            ProcessedAddBookingCommand bobBookingCommand =
+                    new ProcessedAddBookingCommand(new BookingBuilder().withCustomer(bob).build());
+            ProcessedAddBookingCommand modifiedPhoneBookingCommand =
+                    new ProcessedAddBookingCommand(new BookingBuilder().withCustomer(modifiedPhoneAlice).build());
+            ProcessedAddBookingCommand modifiedEmailBookingCommand =
+                    new ProcessedAddBookingCommand(new BookingBuilder().withCustomer(modifiedEmailAlice).build());
+            ProcessedAddBookingCommand changeDateBookingCommand =
+                    new ProcessedAddBookingCommand(new BookingBuilder().withDate("2019-02-24T14:30").build());
+            ProcessedAddBookingCommand changeNumPersonsBookingCommand =
+                    new ProcessedAddBookingCommand(new BookingBuilder().withNumPersons(2).build());
 
             // same object -> equal
             assertEquals(defaultBookingCommand, defaultBookingCommand);
@@ -122,9 +126,9 @@ public class AddBookingCommandTest {
         }
 
         @Override
-        public boolean hasItem(Item item) {
-            requireNonNull(item);
-            return this.booking.isSameItem(item);
+        public boolean hasBooking(Booking booking) {
+            requireNonNull(booking);
+            return this.booking.isSameItem(booking);
         }
     }
 
@@ -135,20 +139,20 @@ public class AddBookingCommandTest {
         private final ArrayList<Booking> bookingsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasItem(Item item) {
-            requireNonNull(item);
-            return bookingsAdded.stream().anyMatch(item::isSameItem);
+        public boolean hasBooking(Booking booking) {
+            requireNonNull(booking);
+            return bookingsAdded.stream().anyMatch(booking::isSameItem);
         }
 
         @Override
-        public void addItem(Item item) {
-            requireNonNull(item);
-            bookingsAdded.add((Booking) item);
+        public void addBooking(Booking booking) {
+            requireNonNull(booking);
+            bookingsAdded.add(booking);
         }
 
         @Override
         public void commitRestaurantBook() {
-            // called by {@code AddCommand#execute()}
+            // called by {@code ProcessedAddBookingCommand#execute()}
         }
 
         @Override

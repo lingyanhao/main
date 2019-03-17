@@ -18,7 +18,6 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Member;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
@@ -30,7 +29,7 @@ public class SelectCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Index lastMemberIndex = Index.fromOneBased(model.getFilteredItemList(Member.class).size());
+        Index lastMemberIndex = Index.fromOneBased(model.getFilteredMemberList().size());
 
         assertExecutionSuccess(INDEX_FIRST_MEMBER);
         assertExecutionSuccess(INDEX_THIRD_MEMBER);
@@ -39,7 +38,7 @@ public class SelectCommandTest {
 
     @Test
     public void execute_invalidIndexUnfilteredList_failure() {
-        Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredItemList(Member.class).size() + 1);
+        Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredMemberList().size() + 1);
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_MEMBER_DISPLAYED_INDEX);
     }
@@ -59,7 +58,7 @@ public class SelectCommandTest {
 
         Index outOfBoundsIndex = INDEX_SECOND_MEMBER;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundsIndex.getZeroBased() < model.getRestaurantBook().getItemList(Member.class).size());
+        assertTrue(outOfBoundsIndex.getZeroBased() < model.getRestaurantBook().getMemberList().size());
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_MEMBER_DISPLAYED_INDEX);
     }
@@ -93,7 +92,7 @@ public class SelectCommandTest {
     private void assertExecutionSuccess(Index index) {
         SelectCommand selectCommand = new SelectCommand(index);
         String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_MEMBER_SUCCESS, index.getOneBased());
-        expectedModel.setSelectedItem(model.getFilteredItemList(Member.class).get(index.getZeroBased()), Member.class);
+        expectedModel.setSelectedMember(model.getFilteredMemberList().get(index.getZeroBased()));
 
         assertCommandSuccess(selectCommand, model, commandHistory, expectedMessage, expectedModel);
     }

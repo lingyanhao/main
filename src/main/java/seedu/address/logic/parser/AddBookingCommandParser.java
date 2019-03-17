@@ -5,12 +5,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NUMBER_PERSONS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 
-import java.util.Date;
-
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.add.AddBookingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.booking.BookingSize;
+import seedu.address.model.booking.BookingWindow;
 
 /**
  * Parses input arguments and creates a new AddBookingCommand object.
@@ -27,21 +26,13 @@ public class AddBookingCommandParser {
 
         if (!argMultimap.arePrefixesPresent(PREFIX_START_TIME, PREFIX_CUSTOMER, PREFIX_NUMBER_PERSONS)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE_BOOKING));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddBookingCommand.MESSAGE_USAGE));
         }
 
-        Date startTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_START_TIME).get());
+        BookingWindow bookingWindow = ParserUtil.parseBookingWindow(argMultimap.getValue(PREFIX_START_TIME).get());
         Index memberIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_CUSTOMER).get());
-        int numMembers;
-        try {
-            numMembers = Integer.parseInt(argMultimap.getValue(PREFIX_NUMBER_PERSONS).get());
-        } catch (NumberFormatException e) {
-            throw new ParseException("Number of members must be a positive integer not more than 100.");
-        }
-        if (numMembers <= 0 || numMembers > 100) { // TODO: un-hardcode this string
-            throw new ParseException("Number of members must be a positive integer not more than 100.");
-        }
+        BookingSize numMembers = ParserUtil.parseBookingSize(argMultimap.getValue(PREFIX_NUMBER_PERSONS).get());
 
-        return new AddBookingCommand(startTime, memberIndex, numMembers);
+        return new AddBookingCommand(bookingWindow, memberIndex, numMembers);
     }
 }

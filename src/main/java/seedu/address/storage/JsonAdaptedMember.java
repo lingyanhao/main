@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.LoyaltyPoints;
 import seedu.address.model.person.Member;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
@@ -19,16 +20,18 @@ class JsonAdaptedMember {
     private final String name;
     private final String phone;
     private final String email;
+    private final int loyaltyPoints;
 
     /**
      * Constructs a {@code JsonAdaptedMember} with the given member details.
      */
     @JsonCreator
     public JsonAdaptedMember(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email) {
+            @JsonProperty("email") String email, @JsonProperty("loyaltyPoints") int loyaltyPoints) {
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.loyaltyPoints = loyaltyPoints;
     }
 
     /**
@@ -38,6 +41,7 @@ class JsonAdaptedMember {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
+        loyaltyPoints = source.getLoyaltyPoints().value;
     }
 
     /**
@@ -70,8 +74,12 @@ class JsonAdaptedMember {
             throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
         }
         final Email modelEmail = new Email(email);
+        if (!LoyaltyPoints.isValidLoyaltyPoints(loyaltyPoints)) {
+            throw new IllegalValueException(LoyaltyPoints.MESSAGE_CONSTRAINTS);
+        }
+        final LoyaltyPoints modelLoyaltyPoints = new LoyaltyPoints(loyaltyPoints);
 
-        return new Member(modelName, modelPhone, modelEmail);
+        return new Member(modelName, modelPhone, modelEmail, modelLoyaltyPoints);
     }
 
 }

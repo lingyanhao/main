@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= REstaurant Manager - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -15,7 +15,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/cs2103-ay1819S2-w11-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W11-2`      Since: `Jan 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -197,19 +197,17 @@ image::DeletePersonSdForLogic.png[width="800"]
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
 
+.Structure of the Item Interface (split into a separate diagarm for clarity)
+image::ModelItemDiagram.png[width="800"]
+
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Restaurant Book data.
+* exposes an unmodifiable `ObservableList<Item>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
 === Storage component
@@ -312,6 +310,68 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
+
+=== Data structure for holding records
+
+Following the AB4 structure, the `RestaurantBook` (originally `AddressBook`) class serves as the main database, holding information of all records in the system. However, the database system required is more complicated than the one in AB4- there are four different kinds of records that need to be stored. The main operations are still largely CRUD (create, read, update, delete) in nature which are very similarly done. However, there are some differences between the types of records:
+
+* Some commands such as `addBooking` needs to keep track of the `Capacity` of the restaurant- we must not allow the restaurant to be overbooked. There is no equivalent of this in the `addMember`, `addIngredient` or `addStaff` commands.
+* The `editMember` command requires all `Booking` associated to the `Member` to have an updated copy of all the `Member` details. Again, there is no equivalent of this in the other edit-style commands.
+
+==== Current implementation
+
+We created the interface `Item` to represent a record. A `UniqueItemList` was used to handle the bulk of the CRUD logic, much like the way the `UniquePersonList` in the original AB4 was used to handle the CRUD logic. As the `Staff` and `Member` class store common attributes (`Name`, `Phone`, `Email`), an abstract class `Person` was used to capture this. The relation between the types of `Item` is also captured in the class diagram of Figure 8. However, in the `Model` interface, the methods are kept separate (using methods like `addMember`, `addBooking` instead of having a more generic `addItem` method).
+
+==== Design Considerations
+
+===== Aspect: Implementation of data structure
+* **Alternative 1 (current choice):** Use the `Item` interface to capture the similarity between records.
+** Pros: Reduces code duplication as we do not need separate classes `UniqueMemberList`, `UniqueBookingList`, `UniqueIngredientList`, `UniqueStaffList`.
+** Cons: As the operations for different records are not exactly the same, RestaurantBook needs to be aware of the differences between the similar operations.
+
+* **Alternative 2:** Create four separate classes which do not inherit from any parent class or interface.
+** Pros: The precise CRUD operations can be heavily customised for each type of record.
+** Cons: Lots of code duplication.
+
+* Decision: Alternative 1 was adopted as the differences between the operations are relatively minor and can be done at the `RestaurantBook` level without creating too much confusion.
+
+===== Aspect: Implementation of the model interface
+* **Alternative 1 (current choice):** Maintain separate methods for the similar-looking CRUD-style methods
+** Pros: Easier to implement.
+** Cons: More code duplication, the `Model` API now contains many methods.
+
+* **Alternative 2:** Generalize the methods so that there is only one of them for each type of command (e.g. `addItem` instead of `addBooking`, `addMember`) in the Model API.
+** Pros: Reduces the overall amount of code needed with less duplication. The `Model` API looks simpler on the surface with less methods.
+** Cons: Violates Separation of Concerns principle, due to the differences across the similar-looking methods. Since the implementation of various `add` commands are slightly different (`addBooking` needs to check the restaurant capacity first), many if-else statements will be required in the control flow of `RestaurantBook#addItem` method, potentially using `instanceof` checks. These `instanceof` checks can potentially violate type safety.
+
+* Decision: Alternative 1 was adopted as we value simplicity over the potential problems that might arise with the generic methods.
+
+=== The `editMember` command
+
+When a `Member` details (`Name`, `Phone`, or `Email`) is changed, the `Booking` object must reflect the change. This requires an internal modification to the `Booking` list.
+
+==== Current implementation
+
+When `RestaurantBook#setMember()` is called, the bookings are replaced with a new set of bookings, in a way such that any `Booking` containing the modified member will be replaced with another `Booking` object that correctly reflects the modified customer.
+
+(Insert sequence diagram)
+
+==== Design Considerations
+
+* **Alternative 1 (current choice):** Manually perform a corresponding change to the `Booking` list whenever the personal details of a member changes.
+** Pros: Easier to implement as it does not require much change to the already-existing AB4 codebase.
+** Cons: Poor efficiency. This involves scanning through the entire list of bookings just to change the personal details of a single `Member`. Also, if some other command changes a `Member` details without going through the `RestaurantBook#setMember()` method, the update will not be reflected.
+
+* **Alternative 2:** Make the `Member` class mutable. Whenever the `Member` details changes, the `Booking` will automatically extract the correct details of the `Member` and nothing needs to be done.
+** Pros: This eases the load on the `RestaurantBook` class and does not require special treatment. It is also more efficient as no additional work is done.
+** Cons: The current `undo` and `redo` commands rely on the immutabilty of the `Member` class to work correctly. Doing so may require a huge change in implementation of `undo` and `redo` commands. Also, allowing mutable variables can potentially be a source of other bugs.
+
+* **Alternative 3:** Assign each `Member` an ID and store the mapping from ID to `Member`. Instead of storing the full details of the `Member`, the `Booking` object simply stores the `ID` of the member that made the booking. When an update occurs, we simply need to update the ID to `Member` map.
+** Pros: Provides both lookup efficiency as well as immutability of the `Member` objects.
+** Cons: Uses additional data structure to store the mappings, potentially making the code more difficult to maintain.
+
+
+* Decision: Alternative 1 was adopted as we felt that it was the simplest way to implement the feature. The additional efficiency gained may not even be significant, considering that in simple GUI apps like this, updating the UI is often the part of the program that uses the most resources. Optimizing the backend operations may not actually lead to a significant performance improvement.
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption

@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_UNIT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LOYALTY_POINTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
@@ -32,6 +33,8 @@ public class CommandTestUtil {
     public static final String MEMBER_VALID_NAME_BOB = "Bob Choo";
     public static final String MEMBER_VALID_PHONE_AMY = "11111111";
     public static final String MEMBER_VALID_PHONE_BOB = "22222222";
+    public static final int VALID_LOYALTY_POINTS_AMY = 11;
+    public static final int VALID_LOYALTY_POINTS_BOB = 22;
     public static final String MEMBER_VALID_EMAIL_AMY = "amy@example.com";
     public static final String MEMBER_VALID_EMAIL_BOB = "bob@example.com";
     public static final String STAFF_VALID_APPOINTMENT_AMY = "Server";
@@ -43,6 +46,8 @@ public class CommandTestUtil {
     public static final String MEMBER_PHONE_DESC_BOB = " " + PREFIX_PHONE + MEMBER_VALID_PHONE_BOB;
     public static final String MEMBER_EMAIL_DESC_AMY = " " + PREFIX_EMAIL + MEMBER_VALID_EMAIL_AMY;
     public static final String MEMBER_EMAIL_DESC_BOB = " " + PREFIX_EMAIL + MEMBER_VALID_EMAIL_BOB;
+    public static final String LOYALTY_POINTS_DESC_AMY = " " + PREFIX_LOYALTY_POINTS + VALID_LOYALTY_POINTS_AMY;
+    public static final String LOYALTY_POINTS_DESC_BOB = " " + PREFIX_LOYALTY_POINTS + VALID_LOYALTY_POINTS_BOB;
     public static final String STAFF_APPOINTMENT_DESC_AMY = " " + PREFIX_APPOINTMENT + STAFF_VALID_APPOINTMENT_AMY;
     public static final String STAFF_APPOINTMENT_DESC_BOB = " " + PREFIX_APPOINTMENT + STAFF_VALID_APPOINTMENT_BOB;
 
@@ -52,6 +57,7 @@ public class CommandTestUtil {
     public static final String MEMBER_INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String STAFF_INVALID_APPOINTMENT_DESC = " " + PREFIX_APPOINTMENT
             + "amaz!ngC00k"; // ! not allowed
+    public static final String INVALID_LOYALTY_POINTS_DESC = " " + PREFIX_LOYALTY_POINTS + "26.0"; // . not allowed
 
     public static final String INGREDIENT_VALID_NAME_CHEESE = "cheese";
     public static final String INGREDIENT_VALID_NAME_TOMATO = "tomato";
@@ -86,7 +92,6 @@ public class CommandTestUtil {
     public static final String INGREDIENT_INVALID_UNIT_DESC = " " + PREFIX_INGREDIENT_UNIT
             + "3@"; // symbols not allowed
 
-
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
@@ -95,9 +100,11 @@ public class CommandTestUtil {
 
     static {
         MEMBER_DESC_AMY = new EditMemberDescriptorBuilder().withName(MEMBER_VALID_NAME_AMY)
-                .withPhone(MEMBER_VALID_PHONE_AMY).withEmail(MEMBER_VALID_EMAIL_AMY).build();
+                .withPhone(MEMBER_VALID_PHONE_AMY).withEmail(MEMBER_VALID_EMAIL_AMY)
+                .withLoyaltyPoints(VALID_LOYALTY_POINTS_AMY).build();
         MEMBER_DESC_BOB = new EditMemberDescriptorBuilder().withName(MEMBER_VALID_NAME_BOB)
-                .withPhone(MEMBER_VALID_PHONE_BOB).withEmail(MEMBER_VALID_EMAIL_BOB).build();
+                .withPhone(MEMBER_VALID_PHONE_BOB).withEmail(MEMBER_VALID_EMAIL_BOB)
+                .withLoyaltyPoints(VALID_LOYALTY_POINTS_BOB).build();
     }
 
     /**
@@ -141,8 +148,8 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         RestaurantBook expectedRestaurantBook = new RestaurantBook(actualModel.getRestaurantBook());
-        List<Member> expectedFilteredList = new ArrayList<>(actualModel.getFilteredItemList(Member.class));
-        Member expectedSelectedMember = actualModel.getSelectedItem(Member.class);
+        List<Member> expectedFilteredList = new ArrayList<>(actualModel.getFilteredMemberList());
+        Member expectedSelectedMember = actualModel.getSelectedMember();
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -152,8 +159,8 @@ public class CommandTestUtil {
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedRestaurantBook, actualModel.getRestaurantBook());
-            assertEquals(expectedFilteredList, actualModel.getFilteredItemList(Member.class));
-            assertEquals(expectedSelectedMember, actualModel.getSelectedItem(Member.class));
+            assertEquals(expectedFilteredList, actualModel.getFilteredMemberList());
+            assertEquals(expectedSelectedMember, actualModel.getSelectedMember());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }
@@ -163,21 +170,21 @@ public class CommandTestUtil {
      * {@code model}'s address book.
      */
     public static void showMemberAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredItemList(Member.class).size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredMemberList().size());
 
-        Member member = model.getFilteredItemList(Member.class).get(targetIndex.getZeroBased());
+        Member member = model.getFilteredMemberList().get(targetIndex.getZeroBased());
         final String[] splitName = member.getName().fullName.split("\\s+");
-        model.updateFilteredItemList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])), Member.class);
+        model.updateFilteredMemberList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getFilteredItemList(Member.class).size());
+        assertEquals(1, model.getFilteredMemberList().size());
     }
 
     /**
      * Deletes the first member in {@code model}'s filtered list from {@code model}'s address book.
      */
     public static void deleteFirstMember(Model model) {
-        Member firstMember = model.getFilteredItemList(Member.class).get(0);
-        model.deleteItem(firstMember);
+        Member firstMember = model.getFilteredMemberList().get(0);
+        model.deleteMember(firstMember);
         model.commitRestaurantBook();
     }
 

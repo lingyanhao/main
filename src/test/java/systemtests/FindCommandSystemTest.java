@@ -15,7 +15,6 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
-import seedu.address.model.person.Member;
 
 public class FindCommandSystemTest extends RestaurantBookSystemTest {
 
@@ -78,7 +77,7 @@ public class FindCommandSystemTest extends RestaurantBookSystemTest {
 
         /* Case: find same members in address book after deleting 1 of them -> 1 member found */
         executeCommand(DeleteCommand.COMMAND_WORD + " 1");
-        assertFalse(getModel().getRestaurantBook().getItemList(Member.class).contains(BENSON));
+        assertFalse(getModel().getRestaurantBook().getMemberList().contains(BENSON));
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
         expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, DANIEL);
@@ -147,7 +146,7 @@ public class FindCommandSystemTest extends RestaurantBookSystemTest {
      */
     private void assertCommandSuccess(String command, Model expectedModel) {
         String expectedResultMessage = String.format(
-                MESSAGE_MEMBERS_LISTED_OVERVIEW, expectedModel.getFilteredItemList(Member.class).size());
+                MESSAGE_MEMBERS_LISTED_OVERVIEW, expectedModel.getFilteredMemberList().size());
 
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);

@@ -2,9 +2,10 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LOYALTY_POINTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ITEMS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEMBERS;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,8 +16,8 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.LoyaltyPoints;
 import seedu.address.model.person.Member;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
@@ -36,6 +37,7 @@ public class EditCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
+            + "[" + PREFIX_LOYALTY_POINTS + "LOYALTY_POINTS] "
             + "[" + PREFIX_EMAIL + "EMAIL]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -63,7 +65,7 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Member> lastShownList = model.getFilteredItemList(Member.class);
+        List<Member> lastShownList = model.getFilteredMemberList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_MEMBER_DISPLAYED_INDEX);
@@ -73,12 +75,12 @@ public class EditCommand extends Command {
         Member editedMember = createEditedMember(memberToEdit, editMemberDescriptor);
 
         try {
-            model.setItem(memberToEdit, editedMember);
+            model.setMember(memberToEdit, editedMember);
         } catch (DuplicateItemException e) {
             throw new CommandException(MESSAGE_DUPLICATE_MEMBER);
         }
 
-        model.updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS, Member.class);
+        model.updateFilteredMemberList(PREDICATE_SHOW_ALL_MEMBERS);
         model.commitRestaurantBook();
         return new CommandResult(String.format(MESSAGE_EDIT_MEMBER_SUCCESS, editedMember));
     }
@@ -93,8 +95,10 @@ public class EditCommand extends Command {
         Name updatedName = editMemberDescriptor.getName().orElse(memberToEdit.getName());
         Phone updatedPhone = editMemberDescriptor.getPhone().orElse(memberToEdit.getPhone());
         Email updatedEmail = editMemberDescriptor.getEmail().orElse(memberToEdit.getEmail());
+        LoyaltyPoints loyaltyPoints = editMemberDescriptor.getLoyaltyPoints().orElse(memberToEdit.getLoyaltyPoints());
 
-        return new Member(updatedName, updatedPhone, updatedEmail, memberToEdit);
+        return new Member(updatedName, updatedPhone, updatedEmail,
+                loyaltyPoints, memberToEdit);
     }
 
     @Override
@@ -123,7 +127,7 @@ public class EditCommand extends Command {
         private Name name;
         private Phone phone;
         private Email email;
-        private Address address;
+        private LoyaltyPoints loyaltyPoints;
 
         public EditMemberDescriptor() {}
 
@@ -135,14 +139,14 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
-            setAddress(toCopy.address);
+            setLoyaltyPoints(toCopy.loyaltyPoints);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address);
+            return CollectionUtil.isAnyNonNull(name, phone, email, loyaltyPoints);
         }
 
         public void setName(Name name) {
@@ -169,8 +173,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(email);
         }
 
-        public void setAddress(Address address) {
-            this.address = address;
+        public void setLoyaltyPoints(LoyaltyPoints loyaltyPoints) {
+            this.loyaltyPoints = loyaltyPoints;
+        }
+
+        public Optional<LoyaltyPoints> getLoyaltyPoints() {
+            return Optional.ofNullable(loyaltyPoints);
         }
 
         @Override
@@ -190,7 +198,8 @@ public class EditCommand extends Command {
 
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail());
+                    && getEmail().equals(e.getEmail())
+                    && getLoyaltyPoints().equals(e.getLoyaltyPoints());
         }
     }
 }

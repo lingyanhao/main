@@ -36,7 +36,7 @@ public class RestockIngredientCommandTest {
         String expectedMessage = String.format(RestockIngredientCommand.MESSAGE_SUCCESS, restockedIngredient);
 
         Model expectedModel = new ModelManager(new RestaurantBook(model.getRestaurantBook()), new UserPrefs());
-        expectedModel.setItem(model.getFilteredItemList(Ingredient.class).get(0), restockedIngredient);
+        expectedModel.setIngredient(model.getFilteredIngredientList().get(0), restockedIngredient);
         expectedModel.commitRestaurantBook();
 
         assertCommandSuccess(restockCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -45,7 +45,7 @@ public class RestockIngredientCommandTest {
     @Test
     public void execute_invalidIndex_failure() {
 
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredItemList(Ingredient.class).size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredIngredientList().size() + 1);
         RestockIngredientCommand restockCommand = new RestockIngredientCommand(outOfBoundIndex, TYPICAL_RESTOCK_AMOUNT);
         assertCommandFailure(restockCommand, model, commandHistory,
                 Messages.MESSAGE_INVALID_INGREDIENT_DISPLAYED_INDEX);

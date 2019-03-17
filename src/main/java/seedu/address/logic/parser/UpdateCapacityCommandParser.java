@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.commands.UpdateCapacityCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Capacity;
 
 /**
  * Parses input arguments and creates a new UpdateCapacityCommand object.
@@ -15,13 +16,10 @@ public class UpdateCapacityCommandParser implements Parser<UpdateCapacityCommand
     public UpdateCapacityCommand parse(String args) throws ParseException {
         requireNonNull(args);
         try {
-            int capacity = Integer.parseInt(args.trim());
-            if (capacity <= 0) {
-                throw new ParseException("Capacity should be a positive integer."); // TODO: Un-hardcode this
-            }
+            Capacity capacity = new Capacity(args.trim());
             return new UpdateCapacityCommand(capacity);
-        } catch (NumberFormatException e) {
-            throw new ParseException("Capacity should be a positive integer."); // TODO: Un-hardcode this
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(Capacity.MESSAGE_CONSTRAINTS);
         }
     }
 }

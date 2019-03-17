@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ITEMS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_INGREDIENTS;
 
 import java.util.List;
 
@@ -55,7 +55,7 @@ public class RestockIngredientCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Ingredient> lastShownList = model.getFilteredItemList(Ingredient.class);
+        List<Ingredient> lastShownList = model.getFilteredIngredientList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_INGREDIENT_DISPLAYED_INDEX);
@@ -65,12 +65,12 @@ public class RestockIngredientCommand extends Command {
         Ingredient restockedIngredient = createRestockedIngredient(ingredientToRestock, quantityToRestock);
 
         try {
-            model.setItem(ingredientToRestock, restockedIngredient);
+            model.setIngredient(ingredientToRestock, restockedIngredient);
         } catch (DuplicateItemException e) {
             throw new CommandException(MESSAGE_DUPLICATE);
         }
 
-        model.updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS, Ingredient.class);
+        model.updateFilteredIngredientList(PREDICATE_SHOW_ALL_INGREDIENTS);
         model.commitRestaurantBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, restockedIngredient));
     }

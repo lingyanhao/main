@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_EMAIL_BOB;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ITEMS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEMBERS;
 import static seedu.address.testutil.TypicalMembers.ALICE;
 import static seedu.address.testutil.TypicalMembers.BENSON;
 import static seedu.address.testutil.TypicalMembers.BOB;
@@ -36,7 +36,7 @@ public class ModelManagerTest {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new RestaurantBook(), new RestaurantBook(modelManager.getRestaurantBook()));
-        assertEquals(null, modelManager.getSelectedItem(Member.class));
+        assertEquals(null, modelManager.getSelectedMember());
     }
 
     @Test
@@ -88,65 +88,65 @@ public class ModelManagerTest {
     @Test
     public void hasMember_nullMember_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        modelManager.hasItem(null);
+        modelManager.hasMember(null);
     }
 
     @Test
     public void hasMember_memberNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasItem(ALICE));
+        assertFalse(modelManager.hasMember(ALICE));
     }
 
     @Test
     public void hasMember_memberInAddressBook_returnsTrue() {
-        modelManager.addItem(ALICE);
-        assertTrue(modelManager.hasItem(ALICE));
+        modelManager.addMember(ALICE);
+        assertTrue(modelManager.hasMember(ALICE));
     }
 
     @Test
     public void deleteMember_memberIsSelectedAndFirstMemberInFilteredMemberList_selectionCleared() {
-        modelManager.addItem(ALICE);
-        modelManager.setSelectedItem(ALICE, Member.class);
-        modelManager.deleteItem(ALICE);
-        assertEquals(null, modelManager.getSelectedItem(Member.class));
+        modelManager.addMember(ALICE);
+        modelManager.setSelectedMember(ALICE);
+        modelManager.deleteMember(ALICE);
+        assertEquals(null, modelManager.getSelectedMember());
     }
 
     @Test
     public void deleteMember_memberIsSelectedAndSecondMemberInFilteredMemberList_firstMemberSelected() {
-        modelManager.addItem(ALICE);
-        modelManager.addItem(BOB);
-        assertEquals(Arrays.asList(ALICE, BOB), modelManager.getFilteredItemList(Member.class));
-        modelManager.setSelectedItem(BOB, Member.class);
-        modelManager.deleteItem(BOB);
-        assertEquals(ALICE, modelManager.getSelectedItem(Member.class));
+        modelManager.addMember(ALICE);
+        modelManager.addMember(BOB);
+        assertEquals(Arrays.asList(ALICE, BOB), modelManager.getFilteredMemberList());
+        modelManager.setSelectedMember(BOB);
+        modelManager.deleteMember(BOB);
+        assertEquals(ALICE, modelManager.getSelectedMember());
     }
 
     @Test
     public void setMember_memberIsSelected_selectedMemberUpdated() {
-        modelManager.addItem(ALICE);
-        modelManager.setSelectedItem(ALICE, Member.class);
+        modelManager.addMember(ALICE);
+        modelManager.setSelectedMember(ALICE);
         Member updatedAlice = new MemberBuilder(ALICE).withEmail(MEMBER_VALID_EMAIL_BOB).build();
-        modelManager.setItem(ALICE, updatedAlice);
-        assertEquals(updatedAlice, modelManager.getSelectedItem(Member.class));
+        modelManager.setMember(ALICE, updatedAlice);
+        assertEquals(updatedAlice, modelManager.getSelectedMember());
     }
 
     @Test
     public void getFilteredMemberList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        modelManager.getFilteredItemList(Member.class).remove(0);
+        modelManager.getFilteredMemberList().remove(0);
     }
 
     @Test
     public void setSelectedMember_memberNotInFilteredMemberList_throwsMemberNotFoundException() {
         thrown.expect(ItemNotFoundException.class);
-        modelManager.setSelectedItem(ALICE, Member.class);
+        modelManager.setSelectedMember(ALICE);
     }
 
     @Test
     public void setSelectedMember_memberInFilteredMemberList_setsSelectedMember() {
-        modelManager.addItem(ALICE);
-        assertEquals(Collections.singletonList(ALICE), modelManager.getFilteredItemList(Member.class));
-        modelManager.setSelectedItem(ALICE, Member.class);
-        assertEquals(ALICE, modelManager.getSelectedItem(Member.class));
+        modelManager.addMember(ALICE);
+        assertEquals(Collections.singletonList(ALICE), modelManager.getFilteredMemberList());
+        modelManager.setSelectedMember(ALICE);
+        assertEquals(ALICE, modelManager.getSelectedMember());
     }
 
     @Test
@@ -174,11 +174,11 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredItemList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)), Member.class);
+        modelManager.updateFilteredMemberList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(restaurantBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS, Member.class);
+        modelManager.updateFilteredMemberList(PREDICATE_SHOW_ALL_MEMBERS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
