@@ -49,6 +49,6 @@ public class IngredientCardHandle extends NodeHandle<Node> {
     public boolean equals(Ingredient ingredient) {
         return getName().equals(ingredient.getIngredientName())
                 && getUnit().equals(ingredient.getIngredientUnit())
-                && getQuantity().equals(ingredient.getIngredientQuantity());
+                && getQuantity().equals(Integer.toString(ingredient.getIngredientQuantity()));
     }
 }
