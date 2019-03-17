@@ -61,7 +61,6 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
     }
 
     //// list overwrite operations
-
     /**
      * Replaces the contents of the member list with {@code members}.
      * {@code members} must not contain duplicate members.
@@ -272,7 +271,6 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
         indicateModified();
     }
 
-
     /**
      * Removes {@code key} from this {@code RestaurantBook}.
      * {@code key} must exist in the restaurant book.
@@ -281,7 +279,6 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
         ingredients.remove(key);
         indicateModified();
     }
-
 
     /**
      * Removes {@code key} from this {@code RestaurantBook}.
