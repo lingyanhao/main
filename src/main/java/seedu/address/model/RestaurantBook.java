@@ -216,22 +216,27 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
      * Removes {@code key} from this {@code RestaurantBook}.
      * {@code key} must exist in the restaurant book.
      */
-    public void removeItem(Item key) {
-        if (key instanceof Member) {
-            members.remove(key);
-            // When a member is deleted, all associated bookings are also deleted.
-            Predicate<Booking> isValidBooking = b -> !b.getCustomer().equals(key);
-            ObservableList<Booking> bookingObservableList = bookings.asUnmodifiableObservableList();
-            setBooking(bookingObservableList.stream().filter(isValidBooking).collect(Collectors.toList()));
-        } else if (key instanceof Booking) {
-            bookings.remove(key);
-        } else if (key instanceof Ingredient) {
-            ingredients.remove(key);
-        } else if (key instanceof Staff) {
-            staff.remove(key);
-        } else {
-            throw new IllegalArgumentException("Item type not recognised.");
-        }
+    public void removeMember(Member key) {
+        members.remove(key);
+        // When a member is deleted, all associated bookings are also deleted.
+        Predicate<Booking> isValidBooking = b -> !b.getCustomer().equals(key);
+        ObservableList<Booking> bookingObservableList = bookings.asUnmodifiableObservableList();
+        setBooking(bookingObservableList.stream().filter(isValidBooking).collect(Collectors.toList()));
+        indicateModified();
+    }
+
+    public void removeBooking(Booking key) {
+        bookings.remove(key);
+        indicateModified();
+    }
+
+    public void removeIngredient(Ingredient key) {
+        ingredients.remove(key);
+        indicateModified();
+    }
+
+    public void removeStaff(Staff key) {
+        staff.remove(key);
         indicateModified();
     }
 
