@@ -2,8 +2,10 @@ package systemtests;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.logic.commands.add.AddBookingCommand.MESSAGE_DUPLICATE;
+import static seedu.address.logic.commands.add.AddBookingCommand.MESSAGE_FULL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.testutil.TypicalMembers.ALICE;
+import static seedu.address.testutil.TypicalMembers.BENSON;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -14,6 +16,7 @@ import org.junit.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.UpdateCapacityCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddBookingCommandParser;
 import seedu.address.logic.parser.DeleteCommandParser;
@@ -24,6 +27,7 @@ import seedu.address.model.Model;
 import seedu.address.model.booking.Booking;
 import seedu.address.model.booking.BookingSize;
 import seedu.address.model.booking.BookingWindow;
+import seedu.address.model.booking.Capacity;
 import seedu.address.model.person.Member;
 import seedu.address.model.person.Phone;
 import seedu.address.testutil.BookingUtil;
@@ -43,6 +47,9 @@ public class AddBookingCommandSystemTest extends RestaurantBookSystemTest {
          * -> added
          */
         try {
+            // initialize the capacity to 13
+            new UpdateCapacityCommand(new Capacity(13)).execute(model, commandHistory);
+
             final String startTimeString1430 = "2019-02-23T14:30";
             final BookingWindow startTime1430 = ParserUtil.parseBookingWindow(startTimeString1430);
 
@@ -53,13 +60,15 @@ public class AddBookingCommandSystemTest extends RestaurantBookSystemTest {
             Booking aliceBooking = new Booking(startTime1430, ALICE, new BookingSize(5));
             expectedBookingList = Arrays.asList(aliceBooking);
 
+
+
             // Add first booking, should pass
             assertCommandSuccess(commandString, model, commandHistory, expectedBookingList);
 
             // Add duplicate booking, should fail
-            assertCommandFailure(commandString, model, commandHistory);
+            assertCommandFailure(commandString, model, commandHistory, MESSAGE_DUPLICATE);
 
-            commandString = BookingUtil.getAddBookingCommand("2019-02-23T14:00", Index.fromOneBased(1), 5);
+            commandString = BookingUtil.getAddBookingCommand(startTimeString1400, Index.fromOneBased(1), 5);
             Booking alice1400 = new Booking(startTime1400, ALICE, new BookingSize(5));
             expectedBookingList = Arrays.asList(alice1400, aliceBooking);
 
@@ -78,12 +87,22 @@ public class AddBookingCommandSystemTest extends RestaurantBookSystemTest {
             // Modify Alice's phone number, booking list should be updated accordingly
             assertEquals(model.getFilteredBookingList(), expectedBookingList);
 
+            // Restaurant is has 10 persons, capacity of 13 and should not accept booking of 4
+            commandString = BookingUtil.getAddBookingCommand(startTimeString1400, Index.fromOneBased(2),4);
+            assertCommandFailure(commandString, model, commandHistory, MESSAGE_FULL);
+
+            // But the restaurant should be able to accept a booking of 3
+            commandString = BookingUtil.getAddBookingCommand(startTimeString1400, Index.fromOneBased(2),3);
+            Booking benson1400 = new Booking(startTime1400, BENSON, new BookingSize(3));
+            expectedBookingList = Arrays.asList(modifiedAlice1400, benson1400, modifiedAliceBooking);
+            assertCommandSuccess(commandString, model, commandHistory, expectedBookingList);
+
             String deleteAliceCommandString = " 1";
             Command deleteAliceCommand = new DeleteCommandParser().parse(deleteAliceCommandString);
             deleteAliceCommand.execute(model, commandHistory);
-            expectedBookingList = Collections.emptyList();
+            expectedBookingList = Arrays.asList(benson1400);
 
-            // All bookings should be removed once member is deleted
+            // All bookings made by Alice should be removed once Alice is deleted, benson's bookings should remain
             assertEquals(model.getFilteredBookingList(), expectedBookingList);
 
         } catch (ParseException e) {
@@ -115,13 +134,14 @@ public class AddBookingCommandSystemTest extends RestaurantBookSystemTest {
      * Asserts that the command fails to execute and throws CommandException
      * @param commandString the command to execute as a String
      */
-    private void assertCommandFailure (String commandString, Model model, CommandHistory commandHistory) {
+    private void assertCommandFailure(
+            String commandString, Model model, CommandHistory commandHistory, String exceptionMessage) {
         try {
             Command command = new AddBookingCommandParser().parse(commandString);
             command.execute(model, commandHistory);
             throw new AssertionError("Execution should throw CommandException.");
         } catch (CommandException e) {
-            assertEquals(MESSAGE_DUPLICATE, e.getMessage());
+            assertEquals(exceptionMessage, e.getMessage());
         } catch (ParseException e) {
             throw new AssertionError("Parsing should not fail.");
         }

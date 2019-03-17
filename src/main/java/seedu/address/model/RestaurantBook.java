@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -17,6 +18,7 @@ import seedu.address.model.booking.Capacity;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Member;
 import seedu.address.model.person.Staff;
+import seedu.address.model.person.exceptions.RestaurantOverbookedException;
 
 /**
  * Wraps all data at the restaurant-book level
@@ -135,7 +137,7 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
         List<Booking> newList = new ArrayList<>();
         for (Booking b: bookings) {
             newList.add(b);
-        } // copy all the bookings over
+        } // copy all the bookings over as booking list is immutable
         newList.add(booking);
         return getCapacity().canAccommodate(newList);
     }
@@ -157,26 +159,42 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
     }
 
     /**
-     * Adds an item to the restaurant book.
-     * The item must not already exist in the restaurant book.
+     * Adds a member to the restaurant book.
+     * The member must not already exist in the restaurant book.
      */
     public void addMember(Member member) {
         members.add(member);
         indicateModified();
     }
 
+    /**
+     * Adds a booking to the restaurant book.
+     * The booking must not already exist in the restaurant book.
+     * The addition of this booking must not allow restaurant to exceed capacity.
+     */
     public void addBooking(Booking booking) {
         bookings.add(booking);
+        if (!getCapacity().canAccommodate(bookings.asUnmodifiableObservableList())) {
+            throw new RestaurantOverbookedException();
+        }
         bookings.sort(Comparator.naturalOrder());
         indicateModified();
     }
 
+    /**
+     * Adds a ingredient to the restaurant book.
+     * The ingredient must not already exist in the restaurant book.
+     */
     public void addIngredient(Ingredient ingredient) {
         ingredients.add(ingredient);
         indicateModified();
     }
 
-    public void addStaff(Staff s) { // 1 letter name used to avoid varaible name conflict
+    /**
+     * Adds a staff to the restaurant book.
+     * The staff must not already exist in the restaurant book.
+     */
+    public void addStaff(Staff s) { // 1 letter name used to avoid variable name conflict
         staff.add(s);
         indicateModified();
     }
@@ -196,17 +214,38 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
         indicateModified();
     }
 
+
+    /**
+     * Replaces the given member {@code target} in the list with {@code editedBooking}.
+     * {@code target} must exist in the restaurant book.
+     * The member identity of {@code editedBooking} must not be the
+     * same as another existing booking in the restaurant book.
+     */
     public void setBooking(Booking target, Booking editedBooking) {
         bookings.setItem(target, editedBooking);
         bookings.sort(Comparator.naturalOrder());
         indicateModified();
     }
 
+
+    /**
+     * Replaces the given member {@code target} in the list with {@code editedIngredient}.
+     * {@code target} must exist in the restaurant book.
+     * The member identity of {@code editedIngredient} must not be the
+     * same as another existing ingredient in the restaurant book.
+     */
     public void setIngredient(Ingredient target, Ingredient editedIngredient) {
         ingredients.setItem(target, editedIngredient);
         indicateModified();
     }
 
+
+    /**
+     * Replaces the given member {@code target} in the list with {@code editedStaff}.
+     * {@code target} must exist in the restaurant book.
+     * The member identity of {@code editedStaff} must not be the
+     * same as another existing member in the restaurant book.
+     */
     public void setStaff(Staff target, Staff editedStaff) {
         staff.setItem(target, editedStaff);
         indicateModified();
@@ -214,6 +253,7 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
 
     /**
      * Removes {@code key} from this {@code RestaurantBook}.
+     * All bookings made by this member will also be removed.
      * {@code key} must exist in the restaurant book.
      */
     public void removeMember(Member key) {
@@ -225,16 +265,30 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
         indicateModified();
     }
 
+    /**
+     * Removes {@code key} from this {@code RestaurantBook}.
+     * {@code key} must exist in the restaurant book.
+     */
     public void removeBooking(Booking key) {
         bookings.remove(key);
         indicateModified();
     }
 
+
+    /**
+     * Removes {@code key} from this {@code RestaurantBook}.
+     * {@code key} must exist in the restaurant book.
+     */
     public void removeIngredient(Ingredient key) {
         ingredients.remove(key);
         indicateModified();
     }
 
+
+    /**
+     * Removes {@code key} from this {@code RestaurantBook}.
+     * {@code key} must exist in the restaurant book.
+     */
     public void removeStaff(Staff key) {
         staff.remove(key);
         indicateModified();
@@ -312,6 +366,6 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
 
     @Override
     public int hashCode() {
-        return members.hashCode();
+        return Objects.hash(members, bookings, ingredients, staff);
     }
 }
