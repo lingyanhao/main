@@ -74,7 +74,7 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
      * Replaces the contents of the booking list with {@code bookings}.
      * {@code bookings} must not contain duplicate bookings.
      */
-    public void setBooking(List<Booking> bookings) {
+    public void setBookings(List<Booking> bookings) {
         this.bookings.setItems(bookings);
         indicateModified();
     }
@@ -92,7 +92,9 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
      * Replaces the contents of the booking list with {@code staff}.
      * {@code staff} must not contain duplicate staff.
      */
-    public void setStaff(List<Staff> staff) {
+    // Temporary rename to not make it look like overloaded method with setStaff(Staff target, Staff editedStaff)
+    // TODO: find a better name
+    public void setStaffList(List<Staff> staff) {
         this.staff.setItems(staff);
         indicateModified();
     }
@@ -104,9 +106,9 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
         requireNonNull(newData);
 
         setMembers(newData.getMemberList());
-        setBooking(newData.getBookingList());
+        setBookings(newData.getBookingList());
         setIngredients(newData.getIngredientList());
-        setStaff(newData.getStaffList());
+        setStaffList(newData.getStaffList());
         capacity = newData.getCapacity();
     }
 
@@ -209,7 +211,7 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
         ObservableList<Booking> bookingObservableList = bookings.asUnmodifiableObservableList();
         Function<Booking, Booking>
                 updateBooking = b -> (b.getCustomer().equals(target) ? b.editContacts(editedMember) : b);
-        setBooking(bookingObservableList.stream().map(updateBooking).collect(Collectors.toList()));
+        setBookings(bookingObservableList.stream().map(updateBooking).collect(Collectors.toList()));
         indicateModified();
     }
 
@@ -258,7 +260,7 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
         // When a member is deleted, all associated bookings are also deleted.
         Predicate<Booking> isValidBooking = b -> !b.getCustomer().equals(key);
         ObservableList<Booking> bookingObservableList = bookings.asUnmodifiableObservableList();
-        setBooking(bookingObservableList.stream().filter(isValidBooking).collect(Collectors.toList()));
+        setBookings(bookingObservableList.stream().filter(isValidBooking).collect(Collectors.toList()));
         indicateModified();
     }
 
