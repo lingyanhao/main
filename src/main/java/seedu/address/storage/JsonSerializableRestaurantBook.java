@@ -83,7 +83,7 @@ class JsonSerializableRestaurantBook {
             if (restaurantBook.hasMember(member)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_MEMBER);
             }
-            restaurantBook.addItem(member);
+            restaurantBook.addMember(member);
         }
 
 
@@ -92,7 +92,7 @@ class JsonSerializableRestaurantBook {
             if (restaurantBook.hasIngredient(ingredient)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_INGREDIENT);
             }
-            restaurantBook.addItem(ingredient);
+            restaurantBook.addIngredient(ingredient);
         }
 
         for (JsonAdaptedStaff jsonAdaptedStaff : staff) {
@@ -100,7 +100,7 @@ class JsonSerializableRestaurantBook {
             if (restaurantBook.hasStaff(staff)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_STAFF);
             }
-            restaurantBook.addItem(staff);
+            restaurantBook.addStaff(staff);
         }
 
         for (JsonAdaptedBooking jsonAdaptedBooking : bookings) {
@@ -108,7 +108,7 @@ class JsonSerializableRestaurantBook {
             if (restaurantBook.hasBooking(booking)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_BOOKING);
             }
-            restaurantBook.addItem(booking);
+            restaurantBook.addBooking(booking);
         }
 
         try {

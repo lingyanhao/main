@@ -85,14 +85,14 @@ public class JsonRestaurantBookStorageTest {
         assertEquals(original, new RestaurantBook(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addItem(HOON);
+        original.addMember(HOON);
         original.removeItem(ALICE);
         jsonAddressBookStorage.saveRestaurantBook(original, filePath);
         readBack = jsonAddressBookStorage.readRestaurantBook(filePath).get();
         assertEquals(original, new RestaurantBook(readBack));
 
         // Save and read without specifying file path
-        original.addItem(IDA);
+        original.addMember(IDA);
         jsonAddressBookStorage.saveRestaurantBook(original); // file path not specified
         readBack = jsonAddressBookStorage.readRestaurantBook().get(); // file path not specified
         assertEquals(original, new RestaurantBook(readBack));

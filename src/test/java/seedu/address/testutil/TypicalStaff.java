@@ -58,7 +58,7 @@ public class TypicalStaff {
     public static RestaurantBook getTypicalAddressBook() {
         RestaurantBook ab = new RestaurantBook();
         for (Staff staff : getTypicalStaff()) {
-            ab.addItem(staff);
+            ab.addStaff(staff);
         }
         return ab;
     }

@@ -171,47 +171,47 @@ public class ModelManager implements Model {
     @Override
     public void addMember(Member member) {
         requireNonNull(member);
-        versionedRestaurantBook.addItem(member);
+        versionedRestaurantBook.addMember(member);
         updateFilteredMemberList(PREDICATE_SHOW_ALL_MEMBERS);
     }
 
     @Override
     public void addBooking(Booking booking) {
         requireNonNull(booking);
-        versionedRestaurantBook.addItem(booking);
+        versionedRestaurantBook.addBooking(booking);
         updateFilteredBookingList(PREDICATE_SHOW_ALL_BOOKINGS);
     }
 
     @Override
     public void addIngredient(Ingredient ingredient) {
         requireNonNull(ingredient);
-        versionedRestaurantBook.addItem(ingredient);
+        versionedRestaurantBook.addIngredient(ingredient);
         updateFilteredIngredientList(PREDICATE_SHOW_ALL_INGREDIENTS);
     }
 
     @Override
     public void addStaff(Staff staff) {
         requireNonNull(staff);
-        versionedRestaurantBook.addItem(staff);
+        versionedRestaurantBook.addStaff(staff);
         updateFilteredStaffList(PREDICATE_SHOW_ALL_STAFF);
     }
 
     @Override
     public void setMember(Member target, Member editedMember) {
         requireAllNonNull(target, editedMember);
-        versionedRestaurantBook.setItem(target, editedMember);
+        versionedRestaurantBook.setMember(target, editedMember);
     }
 
     @Override
     public void setBooking(Booking target, Booking editedBooking) {
         requireAllNonNull(target, editedBooking);
-        versionedRestaurantBook.setItem(target, editedBooking);
+        versionedRestaurantBook.setBooking(target, editedBooking);
     }
 
     @Override
     public void setIngredient(Ingredient target, Ingredient editedIngredient) {
         requireAllNonNull(target, editedIngredient);
-        versionedRestaurantBook.setItem(target, editedIngredient);
+        versionedRestaurantBook.setIngredient(target, editedIngredient);
     }
 
     @Override

@@ -160,19 +160,24 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
      * Adds an item to the restaurant book.
      * The item must not already exist in the restaurant book.
      */
-    public void addItem(Item i) {
-        if (i instanceof Member) {
-            members.add((Member) i);
-        } else if (i instanceof Booking) {
-            bookings.add((Booking) i);
-            bookings.sort(Comparator.naturalOrder());
-        } else if (i instanceof Ingredient) {
-            ingredients.add((Ingredient) i);
-        } else if (i instanceof Staff) {
-            staff.add((Staff) i);
-        } else {
-            throw new IllegalArgumentException("Item type not recognised.");
-        }
+    public void addMember(Member member) {
+        members.add(member);
+        indicateModified();
+    }
+
+    public void addBooking(Booking booking) {
+        bookings.add(booking);
+        bookings.sort(Comparator.naturalOrder());
+        indicateModified();
+    }
+
+    public void addIngredient(Ingredient ingredient) {
+        ingredients.add(ingredient);
+        indicateModified();
+    }
+
+    public void addStaff(Staff s) { // 1 letter name used to avoid varaible name conflict
+        staff.add(s);
         indicateModified();
     }
 
@@ -182,25 +187,28 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
      * The member identity of {@code editedMember} must not be the
      * same as another existing member in the restaurant book.
      */
-    public <T extends Item> void setItem(T target, T editedItem) {
-        requireNonNull(editedItem);
-        if (target instanceof Member && editedItem instanceof Member) {
-            members.setItem((Member) target, (Member) editedItem);
-            // when a member is edited, update all the associated bookings too
-            ObservableList<Booking> bookingObservableList = bookings.asUnmodifiableObservableList();
-            Function<Booking, Booking>
-                    updateBooking = b -> (b.getCustomer().equals(target) ? b.editContacts((Member) editedItem) : b);
-            setBooking(bookingObservableList.stream().map(updateBooking).collect(Collectors.toList()));
-        } else if (target instanceof Booking && editedItem instanceof Booking) {
-            bookings.setItem((Booking) target, (Booking) editedItem);
-            bookings.sort(Comparator.naturalOrder());
-        } else if (target instanceof Ingredient && editedItem instanceof Ingredient) {
-            ingredients.setItem((Ingredient) target, (Ingredient) editedItem);
-        } else if (target instanceof Staff && editedItem instanceof Staff) {
-            staff.setItem((Staff) target, (Staff) editedItem);
-        } else {
-            throw new IllegalArgumentException("Item type not recognised.");
-        }
+    public void setMember(Member target, Member editedMember) {
+        members.setItem(target, editedMember);
+        ObservableList<Booking> bookingObservableList = bookings.asUnmodifiableObservableList();
+        Function<Booking, Booking>
+                updateBooking = b -> (b.getCustomer().equals(target) ? b.editContacts(editedMember) : b);
+        setBooking(bookingObservableList.stream().map(updateBooking).collect(Collectors.toList()));
+        indicateModified();
+    }
+
+    public void setBooking(Booking target, Booking editedBooking) {
+        bookings.setItem(target, editedBooking);
+        bookings.sort(Comparator.naturalOrder());
+        indicateModified();
+    }
+
+    public void setIngredient(Ingredient target, Ingredient editedIngredient) {
+        ingredients.setItem(target, editedIngredient);
+        indicateModified();
+    }
+
+    public void setStaff(Staff target, Staff editedStaff) {
+        staff.setItem(target, editedStaff);
         indicateModified();
     }
 

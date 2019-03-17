@@ -60,7 +60,7 @@ public class TypicalMembers {
     public static RestaurantBook getTypicalAddressBook() {
         RestaurantBook ab = new RestaurantBook();
         for (Member member : getTypicalMembers()) {
-            ab.addItem(member);
+            ab.addMember(member);
         }
         return ab;
     }
