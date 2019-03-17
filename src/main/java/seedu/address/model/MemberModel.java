@@ -1,5 +1,8 @@
 package seedu.address.model;
 
+import java.util.function.Predicate;
+
+import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Member;
 
@@ -7,6 +10,9 @@ import seedu.address.model.person.Member;
  * The API that stores the member side of the model.
  */
 public interface MemberModel {
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Member> PREDICATE_SHOW_ALL_MEMBERS = unused -> true;
+
     /**
      * Returns true if a member with the same identity as {@code member} exists in the restaurant book.
      */
@@ -34,4 +40,27 @@ public interface MemberModel {
 
     /** Returns an unmodifiable view of the filtered member list */
     ObservableList<Member> getFilteredMemberList();
+
+    /**
+     * Updates the filter of the filtered member list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredMemberList(Predicate<Member> predicate);
+
+    /**
+     * Selected member in the filtered member list.
+     * null if no member is selected.
+     */
+    ReadOnlyProperty<Member> selectedMemberProperty();
+
+    /**
+     * Returns the selected member in the filtered member list.
+     * null if no member is selected.
+     */
+    Member getSelectedMember();
+
+    /**
+     * Sets the selected member in the filtered member list.
+     */
+    void setSelectedMember(Member member);
 }

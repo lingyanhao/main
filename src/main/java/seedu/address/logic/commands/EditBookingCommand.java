@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NUMBER_PERSONS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ITEMS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BOOKINGS;
 
 import java.util.List;
 import java.util.Optional;
@@ -46,7 +46,7 @@ public class EditBookingCommand extends Command {
     private final EditBookingDescriptor editBookingDescriptor;
 
     /**
-     * @param index of the member in the filtered booking list to edit
+     * @param index of the booking in the filtered booking list to edit
      * @param editBookingDescriptor details to edit the booking with
      */
     public EditBookingCommand(Index index, EditBookingDescriptor editBookingDescriptor) {
@@ -67,22 +67,22 @@ public class EditBookingCommand extends Command {
         }
 
         Booking bookingToEdit = lastShownList.get(index.getZeroBased());
-        Booking editedbooking = createEditedBooking(bookingToEdit, editBookingDescriptor);
+        Booking editedBooking = createEditedBooking(bookingToEdit, editBookingDescriptor);
 
         try {
-            model.setBooking(bookingToEdit, editedbooking); // TODO: do a capacity check
+            model.setBooking(bookingToEdit, editedBooking); // TODO: do a capacity check
         } catch (DuplicateItemException e) {
             throw new CommandException(MESSAGE_DUPLICATE_BOOKING);
         }
 
-        model.updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS, Booking.class);
+        model.updateFilteredBookingList(PREDICATE_SHOW_ALL_BOOKINGS);
         model.commitRestaurantBook();
-        return new CommandResult(String.format(MESSAGE_EDIT_BOOKING_SUCCESS, editedbooking));
+        return new CommandResult(String.format(MESSAGE_EDIT_BOOKING_SUCCESS, editedBooking));
     }
 
     /**
      * Creates and returns a {@code booking} with the details of {@code bookingToEdit}
-     * edited with {@code editbookingDescriptor}.
+     * edited with {@code editBookingDescriptor}.
      */
     private static Booking createEditedBooking(Booking bookingToEdit, EditBookingDescriptor editBookingDescriptor) {
         assert bookingToEdit != null;

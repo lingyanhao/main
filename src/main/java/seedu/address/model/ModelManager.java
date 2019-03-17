@@ -172,28 +172,28 @@ public class ModelManager implements Model {
     public void addMember(Member member) {
         requireNonNull(member);
         versionedRestaurantBook.addItem(member);
-        updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS, member.getClass());
+        updateFilteredMemberList(PREDICATE_SHOW_ALL_MEMBERS);
     }
 
     @Override
     public void addBooking(Booking booking) {
         requireNonNull(booking);
         versionedRestaurantBook.addItem(booking);
-        updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS, booking.getClass());
+        updateFilteredBookingList(PREDICATE_SHOW_ALL_BOOKINGS);
     }
 
     @Override
     public void addIngredient(Ingredient ingredient) {
         requireNonNull(ingredient);
         versionedRestaurantBook.addItem(ingredient);
-        updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS, ingredient.getClass());
+        updateFilteredIngredientList(PREDICATE_SHOW_ALL_INGREDIENTS);
     }
 
     @Override
     public void addStaff(Staff staff) {
         requireNonNull(staff);
         versionedRestaurantBook.addItem(staff);
-        updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS, staff.getClass());
+        updateFilteredStaffList(PREDICATE_SHOW_ALL_STAFF);
     }
 
     @Override
@@ -251,19 +251,23 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public <T extends Item> void updateFilteredItemList(Predicate<? super T> predicate, Class<T> clazz) {
-        requireNonNull(predicate);
-        if (clazz == Member.class) {
-            filteredMembers.setPredicate((Predicate<Member>) predicate);
-        } else if (clazz == Booking.class) {
-            filteredBookings.setPredicate((Predicate<Booking>) predicate);
-        } else if (clazz == Ingredient.class) {
-            filteredIngredients.setPredicate((Predicate<Ingredient>) predicate);
-        } else if (clazz == Staff.class) {
-            filteredStaff.setPredicate((Predicate<Staff>) predicate);
-        } else {
-            throw new IllegalArgumentException("Item type not recognised.");
-        }
+    public void updateFilteredMemberList(Predicate<Member> predicate) {
+        filteredMembers.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredBookingList(Predicate<Booking> predicate) {
+        filteredBookings.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredIngredientList(Predicate<Ingredient> predicate) {
+        filteredIngredients.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredStaffList(Predicate<Staff> predicate) {
+        filteredStaff.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -296,60 +300,75 @@ public class ModelManager implements Model {
     //=========== Selected member ===========================================================================
 
     @Override
-    public <T extends Item> ReadOnlyProperty<T> selectedItemProperty(Class<T> clazz) {
-        if (clazz == Member.class) {
-            return (ReadOnlyProperty<T>) selectedMember;
-        } else if (clazz == Booking.class) {
-            return (ReadOnlyProperty<T>) selectedBooking;
-        } else if (clazz == Ingredient.class) {
-            return (ReadOnlyProperty<T>) selectedIngredient;
-        } else if (clazz == Staff.class) {
-            return (ReadOnlyProperty<T>) selectedStaff;
-        } else {
-            throw new IllegalArgumentException("Item type not recognised.");
-        }
+    public ReadOnlyProperty<Member> selectedMemberProperty() {
+        return selectedMember;
     }
 
     @Override
-    public <T extends Item> T getSelectedItem(Class<T> clazz) {
-        if (clazz == Member.class) {
-            return (T) selectedMember.getValue();
-        } else if (clazz == Booking.class) {
-            return (T) selectedBooking.getValue();
-        } else if (clazz == Ingredient.class) {
-            return (T) selectedIngredient.getValue();
-        } else if (clazz == Staff.class) {
-            return (T) selectedStaff.getValue();
-        } else {
-            throw new IllegalArgumentException("Item type not recognised.");
-        }
+    public ReadOnlyProperty<Booking> selectedBookingProperty() {
+        return selectedBooking;
     }
 
     @Override
-    public <T extends Item> void setSelectedItem(T item, Class<T> clazz) {
-        if (clazz == Member.class) {
-            if (item != null && !filteredMembers.contains(item)) {
-                throw new ItemNotFoundException();
-            }
-            selectedMember.setValue((Member) item);
-        } else if (clazz == Booking.class) {
-            if (item != null && !filteredBookings.contains(item)) {
-                throw new ItemNotFoundException();
-            }
-            selectedBooking.setValue((Booking) item);
-        } else if (clazz == Ingredient.class) {
-            if (item != null && !filteredIngredients.contains(item)) {
-                throw new ItemNotFoundException();
-            }
-            selectedIngredient.setValue((Ingredient) item);
-        } else if (clazz == Staff.class) {
-            if (item != null && !filteredStaff.contains(item)) {
-                throw new ItemNotFoundException();
-            }
-            selectedStaff.setValue((Staff) item);
-        } else {
-            throw new IllegalArgumentException("Item type not recognised.");
+    public ReadOnlyProperty<Ingredient> selectedIngredientProperty() {
+        return selectedIngredient;
+    }
+
+    @Override
+    public ReadOnlyProperty<Staff> selectedStaffProperty() {
+        return selectedStaff;
+    }
+
+    @Override
+    public Member getSelectedMember() {
+        return selectedMember.getValue();
+    }
+
+    @Override
+    public Booking getSelectedBooking() {
+        return selectedBooking.getValue();
+    }
+
+    @Override
+    public Ingredient getSelectedIngredient() {
+        return selectedIngredient.getValue();
+    }
+
+    @Override
+    public Staff getSelectedStaff() {
+        return selectedStaff.getValue();
+    }
+
+    @Override
+    public void setSelectedMember(Member member) {
+        if (member != null && !filteredMembers.contains(member)) {
+            throw new ItemNotFoundException();
         }
+        selectedMember.setValue(member);
+    }
+
+    @Override
+    public void setSelectedBooking(Booking booking) {
+        if (booking != null && !filteredBookings.contains(booking)) {
+            throw new ItemNotFoundException();
+        }
+        selectedBooking.setValue(booking);
+    }
+
+    @Override
+    public void setSelectedIngredient(Ingredient ingredient) {
+        if (ingredient != null && !filteredIngredients.contains(ingredient)) {
+            throw new ItemNotFoundException();
+        }
+        selectedIngredient.setValue(ingredient);
+    }
+
+    @Override
+    public void setSelectedStaff(Staff staff) {
+        if (staff != null && !filteredStaff.contains(staff)) {
+            throw new ItemNotFoundException();
+        }
+        selectedStaff.setValue(staff);
     }
 
     /**

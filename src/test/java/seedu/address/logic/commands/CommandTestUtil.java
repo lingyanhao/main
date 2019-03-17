@@ -149,7 +149,7 @@ public class CommandTestUtil {
         // only do so by copying its components.
         RestaurantBook expectedRestaurantBook = new RestaurantBook(actualModel.getRestaurantBook());
         List<Member> expectedFilteredList = new ArrayList<>(actualModel.getFilteredMemberList());
-        Member expectedSelectedMember = actualModel.getSelectedItem(Member.class);
+        Member expectedSelectedMember = actualModel.getSelectedMember();
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -160,7 +160,7 @@ public class CommandTestUtil {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedRestaurantBook, actualModel.getRestaurantBook());
             assertEquals(expectedFilteredList, actualModel.getFilteredMemberList());
-            assertEquals(expectedSelectedMember, actualModel.getSelectedItem(Member.class));
+            assertEquals(expectedSelectedMember, actualModel.getSelectedMember());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }
@@ -174,7 +174,7 @@ public class CommandTestUtil {
 
         Member member = model.getFilteredMemberList().get(targetIndex.getZeroBased());
         final String[] splitName = member.getName().fullName.split("\\s+");
-        model.updateFilteredItemList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])), Member.class);
+        model.updateFilteredMemberList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredMemberList().size());
     }

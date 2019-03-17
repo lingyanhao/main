@@ -116,41 +116,41 @@ public class LogicManager implements Logic {
 
     @Override
     public ReadOnlyProperty<Member> selectedMemberProperty() {
-        return model.selectedItemProperty(Member.class);
+        return model.selectedMemberProperty();
     }
 
     @Override
     public ReadOnlyProperty<Booking> selectedBookingProperty() {
-        return model.selectedItemProperty(Booking.class);
+        return model.selectedBookingProperty();
     }
 
     @Override
     public ReadOnlyProperty<Ingredient> selectedIngredientProperty() {
-        return model.selectedItemProperty(Ingredient.class);
+        return model.selectedIngredientProperty();
     }
 
     @Override
     public ReadOnlyProperty<Staff> selectedStaffProperty() {
-        return model.selectedItemProperty(Staff.class);
+        return model.selectedStaffProperty();
     }
 
     @Override
     public void setSelectedMember(Member member) {
-        model.setSelectedItem(member, Member.class);
+        model.setSelectedMember(member);
     }
 
     @Override
     public void setSelectedBooking(Booking booking) {
-        model.setSelectedItem(booking, Booking.class);
+        model.setSelectedBooking(booking);
     }
 
     @Override
     public void setSelectedIngredient(Ingredient ingredient) {
-        model.setSelectedItem(ingredient, Ingredient.class);
+        model.setSelectedIngredient(ingredient);
     }
 
     @Override
     public void setSelectedStaff(Staff staff) {
-        model.setSelectedItem(staff, Staff.class);
+        model.setSelectedStaff(staff);
     }
 }
