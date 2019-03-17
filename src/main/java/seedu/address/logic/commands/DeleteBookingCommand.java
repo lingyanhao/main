@@ -40,10 +40,10 @@ public class DeleteBookingCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_BOOKING_DISPLAYED_INDEX);
         }
 
-        Booking BookingToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteBooking(BookingToDelete);
+        Booking bookingToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.deleteBooking(bookingToDelete);
         model.commitRestaurantBook();
-        return new CommandResult(String.format(MESSAGE_DELETE_BOOKING_SUCCESS, BookingToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_BOOKING_SUCCESS, bookingToDelete));
     }
 
     @Override

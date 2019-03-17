@@ -20,6 +20,9 @@ import seedu.address.model.booking.BookingWindow;
 import seedu.address.model.person.Member;
 import seedu.address.model.person.exceptions.DuplicateItemException;
 
+/**
+ * Edits the details of an existing booking in the address book.
+ */
 public class EditBookingCommand extends Command {
 
     public static final String COMMAND_WORD = "editbooking";
