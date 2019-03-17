@@ -131,6 +131,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void setBooking(Booking target, Booking editedBooking) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void setIngredient(Ingredient target, Ingredient editedMember) {
         throw new AssertionError("This method should not be called.");
     }
