@@ -8,7 +8,6 @@ import static seedu.address.testutil.TypicalMembers.ALICE;
 import static seedu.address.testutil.TypicalMembers.BENSON;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import org.junit.Test;
@@ -88,11 +87,11 @@ public class AddBookingCommandSystemTest extends RestaurantBookSystemTest {
             assertEquals(model.getFilteredBookingList(), expectedBookingList);
 
             // Restaurant is has 10 persons, capacity of 13 and should not accept booking of 4
-            commandString = BookingUtil.getAddBookingCommand(startTimeString1400, Index.fromOneBased(2),4);
+            commandString = BookingUtil.getAddBookingCommand(startTimeString1400, Index.fromOneBased(2), 4);
             assertCommandFailure(commandString, model, commandHistory, MESSAGE_FULL);
 
             // But the restaurant should be able to accept a booking of 3
-            commandString = BookingUtil.getAddBookingCommand(startTimeString1400, Index.fromOneBased(2),3);
+            commandString = BookingUtil.getAddBookingCommand(startTimeString1400, Index.fromOneBased(2), 3);
             Booking benson1400 = new Booking(startTime1400, BENSON, new BookingSize(3));
             expectedBookingList = Arrays.asList(modifiedAlice1400, benson1400, modifiedAliceBooking);
             assertCommandSuccess(commandString, model, commandHistory, expectedBookingList);
