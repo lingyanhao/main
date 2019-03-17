@@ -214,7 +214,6 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
         indicateModified();
     }
 
-
     /**
      * Replaces the given member {@code target} in the list with {@code editedBooking}.
      * {@code target} must exist in the restaurant book.
@@ -226,7 +225,6 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
         bookings.sort(Comparator.naturalOrder());
         indicateModified();
     }
-
 
     /**
      * Replaces the given member {@code target} in the list with {@code editedIngredient}.
