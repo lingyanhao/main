@@ -203,6 +203,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setBooking(Booking target, Booking editedBooking) {
+        requireAllNonNull(target, editedBooking);
+        versionedRestaurantBook.setItem(target, editedBooking);
+    }
+
+    @Override
     public void setIngredient(Ingredient target, Ingredient editedIngredient) {
         requireAllNonNull(target, editedIngredient);
         versionedRestaurantBook.setItem(target, editedIngredient);

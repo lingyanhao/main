@@ -41,6 +41,9 @@ public class Booking implements Item, Comparable<Booking> {
         return bookingWindow.getEndTime();
     }
 
+    public BookingWindow getBookingWindow() {
+        return bookingWindow;
+    }
     public String getStartTimeString() {
         return bookingWindow.getStartTime().toString();
     }

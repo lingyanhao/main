@@ -30,6 +30,14 @@ public interface BookingModel {
      */
     void addBooking(Booking booking);
 
+    /**
+     * Replaces the given booking {@code target} with {@code editedBooking}.
+     * {@code target} must exist in the restaurant book.
+     * The booking identity of {@code editedBooking}
+     * must not be the same as another existing booking in the restaurant book.
+     */
+    void setBooking(Booking target, Booking editedBooking);
+
     /** Returns an unmodifiable view of the filtered booking list */
     ObservableList<Booking> getFilteredBookingList();
 
