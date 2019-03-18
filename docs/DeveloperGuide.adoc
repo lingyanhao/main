@@ -465,7 +465,9 @@ The `RestaurantBookParser` class would detect if the user has keyed in the keywo
 
 * **Alternative 2:** Every change to the database updates the statistics on the fly.
 ** Pros: Displaying the statistics on the UI would be faster.
-** Cons: Need to change the implementation of every command that causes a change to the database. If the user does not want to display the statistics, the calculations done every operation would be wasted.
+** Cons: Need to change the implementation of every command that causes a change to the database. Calculations have to be done every operation, affecting efficiency.
+
+* Decision: Alternative 1 was adopted as it is an easier implementation. As the number of times the `stats` command is called is likely to be low as compared to an `add` or `delete` operation, doing the calculation after every operation would be a waste of computation power. 
 
 ===== Aspect: Design of UI display
 
@@ -476,6 +478,8 @@ The `RestaurantBookParser` class would detect if the user has keyed in the keywo
 * **Alternative 2:** Hide the displayed database to show the statistics.
 ** Pros: There would be only 1 window to manage at any point in time.
 ** Cons: Cannot view the statistics and the database concurrently.
+
+* Decision: Alternative 1 was adopted as it is an easier implementation. Implementing the `stats` window as a static window that will not change would not affect the other parts of the app, and there is no need to hide and show the current screen. Moreover, the user might want to view the statistics together with the database, which is only possible with multiple windows.
 
 === The panel UI for `Member`, `Staff`, `Booking`, and `Ingredient`
 
@@ -497,15 +501,19 @@ The panel is formatted in the `ItemListPanel.fxml` file, and each item has its o
 ** Pros: Less duplication.
 ** Cons: Hard to customise the contents of each card.
 
+* Decision: Alternative 1 was adopted as each card do not share much in common other than the numbering on the list. Each card needs to display different information. For example, the `Member` item would need to display the email, while the `Ingredient` item would need to display other fields such as the quantity. Hence, not much code is duplicated, and creating 4 files would be the easiest implementation.
+
 ===== Aspect: Design of panel display
 
-* **Alternative 1 (current choice):** Using the same fxml file for each item.
+* **Alternative 1 (current choice):** Using the same fxml file for each item panel.
 ** Pros: Less duplication.
-** Cons: Hard to customise the contents of each panel. However, currently, the only difference between the panels are the header which contains the name of the item type, and that single label is easy to edit via code.
+** Cons: Hard to customise the contents of each panel. 
 
 * **Alternative 2:** Making a separate fxml file for each item panel
 ** Pros: Able to customise the panel to suit the item.
 ** Cons: Need to duplicate common elements that all the item panels share.
+
+* Decision: Alternative 1 was adopted. Currently, the only difference between the panels are the header which contains the name of the item type. This only affects a single label, which is easy to edit via code. Hence, making them share the fxml reduces the code duplication. If the display of the panels were to be modified in the future, say to add more padding or to change the size, only one fxml file would need to be modified.
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
