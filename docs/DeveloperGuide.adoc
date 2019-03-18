@@ -372,6 +372,46 @@ When `RestaurantBook#setMember()` is called, the bookings are replaced with a ne
 
 * Decision: Alternative 1 was adopted as we felt that it was the simplest way to implement the feature. The additional efficiency gained may not even be significant, considering that in simple GUI apps like this, updating the UI is often the part of the program that uses the most resources. Optimizing the backend operations may not actually lead to a significant performance improvement.
 
+=== The `stats` command
+
+When the `stats` command is entered, the current statictis of the amount of bookings is to be displayed to the user in the form of a bar chart.
+
+==== Current implementation
+
+The `RestaurantBookParser` class would detect if the user has keyed in the keyword `stats`. If it does, `RestaurantBookParser` would call the `Statistics` class. The `Statistics` class is used to determine what data is to be displayed to the user in the bar chart (ie what are the axes, values, and legends of the bar chart). It would call the `StatsWindow` class which handles the UI. The bar chart will appear in a new window and does not affect the current window.
+
+==== Design Considerations
+
+===== Aspect: Implementation of data structure
+
+* **Alternative 1 (current choice):** Doing the calculation only when the user wants to view the statistics.
+** Pros: Calculating only when needed is more efficient.
+** Cons: The command would take some time to calculate before being able to display the statistics.
+
+* **Alternative 2:** Every change to the database updates the statistics on the fly
+** Pros: Displaying the statistics on the UI would be faster.
+** Cons: Need to change the implementation of every command that causes a change to the database. If the user does not want to display the statistics, the calculations done every operation would be wasted.
+
+===== Aspect: Design of UI display
+
+* **Alternative 1 (current choice):** Displaying the statistics in a new window.
+** Pros: The statistics would be displayed independently from the database and would not interfere with each other. 
+** Cons: The user can open multiple windows which contains different data and not know which is the correct window.
+
+* **Alternative 2:** Hide the displayed database to show the statistics.
+** Pros: There would be only 1 window to manage at any point in time.
+** Cons: Cannot view the statistics and the database concurrently.
+
+=== The panel UI for `Member`, `Staff`, `Booking`, and `Ingredient`
+
+The restaurant book displays the entire database in the form of "cards", which is the same as AB4. Each item has its own panel.
+
+=== Current implementation
+
+The panel is formatted in the `ItemListPanel.fxml` file, and each item has its own controller (`MemberListPanel`, `StaffListPanel`, `BookingListPanel`, and `IngredientListPanel`) that extends from `ItemListPanel`. The panel displays the database via cards. Each item has its own card (`MemberCard`, `StaffCard`, `BookingCard`, and `IngredientCard`).
+
+==== hi
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
