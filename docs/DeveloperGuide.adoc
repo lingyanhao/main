@@ -467,12 +467,12 @@ The `RestaurantBookParser` class would detect if the user has keyed in the keywo
 ** Pros: Displaying the statistics on the UI would be faster.
 ** Cons: Need to change the implementation of every command that causes a change to the database. Calculations have to be done every operation, affecting efficiency.
 
-* Decision: Alternative 1 was adopted as it is an easier implementation. As the number of times the `stats` command is called is likely to be low as compared to an `add` or `delete` operation, doing the calculation after every operation would be a waste of computation power. 
+* Decision: Alternative 1 was adopted as it is an easier implementation. As the number of times the `stats` command is called is likely to be low as compared to an `add` or `delete` operation, doing the calculation after every operation would be a waste of computation power.
 
 ===== Aspect: Design of UI display
 
 * **Alternative 1 (current choice):** Displaying the statistics in a new window.
-** Pros: The statistics would be displayed independently from the database and would not interfere with each other. 
+** Pros: The statistics would be displayed independently from the database and would not interfere with each other.
 ** Cons: The user can open multiple windows which contains different data and not know which is the correct window.
 
 * **Alternative 2:** Hide the displayed database to show the statistics.
@@ -507,7 +507,7 @@ The panel is formatted in the `ItemListPanel.fxml` file, and each item has its o
 
 * **Alternative 1 (current choice):** Using the same fxml file for each item panel.
 ** Pros: Less duplication.
-** Cons: Hard to customise the contents of each panel. 
+** Cons: Hard to customise the contents of each panel.
 
 * **Alternative 2:** Making a separate fxml file for each item panel
 ** Pros: Able to customise the panel to suit the item.
