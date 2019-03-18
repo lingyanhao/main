@@ -389,7 +389,7 @@ The `RestaurantBookParser` class would detect if the user has keyed in the keywo
 ** Pros: Calculating only when needed is more efficient.
 ** Cons: The command would take some time to calculate before being able to display the statistics.
 
-* **Alternative 2:** Every change to the database updates the statistics on the fly
+* **Alternative 2:** Every change to the database updates the statistics on the fly.
 ** Pros: Displaying the statistics on the UI would be faster.
 ** Cons: Need to change the implementation of every command that causes a change to the database. If the user does not want to display the statistics, the calculations done every operation would be wasted.
 
@@ -411,7 +411,27 @@ The restaurant book displays the entire database in the form of "cards", which i
 
 The panel is formatted in the `ItemListPanel.fxml` file, and each item has its own controller (`MemberListPanel`, `StaffListPanel`, `BookingListPanel`, and `IngredientListPanel`) that extends from `ItemListPanel`. The panel displays the database via cards. Each item has its own card (`MemberCard`, `StaffCard`, `BookingCard`, and `IngredientCard`).
 
-==== hi
+==== Design Considerations
+
+===== Aspect: Design of card display
+
+* **Alternative 1 (current choice):** Making a separate fxml file for each item card.
+** Pros: Able to customise the card to suit the item.
+** Cons: Need to duplicate common elements that all the cards share, such as the numbering on the list.
+
+* **Alternative 2:** Using the same fxml file for each item card.
+** Pros: Less duplication.
+** Cons: Hard to customise the contents of each card.
+
+===== Aspect: Design of panel display
+
+* **Alternative 1 (current choice):** Using the same fxml file for each item.
+** Pros: Less duplication.
+** Cons: Hard to customise the contents of each panel. However, currently, the only difference between the panels are the header which contains the name of the item type, and that single label is easy to edit via code.
+
+* **Alternative 2:** Making a separate fxml file for each item panel
+** Pros: Able to customise the panel to suit the item.
+** Cons: Need to duplicate common elements that all the item panels share.
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
