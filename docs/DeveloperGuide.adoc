@@ -395,7 +395,7 @@ The `RestaurantBookParser` class would detect if the user has keyed in the keywo
 ===== Aspect: Design of UI display
 
 * **Alternative 1 (current choice):** Displaying the statistics in a new window.
-** Pros: The statistics would be displayed independently from the database and would not interfere with each other. 
+** Pros: The statistics would be displayed independently from the database and would not interfere with each other.
 ** Cons: The user can open multiple windows which contains different data and not know which is the correct window.
 
 * **Alternative 2:** Hide the displayed database to show the statistics.
