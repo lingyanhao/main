@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class Capacity {
     public static final int MAX_CAPACITY = 10000;
+    public static final int DEFAULT_CAPACITY = 200;
     public static final String MESSAGE_CONSTRAINTS = "Capacity should be an integer between 1 and "
             + MAX_CAPACITY + " inclusive.";
     private int value;
@@ -28,12 +29,19 @@ public class Capacity {
         value = Integer.parseInt(strCapacity);
     }
 
+    /**
+     * Represents the default capacity if no particular value has been chosen.
+     */
+    public static Capacity getDefaultCapacity() {
+        return new Capacity(DEFAULT_CAPACITY);
+    }
+
     public int getValue() {
         return value;
     }
 
     /**
-     * Checks if the size is within 1 and MAX_BOOKING_SIZE.
+     * Checks if the capacity is valid.
      */
     public static boolean isValidCapacity(int intCapacity) {
         return intCapacity > 0 && intCapacity <= MAX_CAPACITY;

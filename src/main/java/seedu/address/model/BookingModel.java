@@ -44,6 +44,11 @@ public interface BookingModel {
      */
     void setBooking(Booking target, Booking editedBooking);
 
+    /**
+     * Determines if editing the booking will cause the restaurant to be overbooked
+     */
+    boolean canAccommodateEdit(Booking target, Booking editedBooking);
+
     /** Returns an unmodifiable view of the filtered booking list */
     ObservableList<Booking> getFilteredBookingList();
 
@@ -79,4 +84,9 @@ public interface BookingModel {
      * Sets the capacity of the restaurant.
      */
     void setCapacity(Capacity newCapacity);
+
+    /**
+     * Returns true if and only if changing the capacity to {@code Capacity} will not result in overbooking
+     */
+    boolean canUpdateCapacity(Capacity newCapacity);
 }

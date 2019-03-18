@@ -26,15 +26,13 @@ import seedu.address.model.person.exceptions.RestaurantOverbookedException;
  */
 public class RestaurantBook implements ReadOnlyRestaurantBook {
 
-    private static final Capacity DEFAULT_CAPACITY = new Capacity(200);
-
     private final UniqueItemList<Member> members;
     private final UniqueItemList<Booking> bookings;
     private final UniqueItemList<Ingredient> ingredients;
     private final UniqueItemList<Staff> staff;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
-    private Capacity capacity = DEFAULT_CAPACITY;
+    private Capacity capacity = Capacity.getDefaultCapacity();
 
         /*
         * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -134,7 +132,6 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
      * Returns true if {@code booking} can be added to the restaurant without exceeding capacity.
      */
     public boolean canAccommodate(Booking booking) {
-
         List<Booking> newList = new ArrayList<>();
         for (Booking b: bookings) {
             newList.add(b);
@@ -223,8 +220,27 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
      */
     public void setBooking(Booking target, Booking editedBooking) {
         bookings.setItem(target, editedBooking);
+        if (!capacity.canAccommodate(bookings.asUnmodifiableObservableList())) {
+            throw new RestaurantOverbookedException();
+        }
         bookings.sort(Comparator.naturalOrder());
         indicateModified();
+    }
+
+    /**
+     * Determines if editing the booking will cause the restaurant to be overbooked
+     */
+    public boolean canAccommodateEdit(Booking target, Booking editedBooking) {
+        // newList simulates what happens when the target is replaced
+        List<Booking> newList = new ArrayList<>();
+        for (Booking b: bookings) {
+            if (!b.equals(target)) {
+                newList.add(b);
+            } else {
+                newList.add(editedBooking);
+            }
+        }
+        return getCapacity().canAccommodate(newList);
     }
 
     /**
@@ -291,19 +307,20 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
         indicateModified();
     }
 
-    /**
-     * Returns the capacity of the restaurant.
-     */
     @Override
     public Capacity getCapacity() {
         return capacity;
     }
 
-    /**
-     * Sets the capacity of the restaurant.
-     */
     public void setCapacity(Capacity newCapacity) {
-        capacity = newCapacity; // TODO : check that this does not cause size to be too small
+        capacity = newCapacity;
+        if (!newCapacity.canAccommodate(bookings.asUnmodifiableObservableList())) {
+            throw new RestaurantOverbookedException();
+        }
+    }
+
+    public boolean canUpdateCapacity(Capacity newCapacity) {
+        return newCapacity.canAccommodate(bookings.asUnmodifiableObservableList());
     }
 
     @Override
