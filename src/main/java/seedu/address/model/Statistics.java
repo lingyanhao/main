@@ -27,11 +27,22 @@ public class Statistics {
         return Period.between(start, end).getDays();
     }
 
+    /**
+     * Formats the date into a String.
+     * @param date the date
+     * @return the formatted String
+     */
     private static String formatDate(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
         return date.format(formatter);
     }
 
+    /**
+     * Formats 2 dates into a String.
+     * @param start the starting date
+     * @param end the ending date
+     * @return the formatted String
+     */
     private static String formatDate(LocalDate start, LocalDate end) {
         if (start.isEqual(end)) {
             return formatDate(start);
@@ -46,7 +57,7 @@ public class Statistics {
      * @param numBuckets the number of bars to display
      * @return the list of data
      */
-    private static List<Data<String,Integer>> generateGraphData(ObservableList<Booking> bookings,
+    private static List<Data<String, Integer>> generateGraphData(ObservableList<Booking> bookings,
                                                                 int bucketSize, int numBuckets) {
         assert(bucketSize <= MAX_BAR_SIZE);
         assert(numBuckets <= MAX_BARS);

@@ -15,16 +15,17 @@ public class ViewStatsCommand extends Command {
     public static final String MESSAGE_SIZE_CONSTRAINTS = "Days should be an integer between 1 and "
             + Statistics.getMaxDays() + " inclusive.";
 
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays the statistics of the bookings made"
+            + " for the last many days specified.\n"
+            + "Parameters: DAYS (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 30 ";
+
     private final int days;
 
     public ViewStatsCommand(int days) {
         this.days = days;
     }
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays the statistics of the bookings made"
-            + " for the last many days specified.\n"
-            + "Parameters: DAYS (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 30 ";
 
 
 
