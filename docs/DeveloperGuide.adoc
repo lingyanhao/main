@@ -449,11 +449,11 @@ In other words, when RestaurantBook#deleteMember() or RestaurantBook#deleteIngre
 
 === The `stats` command
 
-When the `stats` command is entered, the current statictis of the amount of bookings is to be displayed to the user in the form of a bar chart.
+When the `stats` command is entered, the current statistis of the amount of bookings is to be displayed to the user in the form of a bar chart.
 
 ==== Current implementation
 
-The `RestaurantBookParser` class would detect if the user has keyed in the keyword `stats`. If it does, `RestaurantBookParser` would call the `Statistics` class. The `Statistics` class is used to determine what data is to be displayed to the user in the bar chart (ie what are the axes, values, and legends of the bar chart). It would call the `StatsWindow` class which handles the UI. The bar chart will appear in a new window and does not affect the current window.
+When the user enters the `stats` command, `RestaurantBookParser` calls the `Statistics` class. The Statistics class fetches the relevant data for user display (ie what are the axes, values, and legends of the bar chart). It would then call the `StatsWindow` class which handles the UI. The bar chart will appear in a new window and does not affect the current window.
 
 ==== Design Considerations
 
@@ -465,9 +465,9 @@ The `RestaurantBookParser` class would detect if the user has keyed in the keywo
 
 * **Alternative 2:** Every change to the database updates the statistics on the fly.
 ** Pros: Displaying the statistics on the UI would be faster.
-** Cons: Need to change the implementation of every command that causes a change to the database. Calculations have to be done every operation, affecting efficiency.
+** Cons: Need to change the implementation of every command that causes a change to the database. Calculations have to be done every operation, potentially affecting the efficiency of the `add` or `delete` commands.
 
-* Decision: Alternative 1 was adopted as it is an easier implementation. As the number of times the `stats` command is called is likely to be low as compared to an `add` or `delete` operation, doing the calculation after every operation would be a waste of computation power.
+* Decision: Alternative 1 was adopted as the other commands do not need to be changed and it is easier to implement. As the number of times the `stats` command is called is likely to be low as compared to an `add` or `delete` operation, doing the calculation after every operation would be a waste of computation power.
 
 ===== Aspect: Design of UI display
 
@@ -475,7 +475,7 @@ The `RestaurantBookParser` class would detect if the user has keyed in the keywo
 ** Pros: The statistics would be displayed independently from the database and would not interfere with each other.
 ** Cons: The user can open multiple windows which contains different data and not know which is the correct window.
 
-* **Alternative 2:** Hide the displayed database to show the statistics.
+* **Alternative 2:** Hide the displayed database to show the statistics. A separate command would be used to toggle the view.
 ** Pros: There would be only 1 window to manage at any point in time.
 ** Cons: Cannot view the statistics and the database concurrently.
 
@@ -493,7 +493,7 @@ The panel is formatted in the `ItemListPanel.fxml` file, and each item has its o
 
 ===== Aspect: Design of card display
 
-* **Alternative 1 (current choice):** Making a separate fxml file for each item card.
+* **Alternative 1 (current choice):** Making a separate fxml file for each type of item card.
 ** Pros: Able to customise the card to suit the item.
 ** Cons: Need to duplicate common elements that all the cards share, such as the numbering on the list.
 
@@ -513,7 +513,7 @@ The panel is formatted in the `ItemListPanel.fxml` file, and each item has its o
 ** Pros: Able to customise the panel to suit the item.
 ** Cons: Need to duplicate common elements that all the item panels share.
 
-* Decision: Alternative 1 was adopted. Currently, the only difference between the panels are the header which contains the name of the item type. This only affects a single label, which is easy to edit via code. Hence, making them share the fxml reduces the code duplication. If the display of the panels were to be modified in the future, say to add more padding or to change the size, only one fxml file would need to be modified.
+* Decision: Alternative 1 was adopted. Currently, the only difference between the panels is the header (implemented via a `label`) which contains the name of the item type. This only affects a single label, which is easy to edit via code. Hence, sharing the fxml file reduces the code duplication. If the display of the panels were to be modified in the future, say to add more padding or to change the size, only one fxml file needs to be modified.
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
