@@ -75,7 +75,7 @@ public class Statistics {
      * @return
      */
     public static List<Data<String,Integer>> generateGraphData(ObservableList<Booking> bookings, int days) {
-        assert(days <= MAX_BARS * MAX_BAR_SIZE);
+        assert(days <= getMaxDays());
         int bucketSize = (days + MAX_BARS - 1) / MAX_BARS; // ceiling of days/MAX_BARS
         int numBuckets = (days + bucketSize - 1) / bucketSize; // ceiling of days/bucketSize
         return generateGraphData(bookings, bucketSize, numBuckets);
