@@ -11,6 +11,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteBookingCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteIngredientCommand;
+import seedu.address.logic.commands.DeleteStaffCommand;
 import seedu.address.logic.commands.EditBookingCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -84,7 +85,6 @@ public class RestaurantBookParser {
         case EditBookingCommand.COMMAND_ALIAS:
             return new EditBookingCommandParser().parse(arguments);
 
-
         case SelectCommand.COMMAND_WORD:
         case SelectCommand.COMMAND_ALIAS:
             return new SelectCommandParser().parse(arguments);
@@ -100,6 +100,10 @@ public class RestaurantBookParser {
         case DeleteIngredientCommand.COMMAND_WORD:
         case DeleteIngredientCommand.COMMAND_ALIAS:
             return new DeleteIngredientCommandParser().parse(arguments);
+
+        case DeleteStaffCommand.COMMAND_WORD:
+        case DeleteStaffCommand.COMMAND_ALIAS:
+            return null;
 
         case ClearCommand.COMMAND_WORD:
         case ClearCommand.COMMAND_ALIAS:
