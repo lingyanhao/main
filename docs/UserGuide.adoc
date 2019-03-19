@@ -466,12 +466,6 @@ Format: `bookingSummary`
 
 === Staff Management
 
-==== View Staff: `viewStaff`
-
-View the list of all staff and their details
-
-Format: `viewStaff`
-
 ==== Add Staff: `addStaff`
 
 Add a new staff member to the list of all staff.
@@ -493,6 +487,16 @@ Format: `deleteStaff STAFF_ID`
 Example
 
 * `deleteStaff 3`
+
+=== Edit Staff: `editStaff`
+
+Edits the staff member with the specified id.
+
+Format: `editStaff STAFF_ID [n/NAME] [p/PHONE] [e/EMAIL] [a/APPOINTMENT]`
+
+Example
+
+* `editStaff 1 p/98765432 a/Manager`
 
 ==== View Shift Staff: `shiftStaff`
 
@@ -624,8 +628,6 @@ e.g. `cancelBooking 3`
 * *bookingSummary* `bookingSummary`
 
 === Staff Management
-
-* *viewStaff* `viewStaff`
 
 * *addStaff* `addStaff n/STAFF_NAME c/CONTACT_NUMBER a/APPOINTMENT` +
 e.g. `addStaff n/John Doe c/91234567 a/Waiter`
