@@ -231,6 +231,48 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== Add Feature
+
+The add feature allows the user to add items to the `RestaurantBook`.
+It also populates the item added to the `RestaurantBook` with parameters supplied by the user.
+
+==== Current Implementation
+
+The add feature is implemented as four separate commands, one for adding each type of item: `addMember`, `addBooking`, `addIngredient`, `addStaff`.
+Each command is implemented as a `AddCommand` class. For example, the `addMember` command is implemented as the `AddMember` class.
+All `AddCommand` class inherit from the `Command` class.
+As the general flow of the various add commands are similar, the `addMember` command will be used as an example here.
+The `AddMemberCommand` class adds the member to the `RestaurantBook` by utilising the `MemberModel#addMember` method exposed by the `MemberModel` interface, which facilitates the interaction with the `VersionedRestaurantBook` to add the member via the `VersionedRestaurantBook#addItem` method.
+The state of the `RestaurantBook` is then saved via the `Model#commitRestaurantBook` method exposed by the `Model` interface, which saves the `RestaurantBook` using the `VersionedRestaurantBook#commit` method.
+
+For the `AddBooking` command, the list of bookings is sorted after the new booking is added to ensure that bookings are ordered by time.
+
+The following sequence diagram demonstrates how the add feature works.
+
+<insert sequence diagram>
+
+==== Design Considerations
+
+**Aspect: Implementation of the four add commands**
+
+* **Alternative 1 (current choice)**: four separate add commands, one for each type of item
+** Pros:
+*** Easier implementation
+** Cons:
+*** Causes code duplication, as all the add commands differ only by their parameters, and function similarly otherwise.
+*** More types of commands for the user to remember
+
+* **Alternative 2**: a single add command, with a type field to indicate the type of item to be added
+** Pros
+*** Reduces the number of distinct commands in the RestaurantBook, thus making the `RestaurantBook` a simpler application for users.
+** Cons
+*** Complicates the add command as the parameters for the add command depend on the command type parameter passed into the command
+*** May have to display a long usage guide comprising examples of adding all four types of items
+
+* Decision: Alternative 1 was selected for the following reasons:
+** A greater variety of add commands is more intuitive than a single complex command.
+** Separating the add commands allows for greater versatility in customising the various add commands.
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
