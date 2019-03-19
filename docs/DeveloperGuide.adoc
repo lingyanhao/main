@@ -413,7 +413,7 @@ In other words, when RestaurantBook#deleteMember() or RestaurantBook#deleteIngre
 *** Cons: Requires user to type in additional command prior to the `delete` command (e.g. list or filter command), to change the state of the intended list to active.
 
 * Decision: Alternative 1 was selected for the following reasons:
-*** Aliases are implemented as a shortcut to the long commands (e.g. `db` for `deleteBooking`, `dm` for `deleteMember`).
+*** Aliases are implemented as a shortcut to the long commands (e.g. `db` for `deleteBooking`, `dm` for `deleteMember`). It is no longer inconvenient for users as they can type the shorter command.
 *** 4 panels are implemented in U/I (link to u/i segment), 1 panel for each component provides easy cross-reference across linked records, and this supports Alternative 1's implementation. All lists are active at the same time, and they display all unfiltered records by default. Firstly, it is hard for the user to detect an active list at first glance, since all lists are already displayed. Secondly, a specific delete command can be called without a prior command to mark the list as active (e.g.  `deleteIngredient` can be called directly to make changes to Ingredient list) which makes it more convenient for the user
 
 
