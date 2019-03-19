@@ -1,6 +1,5 @@
 package seedu.address.logic.commands;
 
-import jdk.dynalink.beans.StaticClass;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.Statistics;

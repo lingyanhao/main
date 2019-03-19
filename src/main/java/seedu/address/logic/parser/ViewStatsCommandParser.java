@@ -1,19 +1,10 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NUMBER_PERSONS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 
-import com.google.common.cache.AbstractCache;
-
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ViewStatsCommand;
-import seedu.address.logic.commands.add.AddBookingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Statistics;
-import seedu.address.model.booking.BookingSize;
-import seedu.address.model.booking.BookingWindow;
 
 /**
  * Parses input arguments and creates a new AddBookingCommand object.
