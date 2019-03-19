@@ -11,12 +11,11 @@ import seedu.address.ui.StatsWindow;
 public class ViewStatsCommand extends Command {
 
     public static final String COMMAND_WORD = "stats";
-
     public static final String MESSAGE_SHOWING_STATS = "Opened stats window.";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
-        new StatsWindow(Statistics.generateGraphData(model.getRestaurantBook().getBookingList(), 10)).show(); //TODO hardcoded
+        new StatsWindow(Statistics.generateGraphData(model.getRestaurantBook().getBookingList())).show();
         return new CommandResult(MESSAGE_SHOWING_STATS);
     }
 }
