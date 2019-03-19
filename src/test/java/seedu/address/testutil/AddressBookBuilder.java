@@ -24,7 +24,7 @@ public class AddressBookBuilder {
      * Adds a new {@code Member} to the {@code RestaurantBook} that we are building.
      */
     public AddressBookBuilder withMember(Member member) {
-        restaurantBook.addItem(member);
+        restaurantBook.addMember(member);
         return this;
     }
 
