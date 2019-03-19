@@ -390,7 +390,7 @@ Therefore, there are some design considerations that we have to make when it com
 * There are separate delete commands for each of the 4 components, namely `deleteMember`, `deleteBooking`, `deleteStaff`, `deleteIngredient` and `deleteRecipe`, and the command explicitly specifies the object being deleted. Each specific delete command has a `DeleteCommand` class that extends abstract class `Command` and is supported by a `CommandParser` class (e.g. `deleteIngredient` command has `deleteIngredientCommand` class and `deleteIngredientCommandParser` class).
 
 .Sequence Diagram for DeleteIngredient
-image::DeleteIngredientSequenceDiagram.png[width="600"]
+image::DeleteIngredientSequenceDiagram.png[width="1000"]
 
 
 * The delete commands are called by typing the component-specific command, followed by an index, which refers to the index number shown in the most recent listing (e.g. `deleteIngredient 3`).
