@@ -38,7 +38,7 @@ public class StatsWindow extends UiPart<Stage> {
         final BarChart<String, Number> bc = new BarChart<>(xAxis, yAxis);
         bc.setTitle("Bookings Summary");
         xAxis.setLabel("Date");
-        yAxis.setLabel("Number of Bookings Made");
+        yAxis.setLabel("Number of Customers from Bookings");
 
         XYChart.Series series1 = new XYChart.Series();
         for (XYChart.Data<String,Integer> data : graphData) {

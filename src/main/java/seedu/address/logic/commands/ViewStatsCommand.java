@@ -15,7 +15,7 @@ public class ViewStatsCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
-        new StatsWindow(Statistics.generateGraphData(model.getRestaurantBook().getBookingList())).show();
+        new StatsWindow(Statistics.generateGraphData(model.getRestaurantBook().getBookingList(), 50)).show();
         return new CommandResult(MESSAGE_SHOWING_STATS);
     }
 }
