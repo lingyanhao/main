@@ -2,6 +2,7 @@ package seedu.address.logic.commands.add;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.commands.add.AddBookingCommand.MESSAGE_DUPLICATE;
+import static seedu.address.logic.commands.add.AddBookingCommand.MESSAGE_FULL;
 import static seedu.address.logic.commands.add.AddBookingCommand.MESSAGE_SUCCESS;
 
 import seedu.address.logic.CommandHistory;
@@ -33,6 +34,9 @@ public class ProcessedAddBookingCommand extends Command {
 
         if (model.hasBooking(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE);
+        }
+        if (!model.canAccommodate(toAdd)) {
+            throw new CommandException(MESSAGE_FULL);
         }
 
         model.addBooking(toAdd);

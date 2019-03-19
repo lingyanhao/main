@@ -16,6 +16,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.booking.Booking;
+import seedu.address.model.booking.Capacity;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Member;
 import seedu.address.model.person.Staff;
@@ -126,6 +127,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean canAccommodate(Booking booking) {
+        requireNonNull(booking);
+        return versionedRestaurantBook.canAccommodate(booking);
+    }
+
+    @Override
     public boolean hasIngredient(Ingredient ingredient) {
         requireNonNull(ingredient);
         return versionedRestaurantBook.hasIngredient(ingredient);
@@ -193,6 +200,12 @@ public class ModelManager implements Model {
     public void setMember(Member target, Member editedMember) {
         requireAllNonNull(target, editedMember);
         versionedRestaurantBook.setItem(target, editedMember);
+    }
+
+    @Override
+    public void setBooking(Booking target, Booking editedBooking) {
+        requireAllNonNull(target, editedBooking);
+        versionedRestaurantBook.setItem(target, editedBooking);
     }
 
     @Override

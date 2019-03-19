@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
@@ -12,6 +13,7 @@ import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.booking.Booking;
+import seedu.address.model.booking.Capacity;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Member;
 import seedu.address.model.person.Staff;
@@ -123,6 +125,19 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
     public boolean hasBooking(Booking booking) {
         requireNonNull(booking);
         return bookings.contains(booking);
+    }
+
+    /**
+     * Returns true if {@code booking} can be added to the restaurant without exceeding capacity.
+     */
+    public boolean canAccommodate(Booking booking) {
+
+        List<Booking> newList = new ArrayList<>();
+        for (Booking b: bookings) {
+            newList.add(b);
+        } // copy all the bookings over
+        newList.add(booking);
+        return getCapacity().canAccommodate(newList);
     }
 
     /**
