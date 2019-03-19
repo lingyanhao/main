@@ -77,8 +77,6 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * We also accept specifying a time without a date, in which case the current date will be used. In that situation, `HH:mm` (e.g. `13:00`) format should be used.
 * Users should take note that REM is not timezone-aware. We do not see the need to implement such features as it will rarely be the case that your restaurant needs to move to a different time zone.
 
-====
-
 === General
 
 ==== Viewing help : `help`
