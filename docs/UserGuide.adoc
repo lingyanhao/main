@@ -207,6 +207,100 @@ Adds 5 points to the 1st person in the results of the listMember command.
 
 === Inventory Management
 
+==== List Ingredients: `listIngredients`
+
+View ingredients in inventory. If `w/true`, all ingredients falling below the previously stated warning amount will be listed.
+
+Format: `listIngredients [w/TRUE_FALSE]`
+
+****
+• For each ingredient, standardised unit for ingredient and amount in units in existing inventory is displayed.
+
+• Each ingredient will be indexed.
+
+• By default, all ingredients will be listed.
+****
+
+Example:
+
+* listIngredient `w/true`
+
+All ingredients falling below warning amount will be listed.
+
+==== Add Ingredient: `addIngredient`
+
+Add new ingredient into inventory. Previously not existing in inventory before.
+
+Format: `addIngredient in/INGREDIENT_NAME u/INGREDIENT_UNIT [q/INGREDIENT_QUANTITY] [w/INGREDIENT_WARNING_AMOUNT]`
+
+****
+• If ingredient quantity is not specified, quantity is set to 0.
+
+• User inputs the warning amount for the ingredient `w/INGREDIENT_WARNING_AMOUNT` , and when the quantity in inventory falls below this stated amount, there is a need for restock of this ingredient.
+Calling `listIngredients w/TRUE` will display all ingredients that fall below their corresponding warning values.
+****
+
+Example:
+
+* `addIngredient in/chicken u/full chickens`
+
+Adds new ingredient, chicken (with default ingredient quantity as 0), into inventory.
+
+* `addIngredient in/chicken q/10 u/full chickens`
+
+Adds 10 full chickens into inventory.
+
+* `addIngredient in/chicken q/10 u/full chickens w/2`
+
+Adds 10 full chickens into inventory and when amount falls below 2, `listIngredients w/TRUE` will display chicken.
+
+==== Restock Ingredient: `restockIngredient`
+
+Restock ingredient from inventory based on specified `INDEX` via `listIngredients`.
+Previously existing in inventory before.
+
+Format: `restockIngredient i/INGREDIENT_INDEX q/INGREDIENT_QUANTITY`
+
+Example:
+
+* `listIngredients` (returns chicken as 3rd index)
++
+`restockIngredient i/3 q/10`
+
+Adds 10 full chickens into inventory
+
+==== Deplete Ingredient: `depleteIngredient`
+
+Deplete ingredient from inventory based on specified `INDEX` via `listIngredients`.
+
+Format: `depleteIngredient i/INGREDIENT_INDEX q/INGREDIENT_QUANTITY`
+
+Example:
+
+* `listIngredients` (returns chicken as 3rd index)
++
+`depleteIngredient i/3 q/10`
+
+Depletes 10 full chickens from inventory
+
+==== Delete Ingredient: `deleteIngredient`
+
+Delete ingredient from inventory based on specified `INDEX` via `listIngredients`. This command is irreversible.
+
+Format: `deleteIngredient INGREDIENT_INDEX`
+
+****
+• The index refers to the index number shown in the most recent listing.
+****
+
+Example:
+
+* `listIngredients` (returns chicken as 3rd index)
++
+`deleteIngredient 3`
+
+Delete chicken from ingredient inventory
+
 ==== List Recipes: `listRecipes`
 
 View recipes of dishes served at the restaurant.
@@ -255,7 +349,7 @@ Each dish of chicken rice requires 1/4 a full chicken and 1/10 a sack of rice
 
 Delete recipe of dish served at the restaurant, based on specified INDEX via listRecipes.
 
-Format: `delete i/RECIPE_INDEX`
+Format: `deleteRecipe RECIPE_INDEX`
 
 ****
 • The index refers to the index number shown in the most recent listing.
@@ -265,7 +359,7 @@ Example:
 
 * `listRecipes`
 +
-`delete i/3`
+`deleteRecipe 3`
 
 Delete recipe at index 3.
 
@@ -290,98 +384,6 @@ Shows number of dishes that can be prepared for every recipe
 
 Calculates number of dishes that can be prepared for recipe at index 3.
 
-==== List Ingredients: `listIngredients`
-
-View ingredients in inventory. If `w/true`, all ingredients falling below the previously stated warning amount will be listed.
-
-Format: `listIngredients [w/TRUE_FALSE]`
-
-****
-• For each ingredient, standardised unit for ingredient and amount in units in existing inventory is displayed.
-
-• Each ingredient will be indexed.
-
-• By default, all ingredients will be listed.
-****
-
-Example:
-
-* listIngredient `w/true`
-
-All ingredients falling below warning amount will be listed.
-
-==== Add Ingredient: `addIngredient`
-
-Add new ingredient into inventory. Previously not existing in inventory before.
-
-Format: `addIngredient in/INGREDIENT_NAME q/INGREDIENT_QUANTITY u/INGREDIENT_UNIT  [w/INGREDIENT_WARNING_AMOUNT]`
-
-****
-• If ingredient quantity is not specified, quantity is set to 0.
-
-• `w/INGREDIENT_WARNING_AMOUNT` User inputs warning amount that indicates a need for restock. Calling `listIngredients w/TRUE` will display all ingredients that fall below the minimum value.
-****
-
-Example:
-
-* `addIngredient in/chicken u/full chickens`
-
-Adds new ingredient, chicken (with default ingredient quantity as 0), into inventory.
-
-* `addIngredient in/chicken q/10 u/full chickens`
-
-Adds 10 full chickens into inventory.
-
-* `addIngredient in/chicken q/10 u/full chickens w/2`
-
-Adds 10 full chickens into inventory and when amount falls below 2, `listIngredients w/TRUE` will display chicken.
-
-==== Restock Ingredient: `restockIngredient`
-
-Restock ingredient from inventory based on specified `INDEX` via `listIngredients`.
-Previously existing in inventory before.
-
-Format: `restockIngredient i/INGREDIENT_INDEX q/INGREDIENT_QUANTITY`
-
-Example:
-
-* `listIngredients` (returns chicken as 3rd index)
-+
-`restock i/3 q/10`
-
-Adds 10 full chickens into inventory
-
-==== Deplete Ingredient: `depleteIngredient`
-
-Deplete ingredient from inventory based on specified `INDEX` via `listIngredients`.
-
-Format: `depleteIngredient i/INGREDIENT_INDEX a/AMOUNT`
-
-Example:
-
-* `listIngredients` (returns chicken as 3rd index)
-+
-`depleteIngredient i/3 a/10`
-
-Depletes 10 full chickens from inventory
-
-==== Delete Ingredient: `deleteIngredient`
-
-Delete ingredient from inventory based on specified `INDEX` via `listIngredients`. This command is irreversible.
-
-Format: `delete i/INGREDIENT_INDEX`
-
-****
-• The index refers to the index number shown in the most recent listing.
-****
-
-Example:
-
-* `listIngredients` (returns chicken as 3rd index)
-+
-`delete i/3`
-
-Delete chicken from ingredient inventory
 
 === Booking Management
 
@@ -581,31 +583,31 @@ e.g. `addPoints i/2 l/10`
 
 === Inventory Management
 
+* *listIngredients* `listIngredients [w/TRUE_FALSE]` +
+e.g. listIngredient `w/true`
+
+* *addIngredient* `addIngredient in/INGREDIENT_NAME u/INGREDIENT_UNIT [q/INGREDIENT_QUANTITY] [w/INGREDIENT_WARNING_AMOUNT]` +
+e.g. `addIngredient in/chicken u/full chicken`
+
+* *restockIngredient* `restockIngredient i/INGREDIENT_INDEX q/INGREDIENT_QUANTITY` +
+e.g. `restockIngredient i/3 q/10`
+
+* *depleteIngredient* `depleteIngredient i/INGREDIENT_INDEX q/INGREDIENT_QUANTITY` +
+e.g. `depleteIngredient i/3 q/10`
+
+* *deleteIngredient* `delete INGREDIENT_INDEX` +
+e.g. `deleteIngredient 3`
+
 * *listRecipes* `listRecipes`
 
 * *addRecipe*  `addRecipe r/RECIPE_NAME n/NUMBER_OF_INGREDIENTS 1/INGREDIENT_1&AMOUNT_IN_UNITS 2/INGREDIENT_2&AMOUNT_IN_UNITS ...` +
 e.g. `addRecipe r/Chicken Rice n/3 1/Chicken&0.25 2/Rice&0.1`
 
-* *deleteRecipe* `delete i/RECIPE_INDEX` +
-e.g. `delete i/3`
+* *deleteRecipe* `delete RECIPE_INDEX` +
+e.g. `deleteRecipe 3`
 
 * *calculateRecipe* `calculateRecipe [i/RECIPE_INDEX]` +
 e.g. `calculateRecipe [i/3]`
-
-* *listIngredients* `listIngredients [w/TRUE_FALSE]` +
-e.g. listIngredient `w/true`
-
-* *addIngredient* `addIngredient in/INGREDIENT_NAME u/INGREDIENT_UNIT [a/AMOUNT] [w/INGREDIENT_WARNING_AMOUNT]` +
-e.g. `addIngredient in/chicken u/full chicken`
-
-* *restockIngredient* `restockIngredient i/INGREDIENT_INDEX a/AMOUNT` +
-e.g. `restock i/3 a/10`
-
-* *depleteIngredient* `depleteIngredient i/INGREDIENT_INDEX a/AMOUNT` +
-e.g. `depleteIngredient i/3 a/10`
-
-* *deleteIngredient* `delete i/INGREDIENT_INDEX` +
-e.g. `delete i/3`
 
 === Booking Management
 * *viewBooking* `viewBooking [ts/TIME_START] [te/TIME_END]` +
