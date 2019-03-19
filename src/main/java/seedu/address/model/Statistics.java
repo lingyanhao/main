@@ -10,6 +10,9 @@ import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart.Data;
 import seedu.address.model.booking.Booking;
 
+/**
+ * Manages the statistics of the bookings
+ */
 public class Statistics {
 
     public static final String DATE_PATTERN = "dd MMM yyyy";
@@ -21,7 +24,7 @@ public class Statistics {
     }
 
     private static int getDaysDifference(LocalDate start, LocalDate end) {
-        return Period.between(start,end).getDays();
+        return Period.between(start, end).getDays();
     }
 
     private static String formatDate(LocalDate date) {
@@ -30,7 +33,7 @@ public class Statistics {
     }
 
     private static String formatDate(LocalDate start, LocalDate end) {
-        if(start.isEqual(end)) {
+        if (start.isEqual(end)) {
             return formatDate(start);
         }
         return formatDate(start) + " - " + formatDate(end);
@@ -43,7 +46,8 @@ public class Statistics {
      * @param numBuckets the number of bars to display
      * @return the list of data
      */
-    private static List<Data<String,Integer>> generateGraphData(ObservableList<Booking> bookings, int bucketSize, int numBuckets) {
+    private static List<Data<String,Integer>> generateGraphData(ObservableList<Booking> bookings,
+                                                                int bucketSize, int numBuckets) {
         assert(bucketSize <= MAX_BAR_SIZE);
         assert(numBuckets <= MAX_BARS);
         List<Integer> numBookings = new ArrayList<>();
@@ -60,7 +64,7 @@ public class Statistics {
                     + booking.getNumMembers().getSize()); // increment by the size of the booking
             }
         }
-        List<Data<String,Integer>> graphData = new ArrayList<>();
+        List<Data<String, Integer>> graphData = new ArrayList<>();
         for (int i = numBuckets - 1; i >= 0; i--) { // add the earliest date first
             String name = formatDate(today.minusDays((i + 1) * bucketSize - 1), today.minusDays(i * bucketSize));
             graphData.add(new Data<>(name, numBookings.get(i)));
@@ -74,7 +78,7 @@ public class Statistics {
      * @param days to collate booking statistics for the last many days
      * @return
      */
-    public static List<Data<String,Integer>> generateGraphData(ObservableList<Booking> bookings, int days) {
+    public static List<Data<String, Integer>> generateGraphData(ObservableList<Booking> bookings, int days) {
         assert(days <= getMaxDays());
         int bucketSize = (days + MAX_BARS - 1) / MAX_BARS; // ceiling of days/MAX_BARS
         int numBuckets = (days + bucketSize - 1) / bucketSize; // ceiling of days/bucketSize

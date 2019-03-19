@@ -21,8 +21,8 @@ public class ViewStatsCommand extends Command {
         this.days = days;
     }
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays the statistics of the bookings made" +
-            " for the last many days specified.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays the statistics of the bookings made"
+            + " for the last many days specified.\n"
             + "Parameters: DAYS (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 30 ";
 

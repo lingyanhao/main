@@ -23,7 +23,7 @@ public class StatsWindow extends UiPart<Stage> {
     @FXML
     private StackPane mystackpane;
 
-    public StatsWindow(Stage root, List<XYChart.Data<String,Integer>> graphData) {
+    public StatsWindow(Stage root, List<XYChart.Data<String, Integer>> graphData) {
         super(FXML, root);
 
         final String austria = "Austria";
@@ -41,7 +41,7 @@ public class StatsWindow extends UiPart<Stage> {
         yAxis.setLabel("Number of Customers from Bookings");
 
         XYChart.Series series1 = new XYChart.Series();
-        for (XYChart.Data<String,Integer> data : graphData) {
+        for (XYChart.Data<String, Integer> data : graphData) {
             series1.getData().add(data);
         }
 
@@ -53,7 +53,7 @@ public class StatsWindow extends UiPart<Stage> {
         mystackpane.getChildren().add(bc);
     }
 
-    public StatsWindow(List<XYChart.Data<String,Integer>> graphData) {
+    public StatsWindow(List<XYChart.Data<String, Integer>> graphData) {
         this(new Stage(), graphData);
     }
 
