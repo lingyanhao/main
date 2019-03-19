@@ -16,6 +16,10 @@ public class Statistics {
     public static final int MAX_BARS = 20;
     public static final int MAX_BAR_SIZE = 500;
 
+    public static int getMaxDays() {
+        return MAX_BARS * MAX_BAR_SIZE;
+    }
+
     private static int getDaysDifference(LocalDate start, LocalDate end) {
         return Period.between(start,end).getDays();
     }
@@ -23,6 +27,13 @@ public class Statistics {
     private static String formatDate(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
         return date.format(formatter);
+    }
+
+    private static String formatDate(LocalDate start, LocalDate end) {
+        if(start.isEqual(end)) {
+            return formatDate(start);
+        }
+        return formatDate(start) + " - " + formatDate(end);
     }
 
     /**
@@ -51,12 +62,18 @@ public class Statistics {
         }
         List<Data<String,Integer>> graphData = new ArrayList<>();
         for (int i = numBuckets - 1; i >= 0; i--) { // add the earliest date first
-            String name = formatDate(today.minusDays((i + 1) * bucketSize - 1)) + " - " + formatDate(today.minusDays(i * bucketSize));
+            String name = formatDate(today.minusDays((i + 1) * bucketSize - 1), today.minusDays(i * bucketSize));
             graphData.add(new Data<>(name, numBookings.get(i)));
         }
         return graphData;
     }
 
+    /**
+     * Generates the data for the bar graph for the last many days
+     * @param bookings the list of bookings
+     * @param days to collate booking statistics for the last many days
+     * @return
+     */
     public static List<Data<String,Integer>> generateGraphData(ObservableList<Booking> bookings, int days) {
         assert(days <= MAX_BARS * MAX_BAR_SIZE);
         int bucketSize = (days + MAX_BARS - 1) / MAX_BARS; // ceiling of days/MAX_BARS

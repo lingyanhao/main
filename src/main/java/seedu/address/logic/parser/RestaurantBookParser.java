@@ -127,7 +127,7 @@ public class RestaurantBookParser {
             return new RestockIngredientCommandParser().parse(arguments);
 
         case ViewStatsCommand.COMMAND_WORD:
-            return new ViewStatsCommand();
+            return new ViewStatsCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
