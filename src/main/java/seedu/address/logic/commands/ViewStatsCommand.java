@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
+import seedu.address.model.Statistics;
 import seedu.address.ui.StatsWindow;
 
 /**
@@ -15,7 +16,7 @@ public class ViewStatsCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
-        new StatsWindow().show();
+        new StatsWindow(Statistics.generateGraphData(model.getRestaurantBook().getBookingList(), 10)).show(); //TODO hardcoded
         return new CommandResult(MESSAGE_SHOWING_STATS);
     }
 }

@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -22,7 +23,7 @@ public class StatsWindow extends UiPart<Stage> {
     @FXML
     private StackPane mystackpane;
 
-    public StatsWindow(Stage root) {
+    public StatsWindow(Stage root, List<XYChart.Data<String,Integer>> graphData) {
         super(FXML, root);
 
         final String austria = "Austria";
@@ -35,41 +36,25 @@ public class StatsWindow extends UiPart<Stage> {
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
         final BarChart<String, Number> bc = new BarChart<>(xAxis, yAxis);
-        bc.setTitle("Country Summary");
-        xAxis.setLabel("Country");
-        yAxis.setLabel("Value");
+        bc.setTitle("Bookings Summary");
+        xAxis.setLabel("Date");
+        yAxis.setLabel("Number of Bookings Made");
 
         XYChart.Series series1 = new XYChart.Series();
-        series1.setName("2003");
-        series1.getData().add(new XYChart.Data(austria, 25601.34));
-        series1.getData().add(new XYChart.Data(brazil, 20148.82));
-        series1.getData().add(new XYChart.Data(france, 10000));
-        series1.getData().add(new XYChart.Data(italy, 35407.15));
-        series1.getData().add(new XYChart.Data(usa, 12000));
+        for (XYChart.Data<String,Integer> data : graphData) {
+            series1.getData().add(data);
+        }
 
-        XYChart.Series series2 = new XYChart.Series();
-        series2.setName("2004");
-        series2.getData().add(new XYChart.Data(austria, 57401.85));
-        series2.getData().add(new XYChart.Data(brazil, 41941.19));
-        series2.getData().add(new XYChart.Data(france, 45263.37));
-        series2.getData().add(new XYChart.Data(italy, 117320.16));
-        series2.getData().add(new XYChart.Data(usa, 14845.27));
+        series1.setName("apple");
+        bc.setLegendVisible(false);
 
-        XYChart.Series series3 = new XYChart.Series();
-        series3.setName("2005");
-        series3.getData().add(new XYChart.Data(austria, 45000.65));
-        series3.getData().add(new XYChart.Data(brazil, 44835.76));
-        series3.getData().add(new XYChart.Data(france, 18722.18));
-        series3.getData().add(new XYChart.Data(italy, 17557.31));
-        series3.getData().add(new XYChart.Data(usa, 92633.68));
-
-        bc.getData().addAll(series1, series2, series3);
+        bc.getData().addAll(series1);
 
         mystackpane.getChildren().add(bc);
     }
 
-    public StatsWindow() {
-        this(new Stage());
+    public StatsWindow(List<XYChart.Data<String,Integer>> graphData) {
+        this(new Stage(), graphData);
     }
 
     /**
