@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_UNIT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_WARNINGAMOUNT;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
@@ -22,12 +23,14 @@ public class AddIngredientCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an ingredient to the book. "
             + "Parameters: "
             + PREFIX_INGREDIENT_NAME + "INGREDIENT "
-            + PREFIX_INGREDIENT_QUANTITY + "QUANTITY "
             + PREFIX_INGREDIENT_UNIT + "STANDARD_UNIT "
+            + "[" + PREFIX_INGREDIENT_QUANTITY + "QUANTITY] "
+            + "[" + PREFIX_INGREDIENT_WARNINGAMOUNT + "WARNINGAMOUNT] + \n "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_INGREDIENT_NAME + "cheese "
+            + PREFIX_INGREDIENT_UNIT + "pounds "
             + PREFIX_INGREDIENT_QUANTITY + "8 "
-            + PREFIX_INGREDIENT_UNIT + "pounds";
+            + PREFIX_INGREDIENT_WARNINGAMOUNT + "WARNING_AMOUNT";
 
     public static final String MESSAGE_SUCCESS = "New ingredient added: %1$s";
     public static final String MESSAGE_DUPLICATE = "This ingredient already exists in the book";

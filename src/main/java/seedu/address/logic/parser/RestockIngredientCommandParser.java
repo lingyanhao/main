@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.RestockIngredientCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ingredient.IngredientQuantity;
 
 /**
  * Parses input arguments and creates a new RestockIngredientCommand.
@@ -32,9 +33,8 @@ public class RestockIngredientCommandParser implements Parser {
         }
 
         Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
-        int ingredientQuantityToRestock =
+        IngredientQuantity ingredientQuantityToRestock =
                 ParserUtil.parseIngredientQuantity(argMultimap.getValue(PREFIX_INGREDIENT_QUANTITY).get());
-
         return new RestockIngredientCommand(index, ingredientQuantityToRestock);
     }
 }

@@ -13,6 +13,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ingredient.Ingredient;
+import seedu.address.model.ingredient.IngredientQuantity;
 import seedu.address.model.person.exceptions.DuplicateItemException;
 
 /**
@@ -39,14 +40,14 @@ public class RestockIngredientCommand extends Command {
 
 
     private final Index index;
-    private final int quantityToRestock;
+    private final IngredientQuantity quantityToRestock;
 
     /**
      * Creates an RestockIngredientCmmand to restock the specified {@code Ingredient}
      *
      * @param index
      */
-    public RestockIngredientCommand(Index index, int quantity) {
+    public RestockIngredientCommand(Index index, IngredientQuantity quantity) {
         requireNonNull(index);
         this.index = index;
         this.quantityToRestock = quantity;
@@ -80,16 +81,17 @@ public class RestockIngredientCommand extends Command {
      * @param ingredientToRestock
      * @return Ingredient
      */
-    private static Ingredient createRestockedIngredient(Ingredient ingredientToRestock, int quantity) {
+    private static Ingredient createRestockedIngredient(Ingredient ingredientToRestock, IngredientQuantity quantity) {
         assert ingredientToRestock != null;
 
-        int currentQuantity = ingredientToRestock.getIngredientQuantity();
-        int newQuantity = currentQuantity + quantity;
-        return new Ingredient(ingredientToRestock.getIngredientName(), newQuantity,
-                ingredientToRestock.getIngredientUnit());
+        int currentQuantity = ingredientToRestock.getIngredientQuantity().getQuantity();
+        int newQuantity = currentQuantity + quantity.getQuantity();
+        IngredientQuantity newIngredientQuantity = new IngredientQuantity(newQuantity);
+        return new Ingredient(ingredientToRestock.getIngredientName(), newIngredientQuantity,
+                ingredientToRestock.getIngredientUnit(), ingredientToRestock.getIngredientWarningAmount());
     }
 
-    public int getQuantityToRestock() {
+    public IngredientQuantity getQuantityToRestock() {
         return quantityToRestock;
     }
 
@@ -108,6 +110,6 @@ public class RestockIngredientCommand extends Command {
         // state check
         RestockIngredientCommand e = (RestockIngredientCommand) other;
         return index.equals(e.index)
-                && quantityToRestock == e.getQuantityToRestock();
+                && quantityToRestock.equals(e.getQuantityToRestock());
     }
 }
