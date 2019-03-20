@@ -12,8 +12,8 @@ public class BookingWindow implements Comparable<BookingWindow> {
     public static final String MESSAGE_CONSTRAINTS =
             "Please follow the time format of yyyy-MM-ddTHH:mm or yyyy-MM-ddTHH:mm:SS, e.g. 2019-03-12T12:00";
 
-    public final LocalDateTime startTime;
-    public final LocalDateTime endTime;
+    private final LocalDateTime startTime;
+    private final LocalDateTime endTime;
 
     /**
      * Constructs a {@code BookingWindow}.
