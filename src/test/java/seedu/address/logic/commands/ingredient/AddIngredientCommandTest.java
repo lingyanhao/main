@@ -60,9 +60,30 @@ public class AddIngredientCommandTest {
 
     @Test
     public void equals() {
-        Ingredient cheese = new IngredientBuilder().withIngredient("cheese", 4, "pounds").build();
-        Ingredient tomato = new IngredientBuilder().withIngredient("tomato", 5, "pieces").build();
-        Ingredient modifiedCheeseUnit = new IngredientBuilder().withIngredient("cheese", 6, "pounds").build();
+        Ingredient cheese =
+                new IngredientBuilder().withIngredientName("cheese")
+                .withIngredientQuantity(4).withIngredientUnit("pounds")
+                .withIngredientWarningAmount(2).build();
+
+        Ingredient tomato =
+                new IngredientBuilder().withIngredientName("tomato")
+                .withIngredientQuantity(5).withIngredientUnit("pieces")
+                .withIngredientWarningAmount(5).build();
+
+        Ingredient modifiedCheeseQuantity =
+                new IngredientBuilder().withIngredientName("cheese")
+                .withIngredientQuantity(6).withIngredientUnit("pounds")
+                .withIngredientWarningAmount(2).build();
+
+        Ingredient modifiedCheeseUnit =
+                new IngredientBuilder().withIngredientName("cheese")
+                .withIngredientQuantity(4).withIngredientUnit("kg")
+                .withIngredientWarningAmount(2).build();
+
+        Ingredient modifiedCheeseWarningAmt =
+                new IngredientBuilder().withIngredientName("cheese")
+                .withIngredientQuantity(4).withIngredientUnit("pounds")
+                .withIngredientWarningAmount(3).build();
 
         AddIngredientCommand addCheeseCommand = new AddIngredientCommand(cheese);
         AddIngredientCommand addTomatoCommand = new AddIngredientCommand(tomato);
@@ -70,13 +91,21 @@ public class AddIngredientCommandTest {
         // same object -> returns true
         assertEquals(addCheeseCommand, addCheeseCommand);
 
-        // same ingredient name and unit-> returns true
+        // same ingredient name, quantity, unit, warningamt -> returns true
         AddIngredientCommand addCheeseCommandCopy = new AddIngredientCommand(cheese);
         assertEquals(addCheeseCommandCopy, addCheeseCommand);
 
-        //same ingredient name but different unit -> returns false
-        AddIngredientCommand addCheeseCommandModified = new AddIngredientCommand(modifiedCheeseUnit);
-        assertNotEquals(addCheeseCommand, addCheeseCommandModified);
+        //all same fields except unit -> returns false
+        AddIngredientCommand addCheeseCommandModifiedUnit = new AddIngredientCommand(modifiedCheeseUnit);
+        assertNotEquals(addCheeseCommand, addCheeseCommandModifiedUnit);
+
+        //all same fields except quantity -> returns false
+        AddIngredientCommand addCheeseCommandModifiedQty = new AddIngredientCommand(modifiedCheeseQuantity);
+        assertNotEquals(addCheeseCommand, addCheeseCommandModifiedQty);
+
+        //all same fields except warningamt -> returns false
+        AddIngredientCommand addCheeseCommandModifiedWarningAmt = new AddIngredientCommand(modifiedCheeseWarningAmt);
+        assertNotEquals(addCheeseCommand, addCheeseCommandModifiedWarningAmt);
 
         // different types -> returns false
         assertNotEquals(addCheeseCommand, 1);

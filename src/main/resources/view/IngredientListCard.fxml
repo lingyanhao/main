@@ -28,6 +28,7 @@
       </HBox>
       <Label text="Standard unit: " styleClass="cell_small_label"></Label><Label fx:id="unit" styleClass="cell_small_label" text="\$unit" />
       <Label text="Quantity: " styleClass="cell_small_label"></Label><Label fx:id="quantity" text="\$quantity" />
+      <Label text="Warning Amount: " styleClass="cell_small_label"></Label><Label fx:id="warningamt" text="\$warningamt" />
     </VBox>
   </GridPane>
 </HBox>

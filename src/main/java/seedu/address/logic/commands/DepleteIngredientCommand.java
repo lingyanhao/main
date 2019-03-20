@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_INGREDIENTS;
+import static seedu.address.model.IngredientModel.PREDICATE_SHOW_ALL_INGREDIENTS;
 
 import java.util.List;
 
@@ -17,15 +17,15 @@ import seedu.address.model.ingredient.IngredientQuantity;
 import seedu.address.model.person.exceptions.DuplicateItemException;
 
 /**
- * Restocks the quantity of existing ingredient in the restaurant book.
+ * Depletes the quantity of existing ingredient in the restaurant book.
  */
 
-public class RestockIngredientCommand extends Command {
+public class DepleteIngredientCommand extends Command {
 
-    public static final String COMMAND_WORD = "restockingredient";
-    public static final String COMMAND_ALIAS = "ri";
+    public static final String COMMAND_WORD = "depleteingredient";
+    public static final String COMMAND_ALIAS = "dpi";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Restocks the quantity of the ingredient identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Depletes the quantity of the ingredient identified "
             + "by the index number used in the displayed ingredient list. "
             + "Input value will be added to existing value.\n"
             + "Parameters: "
@@ -35,22 +35,22 @@ public class RestockIngredientCommand extends Command {
             + PREFIX_INDEX + "1 "
             + PREFIX_INGREDIENT_QUANTITY + "10 ";
 
-    public static final String MESSAGE_SUCCESS = "Restocked Ingredient: %1$s";
+    public static final String MESSAGE_SUCCESS = "Depleted Ingredient: %1$s";
     public static final String MESSAGE_DUPLICATE = "Ingredient is already in list";
 
 
     private final Index index;
-    private final IngredientQuantity quantityToRestock;
+    private final IngredientQuantity quantityToDeplete;
 
     /**
-     * Creates an RestockIngredientCmmand to restock the specified {@code Ingredient}
+     * Creates an DepleteIngredientCommand to deplete the specified {@code Ingredient}
      *
      * @param index
      */
-    public RestockIngredientCommand(Index index, IngredientQuantity quantity) {
+    public DepleteIngredientCommand(Index index, IngredientQuantity quantity) {
         requireNonNull(index);
         this.index = index;
-        this.quantityToRestock = quantity;
+        this.quantityToDeplete = quantity;
     }
 
     @Override
@@ -62,37 +62,37 @@ public class RestockIngredientCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_INGREDIENT_DISPLAYED_INDEX);
         }
 
-        Ingredient ingredientToRestock = lastShownList.get(index.getZeroBased());
-        Ingredient restockedIngredient = createRestockedIngredient(ingredientToRestock, quantityToRestock);
+        Ingredient ingredientToDeplete = lastShownList.get(index.getZeroBased());
+        Ingredient depletedIngredient = createDepletedIngredient(ingredientToDeplete, quantityToDeplete);
 
         try {
-            model.setIngredient(ingredientToRestock, restockedIngredient);
+            model.setIngredient(ingredientToDeplete, depletedIngredient);
         } catch (DuplicateItemException e) {
             throw new CommandException(MESSAGE_DUPLICATE);
         }
 
         model.updateFilteredIngredientList(PREDICATE_SHOW_ALL_INGREDIENTS);
         model.commitRestaurantBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, restockedIngredient));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, depletedIngredient));
     }
 
     /**
-     * New Ingredient with restocked quantity is returned.
-     * @param ingredientToRestock
+     * New Ingredient with depleted quantity is returned.
+     * @param ingredientToDeplete
      * @return Ingredient
      */
-    private static Ingredient createRestockedIngredient(Ingredient ingredientToRestock, IngredientQuantity quantity) {
-        assert ingredientToRestock != null;
+    private static Ingredient createDepletedIngredient(Ingredient ingredientToDeplete, IngredientQuantity quantity) {
+        assert ingredientToDeplete != null;
 
-        int currentQuantity = ingredientToRestock.getIngredientQuantity().getQuantity();
-        int newQuantity = currentQuantity + quantity.getQuantity();
+        int currentQuantity = ingredientToDeplete.getIngredientQuantity().getQuantity();
+        int newQuantity = currentQuantity - quantity.getQuantity();
         IngredientQuantity newIngredientQuantity = new IngredientQuantity(newQuantity);
-        return new Ingredient(ingredientToRestock.getIngredientName(), newIngredientQuantity,
-                ingredientToRestock.getIngredientUnit(), ingredientToRestock.getIngredientWarningAmount());
+        return new Ingredient(ingredientToDeplete.getIngredientName(), newIngredientQuantity,
+                ingredientToDeplete.getIngredientUnit(), ingredientToDeplete.getIngredientWarningAmount());
     }
 
-    public IngredientQuantity getQuantityToRestock() {
-        return quantityToRestock;
+    public IngredientQuantity getQuantityToDeplete() {
+        return quantityToDeplete;
     }
 
     @Override
@@ -103,13 +103,13 @@ public class RestockIngredientCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof RestockIngredientCommand)) {
+        if (!(other instanceof DepleteIngredientCommand)) {
             return false;
         }
 
         // state check
-        RestockIngredientCommand e = (RestockIngredientCommand) other;
+        DepleteIngredientCommand e = (DepleteIngredientCommand) other;
         return index.equals(e.index)
-                && quantityToRestock.equals(e.getQuantityToRestock());
+                && quantityToDeplete.equals(e.getQuantityToDeplete());
     }
 }
