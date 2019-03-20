@@ -10,6 +10,7 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteIngredientCommand;
+import seedu.address.logic.commands.DepleteIngredientCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -125,6 +126,10 @@ public class RestaurantBookParser {
         case RestockIngredientCommand.COMMAND_WORD:
         case RestockIngredientCommand.COMMAND_ALIAS:
             return new RestockIngredientCommandParser().parse(arguments);
+
+        case DepleteIngredientCommand.COMMAND_WORD:
+        case DepleteIngredientCommand.COMMAND_ALIAS:
+            return new DepleteIngredientCommandParser().parse(arguments);
 
         case ViewStatsCommand.COMMAND_WORD:
             return new ViewStatsCommand();
