@@ -7,7 +7,10 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.booking.BookingSize;
 import seedu.address.model.booking.BookingWindow;
-import seedu.address.model.ingredient.Ingredient;
+import seedu.address.model.ingredient.IngredientName;
+import seedu.address.model.ingredient.IngredientQuantity;
+import seedu.address.model.ingredient.IngredientUnit;
+import seedu.address.model.ingredient.IngredientWarningAmount;
 import seedu.address.model.person.Appointment;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.LoyaltyPoints;
@@ -110,43 +113,64 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String ingredient} into an {@code String}.
+     * Parses a {@code String name} into an {@code IngredientName}.
      * Leading and trailing whitespaces will be trimmed.
      *
      */
-    public static String parseIngredient(String name) throws ParseException {
+    public static IngredientName parseIngredientName(String name) throws ParseException {
         requireNonNull(name);
-        if (!Ingredient.isValidIngredientName(name)) {
-            throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS_INGREDIENTNAME);
+        String trimmedIngredientName = name.trim();
+        if (!IngredientName.isValidIngredientName(trimmedIngredientName)) {
+            throw new ParseException(IngredientName.MESSAGE_CONSTRAINTS);
         }
-        return name;
+        return new IngredientName(trimmedIngredientName);
     }
 
     /**
-     * Parses a {@code int ingredientQuantity} into an {@code int}.
+     * Parses a {@code String quantity} into an {@code IngredientQuantity}.
+     * Leading and trailing whitespaces will be trimmed.
      *
      */
 
-    public static int parseIngredientQuantity(String quantity) throws ParseException {
+    public static IngredientQuantity parseIngredientQuantity(String quantity) throws ParseException {
         requireNonNull(quantity);
-        if (!Ingredient.isValidIngredientQuantity(quantity)) {
-            throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS_INGREDIENTQUANTITY);
+        String trimmedIngredientQuantity = quantity.trim();
+        if (!IngredientQuantity.isValidIngredientQuantity(trimmedIngredientQuantity)) {
+            throw new ParseException(IngredientQuantity.MESSAGE_CONSTRAINTS);
         }
-        return Integer.parseInt(quantity);
+        return new IngredientQuantity(Integer.parseInt(trimmedIngredientQuantity));
     }
 
     /**
-     * Parses a {@code String ingredientUnit} into an {@code String}.
+     * Parses a {@code String unit} into an {@code IngredientUnit}.
+     * Leading and trailing whitespaces will be trimmed.
      *
      */
 
-    public static String parseIngredientUnit(String unit) throws ParseException {
+    public static IngredientUnit parseIngredientUnit(String unit) throws ParseException {
         requireNonNull(unit);
-        if (!Ingredient.isValidIngredientUnit(unit)) {
-            throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS_INGREDIENTUNIT);
+        String trimmedIngredientUnit = unit.trim();
+        if (!IngredientUnit.isValidIngredientUnit(trimmedIngredientUnit)) {
+            throw new ParseException(IngredientUnit.MESSAGE_CONSTRAINTS);
         }
-        return unit;
+        return new IngredientUnit(trimmedIngredientUnit);
     }
+
+    /**
+     * Parses a {@code String warningAmount} into an {@code IngredientWarningAmount}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     */
+
+    public static IngredientWarningAmount parseIngredientWarningAmount(String warningAmount) throws ParseException {
+        requireNonNull(warningAmount);
+        String trimmedWarningAmount = warningAmount.trim();
+        if (!IngredientWarningAmount.isValidIngredientWarningAmount(trimmedWarningAmount)) {
+            throw new ParseException(IngredientWarningAmount.MESSAGE_CONSTRAINTS);
+        }
+        return new IngredientWarningAmount(Integer.parseInt(trimmedWarningAmount));
+    }
+
 
     /**
      * Creates a new BookingWindow object that parses the time. Uses the yyyy-MM-dd HH:mm format.

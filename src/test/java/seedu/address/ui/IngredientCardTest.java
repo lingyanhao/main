@@ -15,7 +15,9 @@ public class IngredientCardTest extends GuiUnitTest {
 
     @Test
     public void display() {
-        Ingredient ingredient = new IngredientBuilder().withIngredient("corn", 12, "kg").build();
+        Ingredient ingredient = new IngredientBuilder()
+                .withIngredientName("corn").withIngredientQuantity(12)
+                .withIngredientUnit("kg").withIngredientWarningAmount(3).build();
         IngredientCard ingredientCard = new IngredientCard(ingredient, 1);
         uiPartRule.setUiPart(ingredientCard);
         assertCardDisplay(ingredientCard, ingredient, 1);
@@ -23,7 +25,10 @@ public class IngredientCardTest extends GuiUnitTest {
 
     @Test
     public void equals() {
-        Ingredient ingredient = new IngredientBuilder().withIngredient("corn", 12, "kg").build();
+        Ingredient ingredient = new IngredientBuilder()
+                .withIngredientName("corn").withIngredientQuantity(12)
+                .withIngredientUnit("kg").withIngredientWarningAmount(3).build();
+
         IngredientCard ingredientCard = new IngredientCard(ingredient, 0);
 
         // same ingredient, same index -> returns true
@@ -41,7 +46,9 @@ public class IngredientCardTest extends GuiUnitTest {
 
         // different ingredient, same index -> returns false
         Ingredient differentIngredient = new IngredientBuilder()
-                .withIngredient("differentName", 1, "differentUnit").build();
+                .withIngredientName("differentName")
+                .withIngredientQuantity(3).withIngredientUnit("differentUnit")
+                .withIngredientWarningAmount(1).build();
         assertFalse(ingredientCard.equals(new IngredientCard(differentIngredient, 0)));
 
         // same ingredient, different index -> returns false

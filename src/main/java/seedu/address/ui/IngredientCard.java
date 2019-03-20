@@ -33,14 +33,17 @@ public class IngredientCard extends UiPart<Region> {
     private Label quantity;
     @FXML
     private Label unit;
+    @FXML
+    private Label warningamt;
 
     public IngredientCard(Ingredient ingredient, int displayedIndex) {
         super(FXML);
         this.ingredient = ingredient;
         id.setText(displayedIndex + ". ");
-        name.setText(ingredient.getIngredientName());
-        quantity.setText(Integer.toString(ingredient.getIngredientQuantity()));
-        unit.setText(ingredient.getIngredientUnit());
+        name.setText(ingredient.getIngredientName().getName());
+        quantity.setText(Integer.toString(ingredient.getIngredientQuantity().getQuantity()));
+        unit.setText(ingredient.getIngredientUnit().getUnit());
+        warningamt.setText(Integer.toString(ingredient.getIngredientWarningAmount().getWarningAmount()));
     }
 
     @Override

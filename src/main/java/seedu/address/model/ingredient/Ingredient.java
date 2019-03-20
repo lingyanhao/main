@@ -2,7 +2,6 @@ package seedu.address.model.ingredient;
 
 import java.util.Objects;
 
-import seedu.address.commons.util.StringUtil;
 import seedu.address.model.Item;
 
 /**
@@ -11,71 +10,39 @@ import seedu.address.model.Item;
  */
 
 public class Ingredient implements Item {
-    public static final String MESSAGE_CONSTRAINTS_INGREDIENTNAME =
-            "Ingredient's name should only contain alphabets and spaces, and it should not be blank.";
-
-    public static final String MESSAGE_CONSTRAINTS_INGREDIENTUNIT =
-            "Ingredient's unit should only contain alphabets and spaces, and it should not be blank.";
-
-
-    public static final String MESSAGE_CONSTRAINTS_INGREDIENTQUANTITY =
-            "Ingredient's quantity should be non-zero unsigned integer.";
-
-
-    public static final String VALIDATION_REGEX_INGREDIENTNAME = "[a-zA-Z\\s]*";
-    public static final String VALIDATION_REGEX_INGREDIENTUNIT = "[a-zA-Z\\s]*";
-
-
 
     // Identity fields
-    private final String ingredientName;
-    private final String ingredientUnit;
-    private int ingredientQuantity;
+    private IngredientName ingredientName;
+    private IngredientQuantity ingredientQuantity;
+    private IngredientUnit ingredientUnit;
+    private IngredientWarningAmount ingredientWarningAmount;
 
     /**
      * Every field must be present and not null.
      */
-    public Ingredient(String ingredientName, int ingredientQuantity, String ingredientUnit) {
-        this.ingredientName = ingredientName;
-        this.ingredientQuantity = ingredientQuantity;
-        this.ingredientUnit = ingredientUnit;
-
+    public Ingredient(IngredientName name, IngredientQuantity quantity, IngredientUnit unit,
+                      IngredientWarningAmount warningAmount) {
+        this.ingredientName = name;
+        this.ingredientQuantity = quantity;
+        this.ingredientUnit = unit;
+        this.ingredientWarningAmount = warningAmount;
     }
 
-    public String getIngredientName() {
+    public IngredientName getIngredientName() {
         return ingredientName;
     }
 
-    public int getIngredientQuantity() {
+    public IngredientQuantity getIngredientQuantity() {
         return ingredientQuantity;
     }
 
-    public String getIngredientUnit() {
+    public IngredientUnit getIngredientUnit() {
         return ingredientUnit;
     }
 
-
-    public static boolean isValidIngredientName(String test) {
-        return test.matches(VALIDATION_REGEX_INGREDIENTNAME);
+    public IngredientWarningAmount getIngredientWarningAmount() {
+        return ingredientWarningAmount;
     }
-
-    /**
-     * Returns true if ingredientQuantity is valid.
-     * @param test
-     * @return
-     */
-    public static boolean isValidIngredientQuantity(String test) {
-        if (StringUtil.isNonZeroUnsignedInteger(test)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public static boolean isValidIngredientUnit(String test) {
-        return test.matches(VALIDATION_REGEX_INGREDIENTUNIT);
-    }
-
 
     /**
      * Returns true if both ingredients have same name.
@@ -97,15 +64,16 @@ public class Ingredient implements Item {
         if (!(other instanceof Ingredient)) {
             return false;
         }
-        return this.getIngredientName().equals(((Ingredient) other).getIngredientName())
-                && this.getIngredientQuantity() == ((Ingredient) other).getIngredientQuantity()
-                && getIngredientUnit().equals(((Ingredient) other).getIngredientUnit());
+        return ingredientName.equals(((Ingredient) other).getIngredientName())
+                && ingredientQuantity.equals(((Ingredient) other).getIngredientQuantity())
+                && ingredientUnit.equals(((Ingredient) other).getIngredientUnit())
+                && ingredientWarningAmount.equals(((Ingredient) other).getIngredientWarningAmount());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(ingredientName, ingredientQuantity, ingredientUnit);
+        return Objects.hash(ingredientName, ingredientQuantity, ingredientUnit, ingredientWarningAmount);
     }
 
     @Override
@@ -116,7 +84,9 @@ public class Ingredient implements Item {
                 .append(" Quantity: ")
                 .append(getIngredientQuantity())
                 .append(" Standard-Unit: ")
-                .append(getIngredientUnit());
+                .append(getIngredientUnit())
+                .append("Warning amount: ")
+                .append(getIngredientWarningAmount());
         return builder.toString();
     }
 }

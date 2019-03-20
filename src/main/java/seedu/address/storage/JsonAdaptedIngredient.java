@@ -5,6 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ingredient.Ingredient;
+import seedu.address.model.ingredient.IngredientName;
+import seedu.address.model.ingredient.IngredientQuantity;
+import seedu.address.model.ingredient.IngredientUnit;
+import seedu.address.model.ingredient.IngredientWarningAmount;
 
 /**
  * Jackson-friendly version of {@link Ingredient}.
@@ -16,6 +20,8 @@ public class JsonAdaptedIngredient {
     private final String ingredientName;
     private final int ingredientQuantity;
     private final String ingredientUnit;
+    private final int ingredientWarningAmount;
+
 
     /**
      * Constructs a {@code JsonAdaptedIngredient} with the given ingredient details.
@@ -25,19 +31,22 @@ public class JsonAdaptedIngredient {
     @JsonCreator
     public JsonAdaptedIngredient (@JsonProperty("ingredientName") String name,
                                   @JsonProperty("ingredientQuantity") int quantity,
-                                  @JsonProperty("ingredientUnit") String unit) {
+                                  @JsonProperty("ingredientUnit") String unit,
+                                  @JsonProperty("ingredientWarningAmount") int warningAmount) {
         this.ingredientName = name;
         this.ingredientQuantity = quantity;
         this.ingredientUnit = unit;
+        this.ingredientWarningAmount = warningAmount;
     }
 
     /**
      * Converts a given {@code Ingredient} into this class for Jackson use.
      */
     public JsonAdaptedIngredient(Ingredient source) {
-        ingredientName = source.getIngredientName();
-        ingredientQuantity = source.getIngredientQuantity();
-        ingredientUnit = source.getIngredientUnit();
+        ingredientName = source.getIngredientName().getName();
+        ingredientQuantity = source.getIngredientQuantity().getQuantity();
+        ingredientUnit = source.getIngredientUnit().getUnit();
+        ingredientWarningAmount = source.getIngredientWarningAmount().getWarningAmount();
     }
 
     /**
@@ -51,19 +60,26 @@ public class JsonAdaptedIngredient {
                     Ingredient.class.getSimpleName()));
         }
 
-        if (!Ingredient.isValidIngredientName(ingredientName)) {
-            throw new IllegalValueException(Ingredient.MESSAGE_CONSTRAINTS_INGREDIENTNAME);
+        if (ingredientUnit == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Ingredient.class.getSimpleName()));
         }
 
-        if (!Ingredient.isValidIngredientUnit(ingredientUnit)) {
-            throw new IllegalValueException(Ingredient.MESSAGE_CONSTRAINTS_INGREDIENTUNIT);
+
+        if (!IngredientName.isValidIngredientName(ingredientName)) {
+            throw new IllegalValueException(IngredientName.MESSAGE_CONSTRAINTS);
         }
 
-        if (!Ingredient.isValidIngredientQuantity(Integer.toString(ingredientQuantity))) {
-            throw new IllegalValueException(Ingredient.MESSAGE_CONSTRAINTS_INGREDIENTQUANTITY);
+        if (!IngredientUnit.isValidIngredientUnit(ingredientUnit)) {
+            throw new IllegalValueException(IngredientUnit.MESSAGE_CONSTRAINTS);
         }
 
-        return new Ingredient(ingredientName, ingredientQuantity, ingredientUnit);
+        if (!IngredientQuantity.isValidIngredientQuantity(Integer.toString(ingredientQuantity))) {
+            throw new IllegalValueException(IngredientQuantity.MESSAGE_CONSTRAINTS);
+        }
+
+        return new Ingredient(new IngredientName(ingredientName), new IngredientQuantity(ingredientQuantity),
+                new IngredientUnit(ingredientUnit) , new IngredientWarningAmount(ingredientWarningAmount));
     }
 
 }

@@ -17,6 +17,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.RestaurantBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.ingredient.Ingredient;
+import seedu.address.model.ingredient.IngredientQuantity;
 import seedu.address.testutil.IngredientBuilder;
 
 /**
@@ -29,9 +30,12 @@ public class RestockIngredientCommandTest {
 
     @Test
     public void execute_indexAndQuantityPresent_success() {
-        Ingredient restockedIngredient = new IngredientBuilder().withIngredient("cheese", 5, "pounds").build();
+        Ingredient restockedIngredient = new IngredientBuilder()
+                .withIngredientName("cheese").withIngredientQuantity(5)
+                .withIngredientUnit("pounds").withIngredientWarningAmount(3).build();
+
         RestockIngredientCommand restockCommand =
-                new RestockIngredientCommand(INDEX_FIRST_INGREDIENT, TYPICAL_RESTOCK_AMOUNT);
+                new RestockIngredientCommand(INDEX_FIRST_INGREDIENT, new IngredientQuantity(TYPICAL_RESTOCK_AMOUNT));
 
         String expectedMessage = String.format(RestockIngredientCommand.MESSAGE_SUCCESS, restockedIngredient);
 
@@ -46,7 +50,8 @@ public class RestockIngredientCommandTest {
     public void execute_invalidIndex_failure() {
 
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredIngredientList().size() + 1);
-        RestockIngredientCommand restockCommand = new RestockIngredientCommand(outOfBoundIndex, TYPICAL_RESTOCK_AMOUNT);
+        RestockIngredientCommand restockCommand =
+                new RestockIngredientCommand(outOfBoundIndex, new IngredientQuantity(TYPICAL_RESTOCK_AMOUNT));
         assertCommandFailure(restockCommand, model, commandHistory,
                 Messages.MESSAGE_INVALID_INGREDIENT_DISPLAYED_INDEX);
     }
