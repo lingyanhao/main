@@ -133,7 +133,7 @@ public class ProcessedAddBookingCommandTest {
     }
 
     /**
-     * A Model stub that always accept the booking being added.
+     * A Model stub that always accept the booking being added. The capacity of this model is infinite.
      */
     private class ModelStubAcceptingBookingAdded extends ModelStub {
         private final ArrayList<Booking> bookingsAdded = new ArrayList<>();
@@ -142,6 +142,11 @@ public class ProcessedAddBookingCommandTest {
         public boolean hasBooking(Booking booking) {
             requireNonNull(booking);
             return bookingsAdded.stream().anyMatch(booking::isSameItem);
+        }
+
+        @Override
+        public boolean canAccommodate(Booking booking) {
+            return true;
         }
 
         @Override

@@ -40,6 +40,7 @@ public class AddBookingCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New booking added: %1$s";
     public static final String MESSAGE_DUPLICATE = "Booking has already been made.";
+    public static final String MESSAGE_FULL = "Restaurant is full.";
 
     private final BookingWindow bookingWindow;
     private final Index memberIndex;

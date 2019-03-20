@@ -198,4 +198,5 @@ public class ParserUtil {
             throw new ParseException(BookingSize.MESSAGE_CONSTRAINTS);
         }
     }
+
 }

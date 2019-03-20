@@ -10,4 +10,5 @@ public class Messages {
     public static final String MESSAGE_INVALID_MEMBER_DISPLAYED_INDEX = "The member index provided is invalid";
     public static final String MESSAGE_INVALID_INGREDIENT_DISPLAYED_INDEX = "The ingredient index provided is invalid";
     public static final String MESSAGE_MEMBERS_LISTED_OVERVIEW = "%1$d members listed!";
+    public static final String MESSAGE_INVALID_BOOKING_DISPLAYED_INDEX = "The booking index provided is invalid";
 }

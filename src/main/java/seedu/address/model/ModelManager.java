@@ -16,6 +16,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.booking.Booking;
+import seedu.address.model.booking.Capacity;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Member;
 import seedu.address.model.person.Staff;
@@ -126,6 +127,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean canAccommodate(Booking booking) {
+        requireNonNull(booking);
+        return versionedRestaurantBook.canAccommodate(booking);
+    }
+
+    @Override
     public boolean hasIngredient(Ingredient ingredient) {
         requireNonNull(ingredient);
         return versionedRestaurantBook.hasIngredient(ingredient);
@@ -140,65 +147,71 @@ public class ModelManager implements Model {
     @Override
     public void deleteMember(Member target) {
         requireNonNull(target);
-        versionedRestaurantBook.removeItem(target);
+        versionedRestaurantBook.removeMember(target);
     }
 
     @Override
     public void deleteBooking(Booking target) {
         requireNonNull(target);
-        versionedRestaurantBook.removeItem(target);
+        versionedRestaurantBook.removeBooking(target);
     }
 
     @Override
     public void deleteIngredient(Ingredient target) {
         requireNonNull(target);
-        versionedRestaurantBook.removeItem(target);
+        versionedRestaurantBook.removeIngredient(target);
     }
 
     @Override
     public void deleteStaff(Staff target) {
         requireNonNull(target);
-        versionedRestaurantBook.removeItem(target);
+        versionedRestaurantBook.removeStaff(target);
     }
 
     @Override
     public void addMember(Member member) {
         requireNonNull(member);
-        versionedRestaurantBook.addItem(member);
+        versionedRestaurantBook.addMember(member);
         updateFilteredMemberList(PREDICATE_SHOW_ALL_MEMBERS);
     }
 
     @Override
     public void addBooking(Booking booking) {
         requireNonNull(booking);
-        versionedRestaurantBook.addItem(booking);
+        versionedRestaurantBook.addBooking(booking);
         updateFilteredBookingList(PREDICATE_SHOW_ALL_BOOKINGS);
     }
 
     @Override
     public void addIngredient(Ingredient ingredient) {
         requireNonNull(ingredient);
-        versionedRestaurantBook.addItem(ingredient);
+        versionedRestaurantBook.addIngredient(ingredient);
         updateFilteredIngredientList(PREDICATE_SHOW_ALL_INGREDIENTS);
     }
 
     @Override
     public void addStaff(Staff staff) {
         requireNonNull(staff);
-        versionedRestaurantBook.addItem(staff);
+        versionedRestaurantBook.addStaff(staff);
         updateFilteredStaffList(PREDICATE_SHOW_ALL_STAFF);
     }
 
     @Override
     public void setMember(Member target, Member editedMember) {
         requireAllNonNull(target, editedMember);
-        versionedRestaurantBook.setItem(target, editedMember);
+        versionedRestaurantBook.setMember(target, editedMember);
+    }
+
+    @Override
+    public void setBooking(Booking target, Booking editedBooking) {
+        requireAllNonNull(target, editedBooking);
+        versionedRestaurantBook.setBooking(target, editedBooking);
     }
 
     @Override
     public void setIngredient(Ingredient target, Ingredient editedIngredient) {
         requireAllNonNull(target, editedIngredient);
-        versionedRestaurantBook.setItem(target, editedIngredient);
+        versionedRestaurantBook.setIngredient(target, editedIngredient);
     }
 
     @Override
