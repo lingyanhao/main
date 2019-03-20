@@ -13,13 +13,30 @@ import seedu.address.model.ingredient.Ingredient;
 
 public class TypicalIngredients {
 
-    public static final Ingredient CHEESE = new IngredientBuilder().withIngredient("cheese", 4, "pounds").build();
-    public static final Ingredient TOMATO = new IngredientBuilder().withIngredient("tomato", 5, "pieces").build();
-    public static final Ingredient COFFEE = new IngredientBuilder().withIngredient("coffee", 10, "sacks").build();
-    public static final Ingredient CHICKEN = new IngredientBuilder().withIngredient("chicken",
-            100, "full chickens").build();
-    public static final Ingredient RICE = new IngredientBuilder().withIngredient("rice", 20, "sacks").build();
-    public static final Ingredient JUICE = new IngredientBuilder().withIngredient("juice", 5, "bottles").build();
+    public static final Ingredient CHEESE =
+            new IngredientBuilder().withIngredientName("cheese").withIngredientQuantity(4)
+                    .withIngredientUnit("pounds").withIngredientWarningAmount(3).build();
+    public static final Ingredient CHEESE_BASIC =
+            new IngredientBuilder().withIngredientName("cheese").withIngredientQuantity(0)
+                    .withIngredientUnit("pounds").withIngredientWarningAmount(0).build();
+    public static final Ingredient TOMATO =
+            new IngredientBuilder().withIngredientName("tomato")
+            .withIngredientQuantity(5).withIngredientUnit("pieces").withIngredientWarningAmount(2).build();
+    public static final Ingredient COFFEE =
+            new IngredientBuilder().withIngredientName("coffee")
+            .withIngredientQuantity(10).withIngredientUnit("sacks").withIngredientWarningAmount(5).build();
+    public static final Ingredient CHICKEN =
+            new IngredientBuilder().withIngredientName("chicken")
+            .withIngredientQuantity(100).withIngredientUnit("full chickens")
+            .withIngredientWarningAmount(20).build();
+    public static final Ingredient RICE =
+            new IngredientBuilder().withIngredientName("rice")
+            .withIngredientQuantity(20).withIngredientUnit("sacks")
+            .withIngredientWarningAmount(6).build();
+    public static final Ingredient JUICE =
+            new IngredientBuilder().withIngredientName("juice")
+            .withIngredientQuantity(5).withIngredientUnit("bottles")
+            .withIngredientWarningAmount(1).build();
 
     public static final int TYPICAL_RESTOCK_AMOUNT = 1;
 
