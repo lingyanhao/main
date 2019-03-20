@@ -102,6 +102,7 @@ public class IngredientListPanelHandle extends NodeHandle<ListView<Ingredient>> 
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
     public IngredientCardHandle getIngredientCardHandle(int index) {
+        System.out.println(index);
         return getAllCardNodes().stream()
                 .map(IngredientCardHandle::new)
                 .filter(handle -> handle.equals(getIngredient(index)))

@@ -16,12 +16,16 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.ingredient.Ingredient;
+import seedu.address.model.ingredient.IngredientName;
+import seedu.address.model.ingredient.IngredientQuantity;
+import seedu.address.model.ingredient.IngredientUnit;
+import seedu.address.model.ingredient.IngredientWarningAmount;
 
 public class IngredientListPanelTest extends GuiUnitTest {
     private static final ObservableList<Ingredient> TYPICAL_INGREDIENTS =
             FXCollections.observableList(getTypicalIngredients());
 
-    private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
+    private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 3500;
 
     private final SimpleObjectProperty<Ingredient> selectedIngredient = new SimpleObjectProperty<>();
     private IngredientListPanelHandle ingredientListPanelHandle;
@@ -74,7 +78,8 @@ public class IngredientListPanelTest extends GuiUnitTest {
     private ObservableList<Ingredient> createBackingList(int ingredientCount) {
         ObservableList<Ingredient> backingList = FXCollections.observableArrayList();
         for (int i = 0; i < ingredientCount; i++) {
-            Ingredient ingredient = new Ingredient("aaa", 5, "bbb");
+            Ingredient ingredient = new Ingredient(new IngredientName("aaa"), new IngredientQuantity(5),
+                    new IngredientUnit("bbb"), new IngredientWarningAmount(4));
             backingList.add(ingredient);
         }
         return backingList;
