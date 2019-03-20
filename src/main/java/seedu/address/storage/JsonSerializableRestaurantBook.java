@@ -9,10 +9,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.Capacity;
 import seedu.address.model.ReadOnlyRestaurantBook;
 import seedu.address.model.RestaurantBook;
 import seedu.address.model.booking.Booking;
+import seedu.address.model.booking.Capacity;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Member;
 import seedu.address.model.person.Staff;
@@ -83,7 +83,7 @@ class JsonSerializableRestaurantBook {
             if (restaurantBook.hasMember(member)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_MEMBER);
             }
-            restaurantBook.addItem(member);
+            restaurantBook.addMember(member);
         }
 
 
@@ -92,7 +92,7 @@ class JsonSerializableRestaurantBook {
             if (restaurantBook.hasIngredient(ingredient)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_INGREDIENT);
             }
-            restaurantBook.addItem(ingredient);
+            restaurantBook.addIngredient(ingredient);
         }
 
         for (JsonAdaptedStaff jsonAdaptedStaff : staff) {
@@ -100,7 +100,7 @@ class JsonSerializableRestaurantBook {
             if (restaurantBook.hasStaff(staff)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_STAFF);
             }
-            restaurantBook.addItem(staff);
+            restaurantBook.addStaff(staff);
         }
 
         for (JsonAdaptedBooking jsonAdaptedBooking : bookings) {
@@ -108,7 +108,7 @@ class JsonSerializableRestaurantBook {
             if (restaurantBook.hasBooking(booking)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_BOOKING);
             }
-            restaurantBook.addItem(booking);
+            restaurantBook.addBooking(booking);
         }
 
         try {

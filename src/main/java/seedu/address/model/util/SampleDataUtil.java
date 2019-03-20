@@ -32,7 +32,7 @@ public class SampleDataUtil {
     public static ReadOnlyRestaurantBook getSampleRestaurantBook() {
         RestaurantBook sampleAb = new RestaurantBook();
         for (Member sampleMember : getSampleMembers()) {
-            sampleAb.addItem(sampleMember);
+            sampleAb.addMember(sampleMember);
         }
         return sampleAb;
     }

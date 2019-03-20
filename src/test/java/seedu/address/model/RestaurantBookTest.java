@@ -20,6 +20,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.booking.Booking;
+import seedu.address.model.booking.Capacity;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Member;
 import seedu.address.model.person.Staff;
@@ -75,13 +76,13 @@ public class RestaurantBookTest {
 
     @Test
     public void hasMember_memberInAddressBook_returnsTrue() {
-        restaurantBook.addItem(ALICE);
+        restaurantBook.addMember(ALICE);
         assertTrue(restaurantBook.hasMember(ALICE));
     }
 
     @Test
     public void hasMember_memberWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        restaurantBook.addItem(ALICE);
+        restaurantBook.addMember(ALICE);
         Member editedAlice = new MemberBuilder(ALICE).build();
         assertTrue(restaurantBook.hasMember(editedAlice));
     }
@@ -97,7 +98,7 @@ public class RestaurantBookTest {
         SimpleIntegerProperty counter = new SimpleIntegerProperty();
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
         restaurantBook.addListener(listener);
-        restaurantBook.addItem(ALICE);
+        restaurantBook.addMember(ALICE);
         assertEquals(1, counter.get());
     }
 
@@ -107,7 +108,7 @@ public class RestaurantBookTest {
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
         restaurantBook.addListener(listener);
         restaurantBook.removeListener(listener);
-        restaurantBook.addItem(ALICE);
+        restaurantBook.addMember(ALICE);
         assertEquals(0, counter.get());
     }
 

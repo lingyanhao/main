@@ -16,7 +16,7 @@ public class BookingWindow implements Comparable<BookingWindow> {
     public final LocalDateTime endTime;
 
     /**
-     * Constructs a {@code Name}.
+     * Constructs a {@code BookingWindow}.
      *
      * @param startTimeString A valid date in the yyyy-MM-dd HH:mm format.
      */
@@ -29,8 +29,17 @@ public class BookingWindow implements Comparable<BookingWindow> {
         }
     }
 
+    public BookingWindow(LocalDateTime startTime) {
+        this.startTime = startTime;
+        this.endTime = startTime.plusHours(1);
+    }
+
     public LocalDateTime getStartTime() {
         return startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        return endTime;
     }
 
     @Override

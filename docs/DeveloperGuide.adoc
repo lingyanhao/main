@@ -231,6 +231,48 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== Add Feature
+
+The add feature allows the user to add items to the `RestaurantBook`.
+It also populates the item added to the `RestaurantBook` with parameters supplied by the user.
+
+==== Current Implementation
+
+The add feature is implemented as four separate commands, one for adding each type of item: `addMember`, `addBooking`, `addIngredient`, `addStaff`.
+Each command is implemented as a `AddCommand` class. For example, the `addMember` command is implemented as the `AddMember` class.
+All `AddCommand` class inherit from the `Command` class.
+As the general flow of the various add commands are similar, the `addMember` command will be used as an example here.
+The `AddMemberCommand` class adds the member to the `RestaurantBook` by utilising the `MemberModel#addMember` method exposed by the `MemberModel` interface, which facilitates the interaction with the `VersionedRestaurantBook` to add the member via the `VersionedRestaurantBook#addItem` method.
+The state of the `RestaurantBook` is then saved via the `Model#commitRestaurantBook` method exposed by the `Model` interface, which saves the `RestaurantBook` using the `VersionedRestaurantBook#commit` method.
+
+For the `AddBooking` command, the list of bookings is sorted after the new booking is added to ensure that bookings are ordered by time.
+
+The following sequence diagram demonstrates how the add feature works.
+
+<insert sequence diagram>
+
+==== Design Considerations
+
+**Aspect: Implementation of the four add commands**
+
+* **Alternative 1 (current choice)**: four separate add commands, one for each type of item
+** Pros:
+*** Easier implementation
+** Cons:
+*** Causes code duplication, as all the add commands differ only by their parameters, and function similarly otherwise.
+*** More types of commands for the user to remember
+
+* **Alternative 2**: a single add command, with a type field to indicate the type of item to be added
+** Pros
+*** Reduces the number of distinct commands in the RestaurantBook, thus making the `RestaurantBook` a simpler application for users.
+** Cons
+*** Complicates the add command as the parameters for the add command depend on the command type parameter passed into the command
+*** May have to display a long usage guide comprising examples of adding all four types of items
+
+* Decision: Alternative 1 was selected for the following reasons:
+** A greater variety of add commands is more intuitive than a single complex command.
+** Separating the add commands allows for greater versatility in customising the various add commands.
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
@@ -370,7 +412,6 @@ When `RestaurantBook#setMember()` is called, the bookings are replaced with a ne
 ** Pros: Provides both lookup efficiency as well as immutability of the `Member` objects.
 ** Cons: Uses additional data structure to store the mappings, potentially making the code more difficult to maintain.
 
-
 * Decision: Alternative 1 was adopted as we felt that it was the simplest way to implement the feature. The additional efficiency gained may not even be significant, considering that in simple GUI apps like this, updating the UI is often the part of the program that uses the most resources. Optimizing the backend operations may not actually lead to a significant performance improvement.
 
 === Delete Feature
@@ -449,6 +490,73 @@ In other words, when RestaurantBook#deleteMember() or RestaurantBook#deleteIngre
 
 * Decision: Alternative 1 was adopted as it is an easier implementation and it makes it more convenient for the user to delete a record. It is intuitive that if a deleteMember or deleteIngredient command is called and these objects cease to exist in the restaurant book, the corresponding Booking or Recipe containing these objects should also cease to exist. To deal with the possibility that the member or ingredient is accidentally deleted, and all referenced bookings and recipes is unintentionally deleted, an additional field in the delete command can be added as a confirmation that these records should be deleted.
 
+=== The `stats` command
+
+When the `stats` command is entered, the current statistis of the amount of bookings is to be displayed to the user in the form of a bar chart.
+
+==== Current implementation
+
+When the user enters the `stats` command, `RestaurantBookParser` calls the `Statistics` class. The Statistics class fetches the relevant data for user display (ie what are the axes, values, and legends of the bar chart). It would then call the `StatsWindow` class which handles the UI. The bar chart will appear in a new window and does not affect the current window.
+
+==== Design Considerations
+
+===== Aspect: Implementation of data structure
+
+* **Alternative 1 (current choice):** Doing the calculation only when the user wants to view the statistics.
+** Pros: Calculating only when needed is more efficient.
+** Cons: The command would take some time to calculate before being able to display the statistics.
+
+* **Alternative 2:** Every change to the database updates the statistics on the fly.
+** Pros: Displaying the statistics on the UI would be faster.
+** Cons: Need to change the implementation of every command that causes a change to the database. Calculations have to be done every operation, potentially affecting the efficiency of the `add` or `delete` commands.
+
+* Decision: Alternative 1 was adopted as the other commands do not need to be changed and it is easier to implement. As the number of times the `stats` command is called is likely to be low as compared to an `add` or `delete` operation, doing the calculation after every operation would be a waste of computation power.
+
+===== Aspect: Design of UI display
+
+* **Alternative 1 (current choice):** Displaying the statistics in a new window.
+** Pros: The statistics would be displayed independently from the database and would not interfere with each other.
+** Cons: The user can open multiple windows which contains different data and not know which is the correct window.
+
+* **Alternative 2:** Hide the displayed database to show the statistics. A separate command would be used to toggle the view.
+** Pros: There would be only 1 window to manage at any point in time.
+** Cons: Cannot view the statistics and the database concurrently.
+
+* Decision: Alternative 1 was adopted as it is an easier implementation. Implementing the `stats` window as a static window that will not change would not affect the other parts of the app, and there is no need to hide and show the current screen. Moreover, the user might want to view the statistics together with the database, which is only possible with multiple windows.
+
+=== The panel UI for `Member`, `Staff`, `Booking`, and `Ingredient`
+
+The restaurant book displays the entire database in the form of "cards", which is the same as AB4. Each item has its own panel.
+
+=== Current implementation
+
+The panel is formatted in the `ItemListPanel.fxml` file, and each item has its own controller (`MemberListPanel`, `StaffListPanel`, `BookingListPanel`, and `IngredientListPanel`) that extends from `ItemListPanel`. The panel displays the database via cards. Each item has its own card (`MemberCard`, `StaffCard`, `BookingCard`, and `IngredientCard`).
+
+==== Design Considerations
+
+===== Aspect: Design of card display
+
+* **Alternative 1 (current choice):** Making a separate fxml file for each type of item card.
+** Pros: Able to customise the card to suit the item.
+** Cons: Need to duplicate common elements that all the cards share, such as the numbering on the list.
+
+* **Alternative 2:** Using the same fxml file for each item card.
+** Pros: Less duplication.
+** Cons: Hard to customise the contents of each card.
+
+* Decision: Alternative 1 was adopted as each card do not share much in common other than the numbering on the list. Each card needs to display different information. For example, the `Member` item would need to display the email, while the `Ingredient` item would need to display other fields such as the quantity. Hence, not much code is duplicated, and creating 4 files would be the easiest implementation.
+
+===== Aspect: Design of panel display
+
+* **Alternative 1 (current choice):** Using the same fxml file for each item panel.
+** Pros: Less duplication.
+** Cons: Hard to customise the contents of each panel.
+
+* **Alternative 2:** Making a separate fxml file for each item panel
+** Pros: Able to customise the panel to suit the item.
+** Cons: Need to duplicate common elements that all the item panels share.
+
+* Decision: Alternative 1 was adopted. Currently, the only difference between the panels is the header (implemented via a `label`) which contains the name of the item type. This only affects a single label, which is easy to edit via code. Hence, sharing the fxml file reduces the code duplication. If the display of the panels were to be modified in the future, say to add more padding or to change the size, only one fxml file needs to be modified.
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption

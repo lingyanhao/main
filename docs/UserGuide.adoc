@@ -77,8 +77,6 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * We also accept specifying a time without a date, in which case the current date will be used. In that situation, `HH:mm` (e.g. `13:00`) format should be used.
 * Users should take note that REM is not timezone-aware. We do not see the need to implement such features as it will rarely be the case that your restaurant needs to move to a different time zone.
 
-====
-
 === General
 
 ==== Viewing help : `help`
@@ -466,12 +464,6 @@ Format: `bookingSummary`
 
 === Staff Management
 
-==== View Staff: `viewStaff`
-
-View the list of all staff and their details
-
-Format: `viewStaff`
-
 ==== Add Staff: `addStaff`
 
 Add a new staff member to the list of all staff.
@@ -493,6 +485,16 @@ Format: `deleteStaff STAFF_ID`
 Example
 
 * `deleteStaff 3`
+
+=== Edit Staff: `editStaff`
+
+Edits the staff member with the specified id.
+
+Format: `editStaff STAFF_ID [n/NAME] [p/PHONE] [e/EMAIL] [a/APPOINTMENT]`
+
+Example
+
+* `editStaff 1 p/98765432 a/Manager`
 
 ==== View Shift Staff: `shiftStaff`
 
@@ -624,8 +626,6 @@ e.g. `cancelBooking 3`
 * *bookingSummary* `bookingSummary`
 
 === Staff Management
-
-* *viewStaff* `viewStaff`
 
 * *addStaff* `addStaff n/STAFF_NAME c/CONTACT_NUMBER a/APPOINTMENT` +
 e.g. `addStaff n/John Doe c/91234567 a/Waiter`

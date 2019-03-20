@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.model.booking.Booking;
+import seedu.address.model.booking.Capacity;
 
 /**
  * The API that stores the booking side of the model.
@@ -19,7 +20,12 @@ public interface BookingModel {
     boolean hasBooking(Booking booking);
 
     /**
-     * Deletes the given item.
+     * Returns true if {@code booking} can be added to the restaurant without exceeding capacity.
+     */
+    boolean canAccommodate(Booking booking);
+
+    /**
+     * Deletes the given booking.
      * The item must exist in the restaurant book.
      */
     void deleteBooking(Booking target);
@@ -29,6 +35,14 @@ public interface BookingModel {
      * {@code booking} must not already exist in the restaurant book.
      */
     void addBooking(Booking booking);
+
+    /**
+     * Replaces the given booking {@code target} with {@code editedBooking}.
+     * {@code target} must exist in the restaurant book.
+     * The booking identity of {@code editedBooking}
+     * must not be the same as another existing booking in the restaurant book.
+     */
+    void setBooking(Booking target, Booking editedBooking);
 
     /** Returns an unmodifiable view of the filtered booking list */
     ObservableList<Booking> getFilteredBookingList();

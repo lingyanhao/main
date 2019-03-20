@@ -49,7 +49,7 @@ public class TypicalIngredients {
     public static RestaurantBook getTypicalAddressBook() {
         RestaurantBook ab = new RestaurantBook();
         for (Ingredient ingred : getTypicalIngredients()) {
-            ab.addItem(ingred);
+            ab.addIngredient(ingred);
         }
         return ab;
     }

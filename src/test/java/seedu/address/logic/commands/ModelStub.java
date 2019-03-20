@@ -6,11 +6,11 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.Capacity;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyRestaurantBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.booking.Booking;
+import seedu.address.model.booking.Capacity;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Member;
 import seedu.address.model.person.Staff;
@@ -90,6 +90,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public boolean canAccommodate(Booking booking) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public boolean hasIngredient(Ingredient ingredient) {
         throw new AssertionError("This method should not be called.");
     }
@@ -121,6 +126,11 @@ public class ModelStub implements Model {
 
     @Override
     public void setMember(Member target, Member editedMember) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setBooking(Booking target, Booking editedBooking) {
         throw new AssertionError("This method should not be called.");
     }
 
