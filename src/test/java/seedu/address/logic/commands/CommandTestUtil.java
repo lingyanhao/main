@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_UNIT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_WARNINGAMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOYALTY_POINTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -65,7 +66,8 @@ public class CommandTestUtil {
     public static final String INGREDIENT_VALID_QUANTITY_TOMATO = "5";
     public static final String INGREDIENT_VALID_UNIT_CHEESE = "pounds";
     public static final String INGREDIENT_VALID_UNIT_TOMATO = "pieces";
-
+    public static final String INGREDIENT_VALID_WARNINGAMT_CHEESE = "3";
+    public static final String INGREDIENT_VALID_WARNINGAMT_TOMATO = "4";
 
 
 
@@ -75,12 +77,16 @@ public class CommandTestUtil {
             " " + PREFIX_INGREDIENT_QUANTITY + INGREDIENT_VALID_QUANTITY_CHEESE;
     public static final String INGREDIENT_UNIT_DESC_CHEESE =
             " " + PREFIX_INGREDIENT_UNIT + INGREDIENT_VALID_UNIT_CHEESE;
+    public static final String INGREDIENT_WARNINGAMT_DESC_CHEESE =
+            " " + PREFIX_INGREDIENT_WARNINGAMOUNT + INGREDIENT_VALID_WARNINGAMT_CHEESE;
     public static final String INGREDIENT_NAME_DESC_TOMATO =
             " " + PREFIX_INGREDIENT_NAME + INGREDIENT_VALID_NAME_TOMATO;
     public static final String INGREDIENT_QUANTITY_DESC_TOMATO =
             " " + PREFIX_INGREDIENT_QUANTITY + INGREDIENT_VALID_QUANTITY_TOMATO;
     public static final String INGREDIENT_UNIT_DESC_TOMATO =
             " " + PREFIX_INGREDIENT_UNIT + INGREDIENT_VALID_UNIT_TOMATO;
+    public static final String INGREDIENT_WARNINGAMT_DESC_TOMATO =
+            " " + PREFIX_INGREDIENT_WARNINGAMOUNT + INGREDIENT_VALID_WARNINGAMT_TOMATO;
 
 
     public static final String INGREDIENT_INVALID_NAME_DESC = " " + PREFIX_INGREDIENT_NAME
@@ -91,6 +97,9 @@ public class CommandTestUtil {
             + "-1"; // negative values not allowed in IngredientQuantity
     public static final String INGREDIENT_INVALID_UNIT_DESC = " " + PREFIX_INGREDIENT_UNIT
             + "3@"; // symbols not allowed
+    public static final String INGREDIENT_INVALID_WARNINGAMOUNT_DESC =
+            " " + PREFIX_INGREDIENT_WARNINGAMOUNT + "3.0"; // decimals not allowed
+
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
