@@ -26,9 +26,13 @@
         </Label>
         <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
       </HBox>
-      <Label text="Standard unit: " styleClass="cell_small_label"></Label><Label fx:id="unit" styleClass="cell_small_label" text="\$unit" />
-      <Label text="Quantity: " styleClass="cell_small_label"></Label><Label fx:id="quantity" text="\$quantity" />
-      <Label text="Warning Amount: " styleClass="cell_small_label"></Label><Label fx:id="warningamt" text="\$warningamt" />
+
+      <HBox spacing="5" alignment="CENTER_LEFT">
+        <Label fx:id="quantity" styleClass="cell_small_label" text="\$quantity"/>
+        <Label fx:id="unit" styleClass="cell_small_label" text="\$unit"/>
+      </HBox>
+
+      <Label text="Warning Amount: " styleClass="cell_small_label"/><Label fx:id="warningamt" text="\$warningamt" />
     </VBox>
   </GridPane>
 </HBox>

@@ -9,12 +9,13 @@ import seedu.address.model.Statistics;
 /**
  * Parses input arguments and creates a new ViewStatsCommand object.
  */
-public class ViewStatsCommandParser {
+public class ViewStatsCommandParser implements Parser {
     /**
      * Parses the given {@code String} of arguments in the context of the ViewStatsCommand
      * and returns an ViewStatsCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
+    @Override
     public ViewStatsCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args);
