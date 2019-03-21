@@ -32,7 +32,8 @@ public class ListMembersCommandParser implements Parser<ListMembersCommand> {
         }
 
         List<String> nameKeywords = null;
-        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+        if (argMultimap.getValue(PREFIX_NAME).isPresent()
+                && !argMultimap.getValue(PREFIX_NAME).get().trim().isEmpty()) {
             nameKeywords = Arrays.asList(argMultimap.getValue(PREFIX_NAME).get().split("\\s+"));
         }
         if (nameKeywords == null) {
