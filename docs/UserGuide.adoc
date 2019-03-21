@@ -18,7 +18,7 @@ By: `Team W11-2`      Since: `Jan 2019`      Licence: `MIT`
 
 == Introduction
 
-REM is for small/medium size restaurant owners who *prefer to use a desktop app for managing their restaurant*. More importantly, REM is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, REM can get your restaurant management tasks done faster than traditional GUI apps.
+REstaurant Manager (REM) is for small/medium size restaurant owners who *prefer to use a desktop app for managing their restaurant*. More importantly, REM is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, REM can get your restaurant management tasks done faster than traditional GUI apps.
 
 As REM is targeted at _restaurant owners_, it aims to facilitate the management of a restaurant, in these 5 different areas:
 
