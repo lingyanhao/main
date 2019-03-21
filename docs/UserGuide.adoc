@@ -74,8 +74,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * All parameters labelled as DATE_TIME should follow the yyyy-MM-ddTHH:mm format, (e.g. `2019-02-23T13:00` means 23 Feb 2019, 1300 hrs). yyyy-MM-ddTHH:mm:SS format is also accepted.
 * For the exact specification of what date and time formats are allowed, please refer to the `LocalDateTime` class in Java.
-* We also accept specifying a time without a date, in which case the current date will be used. In that situation, `HH:mm` (e.g. `13:00`) format should be used.
-* Users should take note that REM is not timezone-aware. We do not see the need to implement such features as it will rarely be the case that your restaurant needs to move to a different time zone.
+* Time without dates are also accepted. In that situation, `HH:mm` (e.g. `13:00`) format should be used and the date is automatically chosen to be the current date at the point of command execution.
 
 === General
 
@@ -107,15 +106,15 @@ Example:
 * `addMember n/John Doe e/johnd@gmail.com p/81234567`
 
 ==== List Members: `listMembers`
-Lists all members who matches all the equations given.
+List members who match all the given condition(s).
 
-Format: `listMembers [n/NAME_REGEX] [e/EMAIL_REGEX] [l/LOYALTY_POINTS_EQUATION]`
+Format: `listMembers [n/NAME] [l/LOYALTY_POINTS_MINIMUM]`
 
 Example:
 
-* `listMembers l/>10`
+* `listMembers l/10`
 
-Lists all members with greater than 10 loyalty points.
+Lists all members with at least 10 loyalty points.
 
 * `listMembers`
 
@@ -123,28 +122,27 @@ All the members will be listed.
 
 ==== Delete Members: `deleteMember`
 
-Deletes the specified member from the management system. This command is irreversible. Note that this action also deletes all bookings made by the member.
+Deletes the specified member from the management system. Note that this action also deletes all bookings made by the member.
 
 Format: `deleteMember INDEX`
 
-
 ****
-• Deletes the person at the specified `INDEX`. The index refers to the index number shown in the most recent listing.
+• Deletes the member at the specified `INDEX`. The index refers to the index number shown in the most recent listing.
 ****
 
 Example:
 
-* `listMember`
+* `listMembers`
 +
 `deleteMember 2`
 
-Deletes the 2nd person in the address book.
+Deletes the 2nd member in the restaurant book.
 
-* `listMember n/Betsy`
+* `listMembers n/Betsy`
 +
 `deleteMember 1`
 
-Deletes the 1st person in the results of the listMember command.
+Deletes the 1st member in the results of the listMembers command.
 
 ==== Notify Via Email: `notifyEmail` `[coming in v2.0]`
 
@@ -179,29 +177,6 @@ Format: `notifySMS [l/LOYALTY_POINTS_MINIMUM] [ss/TRUE_FALSE]`
 Example:
 
 * `notifySMS l/100 ss/true`
-
-==== Add Loyalty Points: `addPoints`
-Adds specified number of loyalty points to the member specified
-
-Format: `addPoints i/INDEX l/LOYALTY_POINTS`
-
-****
-• Adds `LOYALTY_POINTS` to the person at the specified `INDEX`. The index refers to the index number shown in the most recent listing.
-****
-
-Example:
-
-* `listMember`
-+
-`addPoints i/2 l/10`
-
-Adds 10 points to the 2nd person.
-
-* `listMember n/Betsy`
-+
-`addPoints i/1 l/5`
-
-Adds 5 points to the 1st person in the results of the listMember command.
 
 === Inventory Management
 
@@ -478,9 +453,9 @@ Adds a new staff with name John Doe, phone number 91234567, email john@example.c
 
 ==== Delete Staff: `deleteStaff`
 
-Deletes the staff member with the specified id.
+Deletes the staff member with the specified index.
 
-Format: `deleteStaff STAFF_ID`
+Format: `deleteStaff STAFF_INDEX`
 
 Example
 
@@ -488,9 +463,9 @@ Example
 
 === Edit Staff: `editStaff`
 
-Edits the staff member with the specified id.
+Edits the staff member with the specified index.
 
-Format: `editStaff STAFF_ID [n/NAME] [p/PHONE] [e/EMAIL] [a/APPOINTMENT]`
+Format: `editStaff STAFF_INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/APPOINTMENT]`
 
 Example
 
@@ -504,9 +479,9 @@ Format: `shiftStaff`
 
 ==== Set Shift Staff: `setShift`
 
-Sets the shift of a staff with the specified `STAFF_ID`. If the staff already has a shift, then it will be overwritten.
+Sets the shift of a staff with the specified `STAFF_INDEX`. If the staff already has a shift, then it will be overwritten.
 
-Format: `setShift s/STAFF_ID ts/TIME_START te/TIME_END`
+Format: `setShift s/STAFF_INDEX ts/TIME_START te/TIME_END`
 
 Example:
 
@@ -559,7 +534,7 @@ Format: `ratingStats`
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Restaurant Book folder.
 
 == Command Summary
 
@@ -573,15 +548,6 @@ e.g. `listMembers l/>10 se/true`
 
 * *deleteMember* `deleteMember INDEX` +
 e.g. `deleteMember 2`
-
-* *notifyEmail* `notifyEmail [l/LOYALTY_POINTS_MINIMUM] [se/TRUE_FALSE]` +
-e.g. `notifyEmail l/100 se/true`
-
-* *notifySMS* `notifySMS [l/LOYALTY_POINTS_MINIMUM] [ss/TRUE_FALSE]` +
-e.g. `notifySMS l/100 ss/true`
-
-* *addPoints* `addPoints i/INDEX l/LOYALTY_POINTS`
-e.g. `addPoints i/2 l/10`
 
 === Inventory Management
 
@@ -617,7 +583,7 @@ e.g. `viewBooking ts/1200 te/1530`
 * *updateCapacity* `updateCapacity NUMBER` +
 e.g. `updateCapacity 50`
 
-* *addBooking* `addBooking [c/CUSTOMER_ID] n/NUMBER OF MEMBERS t/TIME [d/DATE]` +
+* *addBooking* `addBooking [c/CUSTOMER_INDEX] n/NUMBER OF MEMBERS t/TIME [d/DATE]` +
 e.g. `addBooking 1 1300 25 Feb`
 
 * *cancelBooking* `cancelBooking INDEX` +
@@ -630,12 +596,12 @@ e.g. `cancelBooking 3`
 * *addStaff* `addStaff n/STAFF_NAME c/CONTACT_NUMBER a/APPOINTMENT` +
 e.g. `addStaff n/John Doe c/91234567 a/Waiter`
 
-* *deleteStaff* `deleteStaff STAFF_ID` +
+* *deleteStaff* `deleteStaff STAFF_INDEX` +
 e.g. `deleteStaff 3`
 
 * *shiftStaff* `shiftStaff`
 
-* *setShift* `setShift s/STAFF_ID ts/TIME_START te/TIME_END` +
+* *setShift* `setShift s/STAFF_INDEX ts/TIME_START te/TIME_END` +
 e.g. setShift `1 1200 1530`
 
 === Overall Management
