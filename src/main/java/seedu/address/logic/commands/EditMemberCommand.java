@@ -26,7 +26,7 @@ import seedu.address.model.person.exceptions.DuplicateItemException;
 /**
  * Edits the details of an existing member in the address book.
  */
-public class EditCommand extends Command {
+public class EditMemberCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
     public static final String COMMAND_ALIAS = "e";
@@ -54,7 +54,7 @@ public class EditCommand extends Command {
      * @param index of the member in the filtered member list to edit
      * @param editMemberDescriptor details to edit the member with
      */
-    public EditCommand(Index index, EditMemberDescriptor editMemberDescriptor) {
+    public EditMemberCommand(Index index, EditMemberDescriptor editMemberDescriptor) {
         requireNonNull(index);
         requireNonNull(editMemberDescriptor);
 
@@ -109,12 +109,12 @@ public class EditCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof EditMemberCommand)) {
             return false;
         }
 
         // state check
-        EditCommand e = (EditCommand) other;
+        EditMemberCommand e = (EditMemberCommand) other;
         return index.equals(e.index)
                 && editMemberDescriptor.equals(e.editMemberDescriptor);
     }

@@ -23,17 +23,17 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_MEMBER;
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditMemberDescriptor;
+import seedu.address.logic.commands.EditMemberCommand;
+import seedu.address.logic.commands.EditMemberCommand.EditMemberDescriptor;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.testutil.EditMemberDescriptorBuilder;
 
-public class EditCommandParserTest {
+public class EditMemberCommandParserTest {
 
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditMemberCommand.MESSAGE_USAGE);
 
     private EditCommandParser parser = new EditCommandParser();
 
@@ -43,7 +43,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, MEMBER_VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
 
         // no field specified
-        assertParseFailure(parser, "1", EditCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, "1", EditMemberCommand.MESSAGE_NOT_EDITED);
 
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
@@ -90,7 +90,7 @@ public class EditCommandParserTest {
 
         EditMemberDescriptor descriptor = new EditMemberDescriptorBuilder().withName(MEMBER_VALID_NAME_AMY)
                 .withPhone(MEMBER_VALID_PHONE_BOB).withEmail(MEMBER_VALID_EMAIL_AMY).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditMemberCommand expectedCommand = new EditMemberCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -102,7 +102,7 @@ public class EditCommandParserTest {
 
         EditMemberDescriptor descriptor = new EditMemberDescriptorBuilder().withPhone(MEMBER_VALID_PHONE_BOB)
                 .withEmail(MEMBER_VALID_EMAIL_AMY).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditMemberCommand expectedCommand = new EditMemberCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -113,19 +113,19 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_THIRD_MEMBER;
         String userInput = targetIndex.getOneBased() + MEMBER_NAME_DESC_AMY;
         EditMemberDescriptor descriptor = new EditMemberDescriptorBuilder().withName(MEMBER_VALID_NAME_AMY).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditMemberCommand expectedCommand = new EditMemberCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // phone
         userInput = targetIndex.getOneBased() + MEMBER_PHONE_DESC_AMY;
         descriptor = new EditMemberDescriptorBuilder().withPhone(MEMBER_VALID_PHONE_AMY).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        expectedCommand = new EditMemberCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // email
         userInput = targetIndex.getOneBased() + MEMBER_EMAIL_DESC_AMY;
         descriptor = new EditMemberDescriptorBuilder().withEmail(MEMBER_VALID_EMAIL_AMY).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        expectedCommand = new EditMemberCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
@@ -138,7 +138,7 @@ public class EditCommandParserTest {
         EditMemberDescriptor descriptor = new EditMemberDescriptorBuilder().withPhone(MEMBER_VALID_PHONE_BOB)
                 .withEmail(MEMBER_VALID_EMAIL_BOB)
                 .build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditMemberCommand expectedCommand = new EditMemberCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -149,7 +149,7 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_FIRST_MEMBER;
         String userInput = targetIndex.getOneBased() + MEMBER_INVALID_PHONE_DESC + MEMBER_PHONE_DESC_BOB;
         EditMemberDescriptor descriptor = new EditMemberDescriptorBuilder().withPhone(MEMBER_VALID_PHONE_BOB).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditMemberCommand expectedCommand = new EditMemberCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
@@ -157,7 +157,7 @@ public class EditCommandParserTest {
                 + MEMBER_INVALID_PHONE_DESC + MEMBER_PHONE_DESC_BOB;
         descriptor = new EditMemberDescriptorBuilder().withPhone(MEMBER_VALID_PHONE_BOB)
                 .withEmail(MEMBER_VALID_EMAIL_BOB).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        expectedCommand = new EditMemberCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 

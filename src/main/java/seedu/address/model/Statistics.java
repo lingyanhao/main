@@ -39,8 +39,8 @@ public class Statistics {
 
     /**
      * Formats 2 dates into a String.
-     * @param start the starting date
-     * @param end the ending date
+     * @param start the starting date. Should be before end.
+     * @param end the ending date. Should be after start.
      * @return the formatted String
      */
     private static String formatDate(LocalDate start, LocalDate end) {
@@ -61,6 +61,9 @@ public class Statistics {
                                                                 int bucketSize, int numBuckets) {
         assert(bucketSize <= MAX_BAR_SIZE);
         assert(numBuckets <= MAX_BARS);
+        assert(bucketSize >= 0);
+        assert(numBuckets >= 0);
+        // TODO refactor this
         List<Integer> numBookings = new ArrayList<>();
         for (int i = 0; i < numBuckets; i++) {
             numBookings.add(0);

@@ -30,7 +30,7 @@ import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditMemberCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
@@ -41,7 +41,7 @@ import seedu.address.model.person.Phone;
 import seedu.address.testutil.MemberBuilder;
 import seedu.address.testutil.MemberUtil;
 
-public class EditCommandSystemTest extends RestaurantBookSystemTest {
+public class EditMemberCommandSystemTest extends RestaurantBookSystemTest {
 
     @Test
     public void edit() {
@@ -53,7 +53,7 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
          * -> edited
          */
         Index index = INDEX_FIRST_MEMBER;
-        String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + MEMBER_NAME_DESC_BOB
+        String command = " " + EditMemberCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + MEMBER_NAME_DESC_BOB
                 + "  " + MEMBER_PHONE_DESC_BOB + " " + MEMBER_EMAIL_DESC_BOB + " " + LOYALTY_POINTS_DESC_BOB;
         Member editedMember = new MemberBuilder(BOB).build();
         assertCommandSuccess(command, index, editedMember);
@@ -71,7 +71,7 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: edit a member with new values same as existing values -> edited */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + MEMBER_NAME_DESC_BOB + MEMBER_PHONE_DESC_BOB
+        command = EditMemberCommand.COMMAND_WORD + " " + index.getOneBased() + MEMBER_NAME_DESC_BOB + MEMBER_PHONE_DESC_BOB
                 + MEMBER_EMAIL_DESC_BOB;
         assertCommandSuccess(command, index, BOB);
 
@@ -79,7 +79,7 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
         assertTrue(getModel().getRestaurantBook().getMemberList().contains(BOB));
         index = INDEX_SECOND_MEMBER;
         assertNotEquals(getModel().getFilteredMemberList().get(index.getZeroBased()), BOB);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + MEMBER_NAME_DESC_AMY + MEMBER_PHONE_DESC_BOB
+        command = EditMemberCommand.COMMAND_WORD + " " + index.getOneBased() + MEMBER_NAME_DESC_AMY + MEMBER_PHONE_DESC_BOB
                 + MEMBER_EMAIL_DESC_BOB + " " + LOYALTY_POINTS_DESC_BOB;
         editedMember = new MemberBuilder(BOB).withName(MEMBER_VALID_NAME_AMY).build();
         assertCommandSuccess(command, index, editedMember);
@@ -88,7 +88,7 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
          * -> edited
          */
         index = INDEX_SECOND_MEMBER;
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + MEMBER_NAME_DESC_BOB + MEMBER_PHONE_DESC_AMY
+        command = EditMemberCommand.COMMAND_WORD + " " + index.getOneBased() + MEMBER_NAME_DESC_BOB + MEMBER_PHONE_DESC_AMY
                 + MEMBER_EMAIL_DESC_AMY;
         editedMember = new MemberBuilder(BOB).withPhone(MEMBER_VALID_PHONE_AMY)
                 .withEmail(MEMBER_VALID_EMAIL_AMY).build();
@@ -96,9 +96,9 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
 
         /* Case: edit with invalid tag argument -> rejected */
         index = INDEX_FIRST_MEMBER;
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + "t/";
+        command = EditMemberCommand.COMMAND_WORD + " " + index.getOneBased() + " " + "t/";
         assertCommandFailure(command,
-                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditMemberCommand.MESSAGE_USAGE));
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
@@ -106,7 +106,7 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
         showMembersWithName(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_MEMBER;
         assertTrue(index.getZeroBased() < getModel().getFilteredMemberList().size());
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + MEMBER_NAME_DESC_BOB;
+        command = EditMemberCommand.COMMAND_WORD + " " + index.getOneBased() + " " + MEMBER_NAME_DESC_BOB;
         Member memberToEdit = getModel().getFilteredMemberList().get(index.getZeroBased());
         editedMember = new MemberBuilder(memberToEdit).withName(MEMBER_VALID_NAME_BOB).build();
 
@@ -117,7 +117,7 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
          */
         showMembersWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getRestaurantBook().getMemberList().size();
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + MEMBER_NAME_DESC_BOB,
+        assertCommandFailure(EditMemberCommand.COMMAND_WORD + " " + invalidIndex + MEMBER_NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_MEMBER_DISPLAYED_INDEX);
 
         /* --------------------- Performing edit operation while a member card is selected -------------------------- */
@@ -128,7 +128,7 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
         showAllMembers();
         index = INDEX_FIRST_MEMBER;
         selectMember(index);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + MEMBER_NAME_DESC_AMY + MEMBER_PHONE_DESC_AMY
+        command = EditMemberCommand.COMMAND_WORD + " " + index.getOneBased() + MEMBER_NAME_DESC_AMY + MEMBER_PHONE_DESC_AMY
                 + MEMBER_EMAIL_DESC_AMY + " " + LOYALTY_POINTS_DESC_AMY;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new member's name
@@ -137,38 +137,38 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
 
         /* Case: invalid index (0) -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " 0" + MEMBER_NAME_DESC_BOB,
-                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        assertCommandFailure(EditMemberCommand.COMMAND_WORD + " 0" + MEMBER_NAME_DESC_BOB,
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditMemberCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (-1) -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " -1" + MEMBER_NAME_DESC_BOB,
-                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        assertCommandFailure(EditMemberCommand.COMMAND_WORD + " -1" + MEMBER_NAME_DESC_BOB,
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditMemberCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (size + 1) -> rejected */
         invalidIndex = getModel().getFilteredMemberList().size() + 1;
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + MEMBER_NAME_DESC_BOB,
+        assertCommandFailure(EditMemberCommand.COMMAND_WORD + " " + invalidIndex + MEMBER_NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_MEMBER_DISPLAYED_INDEX);
 
         /* Case: missing index -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + MEMBER_NAME_DESC_BOB,
-                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        assertCommandFailure(EditMemberCommand.COMMAND_WORD + MEMBER_NAME_DESC_BOB,
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditMemberCommand.MESSAGE_USAGE));
 
         /* Case: missing all fields -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_MEMBER.getOneBased(),
-                EditCommand.MESSAGE_NOT_EDITED);
+        assertCommandFailure(EditMemberCommand.COMMAND_WORD + " " + INDEX_FIRST_MEMBER.getOneBased(),
+                EditMemberCommand.MESSAGE_NOT_EDITED);
 
         /* Case: invalid name -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " "
+        assertCommandFailure(EditMemberCommand.COMMAND_WORD + " "
                         + INDEX_FIRST_MEMBER.getOneBased() + MEMBER_INVALID_NAME_DESC,
                 Name.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " "
+        assertCommandFailure(EditMemberCommand.COMMAND_WORD + " "
                         + INDEX_FIRST_MEMBER.getOneBased() + MEMBER_INVALID_PHONE_DESC,
                 Phone.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " "
+        assertCommandFailure(EditMemberCommand.COMMAND_WORD + " "
                         + INDEX_FIRST_MEMBER.getOneBased() + MEMBER_INVALID_EMAIL_DESC,
                 Email.MESSAGE_CONSTRAINTS);
 
@@ -177,36 +177,36 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
         assertTrue(getModel().getRestaurantBook().getMemberList().contains(BOB));
         index = INDEX_FIRST_MEMBER;
         assertFalse(getModel().getFilteredMemberList().get(index.getZeroBased()).equals(BOB));
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + MEMBER_NAME_DESC_BOB + MEMBER_PHONE_DESC_BOB
+        command = EditMemberCommand.COMMAND_WORD + " " + index.getOneBased() + MEMBER_NAME_DESC_BOB + MEMBER_PHONE_DESC_BOB
                 + MEMBER_EMAIL_DESC_BOB;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_MEMBER);
+        assertCommandFailure(command, EditMemberCommand.MESSAGE_DUPLICATE_MEMBER);
 
         /* Case: edit a member with new values same as another member's values but with different tags -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + MEMBER_NAME_DESC_BOB + MEMBER_PHONE_DESC_BOB
+        command = EditMemberCommand.COMMAND_WORD + " " + index.getOneBased() + MEMBER_NAME_DESC_BOB + MEMBER_PHONE_DESC_BOB
                 + MEMBER_EMAIL_DESC_BOB;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_MEMBER);
+        assertCommandFailure(command, EditMemberCommand.MESSAGE_DUPLICATE_MEMBER);
 
         /* Case: edit a member with new values same as another member's values but with different address -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + MEMBER_NAME_DESC_BOB + MEMBER_PHONE_DESC_BOB
+        command = EditMemberCommand.COMMAND_WORD + " " + index.getOneBased() + MEMBER_NAME_DESC_BOB + MEMBER_PHONE_DESC_BOB
                 + MEMBER_EMAIL_DESC_BOB;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_MEMBER);
+        assertCommandFailure(command, EditMemberCommand.MESSAGE_DUPLICATE_MEMBER);
 
         /* Case: edit a member with new values same as another member's values but with different phone -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + MEMBER_NAME_DESC_BOB + MEMBER_PHONE_DESC_AMY
+        command = EditMemberCommand.COMMAND_WORD + " " + index.getOneBased() + MEMBER_NAME_DESC_BOB + MEMBER_PHONE_DESC_AMY
                 + MEMBER_EMAIL_DESC_BOB;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_MEMBER);
+        assertCommandFailure(command, EditMemberCommand.MESSAGE_DUPLICATE_MEMBER);
 
         /* Case: edit a member with new values same as another member's values but with different email -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + MEMBER_NAME_DESC_BOB + MEMBER_PHONE_DESC_BOB
+        command = EditMemberCommand.COMMAND_WORD + " " + index.getOneBased() + MEMBER_NAME_DESC_BOB + MEMBER_PHONE_DESC_BOB
                 + MEMBER_EMAIL_DESC_AMY;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_MEMBER);
+        assertCommandFailure(command, EditMemberCommand.MESSAGE_DUPLICATE_MEMBER);
     }
 
     /**
      * Performs the same verification as {@code assertCommandSuccess(String, Index, Member, Index)} except that
      * the browser url and selected card remain unchanged.
      * @param toEdit the index of the current model's filtered list
-     * @see EditCommandSystemTest#assertCommandSuccess(String, Index, Member, Index)
+     * @see EditMemberCommandSystemTest#assertCommandSuccess(String, Index, Member, Index)
      */
     private void assertCommandSuccess(String command, Index toEdit, Member editedMember) {
         assertCommandSuccess(command, toEdit, editedMember, null);
@@ -214,11 +214,11 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
 
     /**
      * Performs the same verification as {@code assertCommandSuccess(String, Model, String, Index)} and in addition,<br>
-     * 1. Asserts that result display box displays the success message of executing {@code EditCommand}.<br>
+     * 1. Asserts that result display box displays the success message of executing {@code EditMemberCommand}.<br>
      * 2. Asserts that the model related components are updated to reflect the member at index {@code toEdit} being
      * updated to values specified {@code editedMember}.<br>
      * @param toEdit the index of the current model's filtered list.
-     * @see EditCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
+     * @see EditMemberCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
      */
     private void assertCommandSuccess(String command, Index toEdit, Member editedMember,
             Index expectedSelectedCardIndex) {
@@ -227,13 +227,13 @@ public class EditCommandSystemTest extends RestaurantBookSystemTest {
         expectedModel.updateFilteredMemberList(PREDICATE_SHOW_ALL_MEMBERS);
 
         assertCommandSuccess(command, expectedModel,
-                String.format(EditCommand.MESSAGE_EDIT_MEMBER_SUCCESS, editedMember), expectedSelectedCardIndex);
+                String.format(EditMemberCommand.MESSAGE_EDIT_MEMBER_SUCCESS, editedMember), expectedSelectedCardIndex);
     }
 
     /**
      * Performs the same verification as {@code assertCommandSuccess(String, Model, String, Index)} except that the
      * browser url and selected card remain unchanged.
-     * @see EditCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
+     * @see EditMemberCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
         assertCommandSuccess(command, expectedModel, expectedResultMessage, null);
