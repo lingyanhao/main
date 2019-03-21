@@ -120,7 +120,7 @@ public class EditMemberCommandSystemTest extends RestaurantBookSystemTest {
          */
         showMembersWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getRestaurantBook().getMemberList().size();
-        assertCommandFailure(EditMemberCommand.COMMAND_WORD + " "+ invalidIndex + MEMBER_NAME_DESC_BOB,
+        assertCommandFailure(EditMemberCommand.COMMAND_WORD + " " + invalidIndex + MEMBER_NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_MEMBER_DISPLAYED_INDEX);
 
         /* --------------------- Performing edit operation while a member card is selected -------------------------- */
@@ -205,8 +205,8 @@ public class EditMemberCommandSystemTest extends RestaurantBookSystemTest {
         assertCommandFailure(command, EditMemberCommand.MESSAGE_DUPLICATE_MEMBER);
 
         /* Case: edit a member with new values same as another member's values but with different email -> rejected */
-        command = EditMemberCommand.COMMAND_WORD + " " + index.getOneBased() +
-                MEMBER_NAME_DESC_BOB + MEMBER_PHONE_DESC_BOB
+        command = EditMemberCommand.COMMAND_WORD + " " + index.getOneBased()
+                + MEMBER_NAME_DESC_BOB + MEMBER_PHONE_DESC_BOB
                 + MEMBER_EMAIL_DESC_AMY;
         assertCommandFailure(command, EditMemberCommand.MESSAGE_DUPLICATE_MEMBER);
     }
