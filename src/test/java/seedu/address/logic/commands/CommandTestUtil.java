@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_UNIT;
@@ -30,6 +31,15 @@ import seedu.address.testutil.EditMemberDescriptorBuilder;
  */
 public class CommandTestUtil {
 
+    //General
+    public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
+    public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
+
+    public static final String VALID_INDEX_DESC = " " + PREFIX_INDEX + "1";
+
+    public static final String INVALID_INDEX_DESC = " " + PREFIX_INDEX + "-1"; //negative not allowed
+
+    //Related to persons
     public static final String MEMBER_VALID_NAME_AMY = "Amy Bee";
     public static final String MEMBER_VALID_NAME_BOB = "Bob Choo";
     public static final String MEMBER_VALID_PHONE_AMY = "11111111";
@@ -60,6 +70,8 @@ public class CommandTestUtil {
             + "amaz!ngC00k"; // ! not allowed
     public static final String INVALID_LOYALTY_POINTS_DESC = " " + PREFIX_LOYALTY_POINTS + "26.0"; // . not allowed
 
+
+    //Related to ingredients
     public static final String INGREDIENT_VALID_NAME_CHEESE = "cheese";
     public static final String INGREDIENT_VALID_NAME_TOMATO = "tomato";
     public static final String INGREDIENT_VALID_QUANTITY_CHEESE = "4";
@@ -99,10 +111,6 @@ public class CommandTestUtil {
             + "3@"; // symbols not allowed
     public static final String INGREDIENT_INVALID_WARNINGAMOUNT_DESC =
             " " + PREFIX_INGREDIENT_WARNINGAMOUNT + "3.0"; // decimals not allowed
-
-
-    public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
-    public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
     public static final EditCommand.EditMemberDescriptor MEMBER_DESC_AMY;
     public static final EditCommand.EditMemberDescriptor MEMBER_DESC_BOB;
