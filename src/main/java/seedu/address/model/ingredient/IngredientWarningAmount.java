@@ -8,7 +8,7 @@ import seedu.address.commons.util.StringUtil;
 public class IngredientWarningAmount {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Ingredient's warning amount should be non-zero unsigned integer.";
+            "Ingredient's warning amount should be non-negative integer.";
 
     // Identity fields
     private int ingredientWarningAmount;
@@ -34,7 +34,7 @@ public class IngredientWarningAmount {
      * @return
      */
     public static boolean isValidIngredientWarningAmount(String test) {
-        if (StringUtil.isNonZeroUnsignedInteger(test)) {
+        if (StringUtil.isUnsignedInteger(test)) {
             return true;
         } else {
             return false;
