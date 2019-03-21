@@ -15,7 +15,8 @@ public class ViewStatsCommandParserTest {
 
     @Test
     public void parse_emptyArg_throwsParseException() {
-        assertParseFailure(parser, "   ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewStatsCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "   ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                ViewStatsCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -26,7 +27,8 @@ public class ViewStatsCommandParserTest {
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "   asd  ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewStatsCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "   asd  ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                ViewStatsCommand.MESSAGE_USAGE));
     }
 
     @Test

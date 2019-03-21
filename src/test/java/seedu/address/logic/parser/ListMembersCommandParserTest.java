@@ -29,12 +29,14 @@ public class ListMembersCommandParserTest {
     public void parse_validArgs_returnsListMembersCommand() {
         ListMembersCommand expectedListMembersCommand =
                 new ListMembersCommand(new NameAndLoyaltyPointsPredicate(Arrays.asList("Alice", "Bob"), 4));
-        assertParseSuccess(parser, " " + PREFIX_NAME + "  Alice   Bob    " + PREFIX_LOYALTY_POINTS + "  4  ", expectedListMembersCommand);
+        assertParseSuccess(parser, " " + PREFIX_NAME + "  Alice   Bob    "
+                + PREFIX_LOYALTY_POINTS + "  4  ", expectedListMembersCommand);
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "   trash", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListMembersCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "   trash", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                ListMembersCommand.MESSAGE_USAGE));
     }
 
 }
