@@ -178,7 +178,7 @@ public class RestaurantBookParserTest {
                 + MemberUtil.getMemberDetails(member));
         assertEquals(new AddMemberCommand(member), command);
 
-        command = parser.parseCommand("DELETE 1");
+        command = parser.parseCommand("DELETEMEMBER 1");
         assertEquals(new DeleteMemberCommand(Index.fromOneBased(1)), command);
     }
 }
