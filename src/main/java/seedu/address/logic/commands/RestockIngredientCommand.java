@@ -41,7 +41,7 @@ public class RestockIngredientCommand extends Command {
     private final IngredientQuantity quantityToRestock;
 
     /**
-     * Creates an RestockIngredientCmmand to restock the specified {@code Ingredient}
+     * Creates an RestockIngredientCommand to restock the specified {@code Ingredient}
      *
      * @param index
      */
