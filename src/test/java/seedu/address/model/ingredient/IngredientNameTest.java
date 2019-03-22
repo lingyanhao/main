@@ -1,0 +1,38 @@
+package seedu.address.model.ingredient;
+
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertFalse;
+
+import org.junit.Test;
+
+import seedu.address.testutil.Assert;
+
+public class IngredientNameTest {
+    @Test
+    public void constructor_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> new IngredientName(null));
+    }
+
+    @Test
+    public void constructor_invalidIngredientName_throwsIllegalArgumentException() {
+        String emptyName = "";
+        Assert.assertThrows(IllegalArgumentException.class, () -> new IngredientName(emptyName));
+    }
+
+    @Test
+    public void isValidIngredientName() {
+        // null name
+        Assert.assertThrows(NullPointerException.class, () -> IngredientName.isValidIngredientName(null));
+
+        // invalid name
+        assertFalse(IngredientName.isValidIngredientName("")); // empty string
+        assertFalse(IngredientName.isValidIngredientName(" ")); // spaces only
+        assertFalse(IngredientName.isValidIngredientName("^")); // only contains non-alphabet symbols
+        assertFalse(IngredientName.isValidIngredientName("2")); // only contains non-alphabet integers
+        assertFalse(IngredientName.isValidIngredientName("chee*3se")); // contains non-alphabet characters
+
+        // valid name
+        assertTrue(IngredientName.isValidIngredientName("tomato")); //alphabets only no space
+        assertTrue(IngredientName.isValidIngredientName("tomato sauce")); // alphabets only with space
+    }
+}
