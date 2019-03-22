@@ -80,7 +80,7 @@ public class CommandTestUtil {
     public static final String INGREDIENT_VALID_UNIT_CHEESE = "pounds";
     public static final String INGREDIENT_VALID_UNIT_TOMATO = "pieces";
     public static final String INGREDIENT_VALID_WARNINGAMT_CHEESE = "3";
-    public static final String INGREDIENT_VALID_WARNINGAMT_TOMATO = "4";
+    public static final String INGREDIENT_VALID_WARNINGAMT_TOMATO = "2";
 
 
     public static final String INGREDIENT_NAME_DESC_CHEESE =
