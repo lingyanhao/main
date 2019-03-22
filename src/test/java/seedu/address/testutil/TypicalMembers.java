@@ -2,12 +2,12 @@ package seedu.address.testutil;
 
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_LOYALTY_POINTS_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_LOYALTY_POINTS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_LOYALTY_POINTS_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_LOYALTY_POINTS_BOB;
 
 import java.util.ArrayList;
 import java.util.Arrays;

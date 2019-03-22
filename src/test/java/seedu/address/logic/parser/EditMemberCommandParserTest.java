@@ -13,10 +13,10 @@ import static seedu.address.logic.commands.CommandTestUtil.MEMBER_PHONE_DESC_AMY
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_LOYALTY_POINTS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_LOYALTY_POINTS_BOB;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MEMBER;
@@ -89,8 +89,8 @@ public class EditMemberCommandParserTest {
                 Phone.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + MEMBER_INVALID_NAME_DESC + MEMBER_INVALID_EMAIL_DESC +
-                        MEMBER_VALID_PHONE_AMY,
+        assertParseFailure(parser, "1" + MEMBER_INVALID_NAME_DESC + MEMBER_INVALID_EMAIL_DESC
+                        + MEMBER_VALID_PHONE_AMY,
                 Name.MESSAGE_CONSTRAINTS);
     }
 

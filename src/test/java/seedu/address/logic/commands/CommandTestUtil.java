@@ -47,8 +47,10 @@ public class CommandTestUtil {
     public static final String MEMBER_PHONE_DESC_BOB = " " + PREFIX_PHONE + MEMBER_VALID_PHONE_BOB;
     public static final String MEMBER_EMAIL_DESC_AMY = " " + PREFIX_EMAIL + MEMBER_VALID_EMAIL_AMY;
     public static final String MEMBER_EMAIL_DESC_BOB = " " + PREFIX_EMAIL + MEMBER_VALID_EMAIL_BOB;
-    public static final String MEMBER_LOYALTY_POINTS_DESC_AMY = " " + PREFIX_LOYALTY_POINTS + MEMBER_VALID_LOYALTY_POINTS_AMY;
-    public static final String MEMBER_LOYALTY_POINTS_DESC_BOB = " " + PREFIX_LOYALTY_POINTS + MEMBER_VALID_LOYALTY_POINTS_BOB;
+    public static final String MEMBER_LOYALTY_POINTS_DESC_AMY = " " + PREFIX_LOYALTY_POINTS
+            + MEMBER_VALID_LOYALTY_POINTS_AMY;
+    public static final String MEMBER_LOYALTY_POINTS_DESC_BOB = " " + PREFIX_LOYALTY_POINTS
+            + MEMBER_VALID_LOYALTY_POINTS_BOB;
     public static final String STAFF_APPOINTMENT_DESC_AMY = " " + PREFIX_APPOINTMENT + STAFF_VALID_APPOINTMENT_AMY;
     public static final String STAFF_APPOINTMENT_DESC_BOB = " " + PREFIX_APPOINTMENT + STAFF_VALID_APPOINTMENT_BOB;
 
@@ -58,7 +60,8 @@ public class CommandTestUtil {
     public static final String MEMBER_INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String STAFF_INVALID_APPOINTMENT_DESC = " " + PREFIX_APPOINTMENT
             + "amaz!ngC00k"; // ! not allowed
-    public static final String MEMBER_INVALID_LOYALTY_POINTS_DESC = " " + PREFIX_LOYALTY_POINTS + "26.0"; // . not allowed
+    public static final String MEMBER_INVALID_LOYALTY_POINTS_DESC = " " + PREFIX_LOYALTY_POINTS
+            + "26.0"; // . not allowed
 
     public static final String INGREDIENT_VALID_NAME_CHEESE = "cheese";
     public static final String INGREDIENT_VALID_NAME_TOMATO = "tomato";
