@@ -9,7 +9,7 @@ import seedu.address.model.Statistics;
 /**
  * Parses input arguments and creates a new ViewStatsCommand object.
  */
-public class ViewStatsCommandParser implements Parser {
+public class ViewStatsCommandParser implements Parser<ViewStatsCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the ViewStatsCommand
      * and returns an ViewStatsCommand object for execution.

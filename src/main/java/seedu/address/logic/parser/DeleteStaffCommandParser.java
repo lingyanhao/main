@@ -16,6 +16,7 @@ public class DeleteStaffCommandParser implements Parser<DeleteStaffCommand> {
      * and returns an DeleteStaffCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
+    @Override
     public DeleteStaffCommand parse(String args) throws ParseException {
         try {
             Index index = ParserUtil.parseIndex(args);

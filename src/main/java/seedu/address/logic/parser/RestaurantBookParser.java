@@ -93,7 +93,7 @@ public class RestaurantBookParser {
 
         case DeleteMemberCommand.COMMAND_WORD:
         case DeleteMemberCommand.COMMAND_ALIAS:
-            return new DeleteCommandParser().parse(arguments);
+            return new DeleteMemberCommandParser().parse(arguments);
 
         case DeleteBookingCommand.COMMAND_WORD:
         case DeleteBookingCommand.COMMAND_ALIAS:
