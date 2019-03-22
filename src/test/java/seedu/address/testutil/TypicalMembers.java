@@ -6,8 +6,8 @@ import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_NAME_AMY
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_LOYALTY_POINTS_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_LOYALTY_POINTS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_LOYALTY_POINTS_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_LOYALTY_POINTS_BOB;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,10 +45,10 @@ public class TypicalMembers {
     // Manually added - Member's details found in {@code CommandTestUtil}
     public static final Member AMY =
             new MemberBuilder().withName(MEMBER_VALID_NAME_AMY).withPhone(MEMBER_VALID_PHONE_AMY)
-            .withEmail(MEMBER_VALID_EMAIL_AMY).withLoyaltyPoints(VALID_LOYALTY_POINTS_AMY).build();
+            .withEmail(MEMBER_VALID_EMAIL_AMY).withLoyaltyPoints(MEMBER_VALID_LOYALTY_POINTS_AMY).build();
     public static final Member BOB =
             new MemberBuilder().withName(MEMBER_VALID_NAME_BOB).withPhone(MEMBER_VALID_PHONE_BOB)
-            .withEmail(MEMBER_VALID_EMAIL_BOB).withLoyaltyPoints(VALID_LOYALTY_POINTS_BOB).build();
+            .withEmail(MEMBER_VALID_EMAIL_BOB).withLoyaltyPoints(MEMBER_VALID_LOYALTY_POINTS_BOB).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 

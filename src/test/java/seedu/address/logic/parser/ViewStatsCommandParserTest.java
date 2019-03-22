@@ -29,10 +29,7 @@ public class ViewStatsCommandParserTest {
     public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, "   asd  ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 ViewStatsCommand.MESSAGE_USAGE));
-    }
 
-    @Test
-    public void parse_invalidIntegerArgs_throwsParseException() {
         assertParseFailure(parser, "   0  ", MESSAGE_SIZE_CONSTRAINTS);
     }
 
