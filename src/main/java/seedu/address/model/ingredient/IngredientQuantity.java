@@ -1,5 +1,7 @@
 package seedu.address.model.ingredient;
 
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
 import seedu.address.commons.util.StringUtil;
 
 /**
@@ -19,6 +21,7 @@ public class IngredientQuantity {
      * @param quantity A valid quantity, an integer that is non-negative.
      */
     public IngredientQuantity(int quantity) {
+        checkArgument(isValidIngredientQuantity(Integer.toString(quantity)), MESSAGE_CONSTRAINTS);
         this.ingredientQuantity = quantity;
     }
 
