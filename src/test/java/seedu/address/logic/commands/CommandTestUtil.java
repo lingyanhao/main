@@ -34,8 +34,8 @@ public class CommandTestUtil {
     public static final String MEMBER_VALID_NAME_BOB = "Bob Choo";
     public static final String MEMBER_VALID_PHONE_AMY = "11111111";
     public static final String MEMBER_VALID_PHONE_BOB = "22222222";
-    public static final int VALID_LOYALTY_POINTS_AMY = 11;
-    public static final int VALID_LOYALTY_POINTS_BOB = 22;
+    public static final int MEMBER_VALID_LOYALTY_POINTS_AMY = 11;
+    public static final int MEMBER_VALID_LOYALTY_POINTS_BOB = 22;
     public static final String MEMBER_VALID_EMAIL_AMY = "amy@example.com";
     public static final String MEMBER_VALID_EMAIL_BOB = "bob@example.com";
     public static final String STAFF_VALID_APPOINTMENT_AMY = "Server";
@@ -47,8 +47,10 @@ public class CommandTestUtil {
     public static final String MEMBER_PHONE_DESC_BOB = " " + PREFIX_PHONE + MEMBER_VALID_PHONE_BOB;
     public static final String MEMBER_EMAIL_DESC_AMY = " " + PREFIX_EMAIL + MEMBER_VALID_EMAIL_AMY;
     public static final String MEMBER_EMAIL_DESC_BOB = " " + PREFIX_EMAIL + MEMBER_VALID_EMAIL_BOB;
-    public static final String LOYALTY_POINTS_DESC_AMY = " " + PREFIX_LOYALTY_POINTS + VALID_LOYALTY_POINTS_AMY;
-    public static final String LOYALTY_POINTS_DESC_BOB = " " + PREFIX_LOYALTY_POINTS + VALID_LOYALTY_POINTS_BOB;
+    public static final String MEMBER_LOYALTY_POINTS_DESC_AMY = " " + PREFIX_LOYALTY_POINTS
+            + MEMBER_VALID_LOYALTY_POINTS_AMY;
+    public static final String MEMBER_LOYALTY_POINTS_DESC_BOB = " " + PREFIX_LOYALTY_POINTS
+            + MEMBER_VALID_LOYALTY_POINTS_BOB;
     public static final String STAFF_APPOINTMENT_DESC_AMY = " " + PREFIX_APPOINTMENT + STAFF_VALID_APPOINTMENT_AMY;
     public static final String STAFF_APPOINTMENT_DESC_BOB = " " + PREFIX_APPOINTMENT + STAFF_VALID_APPOINTMENT_BOB;
 
@@ -58,7 +60,8 @@ public class CommandTestUtil {
     public static final String MEMBER_INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String STAFF_INVALID_APPOINTMENT_DESC = " " + PREFIX_APPOINTMENT
             + "amaz!ngC00k"; // ! not allowed
-    public static final String INVALID_LOYALTY_POINTS_DESC = " " + PREFIX_LOYALTY_POINTS + "26.0"; // . not allowed
+    public static final String MEMBER_INVALID_LOYALTY_POINTS_DESC = " " + PREFIX_LOYALTY_POINTS
+            + "26.0"; // . not allowed
 
     public static final String INGREDIENT_VALID_NAME_CHEESE = "cheese";
     public static final String INGREDIENT_VALID_NAME_TOMATO = "tomato";
@@ -104,16 +107,16 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditMemberDescriptor MEMBER_DESC_AMY;
-    public static final EditCommand.EditMemberDescriptor MEMBER_DESC_BOB;
+    public static final EditMemberCommand.EditMemberDescriptor MEMBER_DESC_AMY;
+    public static final EditMemberCommand.EditMemberDescriptor MEMBER_DESC_BOB;
 
     static {
         MEMBER_DESC_AMY = new EditMemberDescriptorBuilder().withName(MEMBER_VALID_NAME_AMY)
                 .withPhone(MEMBER_VALID_PHONE_AMY).withEmail(MEMBER_VALID_EMAIL_AMY)
-                .withLoyaltyPoints(VALID_LOYALTY_POINTS_AMY).build();
+                .withLoyaltyPoints(MEMBER_VALID_LOYALTY_POINTS_AMY).build();
         MEMBER_DESC_BOB = new EditMemberDescriptorBuilder().withName(MEMBER_VALID_NAME_BOB)
                 .withPhone(MEMBER_VALID_PHONE_BOB).withEmail(MEMBER_VALID_EMAIL_BOB)
-                .withLoyaltyPoints(VALID_LOYALTY_POINTS_BOB).build();
+                .withLoyaltyPoints(MEMBER_VALID_LOYALTY_POINTS_BOB).build();
     }
 
     /**
