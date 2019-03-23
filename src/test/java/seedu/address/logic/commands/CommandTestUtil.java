@@ -114,8 +114,8 @@ public class CommandTestUtil {
             + "3@"; // symbols not allowed
     public static final String INGREDIENT_INVALID_WARNINGAMOUNT_DESC =
             " " + PREFIX_INGREDIENT_WARNINGAMOUNT + "3.0"; // decimals not allowed
-    public static final EditCommand.EditMemberDescriptor MEMBER_DESC_AMY;
-    public static final EditCommand.EditMemberDescriptor MEMBER_DESC_BOB;
+    public static final EditMemberCommand.EditMemberDescriptor MEMBER_DESC_AMY;
+    public static final EditMemberCommand.EditMemberDescriptor MEMBER_DESC_BOB;
 
     static {
         MEMBER_DESC_AMY = new EditMemberDescriptorBuilder().withName(MEMBER_VALID_NAME_AMY)
