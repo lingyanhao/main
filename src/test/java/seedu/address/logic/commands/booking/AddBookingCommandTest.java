@@ -1,6 +1,5 @@
 package seedu.address.logic.commands.booking;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static seedu.address.testutil.TypicalMembers.getTypicalAddressBook;
@@ -29,11 +28,10 @@ import seedu.address.testutil.CustomerIndexedBookingBuilder;
  */
 public class AddBookingCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private CommandHistory commandHistory = new CommandHistory();
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void constructor_nullBooking_throwsNullPointerException() {

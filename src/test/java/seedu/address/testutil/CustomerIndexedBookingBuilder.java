@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
-
 import seedu.address.commons.core.index.Index;
+
 import seedu.address.logic.CustomerIndexedBooking;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
