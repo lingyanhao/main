@@ -171,8 +171,8 @@ public class ParserUtilTest {
     public void parseBookingSize_invalidValue_throwsParseException() {
         Assert.assertThrows(ParseException.class, () -> ParserUtil.parseBookingSize("0"));
         Assert.assertThrows(ParseException.class, () -> ParserUtil.parseBookingSize("-1"));
-        Assert.assertThrows(ParseException.class,
-                () -> ParserUtil.parseBookingSize(Integer.toString(MAX_BOOKING_SIZE + 1)));
+        Assert.assertThrows(
+                ParseException.class, () -> ParserUtil.parseBookingSize(Integer.toString(MAX_BOOKING_SIZE + 1)));
     }
 
     @Test
