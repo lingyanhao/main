@@ -2,13 +2,19 @@ package seedu.address.logic.parser;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static seedu.address.model.booking.BookingSize.MAX_BOOKING_SIZE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MEMBER;
+
+import java.time.LocalDateTime;
+import java.time.Month;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.booking.BookingSize;
+import seedu.address.model.booking.BookingWindow;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.LoyaltyPoints;
 import seedu.address.model.person.Name;
@@ -26,6 +32,10 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_LOYALTY_POINTS = "1234";
     private static final int VALID_LOYALTY_POINTS_INT = 1234;
+
+    private static final String INVALID_FEB_29 = "2019-02-29T12:00";
+    private static final String WRONG_DATE_FORMAT = "2019-02-28T1200";
+    private static final String VALID_FEB_29 = "2020-02-29T12:00";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -139,5 +149,38 @@ public class ParserUtilTest {
         String loyaltyPointsWithWhitespace = WHITESPACE + VALID_LOYALTY_POINTS + WHITESPACE;
         LoyaltyPoints expectedLoyaltyPoints = new LoyaltyPoints(VALID_LOYALTY_POINTS_INT);
         assertEquals(expectedLoyaltyPoints, ParserUtil.parseLoyaltyPoints(loyaltyPointsWithWhitespace));
+    }
+
+    @Test
+    public void parseBookingWindow_invalidDate_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseBookingWindow(INVALID_FEB_29));
+    }
+
+    @Test
+    public void parseBookingWindow_wrongDateFormat_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseBookingWindow(WRONG_DATE_FORMAT));
+    }
+
+    @Test
+    public void parseBookingWindow_validDate_returnsBookingWindow() throws Exception {
+        BookingWindow expectedBookingWindow = new BookingWindow(LocalDateTime.of(2020, Month.FEBRUARY, 29, 12, 0));
+        assertEquals(expectedBookingWindow, ParserUtil.parseBookingWindow(VALID_FEB_29));
+    }
+
+    @Test
+    public void parseBookingSize_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseBookingSize("0"));
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseBookingSize("-1"));
+        Assert.assertThrows(ParseException.class,
+                () -> ParserUtil.parseBookingSize(Integer.toString(MAX_BOOKING_SIZE + 1)));
+    }
+
+    @Test
+    public void parseBookingSize_validBookingSize_returnsBookingSize() throws Exception {
+        BookingSize expectedBookingSize = new BookingSize(1);
+        assertEquals(expectedBookingSize, ParserUtil.parseBookingSize("1"));
+
+        expectedBookingSize = new BookingSize(MAX_BOOKING_SIZE);
+        assertEquals(expectedBookingSize, ParserUtil.parseBookingSize(Integer.toString(MAX_BOOKING_SIZE)));
     }
 }
