@@ -1,13 +1,13 @@
 package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.LOYALTY_POINTS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.LOYALTY_POINTS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_INVALID_PHONE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_LOYALTY_POINTS_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_LOYALTY_POINTS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_PHONE_DESC_AMY;
@@ -51,7 +51,7 @@ public class AddMemberCommandSystemTest extends RestaurantBookSystemTest {
          */
         Member toAdd = AMY;
         String command = "   " + AddMemberCommand.COMMAND_WORD + "  " + MEMBER_NAME_DESC_AMY + "  "
-                + MEMBER_PHONE_DESC_AMY + " " + MEMBER_EMAIL_DESC_AMY + " " + LOYALTY_POINTS_DESC_AMY;
+                + MEMBER_PHONE_DESC_AMY + " " + MEMBER_EMAIL_DESC_AMY + " " + MEMBER_LOYALTY_POINTS_DESC_AMY;
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Amy to the list -> Amy deleted */
@@ -68,7 +68,7 @@ public class AddMemberCommandSystemTest extends RestaurantBookSystemTest {
         /* Case: add a member with all fields same as another member in the address book except name -> added */
         toAdd = new MemberBuilder(AMY).withName(MEMBER_VALID_NAME_BOB).build();
         command = AddMemberCommand.COMMAND_WORD + MEMBER_NAME_DESC_BOB + MEMBER_PHONE_DESC_AMY + MEMBER_EMAIL_DESC_AMY
-                + LOYALTY_POINTS_DESC_AMY;
+                + MEMBER_LOYALTY_POINTS_DESC_AMY;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a member with all fields same as another member in the address book except phone and email
@@ -84,7 +84,7 @@ public class AddMemberCommandSystemTest extends RestaurantBookSystemTest {
 
         /* Case: add a member, command with parameters in random order -> added */
         toAdd = BOB;
-        command = AddMemberCommand.COMMAND_WORD + LOYALTY_POINTS_DESC_BOB + MEMBER_PHONE_DESC_BOB
+        command = AddMemberCommand.COMMAND_WORD + MEMBER_LOYALTY_POINTS_DESC_BOB + MEMBER_PHONE_DESC_BOB
                 + MEMBER_NAME_DESC_BOB + MEMBER_EMAIL_DESC_BOB;
         assertCommandSuccess(command, toAdd);
 

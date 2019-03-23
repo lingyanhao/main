@@ -14,7 +14,7 @@ public class UpdateCapacityCommand extends Command {
 
     public static final String COMMAND_WORD = "updatecapacity";
     public static final String MESSAGE_SUCCESS = "Capacity successfully set to %1$s";
-    public static final String MESSAGE_FAILURE = "Unable to resize capacity"; // TODO: give a better error message
+    public static final String MESSAGE_FAILURE = "Unable to resize capacity- restaurant will be overbooked.";
 
     private Capacity capacity;
     public UpdateCapacityCommand(Capacity capacity) {
@@ -24,6 +24,9 @@ public class UpdateCapacityCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        if (!model.canUpdateCapacity(capacity)) {
+            throw new CommandException(MESSAGE_FAILURE);
+        }
         model.setCapacity(capacity);
         model.commitRestaurantBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, capacity));

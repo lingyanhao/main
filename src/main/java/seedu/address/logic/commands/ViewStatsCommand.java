@@ -26,12 +26,16 @@ public class ViewStatsCommand extends Command {
         this.days = days;
     }
 
-
-
-
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         new StatsWindow(Statistics.generateGraphData(model.getRestaurantBook().getBookingList(), days)).show();
         return new CommandResult(MESSAGE_SHOWING_STATS);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ViewStatsCommand // instanceof handles nulls
+                && days == ((ViewStatsCommand) other).days); // state check
     }
 }

@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.add.AddBookingCommand.MESSAGE_FULL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NUMBER_PERSONS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BOOKINGS;
@@ -68,6 +69,10 @@ public class EditBookingCommand extends Command {
 
         Booking bookingToEdit = lastShownList.get(index.getZeroBased());
         Booking editedBooking = createEditedBooking(bookingToEdit, editBookingDescriptor);
+
+        if (!model.canAccommodateEdit(bookingToEdit, editedBooking)) {
+            throw new CommandException(MESSAGE_FULL);
+        }
 
         try {
             model.setBooking(bookingToEdit, editedBooking); // TODO: do a capacity check

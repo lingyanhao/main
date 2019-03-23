@@ -14,12 +14,13 @@ import seedu.address.model.booking.BookingWindow;
 /**
  * Parses input arguments and creates a new AddBookingCommand object.
  */
-public class AddBookingCommandParser {
+public class AddBookingCommandParser implements Parser<AddBookingCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the AddBookingCommand
      * and returns an AddBookingCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
+    @Override
     public AddBookingCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_START_TIME, PREFIX_CUSTOMER, PREFIX_NUMBER_PERSONS);

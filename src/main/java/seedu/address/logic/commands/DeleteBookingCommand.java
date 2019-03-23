@@ -42,6 +42,9 @@ public class DeleteBookingCommand extends Command {
 
         Booking bookingToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteBooking(bookingToDelete);
+
+        // by right, deleting a booking should never cause the capacity to be exceeded
+        assert(model.getCapacity().canAccommodate(model.getFilteredBookingList()));
         model.commitRestaurantBook();
         return new CommandResult(String.format(MESSAGE_DELETE_BOOKING_SUCCESS, bookingToDelete));
     }

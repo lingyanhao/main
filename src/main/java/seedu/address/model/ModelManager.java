@@ -209,6 +209,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean canAccommodateEdit(Booking target, Booking editedBooking) {
+        return versionedRestaurantBook.canAccommodateEdit(target, editedBooking);
+    }
+
+    @Override
     public void setIngredient(Ingredient target, Ingredient editedIngredient) {
         requireAllNonNull(target, editedIngredient);
         versionedRestaurantBook.setIngredient(target, editedIngredient);
@@ -222,6 +227,11 @@ public class ModelManager implements Model {
     @Override
     public void setCapacity(Capacity newCapacity) {
         versionedRestaurantBook.setCapacity(newCapacity);
+    }
+
+    @Override
+    public boolean canUpdateCapacity(Capacity newCapacity) {
+        return versionedRestaurantBook.canUpdateCapacity(newCapacity);
     }
 
     //=========== Filtered Member List Accessors =============================================================

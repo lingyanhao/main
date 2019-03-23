@@ -18,7 +18,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.UpdateCapacityCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddBookingCommandParser;
-import seedu.address.logic.parser.DeleteCommandParser;
+import seedu.address.logic.parser.DeleteMemberCommandParser;
 import seedu.address.logic.parser.EditCommandParser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -97,7 +97,7 @@ public class AddBookingCommandSystemTest extends RestaurantBookSystemTest {
             assertCommandSuccess(commandString, model, commandHistory, expectedBookingList);
 
             String deleteAliceCommandString = " 1";
-            Command deleteAliceCommand = new DeleteCommandParser().parse(deleteAliceCommandString);
+            Command deleteAliceCommand = new DeleteMemberCommandParser().parse(deleteAliceCommandString);
             deleteAliceCommand.execute(model, commandHistory);
             expectedBookingList = Arrays.asList(benson1400);
 

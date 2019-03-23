@@ -135,6 +135,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public boolean canAccommodateEdit(Booking target, Booking editedBooking) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void setIngredient(Ingredient target, Ingredient editedMember) {
         throw new AssertionError("This method should not be called.");
     }
@@ -271,6 +276,11 @@ public class ModelStub implements Model {
 
     @Override
     public void setCapacity(Capacity newCapacity) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean canUpdateCapacity(Capacity newCapacity) {
         throw new AssertionError("This method should not be called.");
     }
 }

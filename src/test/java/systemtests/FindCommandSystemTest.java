@@ -10,7 +10,7 @@ import static seedu.address.testutil.TypicalMembers.KEYWORD_MATCHING_MEIER;
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteMemberCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -76,7 +76,7 @@ public class FindCommandSystemTest extends RestaurantBookSystemTest {
         assertCommandFailure(command, expectedResultMessage);
 
         /* Case: find same members in address book after deleting 1 of them -> 1 member found */
-        executeCommand(DeleteCommand.COMMAND_WORD + " 1");
+        executeCommand(DeleteMemberCommand.COMMAND_WORD + " 1");
         assertFalse(getModel().getRestaurantBook().getMemberList().contains(BENSON));
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
         expectedModel = getModel();
