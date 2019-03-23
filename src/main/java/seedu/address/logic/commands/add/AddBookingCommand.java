@@ -46,12 +46,9 @@ public class AddBookingCommand extends Command {
 
     private final CustomerIndexedBooking customerIndexedBooking;
 
-    public AddBookingCommand(BookingWindow bookingWindow, Index memberIndex, BookingSize numMembers) {
-        requireNonNull(bookingWindow);
-        requireNonNull(memberIndex);
-        requireNonNull(numMembers);
-        customerIndexedBooking = new CustomerIndexedBooking(bookingWindow, memberIndex, numMembers);
-
+    public AddBookingCommand(CustomerIndexedBooking customerIndexedBooking) {
+        requireNonNull(customerIndexedBooking);
+        this.customerIndexedBooking = customerIndexedBooking;
     }
 
     @Override
@@ -73,5 +70,12 @@ public class AddBookingCommand extends Command {
             model.commitRestaurantBook();
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AddBookingCommand // instanceof handles nulls
+                && customerIndexedBooking.equals(((AddBookingCommand) other).customerIndexedBooking)); // state check
     }
 }

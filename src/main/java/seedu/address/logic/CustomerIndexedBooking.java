@@ -5,9 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 import java.util.Optional;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.booking.Booking;
 import seedu.address.model.booking.BookingSize;
@@ -44,5 +42,14 @@ public class CustomerIndexedBooking {
             Member member = lastShownList.get(memberIndex.getZeroBased());
             return Optional.of(new Booking(bookingWindow, member, numMembers));
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof CustomerIndexedBooking // instanceof handles nulls
+                && bookingWindow.equals(((CustomerIndexedBooking) other).bookingWindow) // state check
+                && memberIndex.equals(((CustomerIndexedBooking) other).memberIndex)
+                && numMembers.equals(((CustomerIndexedBooking) other).numMembers));
     }
 }
