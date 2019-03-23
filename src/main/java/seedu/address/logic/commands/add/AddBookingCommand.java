@@ -5,11 +5,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NUMBER_PERSONS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 
-import java.util.List;
 import java.util.Optional;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.CustomerIndexedBooking;
 import seedu.address.logic.commands.Command;
@@ -17,9 +15,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.booking.Booking;
-import seedu.address.model.booking.BookingSize;
-import seedu.address.model.booking.BookingWindow;
-import seedu.address.model.person.Member;
 
 /**
  * A command that adds a booking to the restaurant book.
