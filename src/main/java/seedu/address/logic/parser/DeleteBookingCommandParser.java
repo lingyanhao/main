@@ -15,6 +15,7 @@ public class DeleteBookingCommandParser implements Parser<DeleteBookingCommand> 
      * and returns an DeleteBookingCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
+    @Override
     public DeleteBookingCommand parse(String args) throws ParseException {
         try {
             Index index = ParserUtil.parseIndex(args);

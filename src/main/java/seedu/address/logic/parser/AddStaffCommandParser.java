@@ -23,6 +23,7 @@ public class AddStaffCommandParser implements Parser<AddStaffCommand> {
      * and returns an ProcessedAddBookingCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
+    @Override
     public AddStaffCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_APPOINTMENT);

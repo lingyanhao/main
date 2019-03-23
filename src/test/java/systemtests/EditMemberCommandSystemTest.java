@@ -3,13 +3,13 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.LOYALTY_POINTS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.LOYALTY_POINTS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_INVALID_PHONE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_LOYALTY_POINTS_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_LOYALTY_POINTS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_PHONE_DESC_AMY;
@@ -18,7 +18,6 @@ import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_EMAIL_AM
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_PHONE_AMY;
-
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEMBERS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MEMBER;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MEMBER;
@@ -54,7 +53,7 @@ public class EditMemberCommandSystemTest extends RestaurantBookSystemTest {
          */
         Index index = INDEX_FIRST_MEMBER;
         String command = " " + EditMemberCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + MEMBER_NAME_DESC_BOB
-                + "  " + MEMBER_PHONE_DESC_BOB + " " + MEMBER_EMAIL_DESC_BOB + " " + LOYALTY_POINTS_DESC_BOB;
+                + "  " + MEMBER_PHONE_DESC_BOB + " " + MEMBER_EMAIL_DESC_BOB + " " + MEMBER_LOYALTY_POINTS_DESC_BOB;
         Member editedMember = new MemberBuilder(BOB).build();
         assertCommandSuccess(command, index, editedMember);
 
@@ -82,7 +81,7 @@ public class EditMemberCommandSystemTest extends RestaurantBookSystemTest {
         assertNotEquals(getModel().getFilteredMemberList().get(index.getZeroBased()), BOB);
         command = EditMemberCommand.COMMAND_WORD + " " + index.getOneBased()
                 + MEMBER_NAME_DESC_AMY + MEMBER_PHONE_DESC_BOB
-                + MEMBER_EMAIL_DESC_BOB + " " + LOYALTY_POINTS_DESC_BOB;
+                + MEMBER_EMAIL_DESC_BOB + " " + MEMBER_LOYALTY_POINTS_DESC_BOB;
         editedMember = new MemberBuilder(BOB).withName(MEMBER_VALID_NAME_AMY).build();
         assertCommandSuccess(command, index, editedMember);
 
@@ -133,7 +132,7 @@ public class EditMemberCommandSystemTest extends RestaurantBookSystemTest {
         selectMember(index);
         command = EditMemberCommand.COMMAND_WORD + " " + index.getOneBased()
                 + MEMBER_NAME_DESC_AMY + MEMBER_PHONE_DESC_AMY
-                + MEMBER_EMAIL_DESC_AMY + " " + LOYALTY_POINTS_DESC_AMY;
+                + MEMBER_EMAIL_DESC_AMY + " " + MEMBER_LOYALTY_POINTS_DESC_AMY;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new member's name
         assertCommandSuccess(command, index, AMY, index);

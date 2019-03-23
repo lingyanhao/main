@@ -31,12 +31,11 @@ public class ListMembersCommandParser implements Parser<ListMembersCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListMembersCommand.MESSAGE_USAGE));
         }
 
-        List<String> nameKeywords = null;
+        List<String> nameKeywords;
         if (argMultimap.getValue(PREFIX_NAME).isPresent()
                 && !argMultimap.getValue(PREFIX_NAME).get().trim().isEmpty()) {
             nameKeywords = Arrays.asList(argMultimap.getValue(PREFIX_NAME).get().split("\\s+"));
-        }
-        if (nameKeywords == null) {
+        } else {
             nameKeywords = new ArrayList<>(); // if no names given, set to empty list
         }
 

@@ -28,7 +28,7 @@ import seedu.address.model.person.exceptions.DuplicateItemException;
  */
 public class EditMemberCommand extends Command {
 
-    public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_WORD = "editmember";
     public static final String COMMAND_ALIAS = "e";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the member identified "

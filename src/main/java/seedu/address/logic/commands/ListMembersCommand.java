@@ -18,11 +18,9 @@ public class ListMembersCommand extends Command {
 
     public static final String COMMAND_WORD = "listmembers";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all members whose names contain any of\n"
-            + "the list of words (case-insensitive) and who has at least the specified amount of loyalty points\n"
-            + "and displays them as a list with index numbers. If the name field is not specified, then any name\n"
-            + "will match. If the loyalty points field is not specified, then any amount of points will match.\n"
-            + "If both is not specified, then all members will be listed.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all members whose names contain any of "
+            + "the list of words (case-insensitive) and who has at least the specified amount of loyalty points\n."
+            + "If fields are not specified, then all members will be listed.\n"
             + "Parameters: [" + PREFIX_NAME + "NAME_1 NAME_2...] [" + PREFIX_LOYALTY_POINTS + "MIN_LOYALTY_POINTS]\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie l/10";
 

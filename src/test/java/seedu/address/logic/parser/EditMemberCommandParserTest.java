@@ -4,13 +4,16 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_INVALID_EMAIL_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_INVALID_LOYALTY_POINTS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_INVALID_PHONE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_LOYALTY_POINTS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_LOYALTY_POINTS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_PHONE_BOB;
@@ -26,6 +29,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditMemberCommand;
 import seedu.address.logic.commands.EditMemberCommand.EditMemberDescriptor;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.LoyaltyPoints;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.testutil.EditMemberDescriptorBuilder;
@@ -66,19 +70,27 @@ public class EditMemberCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(parser, "1" + MEMBER_INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, "1" + MEMBER_INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS); // invalid phone
-        assertParseFailure(parser, "1" + MEMBER_INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
+        assertParseFailure(parser, "1" + MEMBER_INVALID_NAME_DESC,
+                Name.MESSAGE_CONSTRAINTS); // invalid name
+        assertParseFailure(parser, "1" + MEMBER_INVALID_PHONE_DESC,
+                Phone.MESSAGE_CONSTRAINTS); // invalid phone
+        assertParseFailure(parser, "1" + MEMBER_INVALID_EMAIL_DESC,
+                Email.MESSAGE_CONSTRAINTS); // invalid email
+        assertParseFailure(parser, "1" + MEMBER_INVALID_LOYALTY_POINTS_DESC,
+                LoyaltyPoints.MESSAGE_CONSTRAINTS); // invalid email
 
         // invalid phone followed by valid email
-        assertParseFailure(parser, "1" + MEMBER_INVALID_PHONE_DESC + MEMBER_EMAIL_DESC_AMY, Phone.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + MEMBER_INVALID_PHONE_DESC + MEMBER_EMAIL_DESC_AMY,
+                Phone.MESSAGE_CONSTRAINTS);
 
         // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, "1" + MEMBER_PHONE_DESC_BOB + MEMBER_INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + MEMBER_PHONE_DESC_BOB + MEMBER_INVALID_PHONE_DESC,
+                Phone.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + MEMBER_INVALID_NAME_DESC + MEMBER_INVALID_EMAIL_DESC + MEMBER_VALID_PHONE_AMY,
+        assertParseFailure(parser, "1" + MEMBER_INVALID_NAME_DESC + MEMBER_INVALID_EMAIL_DESC
+                        + MEMBER_VALID_PHONE_AMY,
                 Name.MESSAGE_CONSTRAINTS);
     }
 
@@ -86,10 +98,11 @@ public class EditMemberCommandParserTest {
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_MEMBER;
         String userInput = targetIndex.getOneBased() + MEMBER_PHONE_DESC_BOB
-                + MEMBER_EMAIL_DESC_AMY + MEMBER_NAME_DESC_AMY;
+                + MEMBER_EMAIL_DESC_AMY + MEMBER_NAME_DESC_AMY + MEMBER_LOYALTY_POINTS_DESC_BOB;
 
         EditMemberDescriptor descriptor = new EditMemberDescriptorBuilder().withName(MEMBER_VALID_NAME_AMY)
-                .withPhone(MEMBER_VALID_PHONE_BOB).withEmail(MEMBER_VALID_EMAIL_AMY).build();
+                .withPhone(MEMBER_VALID_PHONE_BOB).withEmail(MEMBER_VALID_EMAIL_AMY)
+                .withLoyaltyPoints(MEMBER_VALID_LOYALTY_POINTS_BOB).build();
         EditMemberCommand expectedCommand = new EditMemberCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);

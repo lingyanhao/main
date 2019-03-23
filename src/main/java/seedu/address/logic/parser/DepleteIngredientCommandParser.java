@@ -13,7 +13,7 @@ import seedu.address.model.ingredient.IngredientQuantity;
 /**
  * Parses input arguments and creates a new DepleteIngredientCommand.
  */
-public class DepleteIngredientCommandParser implements Parser {
+public class DepleteIngredientCommandParser implements Parser<DepleteIngredientCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the DepleteIngredientCommand
