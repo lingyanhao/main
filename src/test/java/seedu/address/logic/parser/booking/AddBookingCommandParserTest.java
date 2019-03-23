@@ -1,7 +1,6 @@
 package seedu.address.logic.parser.booking;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NUMBER_PERSONS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
@@ -23,7 +22,7 @@ public class AddBookingCommandParserTest {
     public void parse_allFieldsPresent_success() {
         CustomerIndexedBooking expectedBooking = new CustomerIndexedBookingBuilder().build();
 
-        // whitespace only preamble
+        // normal input
         String commandString = " " + PREFIX_START_TIME + DEFAULT_START_TIME + " " + PREFIX_CUSTOMER
                 + "1 " + PREFIX_NUMBER_PERSONS + "5";
         assertParseSuccess(parser, commandString, new AddBookingCommand(expectedBooking));
@@ -38,12 +37,12 @@ public class AddBookingCommandParserTest {
         assertParseFailure(parser, commandString, expectedMessage);
 
         // missing member index
-        commandString = PREAMBLE_WHITESPACE + PREFIX_START_TIME + DEFAULT_START_TIME + " " + "1 "
+        commandString = " " + PREFIX_START_TIME + DEFAULT_START_TIME + " " + "1 "
                 + PREFIX_NUMBER_PERSONS + "5";
         assertParseFailure(parser, commandString, expectedMessage);
 
         // missing number of persons
-        commandString = PREAMBLE_WHITESPACE + PREFIX_START_TIME + DEFAULT_START_TIME + " " + PREFIX_CUSTOMER + "1 ";
+        commandString = " " + PREFIX_START_TIME + DEFAULT_START_TIME + " " + PREFIX_CUSTOMER + "1 ";
         assertParseFailure(parser, commandString, expectedMessage);
     }
 }
