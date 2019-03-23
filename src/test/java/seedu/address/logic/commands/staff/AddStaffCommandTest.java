@@ -124,7 +124,7 @@ public class AddStaffCommandTest {
 
         @Override
         public void commitRestaurantBook() {
-            // called by {@code ProcessedAddBookingCommand#execute()}
+            // called by {@code AddStaffCommand#execute()}
         }
 
         @Override
