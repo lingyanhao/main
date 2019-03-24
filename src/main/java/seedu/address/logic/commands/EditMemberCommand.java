@@ -97,8 +97,7 @@ public class EditMemberCommand extends Command {
         Email updatedEmail = editMemberDescriptor.getEmail().orElse(memberToEdit.getEmail());
         LoyaltyPoints loyaltyPoints = editMemberDescriptor.getLoyaltyPoints().orElse(memberToEdit.getLoyaltyPoints());
 
-        return new Member(updatedName, updatedPhone, updatedEmail,
-                loyaltyPoints, memberToEdit);
+        return new Member(updatedName, updatedPhone, updatedEmail, loyaltyPoints);
     }
 
     @Override
