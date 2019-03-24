@@ -25,6 +25,7 @@ public class IngredientQuantityTest {
         // invalid ingredientQuantity
         assertFalse(IngredientQuantity.isValidIngredientQuantity(" ")); // spaces only
         assertFalse(IngredientQuantity.isValidIngredientQuantity("-1")); // negative not allowed
+        assertFalse(IngredientQuantity.isValidIngredientQuantity("+1")); // positive sign not allowed
         assertFalse(IngredientQuantity
                 .isValidIngredientQuantity(Long.toString(Integer.MAX_VALUE + 1))); // out of range not allowed
 
