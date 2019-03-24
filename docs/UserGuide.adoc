@@ -461,7 +461,7 @@ Example
 
 * `deleteStaff 3`
 
-=== Edit Staff: `editStaff`
+==== Edit Staff: `editStaff`
 
 Edits the staff member with the specified index.
 
