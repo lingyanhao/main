@@ -1,5 +1,8 @@
 package seedu.address.model;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
@@ -18,12 +21,28 @@ public class Statistics {
     public static final String DATE_PATTERN = "dd MMM yyyy";
     public static final int MAX_BARS = 20;
     public static final int MAX_BAR_SIZE = 500;
+    public static final String MESSAGE_CONSTRAINTS = "Days should be an integer between 1 and "
+            + getMaxDays() + " inclusive.";
+
+    private final ObservableList<Booking> bookings;
+    private final int days;
+    private final int bucketSize;
+    private final int numBuckets;
+
+    public Statistics(ObservableList<Booking> bookings, int days) {
+        checkArgument(1 <= days && days <= getMaxDays() , MESSAGE_CONSTRAINTS);
+        requireNonNull(bookings);
+        this.bookings = bookings;
+        this.days = days;
+        bucketSize = (days + MAX_BARS - 1) / MAX_BARS; // ceiling of days / MAX_BARS
+        numBuckets = (days + bucketSize - 1) / bucketSize; // ceiling of days / bucketSize
+    }
 
     public static int getMaxDays() {
         return MAX_BARS * MAX_BAR_SIZE;
     }
 
-    private static int getDaysDifference(LocalDate start, LocalDate end) {
+    private int getDaysDifference(LocalDate start, LocalDate end) {
         return Period.between(start, end).getDays();
     }
 
@@ -32,7 +51,7 @@ public class Statistics {
      * @param date the date
      * @return the formatted String
      */
-    private static String formatDate(LocalDate date) {
+    private String formatDate(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
         return date.format(formatter);
     }
@@ -43,7 +62,7 @@ public class Statistics {
      * @param end the ending date. Should be after start.
      * @return the formatted String
      */
-    private static String formatDate(LocalDate start, LocalDate end) {
+    private String formatDate(LocalDate start, LocalDate end) {
         if (start.isEqual(end)) {
             return formatDate(start);
         }
@@ -57,7 +76,7 @@ public class Statistics {
      * @param numBuckets the number of bars to display
      * @return the list of data
      */
-    private static List<Data<String, Integer>> generateGraphData(ObservableList<Booking> bookings,
+    private List<Data<String, Integer>> generateGraphData(ObservableList<Booking> bookings,
                                                                 int bucketSize, int numBuckets) {
         assert(bucketSize <= MAX_BAR_SIZE);
         assert(numBuckets <= MAX_BARS);
@@ -88,14 +107,9 @@ public class Statistics {
 
     /**
      * Generates the data for the bar graph for the last many days
-     * @param bookings the list of bookings
-     * @param days to collate booking statistics for the last many days
-     * @return
+     * @return the list of data points
      */
-    public static List<Data<String, Integer>> generateGraphData(ObservableList<Booking> bookings, int days) {
-        assert(days <= getMaxDays());
-        int bucketSize = (days + MAX_BARS - 1) / MAX_BARS; // ceiling of days/MAX_BARS
-        int numBuckets = (days + bucketSize - 1) / bucketSize; // ceiling of days/bucketSize
+    public List<Data<String, Integer>> generateGraphData() {
         return generateGraphData(bookings, bucketSize, numBuckets);
     }
 }
