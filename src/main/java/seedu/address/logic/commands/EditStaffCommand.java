@@ -29,7 +29,7 @@ import seedu.address.model.person.exceptions.DuplicateItemException;
 public class EditStaffCommand extends Command {
 
     public static final String COMMAND_WORD = "editstaff";
-    public static final String COMMAND_ALIAS = "e";
+    public static final String COMMAND_ALIAS = "es";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the staff identified "
             + "by the index number used in the displayed staff list. "
