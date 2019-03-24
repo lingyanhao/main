@@ -10,6 +10,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.CustomerIndexedBooking;
@@ -59,6 +60,18 @@ public class AddBookingCommandTest {
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddBookingCommand.MESSAGE_DUPLICATE);
         addBookingCommand.execute(model, commandHistory);
+    }
+
+    @Test
+    public void execute_customerIndexOutOfBounds_throwsCommandException() throws Exception {
+        Index outOfBoundsIndex = Index.fromZeroBased(model.getFilteredMemberList().size());
+        CustomerIndexedBooking invalidBooking = new CustomerIndexedBookingBuilder().withIndex(outOfBoundsIndex).build();
+        AddBookingCommand invalidAddBookingCommand = new AddBookingCommand(invalidBooking);
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(Messages.MESSAGE_INVALID_MEMBER_DISPLAYED_INDEX);
+
+        invalidAddBookingCommand.execute(model, commandHistory);
     }
 
     @Test

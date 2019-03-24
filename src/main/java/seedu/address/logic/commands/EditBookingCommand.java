@@ -75,7 +75,7 @@ public class EditBookingCommand extends Command {
         }
 
         try {
-            model.setBooking(bookingToEdit, editedBooking); // TODO: do a capacity check
+            model.setBooking(bookingToEdit, editedBooking);
         } catch (DuplicateItemException e) {
             throw new CommandException(MESSAGE_DUPLICATE_BOOKING);
         }
@@ -92,10 +92,17 @@ public class EditBookingCommand extends Command {
     private static Booking createEditedBooking(Booking bookingToEdit, EditBookingDescriptor editBookingDescriptor) {
         assert bookingToEdit != null;
 
-        Member updatedMember = editBookingDescriptor.getMember().orElse(bookingToEdit.getCustomer());
         BookingWindow bookingWindow = editBookingDescriptor.getBookingWindow().orElse(bookingToEdit.getBookingWindow());
         BookingSize bookingSize = editBookingDescriptor.getBookingSize().orElse(bookingToEdit.getNumMembers());
-        return new Booking(bookingWindow, updatedMember, bookingSize);
+        return new Booking(bookingWindow, bookingToEdit.getCustomer(), bookingSize);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof EditBookingCommand // instanceof handles nulls
+                && index.equals(((EditBookingCommand) other).index)
+                && editBookingDescriptor.equals(((EditBookingCommand) other).editBookingDescriptor)); // state check
     }
 
     /**
@@ -103,7 +110,6 @@ public class EditBookingCommand extends Command {
      * corresponding field value of the booking.
      */
     public static class EditBookingDescriptor {
-        private Member member;
         private BookingWindow bookingWindow;
         private BookingSize bookingSize;
 
@@ -114,7 +120,6 @@ public class EditBookingCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditBookingDescriptor(EditBookingDescriptor toCopy) {
-            setMember(toCopy.member);
             setBookingWindow(toCopy.bookingWindow);
             setBookingSize(toCopy.bookingSize);
         }
@@ -123,15 +128,7 @@ public class EditBookingCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(member, bookingWindow, bookingSize);
-        }
-
-        public void setMember(Member member) {
-            this.member = member;
-        }
-
-        public Optional<Member> getMember() {
-            return Optional.ofNullable(member);
+            return CollectionUtil.isAnyNonNull(bookingWindow, bookingSize);
         }
 
         public void setBookingWindow(BookingWindow bookingWindow) {
@@ -165,8 +162,7 @@ public class EditBookingCommand extends Command {
             // state check
             EditBookingDescriptor e = (EditBookingDescriptor) other;
 
-            return getMember().equals(e.getMember())
-                    && getBookingWindow().equals(e.getBookingWindow())
+            return getBookingWindow().equals(e.getBookingWindow())
                     && getBookingSize().equals(e.getBookingSize());
         }
     }
