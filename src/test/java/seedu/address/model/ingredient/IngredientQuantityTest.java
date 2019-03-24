@@ -13,11 +13,6 @@ public class IngredientQuantityTest {
     public void constructor_invalidIngredientQuantity_throwsIllegalArgumentException() {
         Assert.assertThrows(IllegalArgumentException.class, ()
             -> new IngredientQuantity(-1)); //negative not allowed
-
-        Assert.assertThrows(IllegalArgumentException.class, ()
-            -> new IngredientQuantity(Integer.MAX_VALUE + 1)); //out of range
-
-
     }
 
     @Test
@@ -26,8 +21,9 @@ public class IngredientQuantityTest {
         assertFalse(IngredientQuantity.isValidIngredientQuantity(" ")); // spaces only
         assertFalse(IngredientQuantity.isValidIngredientQuantity("-1")); // negative not allowed
         assertFalse(IngredientQuantity.isValidIngredientQuantity("+1")); // positive sign not allowed
+        Long outOfRange = new Long(Integer.MAX_VALUE) + 1;
         assertFalse(IngredientQuantity
-                .isValidIngredientQuantity(Long.toString(Integer.MAX_VALUE + 1))); // out of range not allowed
+                .isValidIngredientQuantity(Long.toString(outOfRange))); // out of range not allowed
 
         // valid phone numbers
         assertTrue(IngredientQuantity.isValidIngredientQuantity("943")); // positive integer
