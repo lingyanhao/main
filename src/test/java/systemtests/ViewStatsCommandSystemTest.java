@@ -10,10 +10,8 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 import org.junit.Test;
 
 import guitests.GuiRobot;
-import guitests.guihandles.HelpWindowHandle;
 import guitests.guihandles.StatsWindowHandle;
 import seedu.address.logic.commands.DeleteMemberCommand;
-import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.ViewStatsCommand;
 import seedu.address.ui.StatusBarFooter;

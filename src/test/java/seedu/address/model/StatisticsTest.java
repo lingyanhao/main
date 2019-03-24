@@ -44,7 +44,8 @@ public class StatisticsTest {
     @Test
     public void constructor_invalidDays_throwsIllegalArgumentException() {
         Assert.assertThrows(IllegalArgumentException.class, () -> new Statistics(emptyBookings, 0));
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Statistics(emptyBookings, Statistics.getMaxDays() + 1));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Statistics(emptyBookings,
+                Statistics.getMaxDays() + 1));
     }
 
     @Test
