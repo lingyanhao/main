@@ -35,11 +35,7 @@ public class IngredientQuantity {
      * @return
      */
     public static boolean isValidIngredientQuantity(String test) {
-        if (StringUtil.isUnsignedInteger(test)) {
-            return true;
-        } else {
-            return false;
-        }
+        return StringUtil.isUnsignedInteger(test);
     }
 
 
