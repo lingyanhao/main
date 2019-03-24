@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_UNIT;
@@ -21,6 +22,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.RestaurantBook;
+import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Member;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.testutil.EditMemberDescriptorBuilder;
@@ -30,6 +32,15 @@ import seedu.address.testutil.EditMemberDescriptorBuilder;
  */
 public class CommandTestUtil {
 
+    //General
+    public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
+    public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
+
+    public static final String VALID_INDEX_DESC = " " + PREFIX_INDEX + "1";
+
+    public static final String INVALID_INDEX_DESC = " " + PREFIX_INDEX + "-1"; //negative not allowed
+
+    //Related to persons
     public static final String MEMBER_VALID_NAME_AMY = "Amy Bee";
     public static final String MEMBER_VALID_NAME_BOB = "Bob Choo";
     public static final String MEMBER_VALID_PHONE_AMY = "11111111";
@@ -63,6 +74,8 @@ public class CommandTestUtil {
     public static final String MEMBER_INVALID_LOYALTY_POINTS_DESC = " " + PREFIX_LOYALTY_POINTS
             + "26.0"; // . not allowed
 
+
+    //Related to ingredients
     public static final String INGREDIENT_VALID_NAME_CHEESE = "cheese";
     public static final String INGREDIENT_VALID_NAME_TOMATO = "tomato";
     public static final String INGREDIENT_VALID_QUANTITY_CHEESE = "4";
@@ -70,8 +83,7 @@ public class CommandTestUtil {
     public static final String INGREDIENT_VALID_UNIT_CHEESE = "pounds";
     public static final String INGREDIENT_VALID_UNIT_TOMATO = "pieces";
     public static final String INGREDIENT_VALID_WARNINGAMT_CHEESE = "3";
-    public static final String INGREDIENT_VALID_WARNINGAMT_TOMATO = "4";
-
+    public static final String INGREDIENT_VALID_WARNINGAMT_TOMATO = "2";
 
 
     public static final String INGREDIENT_NAME_DESC_CHEESE =
@@ -102,11 +114,6 @@ public class CommandTestUtil {
             + "3@"; // symbols not allowed
     public static final String INGREDIENT_INVALID_WARNINGAMOUNT_DESC =
             " " + PREFIX_INGREDIENT_WARNINGAMOUNT + "3.0"; // decimals not allowed
-
-
-    public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
-    public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
-
     public static final EditMemberCommand.EditMemberDescriptor MEMBER_DESC_AMY;
     public static final EditMemberCommand.EditMemberDescriptor MEMBER_DESC_BOB;
 
@@ -126,7 +133,7 @@ public class CommandTestUtil {
      * - the {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            CommandResult expectedCommandResult, Model expectedModel) {
+                                            CommandResult expectedCommandResult, Model expectedModel) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
             CommandResult result = command.execute(actualModel, actualCommandHistory);
@@ -143,7 +150,7 @@ public class CommandTestUtil {
      * that takes a string {@code expectedMessage}.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            String expectedMessage, Model expectedModel) {
+                                            String expectedMessage, Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         assertCommandSuccess(command, actualModel, actualCommandHistory, expectedCommandResult, expectedModel);
     }
@@ -156,7 +163,7 @@ public class CommandTestUtil {
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            String expectedMessage) {
+                                            String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         RestaurantBook expectedRestaurantBook = new RestaurantBook(actualModel.getRestaurantBook());
@@ -189,6 +196,22 @@ public class CommandTestUtil {
         model.updateFilteredMemberList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredMemberList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the ingredient at the given {@code targetIndex} in the
+     * {@code model}'s restaurant book.
+     */
+    public static void showIngredientAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredIngredientList().size());
+
+        Ingredient ingredient = model.getFilteredIngredientList().get(targetIndex.getZeroBased());
+        String ingredientName = ingredient.getIngredientName().getName();
+        model.updateFilteredIngredientList(p ->
+                p.getIngredientName().getName().equalsIgnoreCase(ingredientName));
+
+
+        assertEquals(1, model.getFilteredIngredientList().size());
     }
 
     /**

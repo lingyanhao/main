@@ -1,5 +1,7 @@
 package seedu.address.model.ingredient;
 
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
 import seedu.address.commons.util.StringUtil;
 
 /**
@@ -8,7 +10,7 @@ import seedu.address.commons.util.StringUtil;
 public class IngredientWarningAmount {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Ingredient's warning amount should be non-zero unsigned integer.";
+            "Ingredient's warning amount should be non-negative integer.";
 
     // Identity fields
     private int ingredientWarningAmount;
@@ -19,8 +21,8 @@ public class IngredientWarningAmount {
      * @param warningAmount A valid warningAmount, an integer that is non-negative.
      */
     public IngredientWarningAmount(int warningAmount) {
+        checkArgument(isValidIngredientWarningAmount(Integer.toString(warningAmount)), MESSAGE_CONSTRAINTS);
         this.ingredientWarningAmount = warningAmount;
-
     }
 
     public int getWarningAmount() {
@@ -34,7 +36,7 @@ public class IngredientWarningAmount {
      * @return
      */
     public static boolean isValidIngredientWarningAmount(String test) {
-        if (StringUtil.isNonZeroUnsignedInteger(test)) {
+        if (StringUtil.isUnsignedInteger(test)) {
             return true;
         } else {
             return false;

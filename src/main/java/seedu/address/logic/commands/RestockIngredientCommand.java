@@ -14,7 +14,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.IngredientQuantity;
-import seedu.address.model.person.exceptions.DuplicateItemException;
 
 /**
  * Restocks the quantity of existing ingredient in the restaurant book.
@@ -36,14 +35,13 @@ public class RestockIngredientCommand extends Command {
             + PREFIX_INGREDIENT_QUANTITY + "10 ";
 
     public static final String MESSAGE_SUCCESS = "Restocked Ingredient: %1$s";
-    public static final String MESSAGE_DUPLICATE = "Ingredient is already in list";
 
 
     private final Index index;
     private final IngredientQuantity quantityToRestock;
 
     /**
-     * Creates an RestockIngredientCmmand to restock the specified {@code Ingredient}
+     * Creates an RestockIngredientCommand to restock the specified {@code Ingredient}
      *
      * @param index
      */
@@ -65,11 +63,8 @@ public class RestockIngredientCommand extends Command {
         Ingredient ingredientToRestock = lastShownList.get(index.getZeroBased());
         Ingredient restockedIngredient = createRestockedIngredient(ingredientToRestock, quantityToRestock);
 
-        try {
-            model.setIngredient(ingredientToRestock, restockedIngredient);
-        } catch (DuplicateItemException e) {
-            throw new CommandException(MESSAGE_DUPLICATE);
-        }
+        model.setIngredient(ingredientToRestock, restockedIngredient);
+
 
         model.updateFilteredIngredientList(PREDICATE_SHOW_ALL_INGREDIENTS);
         model.commitRestaurantBook();
