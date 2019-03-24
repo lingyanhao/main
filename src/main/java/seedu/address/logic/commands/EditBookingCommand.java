@@ -18,7 +18,6 @@ import seedu.address.model.Model;
 import seedu.address.model.booking.Booking;
 import seedu.address.model.booking.BookingSize;
 import seedu.address.model.booking.BookingWindow;
-import seedu.address.model.person.Member;
 import seedu.address.model.person.exceptions.DuplicateItemException;
 
 /**
