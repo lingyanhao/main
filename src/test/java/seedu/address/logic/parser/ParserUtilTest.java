@@ -71,7 +71,7 @@ public class ParserUtilTest {
     public void parseIndex_outOfRangeInput_throwsParseException() throws Exception {
         thrown.expect(ParseException.class);
         thrown.expectMessage(MESSAGE_INVALID_INDEX);
-        ParserUtil.parseIndex(Long.toString((long)Integer.MAX_VALUE + 1));
+        ParserUtil.parseIndex(Long.toString((long) Integer.MAX_VALUE + 1));
     }
 
     @Test
@@ -209,7 +209,7 @@ public class ParserUtilTest {
     @Test
     public void parseIngredientQuantity_invalidOutOfRange_throwsExcepion() throws Exception {
         thrown.expect(ParseException.class);
-        ParserUtil.parseIngredientQuantity(Long.toString((long)Integer.MAX_VALUE + 1));
+        ParserUtil.parseIngredientQuantity(Long.toString((long) Integer.MAX_VALUE + 1));
     }
 
     @Test
@@ -281,7 +281,7 @@ public class ParserUtilTest {
     @Test
     public void parseIngredientWarningAmount_invalidOutOfRange_throwsExcepion() throws Exception {
         thrown.expect(ParseException.class);
-        ParserUtil.parseIngredientWarningAmount(Long.toString((long)Integer.MAX_VALUE + 1));
+        ParserUtil.parseIngredientWarningAmount(Long.toString((long) Integer.MAX_VALUE + 1));
     }
 
     @Test
