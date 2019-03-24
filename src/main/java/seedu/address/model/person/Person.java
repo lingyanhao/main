@@ -13,36 +13,19 @@ import seedu.address.model.Item;
 
 public abstract class Person implements Item {
 
-    private static int idCounter = 0;
-
     // Identity fields
     protected final Name name;
     protected final Phone phone;
     protected final Email email;
-    protected final int id;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, int id) {
+    public Person(Name name, Phone phone, Email email) {
         requireAllNonNull(name, phone, email);
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.id = id;
-    }
-
-    /**
-     * Creates a new member with the same ID as another member.
-     * Used for editing a member's details so that the system can track that it is the same member.
-     */
-    public Person(Name name, Phone phone, Email email, Member other) {
-        requireAllNonNull(name, phone, email, other);
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        id = other.id;
-        // Take note: do not increment idCounter here, this is intentional
     }
 
     public Name getName() {
@@ -55,10 +38,6 @@ public abstract class Person implements Item {
 
     public Email getEmail() {
         return email;
-    }
-
-    public boolean hasSameId(Member other) {
-        return id == other.id;
     }
 
     @Override
@@ -77,5 +56,4 @@ public abstract class Person implements Item {
                 .append(getEmail());
         return builder.toString();
     }
-
 }

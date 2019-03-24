@@ -17,13 +17,13 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 
 /**
- * Parses input arguments and creates a new ProcessedAddBookingCommand object.
+ * Parses input arguments and creates a new AddMemberCommand object.
  */
 public class AddMemberCommandParser implements Parser<AddMemberCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the ProcessedAddBookingCommand
-     * and returns an ProcessedAddBookingCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddMemberCommand
+     * and returns an AddMemberCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     @Override

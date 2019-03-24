@@ -8,25 +8,13 @@ import java.util.Objects;
  */
 public class Member extends Person {
 
-    private static int idCounter = 0;
     private LoyaltyPoints loyaltyPoints;
 
     /**
      * Every field must be present and not null.
      */
     public Member(Name name, Phone phone, Email email, LoyaltyPoints loyaltyPoints) {
-        super(name, phone, email, idCounter);
-        idCounter++;
-        this.loyaltyPoints = loyaltyPoints;
-    }
-
-    /**
-     * Creates a new member with the same ID as another member.
-     * Used for editing a member's details so that the system can track that it is the same member.
-     */
-    public Member(Name name, Phone phone, Email email, LoyaltyPoints loyaltyPoints, Member other) {
-        super(name, phone, email, other.id);
-        // Take note: do not increment idCounter here, this is intentional
+        super(name, phone, email);
         this.loyaltyPoints = loyaltyPoints;
     }
 
