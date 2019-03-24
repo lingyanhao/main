@@ -12,7 +12,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditBookingCommand;
 import seedu.address.logic.commands.EditBookingCommand.EditBookingDescriptor;
 import seedu.address.logic.parser.EditBookingCommandParser;
-import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.booking.BookingSize;
 import seedu.address.model.booking.BookingWindow;
 
