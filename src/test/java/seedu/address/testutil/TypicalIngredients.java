@@ -39,6 +39,7 @@ public class TypicalIngredients {
             .withIngredientWarningAmount(1).build();
 
     public static final int TYPICAL_RESTOCK_AMOUNT = 1;
+    public static final int TYPICAL_CONSUME_AMOUNT = 1;
 
 
     private TypicalIngredients() {} // prevents instantiation

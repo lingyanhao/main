@@ -8,11 +8,11 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.ConsumeIngredientCommand;
 import seedu.address.logic.commands.DeleteBookingCommand;
 import seedu.address.logic.commands.DeleteIngredientCommand;
 import seedu.address.logic.commands.DeleteMemberCommand;
 import seedu.address.logic.commands.DeleteStaffCommand;
-import seedu.address.logic.commands.DepleteIngredientCommand;
 import seedu.address.logic.commands.EditBookingCommand;
 import seedu.address.logic.commands.EditMemberCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -146,9 +146,9 @@ public class RestaurantBookParser {
         case RestockIngredientCommand.COMMAND_ALIAS:
             return new RestockIngredientCommandParser().parse(arguments);
 
-        case DepleteIngredientCommand.COMMAND_WORD:
-        case DepleteIngredientCommand.COMMAND_ALIAS:
-            return new DepleteIngredientCommandParser().parse(arguments);
+        case ConsumeIngredientCommand.COMMAND_WORD:
+        case ConsumeIngredientCommand.COMMAND_ALIAS:
+            return new ConsumeIngredientCommandParser().parse(arguments);
 
         case ViewStatsCommand.COMMAND_WORD:
             return new ViewStatsCommandParser().parse(arguments);

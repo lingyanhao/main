@@ -13,8 +13,13 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+
 import seedu.address.model.booking.BookingSize;
 import seedu.address.model.booking.BookingWindow;
+import seedu.address.model.ingredient.IngredientName;
+import seedu.address.model.ingredient.IngredientQuantity;
+import seedu.address.model.ingredient.IngredientUnit;
+import seedu.address.model.ingredient.IngredientWarningAmount;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.LoyaltyPoints;
 import seedu.address.model.person.Name;
@@ -37,6 +42,20 @@ public class ParserUtilTest {
     private static final String WRONG_DATE_FORMAT = "2019-02-28T1200";
     private static final String VALID_FEB_29 = "2020-02-29T12:00";
 
+    private static final String INVALID_INGREDIENTNAME_INTEGER = "10";
+    private static final String INVALID_INGREDIENTNAME_SYMBOLS = "cheese@4";
+    private static final String INVALID_INGREDIENTUNIT_INTEGER = "1";
+    private static final String INVALID_INGREDIENTUNIT_SYMBOLS = "sac3`k";
+    private static final int INVALID_INGREDIENTQUANTITY_NEGATIVE = -1;
+    private static final int INVALID_INGREDIENTWARNINGAMT_NEGATIVE = -1;
+
+    private static final String VALID_INGREDIENTNAME = "cheese";
+    private static final int VALID_INGREDIENTQUANTITY_POSITIVEINT = 1;
+    private static final int VALID_INGREDIENTQUANTITY_ZERO = 0;
+    private static final String VALID_INGREDIENTUNIT = "sacks";
+    private static final int VALID_INGREDIENTWARNINGAMT_POSITIVEINT = 1;
+    private static final int VALID_INGREDIENTWARNINGAMT_ZERO = 0;
+
     private static final String WHITESPACE = " \t\r\n";
 
     @Rule
@@ -52,7 +71,7 @@ public class ParserUtilTest {
     public void parseIndex_outOfRangeInput_throwsParseException() throws Exception {
         thrown.expect(ParseException.class);
         thrown.expectMessage(MESSAGE_INVALID_INDEX);
-        ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1));
+        ParserUtil.parseIndex(Long.toString((long)Integer.MAX_VALUE + 1));
     }
 
     @Test
@@ -152,6 +171,147 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseIngredientName_invalidNonAlphabetValue_throwsException() throws Exception {
+        thrown.expect(ParseException.class);
+        ParserUtil.parseIngredientName(INVALID_INGREDIENTNAME_INTEGER);
+    }
+
+    @Test
+    public void parseIngredientName_invalidSymbolsValue_throwsExcetpion() throws Exception {
+        thrown.expect(ParseException.class);
+        ParserUtil.parseIngredientName(INVALID_INGREDIENTNAME_SYMBOLS);
+    }
+
+    @Test
+    public void parseIngredientName_null_throwsException() throws Exception {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseIngredientName((String) null));
+    }
+
+
+    @Test
+    public void parseIngredientName_validValue_returnsIngredientName() throws Exception {
+        String ingredientNameWithWhiteSpace = WHITESPACE + VALID_INGREDIENTNAME + WHITESPACE;
+        IngredientName expectedIngredientName = new IngredientName(VALID_INGREDIENTNAME);
+
+        //with white space
+        assertEquals(expectedIngredientName, ParserUtil.parseIngredientName((ingredientNameWithWhiteSpace)));
+
+        //without white space
+        assertEquals(expectedIngredientName, ParserUtil.parseIngredientName((VALID_INGREDIENTNAME)));
+    }
+
+    @Test
+    public void parseIngredientQuantity_invalidNegativeValue_throwsExcepion() throws Exception {
+        thrown.expect(ParseException.class);
+        ParserUtil.parseIngredientQuantity(Integer.toString(INVALID_INGREDIENTQUANTITY_NEGATIVE));
+    }
+
+    @Test
+    public void parseIngredientQuantity_invalidOutOfRange_throwsExcepion() throws Exception {
+        thrown.expect(ParseException.class);
+        ParserUtil.parseIngredientQuantity(Long.toString((long)Integer.MAX_VALUE + 1));
+    }
+
+    @Test
+    public void parseIngredientQuantity_null_throwsException() throws Exception {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseIngredientQuantity((String) null));
+    }
+    @Test
+    public void parseIngredientQuantity_validValue_returnsIngredientQuantity() throws Exception {
+        String posIngredientQuantityWithWhiteSpace = WHITESPACE + VALID_INGREDIENTQUANTITY_POSITIVEINT + WHITESPACE;
+        IngredientQuantity posExpectedIngredientQuantity = new IngredientQuantity(VALID_INGREDIENTQUANTITY_POSITIVEINT);
+
+        //positive integer with white space
+        assertEquals(posExpectedIngredientQuantity,
+                ParserUtil.parseIngredientQuantity((posIngredientQuantityWithWhiteSpace)));
+
+        //positive integer without white space
+        assertEquals(posExpectedIngredientQuantity,
+                ParserUtil.parseIngredientQuantity((Integer.toString(VALID_INGREDIENTQUANTITY_POSITIVEINT))));
+
+        String zeroIngredientQuantityWithWhiteSpace = WHITESPACE + VALID_INGREDIENTQUANTITY_ZERO + WHITESPACE;
+        IngredientQuantity zeroExpectedIngredientQuantity = new IngredientQuantity(VALID_INGREDIENTQUANTITY_ZERO);
+
+        //zero with white space
+        assertEquals(zeroExpectedIngredientQuantity,
+                ParserUtil.parseIngredientQuantity((zeroIngredientQuantityWithWhiteSpace)));
+
+        //zero without white space
+        assertEquals(zeroExpectedIngredientQuantity,
+                ParserUtil.parseIngredientQuantity((Integer.toString(VALID_INGREDIENTQUANTITY_ZERO))));
+    }
+
+    @Test
+    public void parseIngredientUnit_invalidNonAlphabetValue_throwsException() throws Exception {
+        thrown.expect(ParseException.class);
+        ParserUtil.parseIngredientUnit(INVALID_INGREDIENTUNIT_INTEGER);
+    }
+
+    @Test
+    public void parseIngredientUnit_invalidSymbolsValue_throwsException() throws Exception {
+        thrown.expect(ParseException.class);
+        ParserUtil.parseIngredientUnit(INVALID_INGREDIENTUNIT_SYMBOLS);
+    }
+
+    @Test
+    public void parseIngredientUnit_null_throwsException() throws Exception {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseIngredientUnit((String) null));
+    }
+
+
+    @Test
+    public void parseIngredientUnit_validValue_returnsIngredientUnit() throws Exception {
+        String ingredientUnitWithWhiteSpace = WHITESPACE + VALID_INGREDIENTUNIT + WHITESPACE;
+        IngredientUnit expectedIngredientUnit = new IngredientUnit(VALID_INGREDIENTUNIT);
+
+        //with white space
+        assertEquals(expectedIngredientUnit, ParserUtil.parseIngredientUnit((ingredientUnitWithWhiteSpace)));
+
+        //without white space
+        assertEquals(expectedIngredientUnit, ParserUtil.parseIngredientUnit((VALID_INGREDIENTUNIT)));
+    }
+
+
+    @Test
+    public void parseIngredientWarningAmount_invalidNegativeValue_throwsExcepion() throws Exception {
+        thrown.expect(ParseException.class);
+        ParserUtil.parseIngredientWarningAmount(Integer.toString(INVALID_INGREDIENTWARNINGAMT_NEGATIVE));
+    }
+
+    @Test
+    public void parseIngredientWarningAmount_invalidOutOfRange_throwsExcepion() throws Exception {
+        thrown.expect(ParseException.class);
+        ParserUtil.parseIngredientWarningAmount(Long.toString((long)Integer.MAX_VALUE + 1));
+    }
+
+    @Test
+    public void parseIngredientWarningAmount_validValue_returnsIngredientWarning() throws Exception {
+        String posIngredientWarningAmtWithWhiteSpace = WHITESPACE + VALID_INGREDIENTWARNINGAMT_POSITIVEINT + WHITESPACE;
+        IngredientWarningAmount posExpectedIngredientWarningAmount =
+                new IngredientWarningAmount(VALID_INGREDIENTWARNINGAMT_POSITIVEINT);
+
+        //positive integer with white space
+        assertEquals(posExpectedIngredientWarningAmount,
+                ParserUtil.parseIngredientWarningAmount((posIngredientWarningAmtWithWhiteSpace)));
+
+        //positive integer without white space
+        assertEquals(posExpectedIngredientWarningAmount,
+                ParserUtil.parseIngredientWarningAmount(Integer.toString(VALID_INGREDIENTWARNINGAMT_POSITIVEINT)));
+
+        String zeroIngredientWarningAmtWithWhiteSpace = WHITESPACE + VALID_INGREDIENTWARNINGAMT_ZERO + WHITESPACE;
+        IngredientWarningAmount zeroExpectedIngredientWarningAmt =
+                new IngredientWarningAmount(VALID_INGREDIENTWARNINGAMT_ZERO);
+
+        //zero with white space
+        assertEquals(zeroExpectedIngredientWarningAmt,
+                ParserUtil.parseIngredientWarningAmount((zeroIngredientWarningAmtWithWhiteSpace)));
+
+        //zero without white space
+        assertEquals(zeroExpectedIngredientWarningAmt,
+                ParserUtil.parseIngredientWarningAmount((Integer.toString(VALID_INGREDIENTWARNINGAMT_ZERO))));
+    }
+
+    @Test
     public void parseBookingWindow_invalidDate_throwsParseException() {
         Assert.assertThrows(ParseException.class, () -> ParserUtil.parseBookingWindow(INVALID_FEB_29));
     }
@@ -177,10 +337,12 @@ public class ParserUtilTest {
 
     @Test
     public void parseBookingSize_validBookingSize_returnsBookingSize() throws Exception {
+        // test boundary values
         BookingSize expectedBookingSize = new BookingSize(1);
         assertEquals(expectedBookingSize, ParserUtil.parseBookingSize("1"));
 
         expectedBookingSize = new BookingSize(MAX_BOOKING_SIZE);
         assertEquals(expectedBookingSize, ParserUtil.parseBookingSize(Integer.toString(MAX_BOOKING_SIZE)));
     }
+
 }

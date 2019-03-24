@@ -14,20 +14,19 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.IngredientQuantity;
-import seedu.address.model.person.exceptions.DuplicateItemException;
 
 /**
- * Depletes the quantity of existing ingredient in the restaurant book.
+ * Consumes the quantity of existing ingredient in the restaurant book by stipulated amount.
  */
 
-public class DepleteIngredientCommand extends Command {
+public class ConsumeIngredientCommand extends Command {
 
-    public static final String COMMAND_WORD = "depleteingredient";
-    public static final String COMMAND_ALIAS = "dpi";
+    public static final String COMMAND_WORD = "consumeingredient";
+    public static final String COMMAND_ALIAS = "ci";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Depletes the quantity of the ingredient identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Consumes the quantity of the ingredient identified "
             + "by the index number used in the displayed ingredient list. "
-            + "Input value will be added to existing value.\n"
+            + "Input consumption value will be removed from existing ingredient quantity.\n"
             + "Parameters: "
             + PREFIX_INDEX + "INDEX "
             + PREFIX_INGREDIENT_QUANTITY + "QUANTITY "
@@ -35,22 +34,23 @@ public class DepleteIngredientCommand extends Command {
             + PREFIX_INDEX + "1 "
             + PREFIX_INGREDIENT_QUANTITY + "10 ";
 
-    public static final String MESSAGE_SUCCESS = "Depleted Ingredient: %1$s";
-    public static final String MESSAGE_DUPLICATE = "Ingredient is already in list";
+    public static final String MESSAGE_SUCCESS = "Consumed Ingredient: %1$s";
+    public static final String MESSAGE_EXCEEDS =
+            "Quantity to consume exceeds current quantity of ingredient in inventory";
 
 
     private final Index index;
-    private final IngredientQuantity quantityToDeplete;
+    private final IngredientQuantity quantityToConsume;
 
     /**
-     * Creates an DepleteIngredientCommand to deplete the specified {@code Ingredient}
+     * Creates an ConsumeIngredientCommand to deplete the specified {@code Ingredient}
      *
      * @param index
      */
-    public DepleteIngredientCommand(Index index, IngredientQuantity quantity) {
+    public ConsumeIngredientCommand(Index index, IngredientQuantity quantity) {
         requireNonNull(index);
         this.index = index;
-        this.quantityToDeplete = quantity;
+        this.quantityToConsume = quantity;
     }
 
     @Override
@@ -62,37 +62,38 @@ public class DepleteIngredientCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_INGREDIENT_DISPLAYED_INDEX);
         }
 
-        Ingredient ingredientToDeplete = lastShownList.get(index.getZeroBased());
-        Ingredient depletedIngredient = createDepletedIngredient(ingredientToDeplete, quantityToDeplete);
+        Ingredient ingredientToConsume = lastShownList.get(index.getZeroBased());
 
-        try {
-            model.setIngredient(ingredientToDeplete, depletedIngredient);
-        } catch (DuplicateItemException e) {
-            throw new CommandException(MESSAGE_DUPLICATE);
+        if (quantityToConsume.getQuantity() > ingredientToConsume.getIngredientQuantity().getQuantity()) {
+            throw new CommandException(MESSAGE_EXCEEDS);
         }
+
+        Ingredient consumedIngredient = createConsumedIngredient(ingredientToConsume, quantityToConsume);
+        model.setIngredient(ingredientToConsume, consumedIngredient);
+
 
         model.updateFilteredIngredientList(PREDICATE_SHOW_ALL_INGREDIENTS);
         model.commitRestaurantBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, depletedIngredient));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, consumedIngredient));
     }
 
     /**
      * New Ingredient with depleted quantity is returned.
-     * @param ingredientToDeplete
+     * @param ingredientToConsume
      * @return Ingredient
      */
-    private static Ingredient createDepletedIngredient(Ingredient ingredientToDeplete, IngredientQuantity quantity) {
-        assert ingredientToDeplete != null;
+    private static Ingredient createConsumedIngredient(Ingredient ingredientToConsume, IngredientQuantity quantity) {
+        assert ingredientToConsume != null;
 
-        int currentQuantity = ingredientToDeplete.getIngredientQuantity().getQuantity();
+        int currentQuantity = ingredientToConsume.getIngredientQuantity().getQuantity();
         int newQuantity = currentQuantity - quantity.getQuantity();
         IngredientQuantity newIngredientQuantity = new IngredientQuantity(newQuantity);
-        return new Ingredient(ingredientToDeplete.getIngredientName(), newIngredientQuantity,
-                ingredientToDeplete.getIngredientUnit(), ingredientToDeplete.getIngredientWarningAmount());
+        return new Ingredient(ingredientToConsume.getIngredientName(), newIngredientQuantity,
+                ingredientToConsume.getIngredientUnit(), ingredientToConsume.getIngredientWarningAmount());
     }
 
-    public IngredientQuantity getQuantityToDeplete() {
-        return quantityToDeplete;
+    public IngredientQuantity getQuantityToConsume() {
+        return quantityToConsume;
     }
 
     @Override
@@ -103,13 +104,13 @@ public class DepleteIngredientCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof DepleteIngredientCommand)) {
+        if (!(other instanceof ConsumeIngredientCommand)) {
             return false;
         }
 
         // state check
-        DepleteIngredientCommand e = (DepleteIngredientCommand) other;
+        ConsumeIngredientCommand e = (ConsumeIngredientCommand) other;
         return index.equals(e.index)
-                && quantityToDeplete.equals(e.getQuantityToDeplete());
+                && quantityToConsume.equals(e.getQuantityToConsume());
     }
 }

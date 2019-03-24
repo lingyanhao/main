@@ -1,5 +1,8 @@
 package seedu.address.model.ingredient;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
 /**
  * A class to represent the ingredientUnit in an ingredient
  */
@@ -9,7 +12,7 @@ public class IngredientUnit {
     public static final String MESSAGE_CONSTRAINTS =
             "Ingredient's unit should only contain alphabets and spaces, and it should not be blank.";
 
-    public static final String VALIDATION_REGEX_INGREDIENTUNIT = "[a-zA-Z\\s]*";
+    public static final String VALIDATION_REGEX_INGREDIENTUNIT = "[a-zA-Z][a-zA-Z ]+";
 
 
 
@@ -21,6 +24,8 @@ public class IngredientUnit {
      * @param unit A valid ingredient unit corresponding to VALIDATION_REGEX
      */
     public IngredientUnit(String unit) {
+        requireNonNull(unit);
+        checkArgument(isValidIngredientUnit(unit), MESSAGE_CONSTRAINTS);
         this.ingredientUnit = unit;
 
     }

@@ -1,5 +1,7 @@
 package seedu.address.model.ingredient;
 
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
 import seedu.address.commons.util.StringUtil;
 
 /**
@@ -9,7 +11,7 @@ import seedu.address.commons.util.StringUtil;
 public class IngredientQuantity {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Ingredient's quantity should be non-zero unsigned integer.";
+            "Ingredient's quantity should be non-negative integer.";
 
     // Identity fields
     private int ingredientQuantity;
@@ -19,6 +21,7 @@ public class IngredientQuantity {
      * @param quantity A valid quantity, an integer that is non-negative.
      */
     public IngredientQuantity(int quantity) {
+        checkArgument(isValidIngredientQuantity(Integer.toString(quantity)), MESSAGE_CONSTRAINTS);
         this.ingredientQuantity = quantity;
     }
 
@@ -32,7 +35,7 @@ public class IngredientQuantity {
      * @return
      */
     public static boolean isValidIngredientQuantity(String test) {
-        if (StringUtil.isNonZeroUnsignedInteger(test)) {
+        if (StringUtil.isUnsignedInteger(test)) {
             return true;
         } else {
             return false;
