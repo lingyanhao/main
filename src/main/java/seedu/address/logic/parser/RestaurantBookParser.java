@@ -90,7 +90,7 @@ public class RestaurantBookParser {
 
         case EditStaffCommand.COMMAND_WORD:
         case EditStaffCommand.COMMAND_ALIAS:
-            return null;
+            return new EditStaffCommandParser().parse(arguments);
 
         case SelectCommand.COMMAND_WORD:
         case SelectCommand.COMMAND_ALIAS:
