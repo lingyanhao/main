@@ -30,6 +30,14 @@ public interface StaffModel {
      */
     void addStaff(Staff staff);
 
+    /**
+     * Replaces the given staff {@code target} with {@code editedStaff}.
+     * {@code target} must exist in the restaurant book.
+     * The staff identity of {@code editedStaff}
+     * must not be the same as another existing staff in the restaurant book.
+     */
+    void setStaff(Staff target, Staff editedItem);
+
     /** Returns an unmodifiable view of the filtered staff list */
     ObservableList<Staff> getFilteredStaffList();
 
