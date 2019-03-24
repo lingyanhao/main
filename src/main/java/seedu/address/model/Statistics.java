@@ -36,6 +36,10 @@ public class Statistics {
         this.days = days;
         bucketSize = (days + MAX_BARS - 1) / MAX_BARS; // ceiling of days / MAX_BARS
         numBuckets = (days + bucketSize - 1) / bucketSize; // ceiling of days / bucketSize
+        assert(bucketSize <= MAX_BAR_SIZE);
+        assert(numBuckets <= MAX_BARS);
+        assert(bucketSize >= 0);
+        assert(numBuckets >= 0);
     }
 
     public static int getMaxDays() {
@@ -70,18 +74,10 @@ public class Statistics {
     }
 
     /**
-     * Generates the data for the bar graph given the size of the bucket
-     * @param bookings the list of bookings
-     * @param bucketSize the number of days each bar in the graph is responsible for
-     * @param numBuckets the number of bars to display
+     * Generates the data for the bar graph
      * @return the list of data
      */
-    private List<Data<String, Integer>> generateGraphData(ObservableList<Booking> bookings,
-                                                                int bucketSize, int numBuckets) {
-        assert(bucketSize <= MAX_BAR_SIZE);
-        assert(numBuckets <= MAX_BARS);
-        assert(bucketSize >= 0);
-        assert(numBuckets >= 0);
+    public List<Data<String, Integer>> generateGraphData() {
         // TODO refactor this
         List<Integer> numBookings = new ArrayList<>();
         for (int i = 0; i < numBuckets; i++) {
@@ -103,13 +99,5 @@ public class Statistics {
             graphData.add(new Data<>(name, numBookings.get(i)));
         }
         return graphData;
-    }
-
-    /**
-     * Generates the data for the bar graph for the last many days
-     * @return the list of data points
-     */
-    public List<Data<String, Integer>> generateGraphData() {
-        return generateGraphData(bookings, bucketSize, numBuckets);
     }
 }
