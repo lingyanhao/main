@@ -68,7 +68,7 @@ public class EditStaffCommand extends Command {
         List<Staff> lastShownList = model.getFilteredStaffList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_MEMBER_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_STAFF_DISPLAYED_INDEX);
         }
 
         Staff staffToEdit = lastShownList.get(index.getZeroBased());
