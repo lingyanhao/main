@@ -97,8 +97,7 @@ public class EditStaffCommand extends Command {
         Email updatedEmail = editStaffDescriptor.getEmail().orElse(staffToEdit.getEmail());
         Appointment updatedAppointment = editStaffDescriptor.getAppointment().orElse(staffToEdit.getAppointment());
 
-        return new Staff(updatedName, updatedPhone, updatedEmail,
-                updatedAppointment, staffToEdit);
+        return new Staff(updatedName, updatedPhone, updatedEmail, updatedAppointment);
     }
 
     @Override
