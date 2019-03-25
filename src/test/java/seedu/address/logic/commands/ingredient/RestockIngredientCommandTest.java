@@ -72,7 +72,7 @@ public class RestockIngredientCommandTest {
     @Test
     public void execute_validRestockQuantity_failure() {
         long invalidRestockQuantity = (new Long(Integer.MAX_VALUE)
-                - new Long(CHEESE.getIngredientQuantity().getQuantity()));
+                - new Long(CHEESE.getIngredientQuantity().getQuantity())) + 1;
 
         RestockIngredientCommand restockCommand =
                 new RestockIngredientCommand(INDEX_FIRST_INGREDIENT,
