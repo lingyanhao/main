@@ -38,10 +38,6 @@ public class ParserUtilTest {
     private static final String VALID_LOYALTY_POINTS = "1234";
     private static final int VALID_LOYALTY_POINTS_INT = 1234;
 
-    private static final String INVALID_FEB_29 = "2019-02-29T12:00";
-    private static final String WRONG_DATE_FORMAT = "2019-02-28T1200";
-    private static final String VALID_FEB_29 = "2020-02-29T12:00";
-
     private static final String INVALID_INGREDIENT_NAME_INTEGER = "10";
     private static final String INVALID_INGREDIENT_NAME_SYMBOLS = "cheese@4";
     private static final String INVALID_INGREDIENT_UNIT_INTEGER = "1";
@@ -57,6 +53,10 @@ public class ParserUtilTest {
     private static final String VALID_INGREDIENT_UNIT = "sacks";
     private static final String VALID_INGREDIENT_WARNINGAMT_POSITIVEINT = "1";
     private static final String VALID_INGREDIENT_WARNINGAMT_ZERO = "0";
+
+    private static final String INVALID_FEB_29 = "2019-02-29T12:00";
+    private static final String WRONG_DATE_FORMAT = "2019-02-28T1200";
+    private static final String VALID_FEB_29 = "2020-02-29T12:00";
 
     private static final String WHITESPACE = " \t\r\n";
 
