@@ -21,6 +21,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListIngredientsCommand;
 import seedu.address.logic.commands.ListMembersCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RestockIngredientCommand;
@@ -154,6 +155,9 @@ public class RestaurantBookParser {
         case ConsumeIngredientCommand.COMMAND_WORD:
         case ConsumeIngredientCommand.COMMAND_ALIAS:
             return new ConsumeIngredientCommandParser().parse(arguments);
+
+        case ListIngredientsCommand.COMMAND_WORD:
+            return new ListIngredientsCommandParser().parse(arguments);
 
         case ViewStatsCommand.COMMAND_WORD:
             return new ViewStatsCommandParser().parse(arguments);
