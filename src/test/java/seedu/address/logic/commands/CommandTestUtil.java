@@ -22,6 +22,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.RestaurantBook;
+import seedu.address.model.booking.Booking;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Member;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
@@ -196,6 +197,19 @@ public class CommandTestUtil {
         model.updateFilteredMemberList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredMemberList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the booking at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showBookingAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredMemberList().size());
+
+        Booking booking = model.getFilteredBookingList().get(targetIndex.getZeroBased());
+        model.updateFilteredBookingList(b -> b.equals(booking));
+
+        assertEquals(1, model.getFilteredBookingList().size());
     }
 
     /**
