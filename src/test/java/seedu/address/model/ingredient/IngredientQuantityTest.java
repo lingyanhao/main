@@ -16,7 +16,7 @@ public class IngredientQuantityTest {
     }
 
     @Test
-    public void isValidIngredientQuantity() {
+    public void testIsValidIngredientQuantity() {
         // invalid ingredientQuantity
         assertFalse(IngredientQuantity.isValidIngredientQuantity(" ")); // spaces only
         assertFalse(IngredientQuantity.isValidIngredientQuantity("-1")); // negative not allowed
@@ -25,7 +25,7 @@ public class IngredientQuantityTest {
         assertFalse(IngredientQuantity
                 .isValidIngredientQuantity(Long.toString(outOfRange))); // out of range not allowed
 
-        // valid phone numbers
+        // valid ingredientQuantity
         assertTrue(IngredientQuantity.isValidIngredientQuantity("943")); // positive integer
 
     }
