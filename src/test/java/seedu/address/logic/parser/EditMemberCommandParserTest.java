@@ -19,9 +19,9 @@ import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_PHONE_AM
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_PHONE_BOB;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MEMBER;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MEMBER;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_MEMBER;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD;
 
 import org.junit.Test;
 
@@ -96,7 +96,7 @@ public class EditMemberCommandParserTest {
 
     @Test
     public void parse_allFieldsSpecified_success() {
-        Index targetIndex = INDEX_SECOND_MEMBER;
+        Index targetIndex = INDEX_SECOND;
         String userInput = targetIndex.getOneBased() + MEMBER_PHONE_DESC_BOB
                 + MEMBER_EMAIL_DESC_AMY + MEMBER_NAME_DESC_AMY + MEMBER_LOYALTY_POINTS_DESC_BOB;
 
@@ -110,7 +110,7 @@ public class EditMemberCommandParserTest {
 
     @Test
     public void parse_someFieldsSpecified_success() {
-        Index targetIndex = INDEX_FIRST_MEMBER;
+        Index targetIndex = INDEX_FIRST;
         String userInput = targetIndex.getOneBased() + MEMBER_PHONE_DESC_BOB + MEMBER_EMAIL_DESC_AMY;
 
         EditMemberDescriptor descriptor = new EditMemberDescriptorBuilder().withPhone(MEMBER_VALID_PHONE_BOB)
@@ -123,7 +123,7 @@ public class EditMemberCommandParserTest {
     @Test
     public void parse_oneFieldSpecified_success() {
         // name
-        Index targetIndex = INDEX_THIRD_MEMBER;
+        Index targetIndex = INDEX_THIRD;
         String userInput = targetIndex.getOneBased() + MEMBER_NAME_DESC_AMY;
         EditMemberDescriptor descriptor = new EditMemberDescriptorBuilder().withName(MEMBER_VALID_NAME_AMY).build();
         EditMemberCommand expectedCommand = new EditMemberCommand(targetIndex, descriptor);
@@ -144,7 +144,7 @@ public class EditMemberCommandParserTest {
 
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
-        Index targetIndex = INDEX_FIRST_MEMBER;
+        Index targetIndex = INDEX_FIRST;
         String userInput = targetIndex.getOneBased() + MEMBER_PHONE_DESC_AMY + MEMBER_EMAIL_DESC_AMY
                 + MEMBER_PHONE_DESC_AMY + MEMBER_EMAIL_DESC_AMY + MEMBER_PHONE_DESC_BOB + MEMBER_EMAIL_DESC_BOB;
 
@@ -159,7 +159,7 @@ public class EditMemberCommandParserTest {
     @Test
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
-        Index targetIndex = INDEX_FIRST_MEMBER;
+        Index targetIndex = INDEX_FIRST;
         String userInput = targetIndex.getOneBased() + MEMBER_INVALID_PHONE_DESC + MEMBER_PHONE_DESC_BOB;
         EditMemberDescriptor descriptor = new EditMemberDescriptorBuilder().withPhone(MEMBER_VALID_PHONE_BOB).build();
         EditMemberCommand expectedCommand = new EditMemberCommand(targetIndex, descriptor);
