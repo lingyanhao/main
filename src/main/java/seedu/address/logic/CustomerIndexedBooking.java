@@ -13,7 +13,7 @@ import seedu.address.model.booking.BookingWindow;
 import seedu.address.model.person.Member;
 
 /**
- * Represetns a booking with the member given by index instead of the actual details.
+ * Represents a booking with the member given by index instead of the actual details.
  */
 public class CustomerIndexedBooking {
     private BookingWindow bookingWindow;
