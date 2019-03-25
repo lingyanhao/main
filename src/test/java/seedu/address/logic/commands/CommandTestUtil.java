@@ -200,7 +200,7 @@ public class CommandTestUtil {
     }
 
     /**
-     * Updates {@code model}'s filtered list to show only the member at the given {@code targetIndex} in the
+     * Updates {@code model}'s filtered list to show only the booking at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
     public static void showBookingAtIndex(Model model, Index targetIndex) {
