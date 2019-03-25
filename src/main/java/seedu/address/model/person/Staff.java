@@ -8,26 +8,14 @@ import java.util.Objects;
  */
 public class Staff extends Person {
 
-    private static int idCounter = 0;
     private Appointment appointment;
 
     /**
      * Every field must be present and not null.
      */
     public Staff(Name name, Phone phone, Email email, Appointment appointment) {
-        super(name, phone, email, idCounter);
+        super(name, phone, email);
         this.appointment = appointment;
-        idCounter++;
-    }
-
-    /**
-     * Creates a new staff with the same ID as another staff.
-     * Used for editing a staff's details so that the system can track that it is the same staff.
-     */
-    public Staff(Name name, Phone phone, Email email, Appointment appointment, Staff other) {
-        super(name, phone, email, other.id);
-        this.appointment = appointment;
-        // Take note: do not increment idCounter here, this is intentional
     }
 
     public Appointment getAppointment() {

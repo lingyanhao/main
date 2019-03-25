@@ -171,7 +171,6 @@ public class ParserUtil {
         return new IngredientWarningAmount(Integer.parseInt(trimmedWarningAmount));
     }
 
-
     /**
      * Creates a new BookingWindow object that parses the time. Uses the yyyy-MM-dd HH:mm format.
      * For example, 2011-12-03 10:15
@@ -198,5 +197,4 @@ public class ParserUtil {
             throw new ParseException(BookingSize.MESSAGE_CONSTRAINTS);
         }
     }
-
 }

@@ -84,7 +84,7 @@ public class UniqueItemListTest {
     public void setMember_editedMemberIsSameMember_success() {
         uniqueItemList.add(ALICE);
         uniqueItemList.setItem(ALICE, ALICE);
-        UniqueItemList expectedUniqueItemList = new UniqueItemList();
+        UniqueItemList<Member> expectedUniqueItemList = new UniqueItemList<>();
         expectedUniqueItemList.add(ALICE);
         assertEquals(expectedUniqueItemList, uniqueItemList);
     }
@@ -94,7 +94,7 @@ public class UniqueItemListTest {
         uniqueItemList.add(ALICE);
         Member editedAlice = new MemberBuilder(ALICE).build();
         uniqueItemList.setItem(ALICE, editedAlice);
-        UniqueItemList expectedUniqueItemList = new UniqueItemList();
+        UniqueItemList<Member> expectedUniqueItemList = new UniqueItemList<>();
         expectedUniqueItemList.add(editedAlice);
         assertEquals(expectedUniqueItemList, uniqueItemList);
     }
@@ -103,7 +103,7 @@ public class UniqueItemListTest {
     public void setMember_editedMemberHasDifferentIdentity_success() {
         uniqueItemList.add(ALICE);
         uniqueItemList.setItem(ALICE, BOB);
-        UniqueItemList expectedUniqueItemList = new UniqueItemList();
+        UniqueItemList<Member> expectedUniqueItemList = new UniqueItemList<>();
         expectedUniqueItemList.add(BOB);
         assertEquals(expectedUniqueItemList, uniqueItemList);
     }
@@ -139,13 +139,14 @@ public class UniqueItemListTest {
     @Test
     public void setMembers_nullUniqueMemberList_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniqueItemList.setItems((UniqueItemList) null);
+        uniqueItemList.setItems((UniqueItemList<Member>) null);
+        uniqueItemList.setItems((List<Member>) null);
     }
 
     @Test
     public void setMembers_uniqueMemberList_replacesOwnListWithProvidedUniqueMemberList() {
         uniqueItemList.add(ALICE);
-        UniqueItemList expectedUniqueItemList = new UniqueItemList();
+        UniqueItemList<Member> expectedUniqueItemList = new UniqueItemList<>();
         expectedUniqueItemList.add(BOB);
         uniqueItemList.setItems(expectedUniqueItemList);
         assertEquals(expectedUniqueItemList, uniqueItemList);
@@ -162,7 +163,7 @@ public class UniqueItemListTest {
         uniqueItemList.add(ALICE);
         List<Member> memberList = Collections.singletonList(BOB);
         uniqueItemList.setItems(memberList);
-        UniqueItemList expectedUniqueItemList = new UniqueItemList();
+        UniqueItemList<Member> expectedUniqueItemList = new UniqueItemList<>();
         expectedUniqueItemList.add(BOB);
         assertEquals(expectedUniqueItemList, uniqueItemList);
     }
