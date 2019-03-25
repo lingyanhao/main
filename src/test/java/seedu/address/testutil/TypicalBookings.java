@@ -16,6 +16,9 @@ import seedu.address.model.booking.BookingSize;
 import seedu.address.model.booking.BookingWindow;
 import seedu.address.model.person.Member;
 
+/**
+ * A utility class containing a list of {@code Booking} objects to be used in tests.
+ */
 public class TypicalBookings {
 
     public static final LocalDateTime START_TIME = LocalDateTime.of(2019, 2, 23, 14, 30);
