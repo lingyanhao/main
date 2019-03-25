@@ -20,11 +20,11 @@ public class IngredientNameTest {
     }
 
     @Test
-    public void isValidIngredientName() {
-        // null name
+    public void testIsValidIngredientName() {
+        // null ingredientName
         Assert.assertThrows(NullPointerException.class, () -> IngredientName.isValidIngredientName(null));
 
-        // invalid name
+        // invalid ingredientName
         assertFalse(IngredientName.isValidIngredientName("")); // empty string
         assertFalse(IngredientName.isValidIngredientName(" ")); // spaces only
         assertFalse(IngredientName.isValidIngredientName("^")); // only contains non-alphabet symbols

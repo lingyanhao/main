@@ -36,11 +36,7 @@ public class IngredientWarningAmount {
      * @return
      */
     public static boolean isValidIngredientWarningAmount(String test) {
-        if (StringUtil.isUnsignedInteger(test)) {
-            return true;
-        } else {
-            return false;
-        }
+        return StringUtil.isUnsignedInteger(test);
     }
 
 
