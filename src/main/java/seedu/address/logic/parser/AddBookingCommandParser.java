@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NUMBER_PERSONS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.CustomerIndexedBooking;
 import seedu.address.logic.commands.add.AddBookingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.booking.BookingSize;
@@ -34,6 +35,7 @@ public class AddBookingCommandParser implements Parser<AddBookingCommand> {
         Index memberIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_CUSTOMER).get());
         BookingSize numMembers = ParserUtil.parseBookingSize(argMultimap.getValue(PREFIX_NUMBER_PERSONS).get());
 
-        return new AddBookingCommand(bookingWindow, memberIndex, numMembers);
+        CustomerIndexedBooking toAdd = new CustomerIndexedBooking(bookingWindow, memberIndex, numMembers);
+        return new AddBookingCommand(toAdd);
     }
 }

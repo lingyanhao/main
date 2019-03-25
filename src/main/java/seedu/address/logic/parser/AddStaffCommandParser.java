@@ -19,8 +19,8 @@ import seedu.address.model.person.Staff;
  */
 public class AddStaffCommandParser implements Parser<AddStaffCommand> {
     /**
-     * Parses the given {@code String} of arguments in the context of the ProcessedAddBookingCommand
-     * and returns an ProcessedAddBookingCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddStaffCommand
+     * and returns an AddStaffCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     @Override

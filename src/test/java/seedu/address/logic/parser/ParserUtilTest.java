@@ -2,13 +2,20 @@ package seedu.address.logic.parser;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static seedu.address.model.booking.BookingSize.MAX_BOOKING_SIZE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MEMBER;
+
+import java.time.LocalDateTime;
+import java.time.Month;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+
+import seedu.address.model.booking.BookingSize;
+import seedu.address.model.booking.BookingWindow;
 import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.ingredient.IngredientQuantity;
 import seedu.address.model.ingredient.IngredientUnit;
@@ -31,6 +38,10 @@ public class ParserUtilTest {
     private static final String VALID_LOYALTY_POINTS = "1234";
     private static final int VALID_LOYALTY_POINTS_INT = 1234;
 
+    private static final String INVALID_FEB_29 = "2019-02-29T12:00";
+    private static final String WRONG_DATE_FORMAT = "2019-02-28T1200";
+    private static final String VALID_FEB_29 = "2020-02-29T12:00";
+
     private static final String INVALID_INGREDIENTNAME_INTEGER = "10";
     private static final String INVALID_INGREDIENTNAME_SYMBOLS = "cheese@4";
     private static final String INVALID_INGREDIENTUNIT_INTEGER = "1";
@@ -38,16 +49,12 @@ public class ParserUtilTest {
     private static final int INVALID_INGREDIENTQUANTITY_NEGATIVE = -1;
     private static final int INVALID_INGREDIENTWARNINGAMT_NEGATIVE = -1;
 
-
-
     private static final String VALID_INGREDIENTNAME = "cheese";
     private static final int VALID_INGREDIENTQUANTITY_POSITIVEINT = 1;
     private static final int VALID_INGREDIENTQUANTITY_ZERO = 0;
     private static final String VALID_INGREDIENTUNIT = "sacks";
     private static final int VALID_INGREDIENTWARNINGAMT_POSITIVEINT = 1;
     private static final int VALID_INGREDIENTWARNINGAMT_ZERO = 0;
-
-
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -64,7 +71,7 @@ public class ParserUtilTest {
     public void parseIndex_outOfRangeInput_throwsParseException() throws Exception {
         thrown.expect(ParseException.class);
         thrown.expectMessage(MESSAGE_INVALID_INDEX);
-        ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1));
+        ParserUtil.parseIndex(Long.toString((long) Integer.MAX_VALUE + 1));
     }
 
     @Test
@@ -164,13 +171,13 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseIngredientName_invalidNonAlphabetValue_throwsExcepion() throws Exception {
+    public void parseIngredientName_invalidNonAlphabetValue_throwsException() throws Exception {
         thrown.expect(ParseException.class);
         ParserUtil.parseIngredientName(INVALID_INGREDIENTNAME_INTEGER);
     }
 
     @Test
-    public void parseIngredientName_invalidSymbolsValue_throwsExcepion() throws Exception {
+    public void parseIngredientName_invalidSymbolsValue_throwsExcetpion() throws Exception {
         thrown.expect(ParseException.class);
         ParserUtil.parseIngredientName(INVALID_INGREDIENTNAME_SYMBOLS);
     }
@@ -202,7 +209,7 @@ public class ParserUtilTest {
     @Test
     public void parseIngredientQuantity_invalidOutOfRange_throwsExcepion() throws Exception {
         thrown.expect(ParseException.class);
-        ParserUtil.parseIngredientQuantity(Long.toString(Integer.MAX_VALUE + 1));
+        ParserUtil.parseIngredientQuantity(Long.toString((long) Integer.MAX_VALUE + 1));
     }
 
     @Test
@@ -274,7 +281,7 @@ public class ParserUtilTest {
     @Test
     public void parseIngredientWarningAmount_invalidOutOfRange_throwsExcepion() throws Exception {
         thrown.expect(ParseException.class);
-        ParserUtil.parseIngredientWarningAmount(Long.toString(Integer.MAX_VALUE + 1));
+        ParserUtil.parseIngredientWarningAmount(Long.toString((long) Integer.MAX_VALUE + 1));
     }
 
     @Test
@@ -302,6 +309,40 @@ public class ParserUtilTest {
         //zero without white space
         assertEquals(zeroExpectedIngredientWarningAmt,
                 ParserUtil.parseIngredientWarningAmount((Integer.toString(VALID_INGREDIENTWARNINGAMT_ZERO))));
+    }
+
+    @Test
+    public void parseBookingWindow_invalidDate_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseBookingWindow(INVALID_FEB_29));
+    }
+
+    @Test
+    public void parseBookingWindow_wrongDateFormat_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseBookingWindow(WRONG_DATE_FORMAT));
+    }
+
+    @Test
+    public void parseBookingWindow_validDate_returnsBookingWindow() throws Exception {
+        BookingWindow expectedBookingWindow = new BookingWindow(LocalDateTime.of(2020, Month.FEBRUARY, 29, 12, 0));
+        assertEquals(expectedBookingWindow, ParserUtil.parseBookingWindow(VALID_FEB_29));
+    }
+
+    @Test
+    public void parseBookingSize_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseBookingSize("0"));
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseBookingSize("-1"));
+        Assert.assertThrows(
+                ParseException.class, () -> ParserUtil.parseBookingSize(Integer.toString(MAX_BOOKING_SIZE + 1)));
+    }
+
+    @Test
+    public void parseBookingSize_validBookingSize_returnsBookingSize() throws Exception {
+        // test boundary values
+        BookingSize expectedBookingSize = new BookingSize(1);
+        assertEquals(expectedBookingSize, ParserUtil.parseBookingSize("1"));
+
+        expectedBookingSize = new BookingSize(MAX_BOOKING_SIZE);
+        assertEquals(expectedBookingSize, ParserUtil.parseBookingSize(Integer.toString(MAX_BOOKING_SIZE)));
     }
 
 }
