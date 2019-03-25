@@ -38,7 +38,10 @@ public class ParserUtilTest {
     private static final String VALID_LOYALTY_POINTS = "1234";
     private static final int VALID_LOYALTY_POINTS_INT = 1234;
 
-<<<<<<< HEAD
+    private static final String INVALID_FEB_29 = "2019-02-29T12:00";
+    private static final String WRONG_DATE_FORMAT = "2019-02-28T1200";
+    private static final String VALID_FEB_29 = "2020-02-29T12:00";
+
     private static final String INVALID_INGREDIENT_NAME_INTEGER = "10";
     private static final String INVALID_INGREDIENT_NAME_SYMBOLS = "cheese@4";
     private static final String INVALID_INGREDIENT_UNIT_INTEGER = "1";
@@ -48,34 +51,12 @@ public class ParserUtilTest {
     private static final String INVALID_INGREDIENT_WARNINGAMT_NEGATIVE = "-1";
     private static final String INVALID_INGREDIENT_WARNINGAMT_PLUS_SIGN = "+1";
 
-
-
-
     private static final String VALID_INGREDIENT_NAME = "cheese";
     private static final String VALID_INGREDIENT_QUANTITY_POSITIVEINT = "1";
     private static final String VALID_INGREDIENT_QUANTITY_ZERO = "0";
     private static final String VALID_INGREDIENT_UNIT = "sacks";
     private static final String VALID_INGREDIENT_WARNINGAMT_POSITIVEINT = "1";
     private static final String VALID_INGREDIENT_WARNINGAMT_ZERO = "0";
-=======
-    private static final String INVALID_FEB_29 = "2019-02-29T12:00";
-    private static final String WRONG_DATE_FORMAT = "2019-02-28T1200";
-    private static final String VALID_FEB_29 = "2020-02-29T12:00";
-
-    private static final String INVALID_INGREDIENTNAME_INTEGER = "10";
-    private static final String INVALID_INGREDIENTNAME_SYMBOLS = "cheese@4";
-    private static final String INVALID_INGREDIENTUNIT_INTEGER = "1";
-    private static final String INVALID_INGREDIENTUNIT_SYMBOLS = "sac3`k";
-    private static final int INVALID_INGREDIENTQUANTITY_NEGATIVE = -1;
-    private static final int INVALID_INGREDIENTWARNINGAMT_NEGATIVE = -1;
-
-    private static final String VALID_INGREDIENTNAME = "cheese";
-    private static final int VALID_INGREDIENTQUANTITY_POSITIVEINT = 1;
-    private static final int VALID_INGREDIENTQUANTITY_ZERO = 0;
-    private static final String VALID_INGREDIENTUNIT = "sacks";
-    private static final int VALID_INGREDIENTWARNINGAMT_POSITIVEINT = 1;
-    private static final int VALID_INGREDIENTWARNINGAMT_ZERO = 0;
->>>>>>> 391323ba33f7c839dfd1ec22b7a99888f80f12c0
 
     private static final String WHITESPACE = " \t\r\n";
 
