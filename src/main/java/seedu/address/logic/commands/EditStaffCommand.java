@@ -176,7 +176,9 @@ public class EditStaffCommand extends Command {
             this.appointment = appointment;
         }
 
-        public Optional<Appointment> getAppointment() { return Optional.ofNullable(appointment); }
+        public Optional<Appointment> getAppointment() {
+            return Optional.ofNullable(appointment);
+        }
 
         @Override
         public boolean equals(Object other) {
