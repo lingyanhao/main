@@ -28,6 +28,7 @@ import seedu.address.model.person.Member;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Staff;
 import seedu.address.testutil.EditMemberDescriptorBuilder;
+import seedu.address.testutil.EditStaffDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -118,8 +119,12 @@ public class CommandTestUtil {
             + "3@"; // symbols not allowed
     public static final String INGREDIENT_INVALID_WARNINGAMOUNT_DESC =
             " " + PREFIX_INGREDIENT_WARNINGAMOUNT + "3.0"; // decimals not allowed
+
     public static final EditMemberCommand.EditMemberDescriptor MEMBER_DESC_AMY;
     public static final EditMemberCommand.EditMemberDescriptor MEMBER_DESC_BOB;
+
+    public static final EditStaffCommand.EditStaffDescriptor STAFF_DESC_AMY;
+    public static final EditStaffCommand.EditStaffDescriptor STAFF_DESC_BOB;
 
     static {
         MEMBER_DESC_AMY = new EditMemberDescriptorBuilder().withName(PERSON_VALID_NAME_AMY)
@@ -128,6 +133,15 @@ public class CommandTestUtil {
         MEMBER_DESC_BOB = new EditMemberDescriptorBuilder().withName(PERSON_VALID_NAME_BOB)
                 .withPhone(PERSON_VALID_PHONE_BOB).withEmail(PERSON_VALID_EMAIL_BOB)
                 .withLoyaltyPoints(MEMBER_VALID_LOYALTY_POINTS_BOB).build();
+    }
+
+    static {
+        STAFF_DESC_AMY = new EditStaffDescriptorBuilder().withName(PERSON_VALID_NAME_AMY)
+                .withPhone(PERSON_VALID_PHONE_AMY).withEmail(PERSON_VALID_EMAIL_AMY)
+                .withAppointment(STAFF_VALID_APPOINTMENT_AMY).build();
+        STAFF_DESC_BOB = new EditStaffDescriptorBuilder().withName(PERSON_VALID_NAME_BOB)
+                .withPhone(PERSON_VALID_PHONE_BOB).withEmail(PERSON_VALID_EMAIL_BOB)
+                .withAppointment(STAFF_VALID_APPOINTMENT_BOB).build();
     }
 
     /**
