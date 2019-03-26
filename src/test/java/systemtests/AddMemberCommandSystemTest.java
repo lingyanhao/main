@@ -1,13 +1,13 @@
 package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_LOYALTY_POINTS_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_LOYALTY_POINTS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PERSON_EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PERSON_EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PERSON_INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.PERSON_INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.PERSON_INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.MEMBER_LOYALTY_POINTS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.MEMBER_LOYALTY_POINTS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PERSON_NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PERSON_NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PERSON_PHONE_DESC_AMY;

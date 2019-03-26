@@ -1,19 +1,19 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_INVALID_LOYALTY_POINTS_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_LOYALTY_POINTS_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_LOYALTY_POINTS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PERSON_EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PERSON_EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PERSON_INVALID_EMAIL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.MEMBER_INVALID_LOYALTY_POINTS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.PERSON_INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.PERSON_INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.MEMBER_LOYALTY_POINTS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PERSON_NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PERSON_PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PERSON_PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PERSON_VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PERSON_VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_LOYALTY_POINTS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PERSON_VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PERSON_VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PERSON_VALID_PHONE_BOB;
