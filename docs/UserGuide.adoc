@@ -474,6 +474,28 @@ Example:
 
 * `setShift s/1 ts/2019-02-23 09:30 ts/2019-02-23 17:30`
 
+=== Statistics
+
+==== View bookings per day: `statsdays`
+
+Displays the number of customers in bookings over the past few days in a bar graph.
+
+Format: `statsdays DAYS`
+
+Example:
+
+* `statsdays 30`
+
+==== View bookings per hour: `statstime`
+
+Displays the number of customers in bookings over the past few days in a bar graph, grouped by hour of the day.
+
+Format: `statstime DAYS`
+
+Example:
+
+* `statstime 30`
+
 === Overall
 
 ==== View Feedback: `viewFeedback`
