@@ -26,6 +26,7 @@ import seedu.address.model.booking.Booking;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Member;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.Staff;
 import seedu.address.testutil.EditMemberDescriptorBuilder;
 
 /**
@@ -226,6 +227,20 @@ public class CommandTestUtil {
 
 
         assertEquals(1, model.getFilteredIngredientList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the staff at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showStaffAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredStaffList().size());
+
+        Staff staff = model.getFilteredStaffList().get(targetIndex.getZeroBased());
+        final String name = staff.getName().fullName;
+        model.updateFilteredStaffList(p -> p.getName().fullName.equalsIgnoreCase(name));
+
+        assertEquals(1, model.getFilteredStaffList().size());
     }
 
     /**
