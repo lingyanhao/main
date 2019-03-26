@@ -6,8 +6,8 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_LOYALTY_POINTS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.PERSON_VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.PERSON_VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showMemberAtIndex;
@@ -59,11 +59,11 @@ public class EditMemberCommandTest {
         Member lastMember = model.getFilteredMemberList().get(indexLastMember.getZeroBased());
 
         MemberBuilder memberInList = new MemberBuilder(lastMember);
-        Member editedMember = memberInList.withName(MEMBER_VALID_NAME_BOB).withPhone(MEMBER_VALID_PHONE_BOB)
+        Member editedMember = memberInList.withName(PERSON_VALID_NAME_BOB).withPhone(PERSON_VALID_PHONE_BOB)
                 .withLoyaltyPoints(MEMBER_VALID_LOYALTY_POINTS_BOB).build();
 
-        EditMemberDescriptor descriptor = new EditMemberDescriptorBuilder().withName(MEMBER_VALID_NAME_BOB)
-                .withPhone(MEMBER_VALID_PHONE_BOB).withLoyaltyPoints(MEMBER_VALID_LOYALTY_POINTS_BOB).build();
+        EditMemberDescriptor descriptor = new EditMemberDescriptorBuilder().withName(PERSON_VALID_NAME_BOB)
+                .withPhone(PERSON_VALID_PHONE_BOB).withLoyaltyPoints(MEMBER_VALID_LOYALTY_POINTS_BOB).build();
         EditMemberCommand editMemberCommand = new EditMemberCommand(indexLastMember, descriptor);
 
         String expectedMessage = String.format(EditMemberCommand.MESSAGE_EDIT_MEMBER_SUCCESS, editedMember);
@@ -93,9 +93,9 @@ public class EditMemberCommandTest {
         showMemberAtIndex(model, INDEX_FIRST);
 
         Member memberInFilteredList = model.getFilteredMemberList().get(INDEX_FIRST.getZeroBased());
-        Member editedMember = new MemberBuilder(memberInFilteredList).withName(MEMBER_VALID_NAME_BOB).build();
+        Member editedMember = new MemberBuilder(memberInFilteredList).withName(PERSON_VALID_NAME_BOB).build();
         EditMemberCommand editMemberCommand = new EditMemberCommand(INDEX_FIRST,
-                new EditMemberDescriptorBuilder().withName(MEMBER_VALID_NAME_BOB).build());
+                new EditMemberDescriptorBuilder().withName(PERSON_VALID_NAME_BOB).build());
 
         String expectedMessage = String.format(EditMemberCommand.MESSAGE_EDIT_MEMBER_SUCCESS, editedMember);
 
@@ -131,7 +131,7 @@ public class EditMemberCommandTest {
     @Test
     public void execute_invalidMemberIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredMemberList().size() + 1);
-        EditMemberDescriptor descriptor = new EditMemberDescriptorBuilder().withName(MEMBER_VALID_NAME_BOB).build();
+        EditMemberDescriptor descriptor = new EditMemberDescriptorBuilder().withName(PERSON_VALID_NAME_BOB).build();
         EditMemberCommand editMemberCommand = new EditMemberCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editMemberCommand, model, commandHistory, Messages.MESSAGE_INVALID_MEMBER_DISPLAYED_INDEX);
@@ -149,7 +149,7 @@ public class EditMemberCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getRestaurantBook().getMemberList().size());
 
         EditMemberCommand editMemberCommand = new EditMemberCommand(outOfBoundIndex,
-                new EditMemberDescriptorBuilder().withName(MEMBER_VALID_NAME_BOB).build());
+                new EditMemberDescriptorBuilder().withName(PERSON_VALID_NAME_BOB).build());
 
         assertCommandFailure(editMemberCommand, model, commandHistory, Messages.MESSAGE_INVALID_MEMBER_DISPLAYED_INDEX);
     }
@@ -179,7 +179,7 @@ public class EditMemberCommandTest {
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredMemberList().size() + 1);
-        EditMemberDescriptor descriptor = new EditMemberDescriptorBuilder().withName(MEMBER_VALID_NAME_BOB).build();
+        EditMemberDescriptor descriptor = new EditMemberDescriptorBuilder().withName(PERSON_VALID_NAME_BOB).build();
         EditMemberCommand editMemberCommand = new EditMemberCommand(outOfBoundIndex, descriptor);
 
         // execution failed -> address book state not added into model

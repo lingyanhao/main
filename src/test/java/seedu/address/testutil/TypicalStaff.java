@@ -1,11 +1,11 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_PHONE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.MEMBER_VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.PERSON_VALID_EMAIL_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.PERSON_VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.PERSON_VALID_NAME_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.PERSON_VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.PERSON_VALID_PHONE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.PERSON_VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.STAFF_VALID_APPOINTMENT_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.STAFF_VALID_APPOINTMENT_BOB;
 
@@ -43,10 +43,10 @@ public class TypicalStaff {
             .withEmail("hans@example.com").withAppointment("Cook").build();
 
     // Manually added - Staff's details found in {@code CommandTestUtil}
-    public static final Staff AMY = new StaffBuilder().withName(MEMBER_VALID_NAME_AMY).withPhone(MEMBER_VALID_PHONE_AMY)
-            .withEmail(MEMBER_VALID_EMAIL_AMY).withAppointment(STAFF_VALID_APPOINTMENT_AMY).build();
-    public static final Staff BOB = new StaffBuilder().withName(MEMBER_VALID_NAME_BOB).withPhone(MEMBER_VALID_PHONE_BOB)
-            .withEmail(MEMBER_VALID_EMAIL_BOB).withAppointment(STAFF_VALID_APPOINTMENT_BOB).build();
+    public static final Staff AMY = new StaffBuilder().withName(PERSON_VALID_NAME_AMY).withPhone(PERSON_VALID_PHONE_AMY)
+            .withEmail(PERSON_VALID_EMAIL_AMY).withAppointment(STAFF_VALID_APPOINTMENT_AMY).build();
+    public static final Staff BOB = new StaffBuilder().withName(PERSON_VALID_NAME_BOB).withPhone(PERSON_VALID_PHONE_BOB)
+            .withEmail(PERSON_VALID_EMAIL_BOB).withAppointment(STAFF_VALID_APPOINTMENT_BOB).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
