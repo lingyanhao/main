@@ -13,13 +13,13 @@ import guitests.GuiRobot;
 import guitests.guihandles.StatsWindowHandle;
 import seedu.address.logic.commands.DeleteMemberCommand;
 import seedu.address.logic.commands.SelectCommand;
-import seedu.address.logic.commands.ViewStatsCommand;
+import seedu.address.logic.commands.ViewStatsDaysCommand;
 import seedu.address.ui.StatusBarFooter;
 
 /**
  * A system test class for the help window, which contains interaction with other UI components.
  */
-public class ViewStatsCommandSystemTest extends RestaurantBookSystemTest {
+public class ViewStatsDaysCommandSystemTest extends RestaurantBookSystemTest {
     private static final String ERROR_MESSAGE = "ATTENTION!!!! : On some computers, this test may fail when run on "
             + "non-headless mode as FxRobot#clickOn(Node, MouseButton...) clicks on the wrong location. We suspect "
             + "that this is a bug with TestFX library that we are using. If this test fails, you have to run your "
@@ -33,14 +33,14 @@ public class ViewStatsCommandSystemTest extends RestaurantBookSystemTest {
 
         //use accelerator
         getCommandBox().click();
-        executeCommand(ViewStatsCommand.COMMAND_WORD + " 30");
+        executeCommand(ViewStatsDaysCommand.COMMAND_WORD + " 30");
         assertStatiWindowOpen();
 
         // assert that while the stats window is open the UI updates correctly for a command execution
         executeCommand(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
         assertEquals("", getCommandBox().getInput());
         assertCommandBoxShowsDefaultStyle();
-        assertNotEquals(ViewStatsCommand.MESSAGE_SHOWING_STATS, getResultDisplay().getText());
+        assertNotEquals(ViewStatsDaysCommand.MESSAGE_SHOWING_STATS, getResultDisplay().getText());
         assertListMatching(getMemberListPanel(), getModel().getFilteredMemberList());
 
         // assert that the status bar too is updated correctly while the stats window is open

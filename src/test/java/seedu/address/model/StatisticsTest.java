@@ -49,16 +49,26 @@ public class StatisticsTest {
     }
 
     @Test
-    public void generateGraphData_valid_returnsList() {
-        List<XYChart.Data<String, Integer>> datas = new Statistics(emptyBookings, 10).generateGraphData();
+    public void generateGraphDataDays_valid_returnsList() {
+        List<XYChart.Data<String, Integer>> datas = new Statistics(emptyBookings, 10).generateGraphDataDays();
         assertTrue(datas.size() == 10);
         for (XYChart.Data<String, Integer> data : datas) {
             assertEquals(data.getYValue(), Integer.valueOf(0));
         }
 
-        datas = new Statistics(bookings, 2).generateGraphData();
+        datas = new Statistics(bookings, 2).generateGraphDataDays();
         assertTrue(datas.size() == 2);
         assertEquals(datas.get(0).getYValue(), Integer.valueOf(6));
         assertEquals(datas.get(1).getYValue(), Integer.valueOf(5));
+
+        datas = new Statistics(bookings, Statistics.MAX_BARS * 2).generateGraphDataDays();
+        assertTrue(datas.size() == Statistics.MAX_BARS);
+        for (int i = 0; i < datas.size(); i++) {
+            if (i < datas.size() - 1) {
+                assertEquals(datas.get(i).getYValue(), Integer.valueOf(0));
+            } else {
+                assertEquals(datas.get(i).getYValue(), Integer.valueOf(11));
+            }
+        }
     }
 }
