@@ -26,8 +26,10 @@ public class StatisticsTest {
 
     @Before
     public void setUp() {
-        bookings.add(new Booking(new BookingWindow(LocalDateTime.now()), TypicalMembers.ALICE, new BookingSize(5)));
-        bookings.add(new Booking(new BookingWindow(LocalDateTime.now().minusDays(1)), TypicalMembers.ALICE,
+        LocalDateTime now10 = LocalDateTime.now().withHour(10).withMinute(0).withSecond(0);
+        LocalDateTime now12 = LocalDateTime.now().withHour(12).withMinute(0).withSecond(0);
+        bookings.add(new Booking(new BookingWindow(now10), TypicalMembers.ALICE, new BookingSize(5)));
+        bookings.add(new Booking(new BookingWindow(now12.minusDays(1)), TypicalMembers.ALICE,
                 new BookingSize(6)));
     }
 
@@ -49,16 +51,57 @@ public class StatisticsTest {
     }
 
     @Test
-    public void generateGraphData_valid_returnsList() {
-        List<XYChart.Data<String, Integer>> datas = new Statistics(emptyBookings, 10).generateGraphData();
+    public void generateGraphDataDays_valid_returnsList() {
+        List<XYChart.Data<String, Integer>> datas = new Statistics(emptyBookings, 10).generateGraphDataDays();
         assertTrue(datas.size() == 10);
         for (XYChart.Data<String, Integer> data : datas) {
             assertEquals(data.getYValue(), Integer.valueOf(0));
         }
 
-        datas = new Statistics(bookings, 2).generateGraphData();
+        datas = new Statistics(bookings, 2).generateGraphDataDays();
         assertTrue(datas.size() == 2);
         assertEquals(datas.get(0).getYValue(), Integer.valueOf(6));
         assertEquals(datas.get(1).getYValue(), Integer.valueOf(5));
+
+        datas = new Statistics(bookings, Statistics.MAX_BARS * 2).generateGraphDataDays();
+        assertTrue(datas.size() == Statistics.MAX_BARS);
+        for (int i = 0; i < datas.size(); i++) {
+            if (i < datas.size() - 1) {
+                assertEquals(datas.get(i).getYValue(), Integer.valueOf(0));
+            } else {
+                assertEquals(datas.get(i).getYValue(), Integer.valueOf(11));
+            }
+        }
+    }
+
+    @Test
+    public void generateGraphDataTime_valid_returnsList() {
+        List<XYChart.Data<String, Integer>> datas = new Statistics(emptyBookings, 10).generateGraphDataTime();
+        assertTrue(datas.size() == 24);
+        for (XYChart.Data<String, Integer> data : datas) {
+            assertEquals(data.getYValue(), Integer.valueOf(0));
+        }
+
+        datas = new Statistics(bookings, 2).generateGraphDataTime();
+        assertTrue(datas.size() == 24);
+        for (int i = 0; i < 24; i++) {
+            if (i == 10) {
+                assertEquals(datas.get(i).getYValue(), Integer.valueOf(5));
+            } else if (i == 12) {
+                assertEquals(datas.get(i).getYValue(), Integer.valueOf(6));
+            } else {
+                assertEquals(datas.get(i).getYValue(), Integer.valueOf(0));
+            }
+        }
+
+        datas = new Statistics(bookings, 1).generateGraphDataTime();
+        assertTrue(datas.size() == 24);
+        for (int i = 0; i < 24; i++) {
+            if (i == 10) {
+                assertEquals(datas.get(i).getYValue(), Integer.valueOf(5));
+            } else {
+                assertEquals(datas.get(i).getYValue(), Integer.valueOf(0));
+            }
+        }
     }
 }

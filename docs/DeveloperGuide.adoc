@@ -528,7 +528,7 @@ When the user enters the `stats` command, `RestaurantBookParser` calls the `Stat
 
 The restaurant book displays the entire database in the form of "cards", which is the same as AB4. Each item has its own panel.
 
-=== Current implementation
+==== Current implementation
 
 The panel is formatted in the `ItemListPanel.fxml` file, and each item has its own controller (`MemberListPanel`, `StaffListPanel`, `BookingListPanel`, and `IngredientListPanel`) that extends from `ItemListPanel`. The panel displays the database via cards. Each item has its own card (`MemberCard`, `StaffCard`, `BookingCard`, and `IngredientCard`).
 

@@ -28,7 +28,8 @@ import seedu.address.logic.commands.RestockIngredientCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UpdateCapacityCommand;
-import seedu.address.logic.commands.ViewStatsCommand;
+import seedu.address.logic.commands.ViewStatsDaysCommand;
+import seedu.address.logic.commands.ViewStatsTimeCommand;
 import seedu.address.logic.commands.add.AddBookingCommand;
 import seedu.address.logic.commands.add.AddIngredientCommand;
 import seedu.address.logic.commands.add.AddMemberCommand;
@@ -159,8 +160,11 @@ public class RestaurantBookParser {
         case ListIngredientsCommand.COMMAND_WORD:
             return new ListIngredientsCommandParser().parse(arguments);
 
-        case ViewStatsCommand.COMMAND_WORD:
-            return new ViewStatsCommandParser().parse(arguments);
+        case ViewStatsDaysCommand.COMMAND_WORD:
+            return new ViewStatsDaysCommandParser().parse(arguments);
+
+        case ViewStatsTimeCommand.COMMAND_WORD:
+            return new ViewStatsTimeCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
