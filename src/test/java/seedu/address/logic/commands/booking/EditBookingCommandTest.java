@@ -7,10 +7,10 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import java.time.LocalDateTime;
 
 import org.junit.Test;
-import seedu.address.logic.commands.EditBookingCommand.EditBookingDescriptor;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.EditBookingCommand;
+import seedu.address.logic.commands.EditBookingCommand.EditBookingDescriptor;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.RestaurantBook;
@@ -21,10 +21,10 @@ import seedu.address.testutil.EditBookingDescriptorBuilder;
 
 public class EditBookingCommandTest {
 
+    private static final LocalDateTime sampleDateTime = LocalDateTime.of(2019, 3, 1, 12, 00);
+
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
-
-    private static final LocalDateTime sampleDateTime = LocalDateTime.of(2019, 3, 1, 12, 00);
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {

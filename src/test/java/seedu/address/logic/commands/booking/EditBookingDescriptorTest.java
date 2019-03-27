@@ -57,7 +57,7 @@ public class EditBookingDescriptorTest {
         assertNotEquals(ebd, null);
 
         // test for other types
-        assertNotEquals(ebd,"trash");
-        assertNotEquals(ebd,0);
+        assertNotEquals(ebd, "trash");
+        assertNotEquals(ebd, 0);
     }
 }
