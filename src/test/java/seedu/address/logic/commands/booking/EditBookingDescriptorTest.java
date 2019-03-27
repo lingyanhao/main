@@ -11,7 +11,6 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.EditBookingCommand.EditBookingDescriptor;
 
-import seedu.address.model.booking.BookingSize;
 import seedu.address.model.booking.BookingWindow;
 import seedu.address.testutil.EditBookingDescriptorBuilder;
 
