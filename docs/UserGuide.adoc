@@ -182,35 +182,50 @@ Example:
 
 ==== List Ingredients: `listIngredients`
 
-View ingredients in inventory. If `w/true`, all ingredients falling below the previously stated warning amount will be listed.
+List all ingredients in the inventory that has ingredient name containing any of the key words inputted,
+and has ingredient quantity falling below the ingredient warning amount.
 
-Format: `listIngredients [w/TRUE_FALSE]`
+Format: `listIngredients [in/INGREDIENT_NAME] [w/]`
 
 ****
-• For each ingredient, standardised unit for ingredient and amount in units in existing inventory is displayed.
+• If `in/INGREDIENT_NAME` is present, all ingredients with name containing any of the key words inputted will be listed.
 
-• Each ingredient will be indexed.
+• If `w/` is present, all ingredients with quantity falling below warning amount will be listed.
 
-• By default, all ingredients will be listed.
+• By default, when both `in/INGREDIENT_NAME` and `w/` are not present, `listIngredients` will list all ingredients.
+
 ****
 
 Example:
 
-* listIngredient `w/true`
+* `listIngredient in/tomato`
 
-All ingredients falling below warning amount will be listed.
+All ingredients with name containing the word 'tomato' will be listed,
+e.g. 'tomato sauce', 'tomato ketchup' will be listed.
+
+* `listIngredient w/`
+
+All ingredients with ingredient quantity falling below ingredient warning amount will be listed.
+
+* `listIngredient in/tomato w/`
+
+All ingredients with name containing the word 'tomato', and having ingredient quantity that falls below
+ingredient warning amount will be listed.
+
+
 
 ==== Add Ingredient: `addIngredient`
 
-Add new ingredient into inventory. Previously not existing in inventory before.
+Adds new ingredient into inventory. Previously not existing in inventory before.
 
 Format: `addIngredient in/INGREDIENT_NAME u/INGREDIENT_UNIT [q/INGREDIENT_QUANTITY] [w/INGREDIENT_WARNING_AMOUNT]`
 
 ****
-• If ingredient quantity is not specified, quantity is set to 0.
+• If ingredient quantity or warning amount is not specified, they are respectively set to 0.
 
-• User inputs the warning amount for the ingredient `w/INGREDIENT_WARNING_AMOUNT` , and when the quantity in inventory falls below this stated amount, there is a need for restock of this ingredient.
-Calling `listIngredients w/TRUE` will display all ingredients that fall below their corresponding warning values.
+• User inputs the warning amount for the ingredient `w/INGREDIENT_WARNING_AMOUNT` , and when the quantity in inventory
+falls below this stated amount, there is a need for restock of this ingredient.
+Calling `listIngredients w/` will display all ingredients that fall below their corresponding warning values.
 ****
 
 Example:
@@ -225,11 +240,11 @@ Adds 10 full chickens into inventory.
 
 * `addIngredient in/chicken q/10 u/full chickens w/2`
 
-Adds 10 full chickens into inventory and when amount falls below 2, `listIngredients w/TRUE` will display chicken.
+Adds 10 full chickens into inventory and when amount falls below 2, `listIngredients w/` will display chicken.
 
 ==== Restock Ingredient: `restockIngredient`
 
-Restock ingredient from inventory based on specified `INDEX` via `listIngredients`.
+Restock an ingredient in inventory, by a particular amount, based on specified `INDEX` via `listIngredients`.
 Previously existing in inventory before.
 
 Format: `restockIngredient i/INGREDIENT_INDEX q/INGREDIENT_QUANTITY`
@@ -240,25 +255,25 @@ Example:
 +
 `restockIngredient i/3 q/10`
 
-Adds 10 full chickens into inventory
+Increases the quantity of chickens by 10 in the inventory.
 
-==== Deplete Ingredient: `depleteIngredient`
+==== Consume Ingredient: `consumeIngredient`
 
-Deplete ingredient from inventory based on specified `INDEX` via `listIngredients`.
+Consume a particular amount of ingredient from inventory, based on specified `INDEX` via `listIngredients`.
 
-Format: `depleteIngredient i/INGREDIENT_INDEX q/INGREDIENT_QUANTITY`
+Format: `consumeIngredient i/INGREDIENT_INDEX q/INGREDIENT_QUANTITY`
 
 Example:
 
 * `listIngredients` (returns chicken as 3rd index)
 +
-`depleteIngredient i/3 q/10`
+`consumeIngredient i/3 q/10`
 
-Depletes 10 full chickens from inventory
+Decreases the quantity of chickens by 10 in the inventory.
 
 ==== Delete Ingredient: `deleteIngredient`
 
-Delete ingredient from inventory based on specified `INDEX` via `listIngredients`. This command is irreversible.
+Delete ingredient from inventory based on specified `INDEX` via `listIngredients`.
 
 Format: `deleteIngredient INGREDIENT_INDEX`
 
@@ -272,55 +287,43 @@ Example:
 +
 `deleteIngredient 3`
 
-Delete chicken from ingredient inventory
+Delete chicken from inventory
 
 ==== List Recipes: `listRecipes`
 
-View recipes of dishes served at the restaurant.
+List all recipes.
 
 Format: `listRecipes`
 
-****
-• For each recipe, the list of ingredients and its corresponding amount in units required for the standard serving will be displayed.
-Each recipe will be indexed.
-****
 
 ==== Add Recipe: `addRecipe`
 
 Add recipe of dish served at the restaurant.
 
-Format: `addRecipe r/RECIPE_NAME n/NUMBER_OF_INGREDIENTS 1/INGREDIENT_1&AMOUNT_IN_UNITS 2/INGREDIENT_2&AMOUNT_IN_UNITS ...`
+Format: `addRecipe r/RECIPE_NAME iq/INGREDIENT_INDEX&INGREDIENT_QUANTITY__IN_RECIPE ...`
 
 ****
-• For all ingredient inputs, if ingredient is new, message appears as a prompt for user to `addIngredient` first, before adding recipe.
+• The index refers to the index number shown in the most recent listing of ingredients in the ingredients panel.
 
-• Each ingredient input should have the format `1/INGREDIENT_1&AMOUNT_IN_UNITS` where ingredient and amount in standardised units are separated by `&`.
+• There should be at least 1 ingredient `iq/INGREDIENT_INDEX&INGREDIENT_QUANTITY_IN_RECIPE` input
 
-• `AMOUNT_IN_UNITS` is allowed to take on a decimal and is in the units specified in listIngredients.
-
-• Number of ingredient inputs should correspond to `n/NUMBER_OF_INGREDIENTS`. If it does not, a message will appear to say incorrect number of inputs.
+• Each ingredient input should have the format `iq/INGREDIENT_INDEX&NGREDIENT_QUANTITY_IN_RECIPE`
+where ingredient index and quantity of ingredient in recipe is separated by &.
+Both the ingredient index and quantity must be an whole number.
 ****
 
 Example:
 
-* `listIngredients` (lists chicken - 10 full chickens, rice - 10 sacks)
+* `listIngredients`
+(list: chicken - 10 full chickens [indexed 4], rice - 10 bowls [indexed 9])
 +
-`addRecipe r/Chicken Rice n/3 1/Chicken&0.25 2/Rice&0.1`
+`addRecipe r/Chicken Rice iq/4&1 iq/9&3`
 
-Adds new recipe chicken rice with all existing ingredients.
-
-* `addIngredient in/chicken u/full chickens`
-+
-`addIngredient in/rice u/sacks`
-+
-`addRecipe r/chicken rice n/3 1/chicken&0.25 2/rice&0.1`
-
-Adds new recipe chicken rice with non-existing ingredients.
-Each dish of chicken rice requires 1/4 a full chicken and 1/10 a sack of rice
+Adds a new recipe, chicken rice, which requires 1 full chicken and 3 bowls of rice.
 
 ==== Delete Recipe: `deleteRecipe`
 
-Delete recipe of dish served at the restaurant, based on specified INDEX via listRecipes.
+Delete a recipe based on specified INDEX via `listRecipes`.
 
 Format: `deleteRecipe RECIPE_INDEX`
 
@@ -336,27 +339,11 @@ Example:
 
 Delete recipe at index 3.
 
-==== Calculate Recipe: `calculateRecipe`
-Calculates number of dishes that can be prepared based on current inventory, based on specified `INDEX` via `listRecipes`.
+==== Recipe Summary `recipeSummary`
+Displays the number of dishes that can be made for each recipe, calculated based on the current inventory
+and the quantity required in each recipe.
 
-Format: `calculateRecipe [i/RECIPE_INDEX]`
-
-****
-• If recipe name is not specified, all recipes will be listed.
-****
-
-Example:
-
-* `calculateRecipe`
-
-Shows number of dishes that can be prepared for every recipe
-
-* `listRecipes`
-+
-`calculateRecipe [i/3]`
-
-Calculates number of dishes that can be prepared for recipe at index 3.
-
+Format: `recipeSummary`
 
 === Booking Management
 
@@ -487,6 +474,28 @@ Example:
 
 * `setShift s/1 ts/2019-02-23 09:30 ts/2019-02-23 17:30`
 
+=== Statistics
+
+==== View bookings per day: `statsdays`
+
+Displays the number of customers in bookings over the past few days in a bar graph.
+
+Format: `statsdays DAYS`
+
+Example:
+
+* `statsdays 30`
+
+==== View bookings per hour: `statstime`
+
+Displays the number of customers in bookings over the past few days in a bar graph, grouped by hour of the day.
+
+Format: `statstime DAYS`
+
+Example:
+
+* `statstime 30`
+
 === Overall
 
 ==== View Feedback: `viewFeedback`
@@ -551,31 +560,32 @@ e.g. `deleteMember 2`
 
 === Inventory Management
 
-* *listIngredients* `listIngredients [w/TRUE_FALSE]` +
-e.g. listIngredient `w/true`
+* *listIngredients* `listIngredients [in/INGREDIENT_NAME] [w/]` +
+e.g. `listIngredients in/tomato w/`
 
 * *addIngredient* `addIngredient in/INGREDIENT_NAME u/INGREDIENT_UNIT [q/INGREDIENT_QUANTITY] [w/INGREDIENT_WARNING_AMOUNT]` +
-e.g. `addIngredient in/chicken u/full chicken`
+e.g. `addIngredient in/chicken u/full chickens`
 
 * *restockIngredient* `restockIngredient i/INGREDIENT_INDEX q/INGREDIENT_QUANTITY` +
 e.g. `restockIngredient i/3 q/10`
 
-* *depleteIngredient* `depleteIngredient i/INGREDIENT_INDEX q/INGREDIENT_QUANTITY` +
-e.g. `depleteIngredient i/3 q/10`
+* *consumeIngredient* `consumeIngredient i/INGREDIENT_INDEX q/INGREDIENT_QUANTITY` +
+e.g. `consumeIngredient i/3 q/10`
 
 * *deleteIngredient* `delete INGREDIENT_INDEX` +
 e.g. `deleteIngredient 3`
 
-* *listRecipes* `listRecipes`
+* *listRecipies* `listRecipes` +
+e.g. `listRecipes`
 
-* *addRecipe*  `addRecipe r/RECIPE_NAME n/NUMBER_OF_INGREDIENTS 1/INGREDIENT_1&AMOUNT_IN_UNITS 2/INGREDIENT_2&AMOUNT_IN_UNITS ...` +
-e.g. `addRecipe r/Chicken Rice n/3 1/Chicken&0.25 2/Rice&0.1`
+* *addRecipe*  `addRecipe r/RECIPE_NAME iq/INGREDIENT_INDEX&INGREDIENT_QUANTITY_IN_RECIPE` +
+e.g. `addRecipe r/Chicken Rice iq/4&1 iq/9&3`
 
 * *deleteRecipe* `delete RECIPE_INDEX` +
 e.g. `deleteRecipe 3`
 
-* *calculateRecipe* `calculateRecipe [i/RECIPE_INDEX]` +
-e.g. `calculateRecipe [i/3]`
+* *recipeSummary* `recipeSummary` +
+e.g. `recipeSummary`
 
 === Booking Management
 * *viewBooking* `viewBooking [ts/TIME_START] [te/TIME_END]` +

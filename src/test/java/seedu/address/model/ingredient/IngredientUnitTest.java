@@ -20,18 +20,18 @@ public class IngredientUnitTest {
     }
 
     @Test
-    public void isValidIngredientUnit() {
-        // null name
+    public void testIsValidIngredientUnit() {
+        // null unit
         Assert.assertThrows(NullPointerException.class, () -> IngredientUnit.isValidIngredientUnit(null));
 
-        // invalid name
+        // invalid ingredientUnit
         assertFalse(IngredientUnit.isValidIngredientUnit("")); // empty string
         assertFalse(IngredientUnit.isValidIngredientUnit(" ")); // spaces only
         assertFalse(IngredientUnit.isValidIngredientUnit("^")); // only contains non-alphabet symbols
         assertFalse(IngredientUnit.isValidIngredientUnit("2")); // only contains non-alphabet integers
         assertFalse(IngredientUnit.isValidIngredientUnit("sac$k")); // contains non-alphabet characters
 
-        // valid name
+        // valid ingredientUnit
         assertTrue(IngredientUnit.isValidIngredientUnit("sacks")); //alphabets only no space
         assertTrue(IngredientUnit.isValidIngredientUnit("full sacks")); // alphabets only with space
     }

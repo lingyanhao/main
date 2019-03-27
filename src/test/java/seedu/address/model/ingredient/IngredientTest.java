@@ -20,7 +20,7 @@ public class IngredientTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void isSameIngredient() {
+    public void testIsSameIngredient() {
         // same object -> returns true
         assertTrue(CHEESE.isSameItem(CHEESE));
 
@@ -55,7 +55,7 @@ public class IngredientTest {
     }
 
     @Test
-    public void equals() {
+    public void testEquals() {
         // same values -> returns true
         Ingredient cheeseCopy = new IngredientBuilder(CHEESE).build();
         assertTrue(CHEESE.equals(cheeseCopy));

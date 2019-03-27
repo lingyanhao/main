@@ -35,6 +35,8 @@ public class RestockIngredientCommand extends Command {
             + PREFIX_INGREDIENT_QUANTITY + "10 ";
 
     public static final String MESSAGE_SUCCESS = "Restocked Ingredient: %1$s";
+    public static final String MESSAGE_EXCEEDS_MAXIMUM =
+            "Cannot restock to current amount, new restocked amount exceeds capacity of inventory";
 
 
     private final Index index;
@@ -76,12 +78,20 @@ public class RestockIngredientCommand extends Command {
      * @param ingredientToRestock
      * @return Ingredient
      */
-    private static Ingredient createRestockedIngredient(Ingredient ingredientToRestock, IngredientQuantity quantity) {
+    private static Ingredient createRestockedIngredient(Ingredient ingredientToRestock,
+                                                        IngredientQuantity quantity) throws CommandException {
         assert ingredientToRestock != null;
 
         int currentQuantity = ingredientToRestock.getIngredientQuantity().getQuantity();
-        int newQuantity = currentQuantity + quantity.getQuantity();
-        IngredientQuantity newIngredientQuantity = new IngredientQuantity(newQuantity);
+        long newQuantityLong = new Long(currentQuantity) + new Long(quantity.getQuantity());
+
+
+        if (newQuantityLong > Integer.MAX_VALUE) {
+            throw new CommandException(MESSAGE_EXCEEDS_MAXIMUM);
+        }
+
+        int newQuantityInt = (int) newQuantityLong;
+        IngredientQuantity newIngredientQuantity = new IngredientQuantity(newQuantityInt);
         return new Ingredient(ingredientToRestock.getIngredientName(), newIngredientQuantity,
                 ingredientToRestock.getIngredientUnit(), ingredientToRestock.getIngredientWarningAmount());
     }
